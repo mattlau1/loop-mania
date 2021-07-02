@@ -1,4 +1,4 @@
-- The character is dead and the user loses if the character is at 0 health
+- The character is dead and the user loses if the character is at 0 health unless they have The One Ring
 - The user cannot have negative money (i.e they can't go into debt to buy items)
 - The character starts at full health
 - After the game is lost, the game will show the user a loss screen
