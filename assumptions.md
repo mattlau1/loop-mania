@@ -2,4 +2,4 @@
 - The user cannot have negative money (i.e they can't go into debt to buy items)
 - The character starts at full health
 - After the game is lost, the game will show the user a loss screen
-- The game is paused when the user is shopping at the hero's castle
+- The game is paused when the user is shopping at the hero's castle (i.e they can't get attacked while shopping)
