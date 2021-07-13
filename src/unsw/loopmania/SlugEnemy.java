@@ -2,23 +2,19 @@ package unsw.loopmania;
 
 import java.util.Random;
 
-/**
- * a basic form of enemy in the world
- */
-public class BasicEnemy extends MovingEntity {
-    // TODO = modify this, and add additional forms of enemy
+public class SlugEnemy extends BasicEnemy {
 
     private int health;
     private int battleRange;
     private int supportRange;
     private int damage;
 
-    public BasicEnemy(PathPosition position) {
+    public SlugEnemy(PathPosition position) {
         super(position);
-        this.health = 100;
-        this.battleRange = 1;
-        this.supportRange = 2;
-        this.damage = 1;
+        this.health = 50;
+        this.battleRange = 2;
+        this.supportRange = 9999;
+        this.damage = 9999;
     }
 
     public int getHealth() {
@@ -52,12 +48,9 @@ public class BasicEnemy extends MovingEntity {
         this.supportRange = supportRange;
     }
 
-    /**
-     * move the enemy
-     */
+    @Override
     public void move(){
-        // TODO = modify this, since this implementation doesn't provide the expected enemy behaviour
-        // this basic enemy moves in a random direction... 25% chance up or down, 50% chance not at all...
+        // slug has random movement and a chance to not move at all
         int directionChoice = (new Random()).nextInt(2);
         if (directionChoice == 0){
             moveUpPath();
@@ -66,4 +59,5 @@ public class BasicEnemy extends MovingEntity {
             moveDownPath();
         }
     }
+
 }
