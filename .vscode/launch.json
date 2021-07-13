@@ -1,3 +1,4 @@
+ 
 {
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
@@ -10,7 +11,7 @@
             "type": "java",
             "name": "CodeLens (Launch) - LoopManiaApplication",
             "request": "launch",
-            "vmArgs": "--module-path ./lib --add-modules javafx.controls,javafx.fxml -enableassertions",
+            "vmArgs": "--module-path ./lib/symlink_javafx --add-modules javafx.controls,javafx.fxml -enableassertions",
             "mainClass": "unsw.loopmania.LoopManiaApplication"
         }
     ]
