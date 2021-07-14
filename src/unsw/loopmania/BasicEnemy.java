@@ -5,8 +5,7 @@ import java.util.Random;
 /**
  * a basic form of enemy in the world
  */
-public class BasicEnemy extends MovingEntity {
-    // TODO = modify this, and add additional forms of enemy
+public abstract class BasicEnemy extends MovingEntity {
 
     private int health;
     private int battleRange;
@@ -17,12 +16,6 @@ public class BasicEnemy extends MovingEntity {
 
     public BasicEnemy(PathPosition position) {
         super(position);
-        this.health = 5;
-        this.battleRange = 5;
-        this.supportRange = 5;
-        this.damage = 5;
-        this.expDrop = 5;
-        this.goldDrop = 5;
     }
 
     public int getHealth() {
@@ -32,11 +25,11 @@ public class BasicEnemy extends MovingEntity {
         this.health = health;
     }
 
-    public int getbattleRange() {
+    public int getBattleRange() {
         return battleRange;
     }
 
-    public void setbattleRange(int battleRange) {
+    public void setBattleRange(int battleRange) {
         this.battleRange = battleRange;
     }
 
