@@ -7,7 +7,7 @@ public class ItemContext {
        this.itemStrategy = itemStrategy;
     }
 
-    public int executeStrategy(int num1, int num2){
-       return itemStrategy.attackMuliplier();
+    public double executeAtkMultiplier(BasicEnemy enemy){
+       return itemStrategy.atkMuliplier(enemy);
     }
 }
