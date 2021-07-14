@@ -27,3 +27,15 @@ In this meeting the team discussed basic allocation of the tasks in milestone 1 
     -	All members are available and will work on UML diagram together.
 
 In the second meeting, we reviewed our progress for the work we had set from the previous meeting and decided to work on the UML diagram as a whole team since it was the last task needed for this milestone and it was also very important to our implementation. Furthermore, every member was available for the first half of the week, and we could easily arrange a session to work on it together.
+
+## Tuesday 13th of July
+### Attendees: 
+-	Michael Chidiac
+-	Raymond Chung
+-	Matthew Lau
+-	Steven Long Nguyen
+### Points discussed: 
+-	Tutor Feedback Implemetation
+    -	Updated UML diagram, timeline and UI design with feedback from tutor.
+
+In this meeting, the team discussed how to implement feedback given from our tutor and how to start approaching the implementation of the project. We also allocated different parts of the implementation to complete for every team member. The team also allocated a timeslot to work on adding methods and fields to the UML diagram. 
