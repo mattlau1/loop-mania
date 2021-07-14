@@ -8,13 +8,17 @@ public class SlugEnemy extends BasicEnemy {
     private int battleRange;
     private int supportRange;
     private int damage;
+    private int expDrop;
+    private int goldDrop;
 
     public SlugEnemy(PathPosition position) {
         super(position);
-        this.health = 50;
+        this.health = 20;
         this.battleRange = 2;
-        this.supportRange = 9999;
-        this.damage = 9999;
+        this.supportRange = 10;
+        this.damage = 5;
+        this.expDrop = 10;
+        this.goldDrop = 10;
     }
 
     public int getHealth() {
@@ -46,6 +50,22 @@ public class SlugEnemy extends BasicEnemy {
 
     public void setSupportRange(int supportRange) {
         this.supportRange = supportRange;
+    }
+
+    public int getExpDrop() {
+        return expDrop;
+    }
+
+    public void setExpDrop(int expDrop) {
+        this.expDrop = expDrop;
+    }
+
+    public int getGoldDrop() {
+        return goldDrop;
+    }
+
+    public void setGoldDrop(int goldDrop) {
+        this.goldDrop = goldDrop;
     }
 
     @Override

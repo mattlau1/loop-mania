@@ -8,13 +8,17 @@ public class VampireEnemy extends BasicEnemy {
     private int battleRange;
     private int supportRange;
     private int damage;
+    private int expDrop;
+    private int goldDrop;
 
     public VampireEnemy(PathPosition position) {
         super(position);
-        this.health = 75;
-        this.battleRange = 100;
+        this.health = 60;
+        this.battleRange = 20;
         this.supportRange = 50;
-        this.damage = 10;
+        this.damage = 20;
+        this.expDrop = 100;
+        this.goldDrop = 100;
     }
 
     public int getHealth() {
@@ -46,6 +50,22 @@ public class VampireEnemy extends BasicEnemy {
 
     public void setSupportRange(int supportRange) {
         this.supportRange = supportRange;
+    }
+
+    public int getExpDrop() {
+        return expDrop;
+    }
+
+    public void setExpDrop(int expDrop) {
+        this.expDrop = expDrop;
+    }
+
+    public int getGoldDrop() {
+        return goldDrop;
+    }
+
+    public void setGoldDrop(int goldDrop) {
+        this.goldDrop = goldDrop;
     }
 
     @Override

@@ -12,13 +12,17 @@ public class BasicEnemy extends MovingEntity {
     private int battleRange;
     private int supportRange;
     private int damage;
+    private int expDrop;
+    private int goldDrop;
 
     public BasicEnemy(PathPosition position) {
         super(position);
-        this.health = 100;
-        this.battleRange = 1;
-        this.supportRange = 2;
-        this.damage = 1;
+        this.health = 5;
+        this.battleRange = 5;
+        this.supportRange = 5;
+        this.damage = 5;
+        this.expDrop = 5;
+        this.goldDrop = 5;
     }
 
     public int getHealth() {
@@ -50,6 +54,22 @@ public class BasicEnemy extends MovingEntity {
 
     public void setSupportRange(int supportRange) {
         this.supportRange = supportRange;
+    }
+
+    public int getExpDrop() {
+        return expDrop;
+    }
+
+    public void setExpDrop(int expDrop) {
+        this.expDrop = expDrop;
+    }
+
+    public int getGoldDrop() {
+        return goldDrop;
+    }
+
+    public void setGoldDrop(int goldDrop) {
+        this.goldDrop = goldDrop;
     }
 
     /**

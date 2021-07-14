@@ -8,13 +8,17 @@ public class ZombieEnemy extends BasicEnemy {
     private int battleRange;
     private int supportRange;
     private int damage;
+    private int expDrop;
+    private int goldDrop;
 
     public ZombieEnemy(PathPosition position) {
         super(position);
-        this.health = 20;
+        this.health = 30;
         this.battleRange = 10;
         this.supportRange = 50;
-        this.damage = 69;
+        this.damage = 10;
+        this.expDrop = 25;
+        this.goldDrop = 25;
     }
 
     public int getHealth() {
@@ -46,6 +50,22 @@ public class ZombieEnemy extends BasicEnemy {
 
     public void setSupportRange(int supportRange) {
         this.supportRange = supportRange;
+    }
+
+    public int getExpDrop() {
+        return expDrop;
+    }
+
+    public void setExpDrop(int expDrop) {
+        this.expDrop = expDrop;
+    }
+
+    public int getGoldDrop() {
+        return goldDrop;
+    }
+
+    public void setGoldDrop(int goldDrop) {
+        this.goldDrop = goldDrop;
     }
 
     @Override
