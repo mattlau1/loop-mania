@@ -11,6 +11,11 @@ public class VampireEnemy extends BasicEnemy {
     private final int expDrop = 100;
     private final int goldDrop = 100;
 
+    /**
+     * spawn the vampire constructor
+     * 
+     * @param position the position where the enemy will spawn in the map
+     */
     public VampireEnemy(PathPosition position) {
         super(position);
         super.setHealth(health);

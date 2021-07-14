@@ -11,6 +11,11 @@ public class SlugEnemy extends BasicEnemy {
     private final int expDrop = 10;
     private final int goldDrop = 10;
 
+    /**
+     * spawn the slug constructor
+     * 
+     * @param position the position where the enemy will spawn in the map
+     */
     public SlugEnemy(PathPosition position) {
         super(position);
         super.setHealth(health);

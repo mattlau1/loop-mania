@@ -11,6 +11,11 @@ public class ZombieEnemy extends BasicEnemy {
     private final int expDrop = 25;
     private final int goldDrop = 25;
 
+    /**
+     * spawn the zombie constructor
+     * 
+     * @param position the position where the enemy will spawn in the map
+     */
     public ZombieEnemy(PathPosition position) {
         super(position);
         super.setHealth(health);
