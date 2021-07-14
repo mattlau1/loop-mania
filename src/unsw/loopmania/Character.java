@@ -9,12 +9,14 @@ public class Character extends MovingEntity {
     private int health;
     private int gold;
     private int exp;
+    private int damage;
 
     public Character(PathPosition position) {
         super(position);
         this.health = 100;
         this.gold = 0;
         this.exp = 0;
+        this.damage = 15;
     }
 
     public int getHealth() {
@@ -39,6 +41,14 @@ public class Character extends MovingEntity {
 
     public void setExp(int exp) {
         this.exp = exp;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
     
