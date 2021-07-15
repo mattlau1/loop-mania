@@ -195,7 +195,7 @@ public class LoopManiaWorld {
         }
 
         for (BasicEnemy enemy : battlingEnemies) {
-            while (enemy.getHealth() > 0) {
+            while (enemy.isAlive()) {
                 for (Building building : buildingEntities) {
                     if (isInRange(building, character)) {
                         building.useBuilding(character);
@@ -205,23 +205,24 @@ public class LoopManiaWorld {
                 // TODO = modify this - currently the character automatically wins all battles without any damage!
                 // TODO = check enemy hp and only add to defeatedEnemies if they are dead
                 // TODO = CRITS
-                double characterHp = character.getHealth();
                 double characterDamage = character.getMultipliedDamage();
-                double enemyHp = enemy.getHealth();
                 double enemyDamage = enemy.getDamage();
                 // Character attacks first enemy
                 for (Item equippedItems : equippedInventoryItems) {
                     characterDamage *= equippedItems.atkMultiplier(enemy);
                 }
-                enemy.setHealth(enemyHp - characterDamage);
+                enemy.reduceHealth(characterDamage);
                 // Every enemy in the battle attacks the character
                 for (BasicEnemy currBattlingEnemy : battlingEnemies) {
                     for (Item equippedItems : equippedInventoryItems) {
                         enemyDamage *= equippedItems.defMultiplier(currBattlingEnemy);
                     }
-                    character.setHealth(characterHp - enemyDamage);
+                    character.reduceHealth(enemyDamage);
                 }
-
+                System.out.println("CHARACTER HEALTH");
+                System.out.println(character.getHealth());
+                System.out.println("ENEMY HEALTH");
+                System.out.println(enemy.getHealth());
             }
 
             defeatedEnemies.add(enemy);

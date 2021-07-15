@@ -128,6 +128,11 @@ public abstract class BasicEnemy extends MovingEntity {
         this.health -= health;
     }
 
+    public boolean isAlive() {
+        return health > 0;
+    }
+
+
     /**
      * move the enemy
      */
