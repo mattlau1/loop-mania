@@ -49,7 +49,7 @@ public class LoopManiaWorld {
     private List<Entity> unequippedInventoryItems;
 
     // TODO = expand the range of buildings
-    private List<VampireCastleBuilding> buildingEntities;
+    private List<Building> buildingEntities;
 
     /**
      * list of x,y coordinate pairs in the order by which moving entities traverse them
@@ -58,7 +58,7 @@ public class LoopManiaWorld {
 
     /**
      * create the world (constructor)
-     * 
+     *
      * @param width width of world in number of cells
      * @param height height of world in number of cells
      * @param orderedPath ordered list of x, y coordinate pairs representing position of path cells in world
@@ -194,7 +194,7 @@ public class LoopManiaWorld {
             removeItemByPositionInUnequippedInventoryItems(0);
             firstAvailableSlot = getFirstAvailableSlotForItem();
         }
-        
+
         // now we insert the new sword, as we know we have at least made a slot available...
         Sword sword = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
         unequippedInventoryItems.add(sword);
@@ -299,7 +299,7 @@ public class LoopManiaWorld {
      */
     private Pair<Integer, Integer> possiblyGetBasicEnemySpawnPosition(){
         // TODO = modify this
-        
+
         // has a chance spawning a basic enemy on a tile the character isn't on or immediately before or after (currently space required = 2)...
         Random rand = new Random();
         int choice = rand.nextInt(2); // TODO = change based on spec... currently low value for dev purposes...
@@ -330,7 +330,7 @@ public class LoopManiaWorld {
      * @param buildingNodeX x index from 0 to width-1 of building to be added
      * @param buildingNodeY y index from 0 to height-1 of building to be added
      */
-    public VampireCastleBuilding convertCardToBuildingByCoordinates(int cardNodeX, int cardNodeY, int buildingNodeX, int buildingNodeY) {
+    public Building convertCardToBuildingByCoordinates(int cardNodeX, int cardNodeY, int buildingNodeX, int buildingNodeY) {
         // start by getting card
         Card card = null;
         for (Card c: cardEntities){
@@ -339,9 +339,8 @@ public class LoopManiaWorld {
                 break;
             }
         }
-        
         // now spawn building
-        VampireCastleBuilding newBuilding = new VampireCastleBuilding(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY));
+        Building newBuilding = new Building(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY), new VampireCastleStrategy());
         buildingEntities.add(newBuilding);
 
         // destroy the card
