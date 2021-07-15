@@ -19,4 +19,9 @@ public class BarracksStrategy implements BuildingStrategy {
   public int getBuildingRange() {
     return range;
   }
+
+  @Override
+  public boolean usableOutsideCombat() {
+    return true;
+  }
 }

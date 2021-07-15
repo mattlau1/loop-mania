@@ -19,4 +19,10 @@ public class TowerStrategy implements BuildingStrategy {
     enemy.reduceHealth(towerDamage);
     System.out.printf("OUCH, %s JUST TOOK %d DAMAGE!\n", enemy.getClass(), towerDamage);
   }
+
+  @Override
+  public boolean usableOutsideCombat() {
+    return false;
+  }
+
 }

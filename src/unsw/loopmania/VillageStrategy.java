@@ -21,4 +21,10 @@ public class VillageStrategy implements BuildingStrategy {
 
   }
 
+  @Override
+  public boolean usableOutsideCombat() {
+    return true;
+  }
+
+
 }

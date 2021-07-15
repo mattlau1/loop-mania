@@ -19,4 +19,9 @@ public class CampfireStrategy implements BuildingStrategy {
     return;
   }
 
+  @Override
+  public boolean usableOutsideCombat() {
+    return false;
+  }
+
 }

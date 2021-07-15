@@ -22,4 +22,5 @@ public interface BuildingStrategy {
    */
   public int getBuildingRange();
 
+  public boolean usableOutsideCombat();
 }

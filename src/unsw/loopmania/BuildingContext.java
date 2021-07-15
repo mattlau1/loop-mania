@@ -16,6 +16,10 @@ public class BuildingContext {
         strategy.useBuilding(enemy);
     }
 
+    public boolean usableOutsideCombat() {
+        return strategy.usableOutsideCombat();
+    }
+
     public int getBuildingRange() {
         return strategy.getBuildingRange();
     }

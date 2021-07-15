@@ -155,7 +155,7 @@ public class LoopManiaWorld {
 
         // building for character outside of combat
         for (Building b : buildingEntities) {
-            if (isInRange(b, character)) {
+            if (isInRange(b, character) && b.usableOutsideCombat()) {
                 b.useBuilding(character);
             }
         }
@@ -163,7 +163,7 @@ public class LoopManiaWorld {
         // building for enemies outside of combat
         for (Building b : buildingEntities) {
             for (BasicEnemy e : enemies) {
-                if (isInRange(b, e)) {
+                if (isInRange(b, e) && b.usableOutsideCombat()) {
                     b.useBuilding(e);
                 }
             }
@@ -383,7 +383,7 @@ public class LoopManiaWorld {
             }
         }
         // now spawn building
-        Building newBuilding = new Building(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY), new VampireCastleStrategy());
+        Building newBuilding = new Building(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY), new TowerStrategy());
         buildingEntities.add(newBuilding);
 
         // destroy the card

@@ -6,9 +6,9 @@ public class Building extends StaticEntity {
   private BuildingStrategy strategy;
   private int range;
 
-  public Building(SimpleIntegerProperty x, SimpleIntegerProperty y, BuildingStrategy strategy) {
+  public Building(SimpleIntegerProperty x, SimpleIntegerProperty y, BuildingStrategy buildingStrategy) {
     super(x, y);
-    this.strategy = strategy;
+    this.strategy = buildingStrategy;
     this.range = strategy.getBuildingRange();
   }
 
@@ -20,6 +20,11 @@ public class Building extends StaticEntity {
   public void useBuilding(BasicEnemy enemy) {
     BuildingContext context = new BuildingContext(strategy);
     context.useBuilding(enemy);
+  }
+
+  public boolean usableOutsideCombat() {
+    BuildingContext context = new BuildingContext(strategy);
+    return context.usableOutsideCombat();
   }
 
   public BuildingStrategy getStrategy() {

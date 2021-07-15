@@ -19,4 +19,11 @@ public class HerosCastleStrategy implements BuildingStrategy {
     // TODO Auto-generated method stub
 
   }
+
+  @Override
+  public boolean usableOutsideCombat() {
+    return true;
+  }
+
+
 }
