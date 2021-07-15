@@ -4,10 +4,10 @@ import java.util.Random;
 
 public class SlugEnemy extends BasicEnemy {
 
-    private final int health = 20;
+    private final double health = 20;
     private final int battleRange = 2;
     private final int supportRange = 10;
-    private final int damage = 5;
+    private final double damage = 5;
     private final int expDrop = 10;
     private final int goldDrop = 10;
 
@@ -18,12 +18,12 @@ public class SlugEnemy extends BasicEnemy {
      */
     public SlugEnemy(PathPosition position) {
         super(position);
-        super.setHealth(health);
-        super.setBattleRange(battleRange);
-        super.setSupportRange(supportRange);
-        super.setDamage(damage);
-        super.setExpDrop(expDrop);
-        super.setGoldDrop(goldDrop);
+        setHealth(health);
+        setBattleRange(battleRange);
+        setSupportRange(supportRange);
+        setDamage(damage);
+        setExpDrop(expDrop);
+        setGoldDrop(goldDrop);
     }
 
     @Override

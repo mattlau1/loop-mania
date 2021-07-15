@@ -2,6 +2,7 @@ package unsw.loopmania;
 
 public class TowerStrategy implements BuildingStrategy {
   private final int range = 2;
+  private final int towerDamage = 10;
 
   @Override
   public int getBuildingRange() {
@@ -10,13 +11,12 @@ public class TowerStrategy implements BuildingStrategy {
 
   @Override
   public void useBuilding(Character character) {
-    // TODO Auto-generated method stub
-
+    return;
   }
 
   @Override
   public void useBuilding(BasicEnemy enemy) {
-    // TODO Auto-generated method stub
-
+    enemy.reduceHealth(towerDamage);
+    System.out.printf("OUCH, %s JUST TOOK %d DAMAGE!\n", enemy.getClass(), towerDamage);
   }
 }
