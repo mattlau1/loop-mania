@@ -1,5 +1,8 @@
 package unsw.loopmania;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * represents the main character in the backend of the game world
  */
@@ -10,6 +13,13 @@ public class Character extends MovingEntity {
     private int gold;
     private int exp;
     private int damage;
+
+    private List<Observer> observers = new ArrayList<Observer>();
+    private EXPObserver expObserver;
+    private GoldObserver goldObserver;
+    private CycleCountObserver cycleCountObserver;
+    // private int state;
+    private int cycleCount;
 
     public Character(PathPosition position) {
         super(position);
@@ -33,6 +43,7 @@ public class Character extends MovingEntity {
 
     public void setGold(int gold) {
         this.gold = gold;
+        goldObserver.update();
     }
 
     public int getExp() {
@@ -41,6 +52,16 @@ public class Character extends MovingEntity {
 
     public void setExp(int exp) {
         this.exp = exp;
+        expObserver.update();
+    }
+
+    public int getCycleCount() {
+        return this.cycleCount;
+    }
+
+    public void setCycleCount(int cycleCount) {
+        this.cycleCount = cycleCount;
+        cycleCountObserver.update();
     }
 
     public int getDamage() {
@@ -50,6 +71,25 @@ public class Character extends MovingEntity {
     public void setDamage(int damage) {
         this.damage = damage;
     }
+
+    public void attach(Observer observer) {
+        observers.add(observer);
+    }
+
+    // public int getState() {
+    //     return state;
+    // }
+
+    // public void setState(int state) {
+    //     this.state = state;
+    //     notifyAllObservers();
+    // }
+
+    // public void notifyAllObservers() {
+    //     for (Observer observer: observers) {
+    //         observer.update();
+    //     }
+    // }
 
     
 }
