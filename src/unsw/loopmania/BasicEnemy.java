@@ -16,7 +16,7 @@ public abstract class BasicEnemy extends MovingEntity {
 
     /**
      * backbone of the enemy constructor
-     * 
+     *
      * @param position the position where the enemy will spawn in the map
      */
     public BasicEnemy(PathPosition position) {
@@ -117,6 +117,15 @@ public abstract class BasicEnemy extends MovingEntity {
      */
     public void setGoldDrop(int goldDrop) {
         this.goldDrop = goldDrop;
+    }
+
+    /**
+     * Reduces enemy's health by given amount, causing enemy to "take damage"
+     *
+     * @param health amount of damage to take
+     */
+    public void reduceHealth(int health) {
+        this.health -= health;
     }
 
     /**
