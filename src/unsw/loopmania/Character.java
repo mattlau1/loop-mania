@@ -6,19 +6,14 @@ package unsw.loopmania;
 public class Character extends MovingEntity {
     // TODO = potentially implement relationships between this class and other classes
 
-    private int health;
-    private int gold;
-    private int exp;
-    private int damage;
-    private int damageMultiplier;
+    private int health = 100;
+    private int gold = 0;
+    private int exp = 0;
+    private int damage = 15;
+    private int damageMultiplier = 1;
 
     public Character(PathPosition position) {
         super(position);
-        this.health = 100;
-        this.gold = 0;
-        this.exp = 0;
-        this.damage = 15;
-        this.damageMultiplier = 1;
     }
 
     public int getHealth() {
@@ -75,6 +70,9 @@ public class Character extends MovingEntity {
         this.damageMultiplier = damageMultiplier;
     }
 
+    public void resetDamageMultiplier() {
+        this.damageMultiplier = 1;
+    }
 
 
 }
