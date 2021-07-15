@@ -127,30 +127,73 @@ public class LoopManiaWorld {
         enemies.remove(enemy);
     }
 
+    private boolean isInRange(BasicEnemy e, Character c) {
+        // Pythagoras: a^2+b^2 < radius^2 to see if within radius
+        // TODO = you should implement different RHS on this inequality, based on
+        // influence radii and battle radii
+        return Math.pow((c.getX() - e.getX()), 2) + Math.pow((c.getY() - e.getY()), 2) < e.getBattleRange();
+    }
+
+    private boolean isInRange(Building b, Character c) {
+        return Math.pow((c.getX() - b.getX()), 2) + Math.pow((c.getY() - b.getY()), 2) < b.getRange();
+    }
+
+    private boolean isInRange(Building b, BasicEnemy e) {
+        return Math.pow((e.getX() - b.getX()), 2) + Math.pow((e.getY() - b.getY()), 2) < b.getRange();
+    }
+
     /**
      * run the expected battles in the world, based on current world state
      * @return list of enemies which have been killed
      */
     public List<BasicEnemy> runBattles() {
-        // TODO = modify this - currently the character automatically wins all battles without any damage!
-        List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
-        for (BasicEnemy e: enemies){
-            // Pythagoras: a^2+b^2 < radius^2 to see if within radius
-            // TODO = you should implement different RHS on this inequality, based on influence radii and battle radii
-            if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < e.getBattleRange()){
-                // fight...
+        // we have four types of buildings:
+        // one that is for the character outside of combat (i.e village)
+        // one that is for the enemies outside of combat (i.e trap)
+        // one that is for the character and enemies inside of combat (i.e tower, campfire)
+        // TODO = one that is for the game (i.e vampire castle, zombie pit)
 
-                // do some damage
-
-                defeatedEnemies.add(e);
+        // building for character outside of combat
+        for (Building b : buildingEntities) {
+            if (isInRange(b, character)) {
+                b.useBuilding(character);
             }
         }
+
+        // building for enemies outside of combat
+        for (Building b : buildingEntities) {
+            for (BasicEnemy e : enemies) {
+                if (isInRange(b, e)) {
+                    b.useBuilding(e);
+                }
+            }
+        }
+
+
+        // building for enemies and character inside of combat
+        List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
+        for (BasicEnemy enemy : enemies) {
+            if (isInRange(enemy, character)) {
+                for (Building building : buildingEntities) {
+                    if (isInRange(building, character)) {
+                        building.useBuilding(character);
+                        building.useBuilding(enemy);
+                    }
+                }
+
+                // TODO = modify this - currently the character automatically wins all battles without any damage!
+                // TODO = check enemy hp and only add to defeatedEnemies if they are dead
+                defeatedEnemies.add(enemy);
+            }
+        }
+
         for (BasicEnemy e: defeatedEnemies){
             // IMPORTANT = we kill enemies here, because killEnemy removes the enemy from the enemies list
             // if we killEnemy in prior loop, we get java.util.ConcurrentModificationException
             // due to mutating list we're iterating over
             killEnemy(e);
         }
+
         return defeatedEnemies;
     }
 

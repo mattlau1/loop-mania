@@ -2,14 +2,22 @@ package unsw.loopmania;
 
 public class BuildingContext {
 
-  private BuildingStrategy strategy;
+    private BuildingStrategy strategy;
 
-  public BuildingContext(BuildingStrategy strategy){
-      this.strategy = strategy;
-  }
+    public BuildingContext(BuildingStrategy strategy) {
+        this.strategy = strategy;
+    }
 
-  public void useBuilding() {
-      strategy.useBuilding();
-  }
+    public void useBuilding(Character character) {
+        strategy.useBuilding(character);
+    }
+
+    public void useBuilding(BasicEnemy enemy) {
+        strategy.useBuilding(enemy);
+    }
+
+    public int getBuildingRange() {
+        return strategy.getBuildingRange();
+    }
 
 }

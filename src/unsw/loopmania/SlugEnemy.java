@@ -13,7 +13,7 @@ public class SlugEnemy extends BasicEnemy {
 
     /**
      * spawn the slug constructor
-     * 
+     *
      * @param position the position where the enemy will spawn in the map
      */
     public SlugEnemy(PathPosition position) {
@@ -27,13 +27,12 @@ public class SlugEnemy extends BasicEnemy {
     }
 
     @Override
-    public void move(){
+    public void move() {
         // slug has random movement and a chance to not move at all
         int directionChoice = (new Random()).nextInt(2);
-        if (directionChoice == 0){
+        if (directionChoice == 0) {
             moveUpPath();
-        }
-        else if (directionChoice == 1){
+        } else if (directionChoice == 1) {
             moveDownPath();
         }
     }
