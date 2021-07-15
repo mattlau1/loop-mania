@@ -127,9 +127,18 @@ public class LoopManiaWorld {
         enemies.remove(enemy);
     }
 
-    private boolean enemyInCharacterRange(BasicEnemy e) {
-        double characterRange = Math.pow((character.getX() - e.getX()), 2) + Math.pow((character.getY() - e.getY()), 2);
-        return characterRange < e.getBattleRange();
+    private boolean isInCharacterRange(BasicEnemy e) {
+        // Pythagoras: a^2+b^2 < radius^2 to see if within radius
+        // TODO = you should implement different RHS on this inequality, based on influence radii and battle radii
+        return Math.pow((character.getX() - e.getX()), 2) + Math.pow((character.getY() - e.getY()), 2) < e
+                .getBattleRange();
+    }
+
+    private boolean isInCharacterRange(Building b) {
+        // Pythagoras: a^2+b^2 < radius^2 to see if within radius
+        // TODO = you should implement different RHS on this inequality, based on influence radii and battle radii
+        return Math.pow((character.getX() - b.getX()), 2) + Math.pow((character.getY() - b.getY()), 2) < b
+                .getRange();
     }
 
     /**
@@ -137,19 +146,22 @@ public class LoopManiaWorld {
      * @return list of enemies which have been killed
      */
     public List<BasicEnemy> runBattles() {
+        for (Building b : buildingEntities) {
+            if (isInCharacterRange(b)) {
+                // character is in range of the building
+                b.useBuilding(character);
+            }
+        }
+
         // TODO = modify this - currently the character automatically wins all battles without any damage!
         List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
-        for (BasicEnemy e: enemies){
-            // Pythagoras: a^2+b^2 < radius^2 to see if within radius
-            // TODO = you should implement different RHS on this inequality, based on influence radii and battle radii
-            if (enemyInCharacterRange(e)) {
-                // fight...
-
-                // do some damage
-
+        for (BasicEnemy e : enemies) {
+            if (isInCharacterRange(e)) {
+                // TODO = check enemy hp and only add to defeatedEnemies if they are dead
                 defeatedEnemies.add(e);
             }
         }
+
         for (BasicEnemy e: defeatedEnemies){
             // IMPORTANT = we kill enemies here, because killEnemy removes the enemy from the enemies list
             // if we killEnemy in prior loop, we get java.util.ConcurrentModificationException
