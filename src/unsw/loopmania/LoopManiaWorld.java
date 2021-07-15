@@ -127,6 +127,11 @@ public class LoopManiaWorld {
         enemies.remove(enemy);
     }
 
+    private boolean enemyInCharacterRange(BasicEnemy e) {
+        double characterRange = Math.pow((character.getX() - e.getX()), 2) + Math.pow((character.getY() - e.getY()), 2);
+        return characterRange < e.getBattleRange();
+    }
+
     /**
      * run the expected battles in the world, based on current world state
      * @return list of enemies which have been killed
@@ -137,7 +142,7 @@ public class LoopManiaWorld {
         for (BasicEnemy e: enemies){
             // Pythagoras: a^2+b^2 < radius^2 to see if within radius
             // TODO = you should implement different RHS on this inequality, based on influence radii and battle radii
-            if (Math.pow((character.getX()-e.getX()), 2) +  Math.pow((character.getY()-e.getY()), 2) < e.getBattleRange()){
+            if (enemyInCharacterRange(e)) {
                 // fight...
 
                 // do some damage
