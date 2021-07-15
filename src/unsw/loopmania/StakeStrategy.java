@@ -9,7 +9,7 @@ public class StakeStrategy implements ItemStrategy{
      * @return The attack multiplier against the monster, may vary depending on
      *          the monster type
      */
-    public double atkMuliplier(BasicEnemy enemy) {
+    public double atkMultiplier(BasicEnemy enemy) {
         if (enemy instanceof VampireEnemy) return 3;
         return 0.5;
     }
@@ -21,7 +21,7 @@ public class StakeStrategy implements ItemStrategy{
      * @return The defence multiplier against the monster, can vary depending on
      *          the monster type
      */
-    public double defMuliplier(BasicEnemy enemy) {
+    public double defMultiplier(BasicEnemy enemy) {
         return 1;
     }
 
@@ -32,7 +32,7 @@ public class StakeStrategy implements ItemStrategy{
      * @return The defence multiplier against the monster, can vary depending on
      *          the monster type
      */
-    public double critMuliplier(BasicEnemy enemy) {
+    public double critMultiplier(BasicEnemy enemy) {
         return 1;
     }
 

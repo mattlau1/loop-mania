@@ -7,19 +7,19 @@ public class ItemContext {
        this.itemStrategy = itemStrategy;
     }
 
-    public double executeAtkMultiplier(BasicEnemy enemy){
-       return itemStrategy.atkMuliplier(enemy);
+    public double atkMultiplier(BasicEnemy enemy){
+       return itemStrategy.atkMultiplier(enemy);
     }
 
-    public double executeDefMuliplier(BasicEnemy enemy){
-        return itemStrategy.defMuliplier(enemy);
+    public double defMultiplier(BasicEnemy enemy){
+        return itemStrategy.defMultiplier(enemy);
     }
 
-    public double executeCritMuliplier(BasicEnemy enemy){
-        return itemStrategy.critMuliplier(enemy);
+    public double critMultiplier(BasicEnemy enemy){
+        return itemStrategy.critMultiplier(enemy);
     }
 
-     public void  executeOnHitEffects(BasicEnemy enemy){
+     public void onHitEffects(BasicEnemy enemy){
         itemStrategy.onHitEffects(enemy);
     }
 

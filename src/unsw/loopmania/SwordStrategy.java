@@ -8,7 +8,7 @@ public class SwordStrategy implements ItemStrategy{
      * @return The attack multiplier against the monster, may vary depending on
      *          the monster type
      */
-    public double atkMuliplier(BasicEnemy enemy) {
+    public double atkMultiplier(BasicEnemy enemy) {
         return 2;
     }
 
@@ -19,7 +19,7 @@ public class SwordStrategy implements ItemStrategy{
      * @return The defence multiplier against the monster, can vary depending on
      *          the monster type
      */
-    public double defMuliplier(BasicEnemy enemy) {
+    public double defMultiplier(BasicEnemy enemy) {
         return 1;
     }
 
@@ -30,7 +30,7 @@ public class SwordStrategy implements ItemStrategy{
      * @return The crit multiplier against the monster, can vary depending on
      *          the monster type
      */
-    public double critMuliplier(BasicEnemy enemy) {
+    public double critMultiplier(BasicEnemy enemy) {
         return 1;
     }
 

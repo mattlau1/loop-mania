@@ -9,21 +9,21 @@ public interface ItemStrategy {
      * @return The attack multiplier against the monster, can vary depending on
      *          the monster type
      */
-    public double atkMuliplier(BasicEnemy enemy);
+    public double atkMultiplier(BasicEnemy enemy);
     /**
      *
      * @param enemy The monster/entity that the Character is in combat with
      * @return The crit multiplier against the monster, can vary depending on
      *          the monster type
      */
-    public double critMuliplier(BasicEnemy enemy);
+    public double critMultiplier(BasicEnemy enemy);
     /**
      *
      * @param enemy The monster/entity that the Character is in combat with
      * @return The defence multiplier against the monster, can vary depending on
      *          the monster type
      */
-    public double defMuliplier(BasicEnemy enemy);
+    public double defMultiplier(BasicEnemy enemy);
     /**
      *  Deals with any on hit effects as a result of the weapon
      * @param enemy The monster/entity that the Character is in combat with
