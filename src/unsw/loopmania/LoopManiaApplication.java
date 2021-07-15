@@ -32,7 +32,7 @@ public class LoopManiaApplication extends Application {
         primaryStage.setResizable(false);
 
         // load the main game
-        LoopManiaWorldControllerLoader loopManiaLoader = new LoopManiaWorldControllerLoader("basic_world_with_player.json");
+        LoopManiaWorldControllerLoader loopManiaLoader = new LoopManiaWorldControllerLoader("test_world.json");
         mainController = loopManiaLoader.loadController();
         FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
         gameLoader.setController(mainController);

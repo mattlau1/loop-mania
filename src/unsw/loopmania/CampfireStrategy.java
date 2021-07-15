@@ -3,10 +3,6 @@ package unsw.loopmania;
 public class CampfireStrategy implements BuildingStrategy {
   private final int range = 10;
 
-  public void useBuilding() {
-    // TODO: Character deals double damage within campfire battle radius
-  }
-
   @Override
   public int getBuildingRange() {
     return range;
@@ -14,14 +10,13 @@ public class CampfireStrategy implements BuildingStrategy {
 
   @Override
   public void useBuilding(Character character) {
-    // TODO Auto-generated method stub
-
+    character.setDamageMultiplier(2);
   }
 
   @Override
   public void useBuilding(BasicEnemy enemy) {
-    // TODO Auto-generated method stub
-
+    // enemies cannot use campfires so do nothing
+    return;
   }
 
 }

@@ -5,11 +5,12 @@ package unsw.loopmania;
  */
 public class Character extends MovingEntity {
     // TODO = potentially implement relationships between this class and other classes
-    
+
     private int health;
     private int gold;
     private int exp;
     private int damage;
+    private int damageMultiplier;
 
     public Character(PathPosition position) {
         super(position);
@@ -17,6 +18,7 @@ public class Character extends MovingEntity {
         this.gold = 0;
         this.exp = 0;
         this.damage = 15;
+        this.damageMultiplier = 1;
     }
 
     public int getHealth() {
@@ -43,13 +45,36 @@ public class Character extends MovingEntity {
         this.exp = exp;
     }
 
+    /**
+     * Gets raw damage (not including damage multiplier)
+     *
+     * @return character's damage before multipliers
+     */
     public int getDamage() {
         return damage;
+    }
+
+    /**
+     * Gets character's damage including multiplier
+     *
+     * @return character's damage after multiplier
+     */
+    public int getMultipliedDamage() {
+        return damage * damageMultiplier;
     }
 
     public void setDamage(int damage) {
         this.damage = damage;
     }
 
-    
+    public int getDamageMultiplier() {
+        return damageMultiplier;
+    }
+
+    public void setDamageMultiplier(int damageMultiplier) {
+        this.damageMultiplier = damageMultiplier;
+    }
+
+
+
 }
