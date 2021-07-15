@@ -17,5 +17,6 @@ public class TowerStrategy implements BuildingStrategy {
   @Override
   public void useBuilding(BasicEnemy enemy) {
     enemy.reduceHealth(towerDamage);
+    System.out.printf("OUCH, %s JUST TOOK %d DAMAGE!\n", enemy.getClass(), towerDamage);
   }
 }

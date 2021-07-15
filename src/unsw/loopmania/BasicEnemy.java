@@ -7,10 +7,10 @@ import java.util.Random;
  */
 public abstract class BasicEnemy extends MovingEntity {
 
-    private int health;
+    private double health;
     private int battleRange;
     private int supportRange;
-    private int damage;
+    private double damage;
     private int expDrop;
     private int goldDrop;
 
@@ -27,7 +27,7 @@ public abstract class BasicEnemy extends MovingEntity {
      * get the current health of the enemy
      * @return the enemy's health
      */
-    public int getHealth() {
+    public double getHealth() {
         return health;
     }
 
@@ -35,7 +35,7 @@ public abstract class BasicEnemy extends MovingEntity {
      * change the health of the enemy
      * @param health the new health for the enemy
      */
-    public void setHealth(int health) {
+    public void setHealth(double health) {
         this.health = health;
     }
 
@@ -59,7 +59,7 @@ public abstract class BasicEnemy extends MovingEntity {
      * get the battle range of the enemy
      * @return the enemy's damage
      */
-    public int getDamage() {
+    public double getDamage() {
         return damage;
     }
 
@@ -67,7 +67,7 @@ public abstract class BasicEnemy extends MovingEntity {
      * change the damage of the enemy
      * @param damage the damage for the enemy
      */
-    public void setDamage(int damage) {
+    public void setDamage(double damage) {
         this.damage = damage;
     }
 
@@ -124,7 +124,7 @@ public abstract class BasicEnemy extends MovingEntity {
      *
      * @param health amount of damage to take
      */
-    public void reduceHealth(int health) {
+    public void reduceHealth(double health) {
         this.health -= health;
     }
 
