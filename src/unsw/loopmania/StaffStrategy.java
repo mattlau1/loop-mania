@@ -1,6 +1,6 @@
 package unsw.loopmania;
 
-public class SwordStrategy implements ItemStrategy{
+public class StaffStrategy implements ItemStrategy{
     @Override
     /**
      *  Staff item reduces damange dealt by the Character by 65% so returns 0.35

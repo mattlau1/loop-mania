@@ -38,6 +38,7 @@ public class LoopManiaWorld {
     private Character character;
 
     // TODO = add more lists for other entities, for equipped inventory items, etc...
+    private List<Item> equippedInventoryItems;
 
     // TODO = expand the range of enemies
     private List<BasicEnemy> enemies;
@@ -71,6 +72,7 @@ public class LoopManiaWorld {
         enemies = new ArrayList<>();
         cardEntities = new ArrayList<>();
         unequippedInventoryItems = new ArrayList<>();
+        equippedInventoryItems = new ArrayList<>();
         this.orderedPath = orderedPath;
         buildingEntities = new ArrayList<>();
     }
@@ -134,6 +136,13 @@ public class LoopManiaWorld {
         return Math.pow((c.getX() - e.getX()), 2) + Math.pow((c.getY() - e.getY()), 2) < e.getBattleRange();
     }
 
+    private boolean isInSuppRange(BasicEnemy e, Character c) {
+        // Pythagoras: a^2+b^2 < radius^2 to see if within radius
+        // TODO = you should implement different RHS on this inequality, based on
+        // influence radii and battle radii
+        return Math.pow((c.getX() - e.getX()), 2) + Math.pow((c.getY() - e.getY()), 2) < e.getSupportRange();
+    }
+
     private boolean isInRange(Building b, Character c) {
         return Math.pow((c.getX() - b.getX()), 2) + Math.pow((c.getY() - b.getY()), 2) < b.getRange();
     }
@@ -171,20 +180,51 @@ public class LoopManiaWorld {
 
 
         // building for enemies and character inside of combat
+        List<BasicEnemy> battlingEnemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
+
         for (BasicEnemy enemy : enemies) {
             if (isInRange(enemy, character)) {
+                battlingEnemies.add(enemy);
+                for (BasicEnemy support : enemies) {
+                    if (support != enemy) {
+                        if (isInSuppRange(support, character)) battlingEnemies.add(support);
+                    }
+                }
+            }
+        }
+
+        for (BasicEnemy enemy : battlingEnemies) {
+            while (enemy.getHealth() > 0) {
                 for (Building building : buildingEntities) {
                     if (isInRange(building, character)) {
                         building.useBuilding(character);
                         building.useBuilding(enemy);
                     }
                 }
-
                 // TODO = modify this - currently the character automatically wins all battles without any damage!
                 // TODO = check enemy hp and only add to defeatedEnemies if they are dead
-                defeatedEnemies.add(enemy);
+                // TODO = CRITS
+                double characterHp = character.getHealth();
+                double characterDamage = character.getMultipliedDamage();
+                double enemyHp = enemy.getHealth();
+                double enemyDamage = enemy.getDamage();
+                // Character attacks first enemy
+                for (Item equippedItems : equippedInventoryItems) {
+                    characterDamage *= equippedItems.atkMultiplier(enemy);
+                }
+                enemy.setHealth(enemyHp - characterDamage);
+                // Every enemy in the battle attacks the character
+                for (BasicEnemy currBattlingEnemy : battlingEnemies) {
+                    for (Item equippedItems : equippedInventoryItems) {
+                        enemyDamage *= equippedItems.defMultiplier(currBattlingEnemy);
+                    }
+                    character.setHealth(characterHp - enemyDamage);
+                }
+
             }
+
+            defeatedEnemies.add(enemy);
         }
 
         for (BasicEnemy e: defeatedEnemies){
@@ -228,7 +268,7 @@ public class LoopManiaWorld {
      * spawn a sword in the world and return the sword entity
      * @return a sword to be spawned in the controller as a JavaFX node
      */
-    public Sword addUnequippedSword(){
+    public Item addUnequippedSword(){
         // TODO = expand this - we would like to be able to add multiple types of items, apart from swords
         Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
         if (firstAvailableSlot == null){
@@ -239,7 +279,7 @@ public class LoopManiaWorld {
         }
 
         // now we insert the new sword, as we know we have at least made a slot available...
-        Sword sword = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
+        Item sword = new Item(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), new SwordStrategy());
         unequippedInventoryItems.add(sword);
         return sword;
     }
