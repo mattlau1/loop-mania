@@ -15,10 +15,10 @@ import java.util.List;
 
 /**
  * Loads a world from a .json file.
- * 
+ *
  * By extending this class, a subclass can hook into entity creation.
  * This is useful for creating UI elements with corresponding entities.
- * 
+ *
  * this class is used to load the world.
  * it loads non-spawning entities from the configuration files.
  * spawning of enemies/cards must be handled by the controller.
@@ -120,11 +120,11 @@ public abstract class LoopManiaWorldLoader {
         // add all coordinates of the path into the orderedPath
         for (int i = 1; i < connections.size(); i++) {
             orderedPath.add(Pair.with(x, y));
-            
+
             if (y >= height || y < 0 || x >= width || x < 0) {
                 throw new IllegalArgumentException("Path goes out of bounds at direction index " + (i - 1) + " (" + connections.get(i - 1) + ")");
             }
-            
+
             PathTile.Direction dir = connections.get(i);
             PathTile tile = new PathTile(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y));
             x += dir.getXOffset();
