@@ -9,6 +9,7 @@ import unsw.loopmania.Character;
 
 public class TrapStrategy implements BuildingStrategy {
   private final int range = 2;
+  private final int trapDamage = 20;
 
   @Override
   public int getBuildingRange() {
@@ -17,14 +18,12 @@ public class TrapStrategy implements BuildingStrategy {
 
   @Override
   public void useBuilding(Character character) {
-    // TODO Auto-generated method stub
-
+    return;
   }
 
   @Override
   public void useBuilding(BasicEnemy enemy) {
-    // TODO Auto-generated method stub
-
+    enemy.reduceHealth(trapDamage);
   }
 
   @Override

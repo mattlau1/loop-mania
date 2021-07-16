@@ -18,7 +18,6 @@ public class HerosCastleStrategy implements BuildingStrategy {
   @Override
   public void useBuilding(Character character) {
     // TODO Auto-generated method stub
-
   }
 
   @Override
