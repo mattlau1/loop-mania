@@ -7,3 +7,4 @@
 - Multiple enemies cannot be on the same tile
 - A building cannot be placed ontop of another building
 - The user cannot equip more than 1 equipment of each type (i.e they can't equip 3 helmets)
+- All items and cards have different tiers of rarity, depending on how powerful they are
