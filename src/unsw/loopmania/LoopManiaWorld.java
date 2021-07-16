@@ -76,11 +76,13 @@ public class LoopManiaWorld {
     // TODO = expand the range of enemies
     private List<BasicEnemy> enemies;
 
+    private List<Soldier> soldiers;
+
     // TODO = expand the range of cards
     private List<Card> cardEntities;
 
     // TODO = expand the range of items
-    private List<Entity> unequippedInventoryItems;
+    private List<Item> unequippedInventoryItems;
 
     // TODO = expand the range of buildings
     private List<Building> buildingEntities;
@@ -290,12 +292,18 @@ public class LoopManiaWorld {
                     characterDamage *= equippedItems.atkMultiplier(enemy);
                 }
                 enemy.reduceHealth(characterDamage);
-                // Every enemy in the battle attacks the character
+                // Every enemy in the battle attacks any soldiers, then the character
                 for (BasicEnemy currBattlingEnemy : battlingEnemies) {
                     for (Item equippedItems : equippedInventoryItems) {
                         enemyDamage *= equippedItems.defMultiplier(currBattlingEnemy);
                     }
-                    character.reduceHealth(enemyDamage);
+                    if (soldiers.size() > 0) {
+                        Soldier s = soldiers.get(0);
+                        s.reduceHealth(enemyDamage);
+                        if (s.isDead()) soldiers.remove(0)
+                    } else {
+                        character.reduceHealth(enemyDamage);
+                    }
                 }
                 System.out.println("CHARACTER HEALTH");
                 System.out.println(character.getHealth());
@@ -430,6 +438,16 @@ public class LoopManiaWorld {
     }
 
     /**
+     * remove an item by x,y coordinates
+     * @param x x coordinate from 0 to width-1
+     * @param y y coordinate from 0 to height-1
+     */
+    public void removeEquippedInventoryItemByCoordinates(int x, int y){
+        Entity item = getEquippedInventoryItemEntityByCoordinates(x, y);
+        removeEquippedInventoryItem(item);
+    }
+
+    /**
      * run moves which occur with every tick without needing to spawn anything immediately
      */
     public void runTickMoves(){
@@ -447,14 +465,39 @@ public class LoopManiaWorld {
     }
 
     /**
+     * remove an item from the unequipped inventory
+     * @param item item to be removed
+     */
+    private void removeEquippedInventoryItem(Entity item){
+        item.destroy();
+        equippedInventoryItems.remove(item);
+    }
+
+    /**
      * return an unequipped inventory item by x and y coordinates
      * assumes that no 2 unequipped inventory items share x and y coordinates
      * @param x x index from 0 to width-1
      * @param y y index from 0 to height-1
      * @return unequipped inventory item at the input position
      */
-    private Entity getUnequippedInventoryItemEntityByCoordinates(int x, int y){
-        for (Entity e: unequippedInventoryItems){
+    private Item getUnequippedInventoryItemEntityByCoordinates(int x, int y){
+        for (Item e: unequippedInventoryItems){
+            if ((e.getX() == x) && (e.getY() == y)){
+                return e;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * return an unequipped inventory item by x and y coordinates
+     * assumes that no 2 unequipped inventory items share x and y coordinates
+     * @param x x index from 0 to width-1
+     * @param y y index from 0 to height-1
+     * @return unequipped inventory item at the input position
+     */
+    public Item getEquippedInventoryItemEntityByCoordinates(int x, int y){
+        for (Item e: equippedInventoryItems){
             if ((e.getX() == x) && (e.getY() == y)){
                 return e;
             }
@@ -568,4 +611,11 @@ public class LoopManiaWorld {
 
         return newBuilding;
     }
+
+    public Item equipItembyCoordinates(int oldX, int oldY, int newX, int newY) {
+        Item item = getUnequippedInventoryItemEntityByCoordinates(oldX, oldY);
+        Item newItem = new Item(new SimpleIntegerProperty(newX), new SimpleIntegerProperty(newY), item.getStrategy());
+        return newItem;
+    }
+
 }

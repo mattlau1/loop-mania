@@ -38,4 +38,14 @@ public class Item extends StaticEntity {
         return context.getImage();
     }
 
+    public ItemStrategy getStrategy() {
+        return strategy;
+    }
+
+    public void setStrategy(ItemStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+
+
 }
