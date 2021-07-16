@@ -18,13 +18,11 @@ public class Card extends StaticEntity {
     }
 
     public ImageView getImage() {
-        CardContext context = new CardContext(strategy);
-        return context.getImage();
+       return strategy.getImage();
     }
 
     public BuildingStrategy getBuildingStrategy() {
-        CardContext context = new CardContext(strategy);
-        return context.getBuildingStrategy();
+        return strategy.getBuildingStrategy();
     }
 
 }
