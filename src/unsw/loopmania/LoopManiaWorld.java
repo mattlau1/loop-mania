@@ -9,7 +9,16 @@ import org.javatuples.Pair;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.TowerStrategy;
-import unsw.loopmania.Cards.VampireCastleCard;
+import unsw.loopmania.Buildings.ZombiePitStrategy;
+import unsw.loopmania.Cards.BarracksCardStrategy;
+import unsw.loopmania.Cards.CampfireCardStrategy;
+import unsw.loopmania.Cards.Card;
+import unsw.loopmania.Cards.CardStrategy;
+import unsw.loopmania.Cards.TowerCardStrategy;
+import unsw.loopmania.Cards.TrapCardStrategy;
+import unsw.loopmania.Cards.VampireCastleCardStrategy;
+import unsw.loopmania.Cards.VillageCardStrategy;
+import unsw.loopmania.Cards.ZombiePitCardStrategy;
 
 /**
  * A backend world.
@@ -49,6 +58,10 @@ public class LoopManiaWorld {
     private List<ItemStrategy> highRarityItems;
     private List<ItemStrategy> superRarityItems;
 
+    private List<CardStrategy> lowRarityCards;
+    private List<CardStrategy> midRarityCards;
+    private List<CardStrategy> highRarityCards;
+
     // TODO = expand the range of enemies
     private List<BasicEnemy> enemies;
 
@@ -87,6 +100,9 @@ public class LoopManiaWorld {
         midRarityItems = new ArrayList<>();
         highRarityItems = new ArrayList<>();
         superRarityItems = new ArrayList<>();
+        lowRarityCards = new ArrayList<>();
+        midRarityCards = new ArrayList<>();
+        highRarityCards = new ArrayList<>();
         this.orderedPath = orderedPath;
         buildingEntities = new ArrayList<>();
     }
@@ -110,6 +126,22 @@ public class LoopManiaWorld {
         highRarityItems.add(new HealthPotionStrategy());
 
         superRarityItems.add(new TheOneRingStrategy());
+    }
+
+    public void generateCardDrops() {
+        lowRarityCards.clear();
+        midRarityCards.clear();
+        highRarityCards.clear();
+
+        lowRarityCards.add(new ZombiePitCardStrategy());
+        lowRarityCards.add(new TrapCardStrategy());
+        lowRarityCards.add(new VampireCastleCardStrategy());
+
+        midRarityCards.add(new VillageCardStrategy());
+        midRarityCards.add(new CampfireCardStrategy());
+
+        highRarityCards.add(new TowerCardStrategy());
+        highRarityCards.add(new BarracksCardStrategy());
     }
 
     public int getWidth() {
@@ -279,13 +311,14 @@ public class LoopManiaWorld {
      */
     public Card loadCard() {
         // if adding more cards than have, remove the first card...
-        if (cardEntities.size() >= getWidth()){
+        if (cardEntities.size() >= getWidth()) {
             // TODO = give some cash/experience/item rewards for the discarding of the oldest card
             removeCard(0);
         }
-        VampireCastleCard vampireCastleCard = new VampireCastleCard(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0));
-        cardEntities.add(vampireCastleCard);
-        return vampireCastleCard;
+
+        Card card = new Card(new SimpleIntegerProperty(cardEntities.size()), new SimpleIntegerProperty(0), randomCardStrategy());
+        cardEntities.add(card);
+        return card;
     }
 
     /**
@@ -327,23 +360,51 @@ public class LoopManiaWorld {
     public ItemStrategy randomItemStrategy() {
         Random random = new Random();
         int randInt = random.nextInt(100);
-        System.out.println(randInt);
-        if (randInt <= 1) {
-            int numItems = superRarityItems.size();
-            randInt = random.nextInt(numItems);
+        int superRarityDropRate = 1;
+        int highRarityDropRate = 6;
+        int mediumRarityDropRate = 29;
+
+        if (randInt <= superRarityDropRate) {
+            // super rarity items
+            randInt = random.nextInt(superRarityItems.size());
             return superRarityItems.get(randInt);
-        } else if (randInt <= 6) {
-            int numItems = highRarityItems.size();
-            randInt = random.nextInt(numItems);
+        } else if (randInt <= highRarityDropRate) {
+            // high rarity items
+            randInt = random.nextInt(highRarityItems.size());
             return highRarityItems.get(randInt);
-        } else if (randInt <= 29) {
-            int numItems = midRarityItems.size();
-            randInt = random.nextInt(numItems);
+        } else if (randInt <= mediumRarityDropRate) {
+            // medium rarity items
+            randInt = random.nextInt(midRarityItems.size());
             return midRarityItems.get(randInt);
         } else {
-            int numItems = lowRarityItems.size();
-            randInt = random.nextInt(numItems);
+            // low rarity items
+            randInt = random.nextInt(lowRarityItems.size());
             return lowRarityItems.get(randInt);
+        }
+    }
+
+    /**
+     * chooses a random card strategy from a list
+     * @return the card strategy of the card to be spawned
+     */
+    public CardStrategy randomCardStrategy() {
+        Random random = new Random();
+        int randInt = random.nextInt(100);
+        int highRarityDropRate = 6;
+        int mediumRarityDropRate = 29;
+
+        if (randInt <= highRarityDropRate) {
+            // high rarity cards
+            randInt = random.nextInt(highRarityCards.size());
+            return highRarityCards.get(randInt);
+        } else if (randInt <= mediumRarityDropRate) {
+            // medium rarity cards
+            randInt = random.nextInt(midRarityCards.size());
+            return midRarityCards.get(randInt);
+        } else {
+            // low rarity cards
+            randInt = random.nextInt(lowRarityCards.size());
+            return lowRarityCards.get(randInt);
         }
     }
 

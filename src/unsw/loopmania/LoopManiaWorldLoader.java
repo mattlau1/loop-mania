@@ -42,6 +42,7 @@ public abstract class LoopManiaWorldLoader {
 
         LoopManiaWorld world = new LoopManiaWorld(width, height, orderedPath);
         world.generateItemDrops();
+        world.generateCardDrops();
 
         JSONArray jsonEntities = json.getJSONArray("entities");
 
