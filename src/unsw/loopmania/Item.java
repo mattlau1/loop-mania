@@ -1,5 +1,8 @@
 package unsw.loopmania;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class Item extends StaticEntity {
@@ -28,6 +31,11 @@ public class Item extends StaticEntity {
     public void onHitEffects(BasicEnemy enemy) {
         ItemContext context = new ItemContext(strategy);
         context.onHitEffects(enemy);
+    }
+
+    public ImageView getImage() {
+        ItemContext context = new ItemContext(strategy);
+        return context.getImage();
     }
 
 }

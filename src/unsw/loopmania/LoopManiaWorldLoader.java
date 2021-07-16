@@ -41,6 +41,7 @@ public abstract class LoopManiaWorldLoader {
         List<Pair<Integer, Integer>> orderedPath = loadPathTiles(json.getJSONObject("path"), width, height);
 
         LoopManiaWorld world = new LoopManiaWorld(width, height, orderedPath);
+        world.generateItemDrops();
 
         JSONArray jsonEntities = json.getJSONArray("entities");
 

@@ -1,5 +1,8 @@
 package unsw.loopmania;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class ItemContext {
     private ItemStrategy itemStrategy;
 
@@ -19,8 +22,12 @@ public class ItemContext {
         return itemStrategy.critMultiplier(enemy);
     }
 
-     public void onHitEffects(BasicEnemy enemy){
+    public void onHitEffects(BasicEnemy enemy){
         itemStrategy.onHitEffects(enemy);
+    }
+
+    public ImageView getImage() {
+        return itemStrategy.getImage();
     }
 
 }

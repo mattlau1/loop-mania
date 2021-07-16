@@ -40,6 +40,8 @@ public class LoopManiaWorld {
     // TODO = add more lists for other entities, for equipped inventory items, etc...
     private List<Item> equippedInventoryItems;
 
+    private List<ItemStrategy> itemDrops;
+
     // TODO = expand the range of enemies
     private List<BasicEnemy> enemies;
 
@@ -73,8 +75,22 @@ public class LoopManiaWorld {
         cardEntities = new ArrayList<>();
         unequippedInventoryItems = new ArrayList<>();
         equippedInventoryItems = new ArrayList<>();
+        itemDrops = new ArrayList<>();
         this.orderedPath = orderedPath;
         buildingEntities = new ArrayList<>();
+    }
+
+    public void generateItemDrops() {
+        itemDrops.clear();
+        itemDrops.add(new ArmourStrategy());
+        itemDrops.add(new SwordStrategy());
+        itemDrops.add(new StakeStrategy());
+        itemDrops.add(new StaffStrategy());
+        itemDrops.add(new ShieldStrategy());
+        itemDrops.add(new HelmetStrategy());
+        itemDrops.add(new GoldStrategy());
+        itemDrops.add(new HealthPotionStrategy());
+        itemDrops.add(new TheOneRingStrategy());
     }
 
     public int getWidth() {
@@ -269,7 +285,7 @@ public class LoopManiaWorld {
      * spawn a sword in the world and return the sword entity
      * @return a sword to be spawned in the controller as a JavaFX node
      */
-    public Item addUnequippedSword(){
+    public Item addUnequippedItem(){
         // TODO = expand this - we would like to be able to add multiple types of items, apart from swords
         Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
         if (firstAvailableSlot == null){
@@ -280,9 +296,20 @@ public class LoopManiaWorld {
         }
 
         // now we insert the new sword, as we know we have at least made a slot available...
-        Item sword = new Item(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), new SwordStrategy());
-        unequippedInventoryItems.add(sword);
-        return sword;
+        Item item = new Item(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), randomItemStrategy());
+        unequippedInventoryItems.add(item);
+        return item;
+    }
+
+    /**
+     * chooses a random item strategy from a list
+     * @return the item strategy of the item to be spawned
+     */
+    public ItemStrategy randomItemStrategy() {
+        int numItems = itemDrops.size();
+        Random random = new Random();
+        int randInt = random.nextInt(numItems);
+        return itemDrops.get(randInt);
     }
 
     /**

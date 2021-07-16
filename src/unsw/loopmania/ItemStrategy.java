@@ -1,8 +1,8 @@
 package unsw.loopmania;
 
+import javafx.scene.image.ImageView;
+
 public interface ItemStrategy {
-    // battle operations
-    // fdmg = dmg * atkMult * (1 - defMult)
     /**
      *
      * @param enemy The monster/entity that the Character is in combat with
@@ -29,4 +29,10 @@ public interface ItemStrategy {
      * @param enemy The monster/entity that the Character is in combat with
      */
     public void onHitEffects(BasicEnemy enemy);
+
+    /**
+     * Gets the image of the item to be shown
+     * @return The image of the item to be shown
+     */
+    public ImageView getImage();
 }

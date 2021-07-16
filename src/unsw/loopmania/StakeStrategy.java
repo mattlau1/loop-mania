@@ -1,5 +1,10 @@
 package unsw.loopmania;
 
+import java.io.File;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class StakeStrategy implements ItemStrategy{
     @Override
     /**
@@ -42,6 +47,17 @@ public class StakeStrategy implements ItemStrategy{
      * @param enemy The monster/entity that the Character is in combat with
      */
     public void onHitEffects(BasicEnemy enemy) {}
+
+    @Override
+    /**
+     *  returns the image of the item to be displayed
+     * @return the imageview of the item
+     */
+    public ImageView getImage() {
+        Image stakeImage = new Image((new File("src/images/stake.png")).toURI().toString());
+        ImageView view = new ImageView(stakeImage);
+        return view;
+    }
 
 }
 

@@ -1,5 +1,10 @@
 package unsw.loopmania;
 
+import java.io.File;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class StaffStrategy implements ItemStrategy{
     @Override
     /**
@@ -44,6 +49,17 @@ public class StaffStrategy implements ItemStrategy{
         // TODO
         //  random chance of inflicting a trance, which transforms the attacked
         //  enemy into an allied soldier temporarily
+    }
+
+    @Override
+    /**
+     *  returns the image of the item to be displayed
+     * @return the imageview of the item
+     */
+    public ImageView getImage() {
+        Image staffImage = new Image((new File("src/images/staff.png")).toURI().toString());
+        ImageView view = new ImageView(staffImage);
+        return view;
     }
 
 }
