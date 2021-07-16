@@ -7,7 +7,6 @@ import java.util.Random;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
-<<<<<<< HEAD
 import unsw.loopmania.Items.ArmourStrategy;
 import unsw.loopmania.Items.GoldStrategy;
 import unsw.loopmania.Items.HealthPotionStrategy;
@@ -19,11 +18,9 @@ import unsw.loopmania.Items.StaffStrategy;
 import unsw.loopmania.Items.StakeStrategy;
 import unsw.loopmania.Items.SwordStrategy;
 import unsw.loopmania.Items.TheOneRingStrategy;
-=======
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.TowerStrategy;
 import unsw.loopmania.Cards.VampireCastleCard;
->>>>>>> 518ea959f51e6677f5ab5712d54676c2651a59e4
 
 /**
  * A backend world.
