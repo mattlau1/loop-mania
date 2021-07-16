@@ -6,14 +6,14 @@ import unsw.loopmania.Character;
 
 public interface BuildingStrategy {
   /**
-   * Activates the building for a character
+   * Activates the building for a character. Does nothing if character cannot use it.
    *
    * @param character character to activate building on
    */
   public void useBuilding(Character character);
 
   /**
-   * Activates the building for an enemy
+   * Activates the building for an enemy. Does nothing if enemy cannot use it.
    *
    * @param enemy enemy to activate building on
    */

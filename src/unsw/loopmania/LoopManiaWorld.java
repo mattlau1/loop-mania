@@ -178,7 +178,7 @@ public class LoopManiaWorld {
         // TODO = expand this very basic version
         Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
         List<BasicEnemy> spawningEnemies = new ArrayList<>();
-        if (pos != null){
+        if (pos != null) {
             int indexInPath = orderedPath.indexOf(pos);
             BasicEnemy enemy = new SlugEnemy(new PathPosition(indexInPath, orderedPath));
             enemies.add(enemy);
