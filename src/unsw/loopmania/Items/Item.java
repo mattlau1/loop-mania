@@ -1,8 +1,8 @@
-package unsw.loopmania;
+package unsw.loopmania.Items;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.StaticEntity;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class Item extends StaticEntity {

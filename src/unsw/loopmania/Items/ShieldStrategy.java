@@ -1,65 +1,63 @@
-package unsw.loopmania;
+package unsw.loopmania.Items;
 
 import java.io.File;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import unsw.loopmania.BasicEnemy;
 
-public class StaffStrategy implements ItemStrategy{
-    @Override
+public class ShieldStrategy implements ItemStrategy{
     /**
-     *  Staff item reduces damange dealt by the Character by 65% so returns 0.35
+     *  Shield item does not have any attack mechanics, so returns 1
      * @param enemy The monster/entity that the Character is in combat with
      * @return The attack multiplier against the monster, may vary depending on
      *          the monster type
      */
+    @Override
     public double atkMultiplier(BasicEnemy enemy) {
-        return 2;
+        return 1;
     }
 
-    @Override
     /**
-     *  Staff item does not have any defence mechanics, so returns 1
+     *  Shield items does not have ay defence mechanics
      * @param enemy The monster/entity that the Character is in combat with
      * @return The defence multiplier against the monster, can vary depending on
      *          the monster type
      */
+    @Override
     public double defMultiplier(BasicEnemy enemy) {
         return 1;
     }
 
-    @Override
     /**
-     *  Staff item does not have any critical hit mechanics, so returns 1
+     *  Shield item causes critical vampire attacks to have a 60% lower chance
+     *  of occurring so returns 0.4
      * @param enemy The monster/entity that the Character is in combat with
      * @return The crit multiplier against the monster, can vary depending on
      *          the monster type
      */
+    @Override
     public double critMultiplier(BasicEnemy enemy) {
-        return 1;
+        return 0.4;
     }
 
-    @Override
     /**
-     *  "Random chance of inflicting a trance, which transforms the attacked
-     *  enemy into an allied soldier temporarily"
+     *  Shield item does not have any on hit effects so does nothing
      * @param enemy The monster/entity that the Character is in combat with
      */
-    public void onHitEffects(BasicEnemy enemy) {
-        // TODO
-        //  random chance of inflicting a trance, which transforms the attacked
-        //  enemy into an allied soldier temporarily
-    }
-
     @Override
+    public void onHitEffects(BasicEnemy enemy) {}
+
     /**
      *  returns the image of the item to be displayed
      * @return the imageview of the item
      */
+    @Override
     public ImageView getImage() {
-        Image staffImage = new Image((new File("src/images/staff.png")).toURI().toString());
-        ImageView view = new ImageView(staffImage);
+        Image image = new Image((new File("src/images/shield.png")).toURI().toString());
+        ImageView view = new ImageView(image);
         return view;
     }
 
 }
+

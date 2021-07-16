@@ -1,6 +1,7 @@
-package unsw.loopmania;
+package unsw.loopmania.Items;
 
 import javafx.scene.image.ImageView;
+import unsw.loopmania.BasicEnemy;
 
 public interface ItemStrategy {
     /**
