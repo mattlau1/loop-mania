@@ -1,4 +1,7 @@
-package unsw.loopmania;
+package unsw.loopmania.Buildings;
+
+import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Character;
 
 /**
  * a basic form of building in the world

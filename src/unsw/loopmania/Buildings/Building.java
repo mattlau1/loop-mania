@@ -1,6 +1,9 @@
-package unsw.loopmania;
+package unsw.loopmania.Buildings;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Character;
+import unsw.loopmania.StaticEntity;
 
 public class Building extends StaticEntity {
   private BuildingStrategy strategy;

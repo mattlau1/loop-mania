@@ -1,6 +1,9 @@
-package unsw.loopmania;
+package unsw.loopmania.Buildings;
 
-public class TrapStrategy implements BuildingStrategy {
+import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Character;
+
+public class HerosCastleStrategy implements BuildingStrategy {
   private final int range = 2;
 
   @Override

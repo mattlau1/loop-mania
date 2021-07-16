@@ -1,14 +1,14 @@
-package unsw.loopmania;
+package unsw.loopmania.Buildings;
 
-public class ZombiePitStrategy implements BuildingStrategy {
+import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Character;
+
+public class VillageStrategy implements BuildingStrategy {
   private final int range = 2;
-
-  public void useBuilding() {
-    // TODO: Produce zombies every cycle of the path completed by the Character, spawning nearby on the path
-  }
 
   @Override
   public int getBuildingRange() {
+    // TODO Auto-generated method stub
     return range;
   }
 
@@ -28,5 +28,6 @@ public class ZombiePitStrategy implements BuildingStrategy {
   public boolean usableOutsideCombat() {
     return true;
   }
+
 
 }

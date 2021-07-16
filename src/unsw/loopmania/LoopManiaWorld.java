@@ -7,6 +7,9 @@ import java.util.Random;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Buildings.TowerStrategy;
+import unsw.loopmania.Cards.VampireCastleCard;
 
 /**
  * A backend world.
@@ -201,7 +204,7 @@ public class LoopManiaWorld {
      * spawn a card in the world and return the card entity
      * @return a card to be spawned in the controller as a JavaFX node
      */
-    public VampireCastleCard loadVampireCard(){
+    public Card loadCard() {
         // if adding more cards than have, remove the first card...
         if (cardEntities.size() >= getWidth()){
             // TODO = give some cash/experience/item rewards for the discarding of the oldest card
