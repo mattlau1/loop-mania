@@ -6,7 +6,7 @@ package unsw.loopmania;
 public class Character extends MovingEntity {
     // TODO = potentially implement relationships between this class and other classes
 
-    private double health = 100;
+    private double health = 6;
     private int gold = 0;
     private int exp = 0;
     private double damage = 15;
@@ -74,5 +74,21 @@ public class Character extends MovingEntity {
         this.damageMultiplier = 1;
     }
 
+    public boolean isAlive() {
+        return health > 0;
+    }
+
+    public boolean isDead() {
+        return health <= 0;
+    }
+
+    /**
+     * Reduces enemy's health by given amount, causing enemy to "take damage"
+     *
+     * @param health amount of damage to take
+     */
+    public void reduceHealth(double health) {
+        this.health -= health;
+    }
 
 }

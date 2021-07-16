@@ -41,6 +41,13 @@ public class LoopManiaWorld {
     private Character character;
 
     // TODO = add more lists for other entities, for equipped inventory items, etc...
+    private List<Item> equippedInventoryItems;
+
+    private List<ItemStrategy> commonItems;
+    private List<ItemStrategy> lowRarityItems;
+    private List<ItemStrategy> midRarityItems;
+    private List<ItemStrategy> highRarityItems;
+    private List<ItemStrategy> superRarityItems;
 
     // TODO = expand the range of enemies
     private List<BasicEnemy> enemies;
@@ -74,8 +81,35 @@ public class LoopManiaWorld {
         enemies = new ArrayList<>();
         cardEntities = new ArrayList<>();
         unequippedInventoryItems = new ArrayList<>();
+        equippedInventoryItems = new ArrayList<>();
+        commonItems = new ArrayList<>();
+        lowRarityItems = new ArrayList<>();
+        midRarityItems = new ArrayList<>();
+        highRarityItems = new ArrayList<>();
+        superRarityItems = new ArrayList<>();
         this.orderedPath = orderedPath;
         buildingEntities = new ArrayList<>();
+    }
+
+    public void generateItemDrops() {
+        commonItems.clear();
+        lowRarityItems.clear();
+        midRarityItems.clear();
+        superRarityItems.clear();
+
+        commonItems.add(new GoldStrategy());
+
+        lowRarityItems.add(new SwordStrategy());
+        lowRarityItems.add(new StakeStrategy());
+
+        midRarityItems.add(new ArmourStrategy());
+        midRarityItems.add(new ShieldStrategy());
+        midRarityItems.add(new HelmetStrategy());
+
+        highRarityItems.add(new StaffStrategy());
+        highRarityItems.add(new HealthPotionStrategy());
+
+        superRarityItems.add(new TheOneRingStrategy());
     }
 
     public int getWidth() {
@@ -137,6 +171,13 @@ public class LoopManiaWorld {
         return Math.pow((c.getX() - e.getX()), 2) + Math.pow((c.getY() - e.getY()), 2) < e.getBattleRange();
     }
 
+    private boolean isInSuppRange(BasicEnemy e, Character c) {
+        // Pythagoras: a^2+b^2 < radius^2 to see if within radius
+        // TODO = you should implement different RHS on this inequality, based on
+        // influence radii and battle radii
+        return Math.pow((c.getX() - e.getX()), 2) + Math.pow((c.getY() - e.getY()), 2) < e.getSupportRange();
+    }
+
     private boolean isInRange(Building b, Character c) {
         return Math.pow((c.getX() - b.getX()), 2) + Math.pow((c.getY() - b.getY()), 2) < b.getRange();
     }
@@ -174,20 +215,52 @@ public class LoopManiaWorld {
 
 
         // building for enemies and character inside of combat
+        List<BasicEnemy> battlingEnemies = new ArrayList<BasicEnemy>();
         List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
+
         for (BasicEnemy enemy : enemies) {
             if (isInRange(enemy, character)) {
+                battlingEnemies.add(enemy);
+                for (BasicEnemy support : enemies) {
+                    if (support != enemy) {
+                        if (isInSuppRange(support, character)) battlingEnemies.add(support);
+                    }
+                }
+            }
+        }
+
+        for (BasicEnemy enemy : battlingEnemies) {
+            while (enemy.isAlive()) {
                 for (Building building : buildingEntities) {
                     if (isInRange(building, character)) {
                         building.useBuilding(character);
                         building.useBuilding(enemy);
                     }
                 }
-
                 // TODO = modify this - currently the character automatically wins all battles without any damage!
                 // TODO = check enemy hp and only add to defeatedEnemies if they are dead
-                defeatedEnemies.add(enemy);
+                // TODO = CRITS
+                double characterDamage = character.getMultipliedDamage();
+                double enemyDamage = enemy.getDamage();
+                // Character attacks first enemy
+                for (Item equippedItems : equippedInventoryItems) {
+                    characterDamage *= equippedItems.atkMultiplier(enemy);
+                }
+                enemy.reduceHealth(characterDamage);
+                // Every enemy in the battle attacks the character
+                for (BasicEnemy currBattlingEnemy : battlingEnemies) {
+                    for (Item equippedItems : equippedInventoryItems) {
+                        enemyDamage *= equippedItems.defMultiplier(currBattlingEnemy);
+                    }
+                    character.reduceHealth(enemyDamage);
+                }
+                System.out.println("CHARACTER HEALTH");
+                System.out.println(character.getHealth());
+                System.out.println("ENEMY HEALTH");
+                System.out.println(enemy.getHealth());
             }
+
+            defeatedEnemies.add(enemy);
         }
 
         for (BasicEnemy e: defeatedEnemies){
@@ -231,7 +304,7 @@ public class LoopManiaWorld {
      * spawn a sword in the world and return the sword entity
      * @return a sword to be spawned in the controller as a JavaFX node
      */
-    public Sword addUnequippedSword(){
+    public Item addUnequippedItem(){
         // TODO = expand this - we would like to be able to add multiple types of items, apart from swords
         Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
         if (firstAvailableSlot == null){
@@ -242,9 +315,36 @@ public class LoopManiaWorld {
         }
 
         // now we insert the new sword, as we know we have at least made a slot available...
-        Sword sword = new Sword(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()));
-        unequippedInventoryItems.add(sword);
-        return sword;
+        Item item = new Item(new SimpleIntegerProperty(firstAvailableSlot.getValue0()), new SimpleIntegerProperty(firstAvailableSlot.getValue1()), randomItemStrategy());
+        unequippedInventoryItems.add(item);
+        return item;
+    }
+
+    /**
+     * chooses a random item strategy from a list
+     * @return the item strategy of the item to be spawned
+     */
+    public ItemStrategy randomItemStrategy() {
+        Random random = new Random();
+        int randInt = random.nextInt(100);
+        System.out.println(randInt);
+        if (randInt <= 1) {
+            int numItems = superRarityItems.size();
+            randInt = random.nextInt(numItems);
+            return superRarityItems.get(randInt);
+        } else if (randInt <= 6) {
+            int numItems = highRarityItems.size();
+            randInt = random.nextInt(numItems);
+            return highRarityItems.get(randInt);
+        } else if (randInt <= 29) {
+            int numItems = midRarityItems.size();
+            randInt = random.nextInt(numItems);
+            return midRarityItems.get(randInt);
+        } else {
+            int numItems = lowRarityItems.size();
+            randInt = random.nextInt(numItems);
+            return lowRarityItems.get(randInt);
+        }
     }
 
     /**

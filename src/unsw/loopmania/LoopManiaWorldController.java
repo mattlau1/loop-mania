@@ -120,6 +120,14 @@ public class LoopManiaWorldController {
     private Image vampireCastleCardImage;
     private Image basicEnemyImage;
     private Image swordImage;
+    // private Image stakeImage;
+    // private Image staffImage;
+    // private Image armourImage;
+    // private Image shieldImage;
+    // private Image helmetImage;
+    // private Image goldImage;
+    // private Image healthPotionImage;
+    // private Image theOneRingImage;
     private Image basicBuildingImage;
 
     /**
@@ -170,6 +178,14 @@ public class LoopManiaWorldController {
         vampireCastleCardImage = new Image((new File("src/images/vampire_castle_card.png")).toURI().toString());
         basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
         swordImage = new Image((new File("src/images/basic_sword.png")).toURI().toString());
+        // stakeImage = new Image((new File("src/images/stake.png")).toURI().toString());
+        // staffImage = new Image((new File("src/images/staff.png")).toURI().toString());
+        // armourImage = new Image((new File("src/images/ armour.png")).toURI().toString());
+        // shieldImage = new Image((new File("src/images/shield.png")).toURI().toString());
+        // helmetImage = new Image((new File("src/images/helmet.png")).toURI().toString());
+        // goldImage = new Image((new File("src/images/gold_pile.png")).toURI().toString());
+        // healthPotionImage = new Image((new File("src/images/brilliant_blue_new.png")).toURI().toString());
+        // theOneRingImage = new Image((new File("src/images/the_one_ring.png")).toURI().toString());
         basicBuildingImage = new Image((new File("src/images/vampire_castle_building_purple_background.png")).toURI().toString());
         currentlyDraggedImage = null;
         currentlyDraggedType = null;
@@ -290,8 +306,8 @@ public class LoopManiaWorldController {
     private void loadSword(){
         // TODO = load more types of weapon
         // start by getting first available coordinates
-        Sword sword = world.addUnequippedSword();
-        onLoad(sword);
+        Item item = world.addUnequippedItem();
+        onLoad(item);
     }
 
     /**
@@ -329,10 +345,10 @@ public class LoopManiaWorldController {
      * and load the image into the unequippedInventory GridPane.
      * @param sword
      */
-    private void onLoad(Sword sword) {
-        ImageView view = new ImageView(swordImage);
+    private void onLoad(Item item) {
+        ImageView view = item.getImage();
         addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, unequippedInventory, equippedItems);
-        addEntity(sword, view);
+        addEntity(item, view);
         unequippedInventory.getChildren().add(view);
     }
 
