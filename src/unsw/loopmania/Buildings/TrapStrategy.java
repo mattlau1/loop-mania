@@ -1,10 +1,15 @@
 package unsw.loopmania.Buildings;
 
+import java.io.File;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.Character;
 
 public class TrapStrategy implements BuildingStrategy {
   private final int range = 2;
+  private final int trapDamage = 20;
 
   @Override
   public int getBuildingRange() {
@@ -13,14 +18,12 @@ public class TrapStrategy implements BuildingStrategy {
 
   @Override
   public void useBuilding(Character character) {
-    // TODO Auto-generated method stub
-
+    return;
   }
 
   @Override
   public void useBuilding(BasicEnemy enemy) {
-    // TODO Auto-generated method stub
-
+    enemy.reduceHealth(trapDamage);
   }
 
   @Override
@@ -28,5 +31,11 @@ public class TrapStrategy implements BuildingStrategy {
     return true;
   }
 
+  @Override
+  public ImageView getImage() {
+    Image image = new Image((new File("src/images/trap.png")).toURI().toString());
+    ImageView view = new ImageView(image);
+    return view;
+  }
 
 }

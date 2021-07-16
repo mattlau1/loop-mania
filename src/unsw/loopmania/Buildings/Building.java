@@ -1,6 +1,7 @@
 package unsw.loopmania.Buildings;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.image.ImageView;
 import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.Character;
 import unsw.loopmania.StaticEntity;
@@ -28,6 +29,11 @@ public class Building extends StaticEntity {
   public boolean usableOutsideCombat() {
     BuildingContext context = new BuildingContext(strategy);
     return context.usableOutsideCombat();
+  }
+
+  public ImageView getImage() {
+    BuildingContext context = new BuildingContext(strategy);
+    return context.getImage();
   }
 
   public BuildingStrategy getStrategy() {
