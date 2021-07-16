@@ -28,6 +28,9 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
+import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Cards.Card;
+
 import java.util.EnumMap;
 
 import java.io.File;
@@ -46,25 +49,25 @@ enum DRAGGABLE_TYPE{
 
 /**
  * A JavaFX controller for the world.
- * 
+ *
  * All event handlers and the timeline in JavaFX run on the JavaFX application thread:
  *     https://examples.javacodegeeks.com/desktop-java/javafx/javafx-concurrency-example/
  *     Note in https://openjfx.io/javadoc/11/javafx.graphics/javafx/application/Application.html under heading "Threading", it specifies animation timelines are run in the application thread.
  * This means that the starter code does not need locks (mutexes) for resources shared between the timeline KeyFrame, and all of the  event handlers (including between different event handlers).
  * This will make the game easier for you to implement. However, if you add time-consuming processes to this, the game may lag or become choppy.
- * 
+ *
  * If you need to implement time-consuming processes, we recommend:
  *     using Task https://openjfx.io/javadoc/11/javafx.graphics/javafx/concurrent/Task.html by itself or within a Service https://openjfx.io/javadoc/11/javafx.graphics/javafx/concurrent/Service.html
- * 
+ *
  *     Tasks ensure that any changes to public properties, change notifications for errors or cancellation, event handlers, and states occur on the JavaFX Application thread,
  *         so is a better alternative to using a basic Java Thread: https://docs.oracle.com/javafx/2/threads/jfxpub-threads.htm
  *     The Service class is used for executing/reusing tasks. You can run tasks without Service, however, if you don't need to reuse it.
  *
  * If you implement time-consuming processes in a Task or thread, you may need to implement locks on resources shared with the application thread (i.e. Timeline KeyFrame and drag Event handlers).
  * You can check whether code is running on the JavaFX application thread by running the helper method printThreadingNotes in this class.
- * 
+ *
  * NOTE: http://tutorials.jenkov.com/javafx/concurrency.html and https://www.developer.com/design/multithreading-in-javafx/#:~:text=JavaFX%20has%20a%20unique%20set,in%20the%20JavaFX%20Application%20Thread.
- * 
+ *
  * If you need to delay some code but it is not long-running, consider using Platform.runLater https://openjfx.io/javadoc/11/javafx.graphics/javafx/application/Platform.html#runLater(java.lang.Runnable)
  *     This is run on the JavaFX application thread when it has enough time.
  */
@@ -117,6 +120,14 @@ public class LoopManiaWorldController {
     private Image vampireCastleCardImage;
     private Image basicEnemyImage;
     private Image swordImage;
+    // private Image stakeImage;
+    // private Image staffImage;
+    // private Image armourImage;
+    // private Image shieldImage;
+    // private Image helmetImage;
+    // private Image goldImage;
+    // private Image healthPotionImage;
+    // private Image theOneRingImage;
     private Image basicBuildingImage;
 
     /**
@@ -125,7 +136,7 @@ public class LoopManiaWorldController {
      */
     // TODO = it would be a good idea for you to instead replace this with the building/item which should be dropped
     private ImageView currentlyDraggedImage;
-    
+
     /**
      * null if nothing being dragged, or the type of item being dragged
      */
@@ -167,6 +178,14 @@ public class LoopManiaWorldController {
         vampireCastleCardImage = new Image((new File("src/images/vampire_castle_card.png")).toURI().toString());
         basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
         swordImage = new Image((new File("src/images/basic_sword.png")).toURI().toString());
+        // stakeImage = new Image((new File("src/images/stake.png")).toURI().toString());
+        // staffImage = new Image((new File("src/images/staff.png")).toURI().toString());
+        // armourImage = new Image((new File("src/images/ armour.png")).toURI().toString());
+        // shieldImage = new Image((new File("src/images/shield.png")).toURI().toString());
+        // helmetImage = new Image((new File("src/images/helmet.png")).toURI().toString());
+        // goldImage = new Image((new File("src/images/gold_pile.png")).toURI().toString());
+        // healthPotionImage = new Image((new File("src/images/brilliant_blue_new.png")).toURI().toString());
+        // theOneRingImage = new Image((new File("src/images/the_one_ring.png")).toURI().toString());
         basicBuildingImage = new Image((new File("src/images/vampire_castle_building_purple_background.png")).toURI().toString());
         currentlyDraggedImage = null;
         currentlyDraggedType = null;
@@ -182,7 +201,7 @@ public class LoopManiaWorldController {
     @FXML
     public void initialize() {
         // TODO = load more images/entities during initialization
-        
+
         Image pathTilesImage = new Image((new File("src/images/32x32GrassAndDirtPath.png")).toURI().toString());
         Image inventorySlotImage = new Image((new File("src/images/empty_slot.png")).toURI().toString());
         Rectangle2D imagePart = new Rectangle2D(0, 0, 32, 32);
@@ -200,7 +219,7 @@ public class LoopManiaWorldController {
         for (ImageView entity : entityImages){
             squares.getChildren().add(entity);
         }
-        
+
         // add the ground underneath the cards
         for (int x=0; x<world.getWidth(); x++){
             ImageView groundView = new ImageView(pathTilesImage);
@@ -273,22 +292,21 @@ public class LoopManiaWorldController {
     }
 
     /**
-     * load a vampire card from the world, and pair it with an image in the GUI
+     * load a card from the world, and pair it with an image in the GUI
      */
-    private void loadVampireCard() {
-        // TODO = load more types of card
-        VampireCastleCard vampireCastleCard = world.loadVampireCard();
-        onLoad(vampireCastleCard);
+    private void loadCard() {
+        Card card = world.loadCard();
+        onLoad(card);
     }
 
     /**
      * load a sword from the world, and pair it with an image in the GUI
      */
-    private void loadSword(){
+    private void loadItem(){
         // TODO = load more types of weapon
         // start by getting first available coordinates
-        Sword sword = world.addUnequippedSword();
-        onLoad(sword);
+        Item item = world.addUnequippedItem();
+        onLoad(item);
     }
 
     /**
@@ -299,24 +317,24 @@ public class LoopManiaWorldController {
         // react to character defeating an enemy
         // in starter code, spawning extra card/weapon...
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
-        loadSword();
-        loadVampireCard();
+        loadItem();
+        loadCard();
     }
 
     /**
-     * load a vampire castle card into the GUI.
+     * load a card image into the GUI.
      * Particularly, we must connect to the drag detection event handler,
      * and load the image into the cards GridPane.
-     * @param vampireCastleCard
+     * @param card
      */
-    private void onLoad(VampireCastleCard vampireCastleCard) {
-        ImageView view = new ImageView(vampireCastleCardImage);
+    private void onLoad(Card card) {
+        ImageView view = card.getImage();
 
         // FROM https://stackoverflow.com/questions/41088095/javafx-drag-and-drop-to-gridpane
         // note target setOnDragOver and setOnDragEntered defined in initialize method
         addDragEventHandlers(view, DRAGGABLE_TYPE.CARD, cards, squares);
 
-        addEntity(vampireCastleCard, view);
+        addEntity(card, view);
         cards.getChildren().add(view);
     }
 
@@ -326,10 +344,10 @@ public class LoopManiaWorldController {
      * and load the image into the unequippedInventory GridPane.
      * @param sword
      */
-    private void onLoad(Sword sword) {
-        ImageView view = new ImageView(swordImage);
+    private void onLoad(Item item) {
+        ImageView view = item.getImage();
         addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, unequippedInventory, equippedItems);
-        addEntity(sword, view);
+        addEntity(item, view);
         unequippedInventory.getChildren().add(view);
     }
 
@@ -347,8 +365,8 @@ public class LoopManiaWorldController {
      * load a building into the GUI
      * @param building
      */
-    private void onLoad(VampireCastleBuilding building){
-        ImageView view = new ImageView(basicBuildingImage);
+    private void onLoad(Building building) {
+        ImageView view = building.getImage();
         addEntity(building, view);
         squares.getChildren().add(view);
     }
@@ -395,7 +413,7 @@ public class LoopManiaWorldController {
                             case CARD:
                                 removeDraggableDragEventHandlers(draggableType, targetGridPane);
                                 // TODO = spawn a building here of different types
-                                VampireCastleBuilding newBuilding = convertCardToBuildingByCoordinates(nodeX, nodeY, x, y);
+                                Building newBuilding = convertCardToBuildingByCoordinates(nodeX, nodeY, x, y);
                                 onLoad(newBuilding);
                                 break;
                             case ITEM:
@@ -407,7 +425,7 @@ public class LoopManiaWorldController {
                             default:
                                 break;
                         }
-                        
+
                         draggedEntity.setVisible(false);
                         draggedEntity.setMouseTransparent(false);
                         // remove drag event handlers before setting currently dragged image to null
@@ -456,7 +474,7 @@ public class LoopManiaWorldController {
                         draggedEntity.setMouseTransparent(false);
                         // remove drag event handlers before setting currently dragged image to null
                         removeDraggableDragEventHandlers(draggableType, targetGridPane);
-                        
+
                         currentlyDraggedImage = null;
                         currentlyDraggedType = null;
                     }
@@ -476,7 +494,7 @@ public class LoopManiaWorldController {
      * @param buildingNodeY the y coordinate of the drop location for the card, where the building will spawn, from 0 to height-1
      * @return building entity returned from the world
      */
-    private VampireCastleBuilding convertCardToBuildingByCoordinates(int cardNodeX, int cardNodeY, int buildingNodeX, int buildingNodeY) {
+    private Building convertCardToBuildingByCoordinates(int cardNodeX, int cardNodeY, int buildingNodeX, int buildingNodeY) {
         return world.convertCardToBuildingByCoordinates(cardNodeX, cardNodeY, buildingNodeX, buildingNodeY);
     }
 
@@ -504,7 +522,7 @@ public class LoopManiaWorldController {
                 //Drag was detected, start drap-and-drop gesture
                 //Allow any transfer node
                 Dragboard db = view.startDragAndDrop(TransferMode.MOVE);
-    
+
                 //Put ImageView on dragboard
                 ClipboardContent cbContent = new ClipboardContent();
                 cbContent.putImage(view.getImage());
@@ -516,15 +534,15 @@ public class LoopManiaWorldController {
                 draggedEntity.relocateToPoint(new Point2D(event.getSceneX(), event.getSceneY()));
                 switch (draggableType){
                     case CARD:
-                        draggedEntity.setImage(vampireCastleCardImage);
+                        draggedEntity.setImage(view.getImage());
                         break;
                     case ITEM:
-                        draggedEntity.setImage(swordImage);
+                        draggedEntity.setImage(view.getImage());
                         break;
                     default:
                         break;
                 }
-                
+
                 draggedEntity.setVisible(true);
                 draggedEntity.setMouseTransparent(true);
                 draggedEntity.toFront();
@@ -559,7 +577,7 @@ public class LoopManiaWorldController {
                             if (currentlyDraggedType == draggableType){
                                 n.setOpacity(1);
                             }
-                
+
                             event.consume();
                         }
                     });
@@ -568,7 +586,7 @@ public class LoopManiaWorldController {
                 }
                 event.consume();
             }
-            
+
         });
     }
 
@@ -636,10 +654,10 @@ public class LoopManiaWorldController {
      * By connecting the model with the view in this way, the model requires no
      * knowledge of the view and changes to the position of entities in the
      * model will automatically be reflected in the view.
-     * 
+     *
      * note that this is put in the controller rather than the loader because we need to track positions of spawned entities such as enemy
      * or items which might need to be removed should be tracked here
-     * 
+     *
      * NOTE teardown functions setup here also remove nodes from their GridPane. So it is vital this is handled in this Controller class
      * @param entity
      * @param node
@@ -709,9 +727,9 @@ public class LoopManiaWorldController {
      * EventHandlers will run on the application thread.
      */
     private void printThreadingNotes(String currentMethodLabel){
-        System.out.println("\n###########################################");
-        System.out.println("current method = "+currentMethodLabel);
-        System.out.println("In application thread? = "+Platform.isFxApplicationThread());
-        System.out.println("Current system time = "+java.time.LocalDateTime.now().toString().replace('T', ' '));
+        // System.out.println("\n###########################################");
+        // System.out.println("current method = "+currentMethodLabel);
+        // System.out.println("In application thread? = "+Platform.isFxApplicationThread());
+        // System.out.println("Current system time = "+java.time.LocalDateTime.now().toString().replace('T', ' '));
     }
 }
