@@ -1,11 +1,13 @@
-package unsw.loopmania;
+package unsw.loopmania.Buildings;
 
-public class VillageStrategy implements BuildingStrategy {
+import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Character;
+
+public class TrapStrategy implements BuildingStrategy {
   private final int range = 2;
 
   @Override
   public int getBuildingRange() {
-    // TODO Auto-generated method stub
     return range;
   }
 
@@ -20,5 +22,11 @@ public class VillageStrategy implements BuildingStrategy {
     // TODO Auto-generated method stub
 
   }
+
+  @Override
+  public boolean usableOutsideCombat() {
+    return true;
+  }
+
 
 }

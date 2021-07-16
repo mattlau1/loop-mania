@@ -1,4 +1,7 @@
-package unsw.loopmania;
+package unsw.loopmania.Buildings;
+
+import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Character;
 
 public class ZombiePitStrategy implements BuildingStrategy {
   private final int range = 2;
@@ -23,4 +26,10 @@ public class ZombiePitStrategy implements BuildingStrategy {
     // TODO Auto-generated method stub
 
   }
+
+  @Override
+  public boolean usableOutsideCombat() {
+    return true;
+  }
+
 }
