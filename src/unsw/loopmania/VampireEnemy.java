@@ -1,5 +1,7 @@
 package unsw.loopmania;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class VampireEnemy extends BasicEnemy {
@@ -10,6 +12,8 @@ public class VampireEnemy extends BasicEnemy {
     private final double damage = 20;
     private final int expDrop = 100;
     private final int goldDrop = 100;
+    private final int critRate = 30;
+    // private List<Entity> inflictedCriticalBite;
 
     /**
      * spawn the vampire constructor
@@ -24,6 +28,8 @@ public class VampireEnemy extends BasicEnemy {
         setDamage(damage);
         setExpDrop(expDrop);
         setGoldDrop(goldDrop);
+        setCritRate(critRate);
+        // inflictedCriticalBite = new ArrayList<>();
     }
 
     @Override
@@ -36,4 +42,9 @@ public class VampireEnemy extends BasicEnemy {
             moveUpPath();
         }
     }
+
+    // @Override
+    // public void criticalHit (Entity e) {
+    //     inflictedCriticalBite.add(e);
+    // }
 }

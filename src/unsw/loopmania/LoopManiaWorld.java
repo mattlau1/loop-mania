@@ -118,6 +118,7 @@ public class LoopManiaWorld {
         highRarityCards = new ArrayList<>();
         this.orderedPath = orderedPath;
         buildingEntities = new ArrayList<>();
+        soldiers = new ArrayList<>();
     }
 
     public void generateItemDrops() {
@@ -294,13 +295,19 @@ public class LoopManiaWorld {
                 enemy.reduceHealth(characterDamage);
                 // Every enemy in the battle attacks any soldiers, then the character
                 for (BasicEnemy currBattlingEnemy : battlingEnemies) {
+                    // boolean criticalHit = false;
+                    // Random random = new Random();
+                    // int randInt = random.nextInt(100) + 1;
+                    // if (randInt <= currBattlingEnemy.getCritRate()) criticalHit = true;
+
                     for (Item equippedItems : equippedInventoryItems) {
                         enemyDamage *= equippedItems.defMultiplier(currBattlingEnemy);
                     }
+
                     if (soldiers.size() > 0) {
                         Soldier s = soldiers.get(0);
                         s.reduceHealth(enemyDamage);
-                        if (s.isDead()) soldiers.remove(0)
+                        if (s.isDead()) soldiers.remove(0);
                     } else {
                         character.reduceHealth(enemyDamage);
                     }

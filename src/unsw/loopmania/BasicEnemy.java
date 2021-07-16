@@ -13,6 +13,7 @@ public abstract class BasicEnemy extends MovingEntity {
     private double damage;
     private int expDrop;
     private int goldDrop;
+    private int critRate;
 
     /**
      * backbone of the enemy constructor
@@ -120,6 +121,22 @@ public abstract class BasicEnemy extends MovingEntity {
     }
 
     /**
+     * get the crit rate of the enemy
+     * @return the crit rate of the enemy
+     */
+    public int getCritRate() {
+        return critRate;
+    }
+
+    /**
+     * set the crit rate of the enemy
+     * @param critRate the crit rate of the enemy
+     */
+    public void setCritRate(int critRate) {
+        this.critRate = critRate;
+    }
+
+    /**
      * Reduces enemy's health by given amount, causing enemy to "take damage"
      *
      * @param health amount of damage to take
@@ -132,6 +149,7 @@ public abstract class BasicEnemy extends MovingEntity {
         return health > 0;
     }
 
+    public void criticalHit(Entity e) {}
 
     /**
      * move the enemy
