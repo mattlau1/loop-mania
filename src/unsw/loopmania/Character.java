@@ -27,6 +27,7 @@ public class Character extends MovingEntity {
         this.gold = 0;
         this.exp = 0;
         this.damage = 15;
+        this.cycleCount = 0;
     }
 
     public int getHealth() {
