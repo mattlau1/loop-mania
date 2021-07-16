@@ -20,6 +20,9 @@ public class LoopManiaWorld {
     public static final int unequippedInventoryWidth = 4;
     public static final int unequippedInventoryHeight = 4;
 
+    // private ComplexGoal complexGoal;
+    // private Goal goal;
+
     /**
      * width of the world in GridPane cells
      */
@@ -141,6 +144,8 @@ public class LoopManiaWorld {
                 // fight...
 
                 // do some damage
+                character.setGold(character.getGold() + 10000);
+                // if(complexGoal.isGameWon()) System.exit(0);
 
                 defeatedEnemies.add(e);
             }

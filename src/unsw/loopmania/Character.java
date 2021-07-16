@@ -3,6 +3,11 @@ package unsw.loopmania;
 import java.util.ArrayList;
 import java.util.List;
 
+import unsw.loopmania.Goals.CycleCountObserver;
+import unsw.loopmania.Goals.EXPObserver;
+import unsw.loopmania.Goals.GoldObserver;
+import unsw.loopmania.Goals.Observer;
+
 /**
  * represents the main character in the backend of the game world
  */
@@ -14,7 +19,7 @@ public class Character extends MovingEntity {
     private int exp;
     private int damage;
 
-    private List<Observer> observers = new ArrayList<Observer>();
+    // private List<Observer> observers;
     private EXPObserver expObserver;
     private GoldObserver goldObserver;
     private CycleCountObserver cycleCountObserver;
@@ -28,6 +33,10 @@ public class Character extends MovingEntity {
         this.exp = 0;
         this.damage = 15;
         this.cycleCount = 0;
+        this.expObserver = new EXPObserver(this);
+        this.goldObserver = new GoldObserver(this);
+        this.cycleCountObserver = new CycleCountObserver(this);
+        // this.observers = new ArrayList<Observer>();
     }
 
     public int getHealth() {
@@ -73,9 +82,9 @@ public class Character extends MovingEntity {
         this.damage = damage;
     }
 
-    public void attach(Observer observer) {
-        observers.add(observer);
-    }
+    // public void attach(Observer observer) {
+    //     observers.add(observer);
+    // }
 
     // public int getState() {
     //     return state;

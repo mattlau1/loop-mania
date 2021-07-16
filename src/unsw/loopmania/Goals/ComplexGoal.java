@@ -6,11 +6,14 @@ public class ComplexGoal extends Goal {
     // win otherwise keep playing
     private int numGoals = getGoals().size();
 
+    public ComplexGoal() {
+    }
+
     public boolean isGameWon() {
         int count = 0;
 
         for (SimpleGoal g: getGoals()) {
-            if (g.isGoalCheck()) 
+            if (g.isCompleted()) 
                 count++;
         }
 

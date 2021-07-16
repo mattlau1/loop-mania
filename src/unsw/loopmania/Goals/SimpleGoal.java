@@ -1,28 +1,27 @@
 package unsw.loopmania.Goals;
 
 public class SimpleGoal extends Goal {
-    private String goalText;
     private int goalValue;
-    private boolean goalCheck;
+    private boolean isCompleted;
     private String goalType;
 
-    public String getGoalText() {
-        return goalText;
+    public SimpleGoal(int goalValue, String goalType) {
+        this.goalValue = goalValue;
+        this.isCompleted = false;
+        this.goalType = goalType;
     }
-    public void setGoalText(String goalText) {
-        this.goalText = goalText;
-    }
+
     public int getGoalValue() {
         return goalValue;
     }
     public void setGoalValue(int goalValue) {
         this.goalValue = goalValue;
     }
-    public boolean isGoalCheck() {
-        return goalCheck;
+    public boolean isCompleted() {
+        return isCompleted;
     }
     public void setGoalCheck(boolean goalCheck) {
-        this.goalCheck = goalCheck;
+        this.isCompleted = goalCheck;
     }
 
     public void setGoalType(String goalType) {
@@ -33,8 +32,12 @@ public class SimpleGoal extends Goal {
         return goalType;
     }
 
-    public void goalMeetsRequirement(int value) {
-        if ((value == goalValue) && !isGoalCheck()) setGoalCheck(true);
+    public boolean goalMeetsRequirement(int value) {
+        if ((value == goalValue) && !isCompleted()) {
+            setGoalCheck(true);
+            return true;
+        }
+        return false;
     }
 
 
