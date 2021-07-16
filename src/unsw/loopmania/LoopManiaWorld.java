@@ -40,7 +40,11 @@ public class LoopManiaWorld {
     // TODO = add more lists for other entities, for equipped inventory items, etc...
     private List<Item> equippedInventoryItems;
 
-    private List<ItemStrategy> itemDrops;
+    private List<ItemStrategy> commonItems;
+    private List<ItemStrategy> lowRarityItems;
+    private List<ItemStrategy> midRarityItems;
+    private List<ItemStrategy> highRarityItems;
+    private List<ItemStrategy> superRarityItems;
 
     // TODO = expand the range of enemies
     private List<BasicEnemy> enemies;
@@ -75,22 +79,34 @@ public class LoopManiaWorld {
         cardEntities = new ArrayList<>();
         unequippedInventoryItems = new ArrayList<>();
         equippedInventoryItems = new ArrayList<>();
-        itemDrops = new ArrayList<>();
+        commonItems = new ArrayList<>();
+        lowRarityItems = new ArrayList<>();
+        midRarityItems = new ArrayList<>();
+        highRarityItems = new ArrayList<>();
+        superRarityItems = new ArrayList<>();
         this.orderedPath = orderedPath;
         buildingEntities = new ArrayList<>();
     }
 
     public void generateItemDrops() {
-        itemDrops.clear();
-        itemDrops.add(new ArmourStrategy());
-        itemDrops.add(new SwordStrategy());
-        itemDrops.add(new StakeStrategy());
-        itemDrops.add(new StaffStrategy());
-        itemDrops.add(new ShieldStrategy());
-        itemDrops.add(new HelmetStrategy());
-        itemDrops.add(new GoldStrategy());
-        itemDrops.add(new HealthPotionStrategy());
-        itemDrops.add(new TheOneRingStrategy());
+        commonItems.clear();
+        lowRarityItems.clear();
+        midRarityItems.clear();
+        superRarityItems.clear();
+
+        commonItems.add(new GoldStrategy());
+
+        lowRarityItems.add(new SwordStrategy());
+        lowRarityItems.add(new StakeStrategy());
+
+        midRarityItems.add(new ArmourStrategy());
+        midRarityItems.add(new ShieldStrategy());
+        midRarityItems.add(new HelmetStrategy());
+
+        highRarityItems.add(new StaffStrategy());
+        highRarityItems.add(new HealthPotionStrategy());
+
+        superRarityItems.add(new TheOneRingStrategy());
     }
 
     public int getWidth() {
@@ -306,10 +322,26 @@ public class LoopManiaWorld {
      * @return the item strategy of the item to be spawned
      */
     public ItemStrategy randomItemStrategy() {
-        int numItems = itemDrops.size();
         Random random = new Random();
-        int randInt = random.nextInt(numItems);
-        return itemDrops.get(randInt);
+        int randInt = random.nextInt(100);
+        System.out.println(randInt);
+        if (randInt <= 1) {
+            int numItems = superRarityItems.size();
+            randInt = random.nextInt(numItems);
+            return superRarityItems.get(randInt);
+        } else if (randInt <= 6) {
+            int numItems = highRarityItems.size();
+            randInt = random.nextInt(numItems);
+            return highRarityItems.get(randInt);
+        } else if (randInt <= 29) {
+            int numItems = midRarityItems.size();
+            randInt = random.nextInt(numItems);
+            return midRarityItems.get(randInt);
+        } else {
+            int numItems = lowRarityItems.size();
+            randInt = random.nextInt(numItems);
+            return lowRarityItems.get(randInt);
+        }
     }
 
     /**
