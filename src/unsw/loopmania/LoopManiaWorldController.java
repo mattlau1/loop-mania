@@ -322,7 +322,7 @@ public class LoopManiaWorldController {
     }
 
     /**
-     * load a vampire castle card into the GUI.
+     * load a card image into the GUI.
      * Particularly, we must connect to the drag detection event handler,
      * and load the image into the cards GridPane.
      * @param card
@@ -365,8 +365,8 @@ public class LoopManiaWorldController {
      * load a building into the GUI
      * @param building
      */
-    private void onLoad(Building building){
-        ImageView view = new ImageView(basicBuildingImage);
+    private void onLoad(Building building) {
+        ImageView view = building.getImage();
         addEntity(building, view);
         squares.getChildren().add(view);
     }
@@ -534,10 +534,10 @@ public class LoopManiaWorldController {
                 draggedEntity.relocateToPoint(new Point2D(event.getSceneX(), event.getSceneY()));
                 switch (draggableType){
                     case CARD:
-                        draggedEntity.setImage(vampireCastleCardImage);
+                        draggedEntity.setImage(view.getImage());
                         break;
                     case ITEM:
-                        draggedEntity.setImage(swordImage);
+                        draggedEntity.setImage(view.getImage());
                         break;
                     default:
                         break;

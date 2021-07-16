@@ -1,5 +1,6 @@
 package unsw.loopmania.Buildings;
 
+import javafx.scene.image.ImageView;
 import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.Character;
 
@@ -26,4 +27,6 @@ public interface BuildingStrategy {
   public int getBuildingRange();
 
   public boolean usableOutsideCombat();
+
+  public ImageView getImage();
 }

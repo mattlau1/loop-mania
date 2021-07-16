@@ -547,7 +547,7 @@ public class LoopManiaWorld {
             }
         }
         // now spawn building
-        Building newBuilding = new Building(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY), new TowerStrategy());
+        Building newBuilding = new Building(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY), card.getBuildingStrategy());
         buildingEntities.add(newBuilding);
 
         // destroy the card

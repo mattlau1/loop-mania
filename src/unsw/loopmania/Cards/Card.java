@@ -3,6 +3,7 @@ package unsw.loopmania.Cards;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.StaticEntity;
+import unsw.loopmania.Buildings.BuildingStrategy;
 
 /**
  * a Card in the world
@@ -19,6 +20,11 @@ public class Card extends StaticEntity {
     public ImageView getImage() {
         CardContext context = new CardContext(strategy);
         return context.getImage();
+    }
+
+    public BuildingStrategy getBuildingStrategy() {
+        CardContext context = new CardContext(strategy);
+        return context.getBuildingStrategy();
     }
 
 }
