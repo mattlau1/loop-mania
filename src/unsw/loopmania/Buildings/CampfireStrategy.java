@@ -1,4 +1,7 @@
-package unsw.loopmania;
+package unsw.loopmania.Buildings;
+
+import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Character;
 
 public class CampfireStrategy implements BuildingStrategy {
   private final int range = 10;
@@ -17,6 +20,11 @@ public class CampfireStrategy implements BuildingStrategy {
   public void useBuilding(BasicEnemy enemy) {
     // enemies cannot use campfires so do nothing
     return;
+  }
+
+  @Override
+  public boolean usableOutsideCombat() {
+    return false;
   }
 
 }

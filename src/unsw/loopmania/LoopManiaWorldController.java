@@ -28,6 +28,9 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
+import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Cards.VampireCastleCard;
+
 import java.util.EnumMap;
 
 import java.io.File;
@@ -291,9 +294,9 @@ public class LoopManiaWorldController {
     /**
      * load a vampire card from the world, and pair it with an image in the GUI
      */
-    private void loadVampireCard() {
+    private void loadCard() {
         // TODO = load more types of card
-        VampireCastleCard vampireCastleCard = world.loadVampireCard();
+        VampireCastleCard vampireCastleCard = world.loadCard();
         onLoad(vampireCastleCard);
     }
 
@@ -316,7 +319,7 @@ public class LoopManiaWorldController {
         // in starter code, spawning extra card/weapon...
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
         loadSword();
-        loadVampireCard();
+        loadCard();
     }
 
     /**
@@ -725,9 +728,9 @@ public class LoopManiaWorldController {
      * EventHandlers will run on the application thread.
      */
     private void printThreadingNotes(String currentMethodLabel){
-        System.out.println("\n###########################################");
-        System.out.println("current method = "+currentMethodLabel);
-        System.out.println("In application thread? = "+Platform.isFxApplicationThread());
-        System.out.println("Current system time = "+java.time.LocalDateTime.now().toString().replace('T', ' '));
+        // System.out.println("\n###########################################");
+        // System.out.println("current method = "+currentMethodLabel);
+        // System.out.println("In application thread? = "+Platform.isFxApplicationThread());
+        // System.out.println("Current system time = "+java.time.LocalDateTime.now().toString().replace('T', ' '));
     }
 }

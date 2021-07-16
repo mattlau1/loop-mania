@@ -1,6 +1,12 @@
-package unsw.loopmania;
+package unsw.loopmania.Buildings;
 
-public class TrapStrategy implements BuildingStrategy {
+import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Character;
+
+/**
+ * a basic form of building in the world
+ */
+public class VampireCastleStrategy implements BuildingStrategy {
   private final int range = 2;
 
   @Override
@@ -19,4 +25,11 @@ public class TrapStrategy implements BuildingStrategy {
     // TODO Auto-generated method stub
 
   }
+
+  @Override
+  public boolean usableOutsideCombat() {
+    return true;
+  }
+
+
 }

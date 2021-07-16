@@ -1,4 +1,7 @@
-package unsw.loopmania;
+package unsw.loopmania.Buildings;
+
+import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Character;
 
 public class TowerStrategy implements BuildingStrategy {
   private final int range = 2;
@@ -19,4 +22,10 @@ public class TowerStrategy implements BuildingStrategy {
     enemy.reduceHealth(towerDamage);
     System.out.printf("OUCH, %s JUST TOOK %d DAMAGE!\n", enemy.getClass(), towerDamage);
   }
+
+  @Override
+  public boolean usableOutsideCombat() {
+    return false;
+  }
+
 }

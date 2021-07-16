@@ -7,6 +7,9 @@ import java.util.Random;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Buildings.TowerStrategy;
+import unsw.loopmania.Cards.VampireCastleCard;
 
 /**
  * A backend world.
@@ -196,7 +199,7 @@ public class LoopManiaWorld {
 
         // building for character outside of combat
         for (Building b : buildingEntities) {
-            if (isInRange(b, character)) {
+            if (isInRange(b, character) && b.usableOutsideCombat()) {
                 b.useBuilding(character);
             }
         }
@@ -204,7 +207,7 @@ public class LoopManiaWorld {
         // building for enemies outside of combat
         for (Building b : buildingEntities) {
             for (BasicEnemy e : enemies) {
-                if (isInRange(b, e)) {
+                if (isInRange(b, e) && b.usableOutsideCombat()) {
                     b.useBuilding(e);
                 }
             }
@@ -274,7 +277,7 @@ public class LoopManiaWorld {
      * spawn a card in the world and return the card entity
      * @return a card to be spawned in the controller as a JavaFX node
      */
-    public VampireCastleCard loadVampireCard(){
+    public Card loadCard() {
         // if adding more cards than have, remove the first card...
         if (cardEntities.size() >= getWidth()){
             // TODO = give some cash/experience/item rewards for the discarding of the oldest card
@@ -483,7 +486,7 @@ public class LoopManiaWorld {
             }
         }
         // now spawn building
-        Building newBuilding = new Building(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY), new VampireCastleStrategy());
+        Building newBuilding = new Building(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY), new TowerStrategy());
         buildingEntities.add(newBuilding);
 
         // destroy the card

@@ -1,4 +1,7 @@
-package unsw.loopmania;
+package unsw.loopmania.Buildings;
+
+import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Character;
 
 public class BuildingContext {
 
@@ -14,6 +17,10 @@ public class BuildingContext {
 
     public void useBuilding(BasicEnemy enemy) {
         strategy.useBuilding(enemy);
+    }
+
+    public boolean usableOutsideCombat() {
+        return strategy.usableOutsideCombat();
     }
 
     public int getBuildingRange() {

@@ -1,4 +1,7 @@
-package unsw.loopmania;
+package unsw.loopmania.Buildings;
+
+import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Character;
 
 public interface BuildingStrategy {
   /**
@@ -22,4 +25,5 @@ public interface BuildingStrategy {
    */
   public int getBuildingRange();
 
+  public boolean usableOutsideCombat();
 }
