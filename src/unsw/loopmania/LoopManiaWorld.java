@@ -206,9 +206,9 @@ public class LoopManiaWorld {
             // and spawn an enemy on the closest path tile to that building
             for (Building building : buildingEntities) {
                 if (building.canSpawnEnemy(character.getCycleCount())) {
+                    // TODO: change spawn location to closest path
                     Pair<Integer, Integer> buildingLocation = new Pair<Integer, Integer>(building.getX(), building.getY());
                     int buildingIndexInPath = orderedPath.indexOf(buildingLocation);
-
                     Enemy enemy = building.spawnEnemy(new PathPosition(buildingIndexInPath, orderedPath));
                     if (enemy != null) {
                         enemies.add(enemy);
