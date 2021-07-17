@@ -9,29 +9,24 @@ import unsw.loopmania.Goals.Observer;
  * represents the main character in the backend of the game world
  */
 public class Character extends MovingEntity {
-    
-    private int health;
-    private int gold;
-    private int exp;
-    private int damage;
-    private List<Observer> observers;
-    private int cycleCount;
+    // TODO = potentially implement relationships between this class and other
+    // classes
+
+    private double health = 6;
+    private int gold = 0;
+    private int exp = 0;
+    private double damage = 15;
+    private double damageMultiplier = 1;
 
     public Character(PathPosition position) {
         super(position);
-        this.health = 100;
-        this.gold = 0;
-        this.exp = 0;
-        this.damage = 15;
-        this.cycleCount = 0;
-        this.observers = new ArrayList<Observer>();
     }
 
-    public int getHealth() {
+    public double getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
+    public void setHealth(double health) {
         this.health = health;
     }
 
@@ -62,23 +57,76 @@ public class Character extends MovingEntity {
         // notifyAllObservers();
     }
 
-    public int getDamage() {
+    /**
+     * Gets raw damage (not including damage multiplier)
+     *
+     * @return character's damage before multipliers
+     */
+    public double getDamage() {
         return damage;
     }
 
-    public void setDamage(int damage) {
+    /**
+     * Gets character's damage including multiplier
+     *
+     * @return character's damage after multiplier
+     */
+    public double getMultipliedDamage() {
+        return damage * damageMultiplier;
+    }
+
+    public void setDamage(double damage) {
         this.damage = damage;
     }
 
-    public void addToObserver(Observer observer) {
-        observers.add(observer);
+    public double getDamageMultiplier() {
+        return damageMultiplier;
     }
 
-    public void notifyAllObservers() {
-        for (Observer observer: observers) {
-            observer.update();
-        }
+    public void setDamageMultiplier(double damageMultiplier) {
+        this.damageMultiplier = damageMultiplier;
     }
 
-    
+    public void resetDamageMultiplier() {
+        this.damageMultiplier = 1;
+    }
+
+    public boolean isAlive() {
+        return health > 0;
+    }
+
+    public boolean isDead() {
+        return health <= 0;
+    }
+
+    public void addGold(int gainedGold) {
+        this.gold += gainedGold;
+    }
+
+    public void deductGold(int lostGold) {
+        this.gold -= lostGold;
+    }
+
+    public void addEXP(int droppedEXP) {
+        this.exp += droppedEXP;
+    }
+
+    /**
+     * Reduces character's health by given amount, causing character to take damage
+     *
+     * @param health amount of damage to take
+     */
+    public void reduceHealth(double health) {
+        this.health -= health;
+    }
+
+    /**
+     * Increases character's health by given amount, healing the character
+     *
+     * @param health amount of damage to take
+     */
+    public void addHealth(double health) {
+        this.health += health;
+    }
+
 }

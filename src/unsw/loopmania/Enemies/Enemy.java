@@ -1,25 +1,30 @@
-package unsw.loopmania;
+package unsw.loopmania.Enemies;
 
 import java.util.Random;
+
+import unsw.loopmania.Entity;
+import unsw.loopmania.MovingEntity;
+import unsw.loopmania.PathPosition;
 
 /**
  * a basic form of enemy in the world
  */
-public abstract class BasicEnemy extends MovingEntity {
+public abstract class Enemy extends MovingEntity {
 
-    private int health;
+    private double health;
     private int battleRange;
     private int supportRange;
-    private int damage;
+    private double damage;
     private int expDrop;
     private int goldDrop;
+    private int critRate;
 
     /**
      * backbone of the enemy constructor
-     * 
+     *
      * @param position the position where the enemy will spawn in the map
      */
-    public BasicEnemy(PathPosition position) {
+    public Enemy(PathPosition position) {
         super(position);
     }
 
@@ -27,7 +32,7 @@ public abstract class BasicEnemy extends MovingEntity {
      * get the current health of the enemy
      * @return the enemy's health
      */
-    public int getHealth() {
+    public double getHealth() {
         return health;
     }
 
@@ -35,7 +40,7 @@ public abstract class BasicEnemy extends MovingEntity {
      * change the health of the enemy
      * @param health the new health for the enemy
      */
-    public void setHealth(int health) {
+    public void setHealth(double health) {
         this.health = health;
     }
 
@@ -59,7 +64,7 @@ public abstract class BasicEnemy extends MovingEntity {
      * get the battle range of the enemy
      * @return the enemy's damage
      */
-    public int getDamage() {
+    public double getDamage() {
         return damage;
     }
 
@@ -67,7 +72,7 @@ public abstract class BasicEnemy extends MovingEntity {
      * change the damage of the enemy
      * @param damage the damage for the enemy
      */
-    public void setDamage(int damage) {
+    public void setDamage(double damage) {
         this.damage = damage;
     }
 
@@ -120,15 +125,49 @@ public abstract class BasicEnemy extends MovingEntity {
     }
 
     /**
+     * get the crit rate of the enemy
+     * @return the crit rate of the enemy
+     */
+    public int getCritRate() {
+        return critRate;
+    }
+
+    /**
+     * set the crit rate of the enemy
+     * @param critRate the crit rate of the enemy
+     */
+    public void setCritRate(int critRate) {
+        this.critRate = critRate;
+    }
+
+    /**
+     * Reduces enemy's health by given amount, causing enemy to "take damage"
+     *
+     * @param health amount of damage to take
+     */
+    public void reduceHealth(double health) {
+        this.health -= health;
+    }
+
+    public boolean isAlive() {
+        return health > 0;
+    }
+
+    public void criticalHit(Entity e) {}
+
+    /**
      * move the enemy
      */
-    public void move(){
-        // this basic enemy moves in a random direction... 25% chance up or down, 50% chance not at all...
+    public void move() {
+        // TODO = modify this, since this implementation doesn't provide the expected
+        // enemy behaviour
+        // this basic enemy moves in a random direction... 25% chance up or down, 50%
+        // chance not at all...
         int directionChoice = (new Random()).nextInt(2);
-        if (directionChoice == 0){
+        System.out.println(directionChoice);
+        if (directionChoice == 0) {
             moveUpPath();
-        }
-        else if (directionChoice == 1){
+        } else if (directionChoice == 1) {
             moveDownPath();
         }
     }
