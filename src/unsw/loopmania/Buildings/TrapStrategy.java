@@ -12,7 +12,7 @@ public class TrapStrategy implements BuildingStrategy {
   private final int trapDamage = 20;
 
   @Override
-  public int getBuildingRange() {
+  public int getRange() {
     return range;
   }
 

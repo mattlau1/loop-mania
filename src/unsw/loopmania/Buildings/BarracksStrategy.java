@@ -23,7 +23,7 @@ public class BarracksStrategy implements BuildingStrategy {
   }
 
   @Override
-  public int getBuildingRange() {
+  public int getRange() {
     return range;
   }
 

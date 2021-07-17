@@ -12,7 +12,7 @@ public class TowerStrategy implements BuildingStrategy {
   private final int towerDamage = 10;
 
   @Override
-  public int getBuildingRange() {
+  public int getRange() {
     return range;
   }
 

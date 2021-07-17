@@ -8,8 +8,6 @@ import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Buildings.Building;
-import unsw.loopmania.Buildings.TowerStrategy;
-import unsw.loopmania.Buildings.ZombiePitStrategy;
 import unsw.loopmania.Cards.BarracksCardStrategy;
 import unsw.loopmania.Cards.CampfireCardStrategy;
 import unsw.loopmania.Cards.Card;
@@ -178,7 +176,7 @@ public class LoopManiaWorld {
         // TODO = expand this very basic version
         Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
         List<BasicEnemy> spawningEnemies = new ArrayList<>();
-        if (pos != null){
+        if (pos != null) {
             int indexInPath = orderedPath.indexOf(pos);
             BasicEnemy enemy = new SlugEnemy(new PathPosition(indexInPath, orderedPath));
             enemies.add(enemy);

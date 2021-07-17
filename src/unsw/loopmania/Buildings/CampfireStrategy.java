@@ -11,7 +11,7 @@ public class CampfireStrategy implements BuildingStrategy {
   private final int range = 10;
 
   @Override
-  public int getBuildingRange() {
+  public int getRange() {
     return range;
   }
 

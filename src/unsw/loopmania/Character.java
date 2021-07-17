@@ -83,12 +83,21 @@ public class Character extends MovingEntity {
     }
 
     /**
-     * Reduces enemy's health by given amount, causing enemy to "take damage"
+     * Reduces character's health by given amount, causing character to take damage
      *
      * @param health amount of damage to take
      */
     public void reduceHealth(double health) {
         this.health -= health;
+    }
+
+    /**
+     * Increases character's health by given amount, healing the character
+     *
+     * @param health amount of damage to take
+     */
+    public void addHealth(double health) {
+        this.health += health;
     }
 
 }
