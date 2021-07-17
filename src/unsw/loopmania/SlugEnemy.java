@@ -10,6 +10,7 @@ public class SlugEnemy extends BasicEnemy {
     private final double damage = 5;
     private final int expDrop = 10;
     private final int goldDrop = 10;
+    private final int critRate = 0;
 
     /**
      * spawn the slug constructor
@@ -24,6 +25,7 @@ public class SlugEnemy extends BasicEnemy {
         setDamage(damage);
         setExpDrop(expDrop);
         setGoldDrop(goldDrop);
+        setCritRate(critRate);
     }
 
     @Override

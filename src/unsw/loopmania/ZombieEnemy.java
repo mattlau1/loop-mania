@@ -10,6 +10,7 @@ public class ZombieEnemy extends BasicEnemy {
     private final double damage = 10;
     private final int expDrop = 25;
     private final int goldDrop = 25;
+    private final int critRate = 20;
 
     /**
      * spawn the zombie constructor
@@ -24,6 +25,7 @@ public class ZombieEnemy extends BasicEnemy {
         setDamage(damage);
         setExpDrop(expDrop);
         setGoldDrop(goldDrop);
+        setCritRate(critRate);
     }
 
     @Override

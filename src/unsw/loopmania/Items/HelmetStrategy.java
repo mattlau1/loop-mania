@@ -1,61 +1,61 @@
-package unsw.loopmania;
+package unsw.loopmania.Items;
 
 import java.io.File;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import unsw.loopmania.BasicEnemy;
 
-public class StakeStrategy implements ItemStrategy{
-    @Override
+public class HelmetStrategy implements ItemStrategy{
     /**
-     *  Stake item lowers danage dealt by 50% unless the Character is attacking
-     *  a vampire, in which case deal three times as much damage
+     *  Helmet item lowers damage dealt by the Character by 25% so returns 0.75
      * @param enemy The monster/entity that the Character is in combat with
      * @return The attack multiplier against the monster, may vary depending on
      *          the monster type
      */
+    @Override
     public double atkMultiplier(BasicEnemy enemy) {
-        if (enemy instanceof VampireEnemy) return 3;
-        return 0.5;
+        return 0.75;
     }
 
-    @Override
     /**
-     *  Stake item does not have any defence mechanics, so returns 1
+     *  Helmet item lowers damage recieved by the Character by 25% so
+     *  returns 0.75
      * @param enemy The monster/entity that the Character is in combat with
      * @return The defence multiplier against the monster, can vary depending on
      *          the monster type
      */
+    @Override
     public double defMultiplier(BasicEnemy enemy) {
-        return 1;
+        return 0.75;
     }
 
-    @Override
     /**
-     *  Stake item does not have any defence mechanics, so returns 1
+     *  Helmet item does not have any critical hit mechanics, so returns 1
      * @param enemy The monster/entity that the Character is in combat with
-     * @return The defence multiplier against the monster, can vary depending on
+     * @return The crit multiplier against the monster, can vary depending on
      *          the monster type
      */
+    @Override
     public double critMultiplier(BasicEnemy enemy) {
         return 1;
     }
 
-    @Override
     /**
-     *  Stake item does not have any on hit effects so does nothing
+     *  Helmet item does not have any on hit effects so does nothing
      * @param enemy The monster/entity that the Character is in combat with
      */
+    @Override
     public void onHitEffects(BasicEnemy enemy) {}
 
-    @Override
     /**
      *  returns the image of the item to be displayed
      * @return the imageview of the item
      */
+    @Override
     public ImageView getImage() {
-        Image stakeImage = new Image((new File("src/images/stake.png")).toURI().toString());
-        ImageView view = new ImageView(stakeImage);
+        Image image = new Image((new File("src/images/helmet.png")).toURI().toString());
+        ImageView view = new ImageView(image);
         return view;
     }
 

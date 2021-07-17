@@ -28,6 +28,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
+import unsw.loopmania.Items.Item;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Cards.Card;
 
@@ -352,6 +353,32 @@ public class LoopManiaWorldController {
     }
 
     /**
+     * load a sword into the GUI.
+     * Particularly, we must connect to the drag detection event handler,
+     * and load the image into the unequippedInventory GridPane.
+     * @param sword
+     */
+    private void onLoad(Item item, ImageView view) {
+        // ImageView view = item.getImage();
+        addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, unequippedInventory, equippedItems);
+        addEntity(item, view);
+        unequippedInventory.getChildren().add(view);
+    }
+
+    /**
+     * load a sword into the GUI.
+     * Particularly, we must connect to the drag detection event handler,
+     * and load the image into the unequippedInventory GridPane.
+     * @param sword
+     */
+    private void onLoadEquipped(Item item, ImageView view) {
+        // ImageView view = item.getImage();
+        addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, equippedItems, unequippedInventory);
+        addEntity(item, view);
+        equippedItems.getChildren().add(view);
+    }
+
+    /**
      * load an enemy into the GUI
      * @param enemy
      */
@@ -419,7 +446,15 @@ public class LoopManiaWorldController {
                             case ITEM:
                                 removeDraggableDragEventHandlers(draggableType, targetGridPane);
                                 // TODO = spawn an item in the new location. The above code for spawning a building will help, it is very similar
+                                // onLoadEquipped(world.getEquippedInventoryItemEntityByCoordinates(x, y));
+                                // Item newItem = equipItembyCoordinates(nodeX, nodeY, x, y);
+                                // if (targetGridPane == equippedItems) {
+                                //     onLoadEquipped(newItem, image);
+                                // } else {
+                                //     onLoad(newItem, image);
+                                // }
                                 removeItemByCoordinates(nodeX, nodeY);
+
                                 targetGridPane.add(image, x, y, 1, 1);
                                 break;
                             default:
@@ -496,6 +531,10 @@ public class LoopManiaWorldController {
      */
     private Building convertCardToBuildingByCoordinates(int cardNodeX, int cardNodeY, int buildingNodeX, int buildingNodeY) {
         return world.convertCardToBuildingByCoordinates(cardNodeX, cardNodeY, buildingNodeX, buildingNodeY);
+    }
+
+    private Item equipItembyCoordinates(int oldX, int oldY, int newX, int newY) {
+        return world.equipItembyCoordinates(oldX, oldY, newX, newY);
     }
 
     /**

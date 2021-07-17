@@ -82,6 +82,18 @@ public class Character extends MovingEntity {
         return health <= 0;
     }
 
+    public void addGold(int gainedGold) {
+        this.gold += gainedGold;
+    }
+
+    public void deductGold(int lostGold) {
+        this.gold -= lostGold;
+    }
+
+    public void addEXP(int droppedEXP) {
+        this.exp += droppedEXP;
+    }
+
     /**
      * Reduces character's health by given amount, causing character to take damage
      *

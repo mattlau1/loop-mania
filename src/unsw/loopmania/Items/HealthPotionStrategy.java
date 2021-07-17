@@ -1,62 +1,61 @@
-package unsw.loopmania;
+package unsw.loopmania.Items;
 
 import java.io.File;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import unsw.loopmania.BasicEnemy;
 
-public class HelmetStrategy implements ItemStrategy{
-    @Override
+public class HealthPotionStrategy implements ItemStrategy{
     /**
-     *  Helmet item lowers damage dealt by the Character by 25% so returns 0.75
+     *  HealthPotion item does not have any attack mechanics, so returns 1
      * @param enemy The monster/entity that the Character is in combat with
      * @return The attack multiplier against the monster, may vary depending on
      *          the monster type
      */
+    @Override
     public double atkMultiplier(BasicEnemy enemy) {
-        return 0.75;
+        return 1;
     }
 
-    @Override
     /**
-     *  Helmet item lowers damage recieved by the Character by 25% so
-     *  returns 0.75
+     *  HealthPotion item does not have any defence mechanics, so returns 1
      * @param enemy The monster/entity that the Character is in combat with
      * @return The defence multiplier against the monster, can vary depending on
      *          the monster type
      */
+    @Override
     public double defMultiplier(BasicEnemy enemy) {
-        return 0.75;
+        return 1;
     }
 
-    @Override
     /**
-     *  Helmet item does not have any critical hit mechanics, so returns 1
+     *  HealthPotion item does not have any critical hit mechanics, so returns 1
      * @param enemy The monster/entity that the Character is in combat with
      * @return The crit multiplier against the monster, can vary depending on
      *          the monster type
      */
+    @Override
     public double critMultiplier(BasicEnemy enemy) {
         return 1;
     }
 
-    @Override
     /**
-     *  Helmet item does not have any on hit effects so does nothing
+     *  HealthPotion item does not have any on hit effects so does nothing
      * @param enemy The monster/entity that the Character is in combat with
      */
+    @Override
     public void onHitEffects(BasicEnemy enemy) {}
 
-    @Override
     /**
      *  returns the image of the item to be displayed
      * @return the imageview of the item
      */
+    @Override
     public ImageView getImage() {
-        Image helmetImage = new Image((new File("src/images/helmet.png")).toURI().toString());
-        ImageView view = new ImageView(helmetImage);
+        Image image = new Image((new File("src/images/brilliant_blue_new.png")).toURI().toString());
+        ImageView view = new ImageView(image);
         return view;
     }
 
 }
-
