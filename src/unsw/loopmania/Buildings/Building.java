@@ -3,6 +3,7 @@ package unsw.loopmania.Buildings;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Character;
+import unsw.loopmania.PathPosition;
 import unsw.loopmania.StaticEntity;
 import unsw.loopmania.Enemies.Enemy;
 
@@ -43,8 +44,12 @@ public class Building extends StaticEntity implements BuildingStrategy {
   }
 
   @Override
-  public boolean canSpawnEnemy() {
-    return strategy.canSpawnEnemy();
+  public boolean canSpawnEnemy(int currentCycle) {
+    return strategy.canSpawnEnemy(currentCycle);
+  }
+
+  public Enemy spawnEnemy(PathPosition position) {
+    return strategy.spawnEnemy(position);
   }
 
 }

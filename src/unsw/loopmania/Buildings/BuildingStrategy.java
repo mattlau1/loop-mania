@@ -2,6 +2,7 @@ package unsw.loopmania.Buildings;
 
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Character;
+import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.Enemy;
 
 public interface BuildingStrategy {
@@ -41,10 +42,18 @@ public interface BuildingStrategy {
   public ImageView getImage();
 
   /**
-   * Checks if building can spawn enemies
+   * Checks if building can spawn enemies, given the current cycle number
    *
+   * @param currentCycle current cycle count of character
    * @return true if building can spawn enemies else false
    */
-  public boolean canSpawnEnemy();
+  public boolean canSpawnEnemy(int currentCycle);
 
+  /**
+   * Spawns a new enemy at given position and returns it
+   *
+   * @param position position to spawn enemy at
+   * @return the new enemy if building can spawn enemies, else null
+   */
+  public Enemy spawnEnemy(PathPosition position);
 }

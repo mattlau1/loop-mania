@@ -4,13 +4,12 @@ package unsw.loopmania;
  * represents the main character in the backend of the game world
  */
 public class Character extends MovingEntity {
-    // TODO = potentially implement relationships between this class and other classes
-
     private double health = 6;
     private int gold = 0;
     private int exp = 0;
     private double damage = 15;
     private double damageMultiplier = 1;
+    private int currentCycle = 0;
 
     public Character(PathPosition position) {
         super(position);
@@ -112,4 +111,20 @@ public class Character extends MovingEntity {
         this.health += health;
     }
 
+    /**
+     * Adds 1 to the character's cycle count
+     */
+    public void incrementCycleCount() {
+        this.currentCycle++;
+    }
+
+    /**
+     * Gets the cycle that the character is currently on
+     *
+     * @return current cycle number
+     */
+    public int getCycleCount() {
+        System.out.printf("Current Cycle Number: %d\n", currentCycle);
+        return this.currentCycle;
+    }
 }

@@ -5,13 +5,16 @@ import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Character;
+import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.Enemy;
+import unsw.loopmania.Enemies.VampireEnemy;
 
 /**
  * a basic form of building in the world
  */
 public class VampireCastleStrategy implements BuildingStrategy {
   private final int range = 2;
+  private final int cycleNumberToSpawnAt = 5;
 
   @Override
   public int getRange() {
@@ -41,7 +44,13 @@ public class VampireCastleStrategy implements BuildingStrategy {
   }
 
   @Override
-  public boolean canSpawnEnemy() {
-    return true;
+  public boolean canSpawnEnemy(int currentCycle) {
+    return currentCycle != 0 && currentCycle % cycleNumberToSpawnAt == 0;
   }
+
+  @Override
+  public Enemy spawnEnemy(PathPosition position) {
+    return new VampireEnemy(position);
+  }
+
 }

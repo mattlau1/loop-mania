@@ -5,6 +5,7 @@ import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Character;
+import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.Enemy;
 
 public class HerosCastleStrategy implements BuildingStrategy {
@@ -17,7 +18,8 @@ public class HerosCastleStrategy implements BuildingStrategy {
 
   @Override
   public void useBuilding(Character character) {
-    // TODO: Open Shop
+    character.incrementCycleCount();
+    // TODO: Open Shop if cycle count permits it
   }
 
   @Override
@@ -38,7 +40,13 @@ public class HerosCastleStrategy implements BuildingStrategy {
   }
 
   @Override
-  public boolean canSpawnEnemy() {
+  public boolean canSpawnEnemy(int currentCycle) {
     return false;
   }
+
+  @Override
+  public Enemy spawnEnemy(PathPosition position) {
+    return null;
+  }
+
 }

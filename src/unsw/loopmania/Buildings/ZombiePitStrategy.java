@@ -5,7 +5,9 @@ import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Character;
+import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.Enemy;
+import unsw.loopmania.Enemies.ZombieEnemy;
 
 public class ZombiePitStrategy implements BuildingStrategy {
   private final int range = 2;
@@ -38,7 +40,13 @@ public class ZombiePitStrategy implements BuildingStrategy {
   }
 
   @Override
-  public boolean canSpawnEnemy() {
-    return true;
+  public boolean canSpawnEnemy(int currentCycle) {
+    return currentCycle != 0;
   }
+
+  @Override
+  public Enemy spawnEnemy(PathPosition position) {
+    return new ZombieEnemy(position);
+  }
+
 }

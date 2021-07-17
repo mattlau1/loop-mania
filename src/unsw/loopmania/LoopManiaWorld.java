@@ -30,6 +30,7 @@ import unsw.loopmania.Cards.VillageCardStrategy;
 import unsw.loopmania.Cards.ZombiePitCardStrategy;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SlugEnemy;
+import unsw.loopmania.Enemies.VampireEnemy;
 
 /**
  * A backend world.
@@ -194,9 +195,27 @@ public class LoopManiaWorld {
         List<Enemy> spawningEnemies = new ArrayList<>();
         if (pos != null) {
             int indexInPath = orderedPath.indexOf(pos);
-            Enemy enemy = new SlugEnemy(new PathPosition(indexInPath, orderedPath));
-            enemies.add(enemy);
-            spawningEnemies.add(enemy);
+
+            // spawns a slug
+            Enemy slug = new SlugEnemy(new PathPosition(indexInPath, orderedPath));
+            enemies.add(slug);
+            spawningEnemies.add(slug);
+
+            // go through every building in the world
+            // if the building can spawn enemies, check cycle count
+            // and spawn an enemy on the closest path tile to that building
+            for (Building building : buildingEntities) {
+                if (building.canSpawnEnemy(character.getCycleCount())) {
+                    Pair<Integer, Integer> buildingLocation = new Pair<Integer, Integer>(building.getX(), building.getY());
+                    int buildingIndexInPath = orderedPath.indexOf(buildingLocation);
+
+                    Enemy enemy = building.spawnEnemy(new PathPosition(buildingIndexInPath, orderedPath));
+                    if (enemy != null) {
+                        enemies.add(enemy);
+                        spawningEnemies.add(enemy);
+                    }
+                }
+            }
         }
         return spawningEnemies;
     }
@@ -237,11 +256,10 @@ public class LoopManiaWorld {
      * @return list of enemies which have been killed
      */
     public List<Enemy> runBattles() {
-        // we have four types of buildings:
+        // we have three types of buildings:
         // one that is for the character outside of combat (i.e village)
         // one that is for the enemies outside of combat (i.e trap)
         // one that is for the character and enemies inside of combat (i.e tower, campfire)
-        // TODO = one that is for the game (i.e vampire castle, zombie pit)
 
         // building for character outside of combat
         for (Building b : buildingEntities) {
@@ -258,7 +276,6 @@ public class LoopManiaWorld {
                 }
             }
         }
-
 
         // building for enemies and character inside of combat
         List<Enemy> battlingEnemies = new ArrayList<Enemy>();

@@ -5,6 +5,7 @@ import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Character;
+import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.Enemy;
 
 public class BarracksStrategy implements BuildingStrategy {
@@ -38,10 +39,13 @@ public class BarracksStrategy implements BuildingStrategy {
   }
 
   @Override
-  public boolean canSpawnEnemy() {
-    // TODO Auto-generated method stub
+  public boolean canSpawnEnemy(int currentCycle) {
     return false;
   }
 
+  @Override
+  public Enemy spawnEnemy(PathPosition position) {
+    return null;
+  }
 
 }

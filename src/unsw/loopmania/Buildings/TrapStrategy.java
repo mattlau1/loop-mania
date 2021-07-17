@@ -5,6 +5,7 @@ import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Character;
+import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.Enemy;
 
 public class TrapStrategy implements BuildingStrategy {
@@ -39,8 +40,13 @@ public class TrapStrategy implements BuildingStrategy {
   }
 
   @Override
-  public boolean canSpawnEnemy() {
+  public boolean canSpawnEnemy(int currentCycle) {
     return false;
+  }
+
+  @Override
+  public Enemy spawnEnemy(PathPosition position) {
+    return null;
   }
 
 }
