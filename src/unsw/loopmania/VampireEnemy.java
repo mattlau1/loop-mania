@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import unsw.loopmania.Buffs.Buff;
+import unsw.loopmania.Buffs.VampireCritBuff;
+
 public class VampireEnemy extends BasicEnemy {
 
     private final double health = 60;
@@ -41,6 +44,11 @@ public class VampireEnemy extends BasicEnemy {
         if (directionChoice == 0){
             moveUpPath();
         }
+    }
+
+    @Override
+    public Buff criticalHit() {
+        return new VampireCritBuff();
     }
 
     // @Override

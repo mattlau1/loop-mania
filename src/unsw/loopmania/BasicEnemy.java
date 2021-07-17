@@ -1,7 +1,7 @@
 package unsw.loopmania;
 
 import java.util.Random;
-
+import unsw.loopmania.Buffs.Buff;
 /**
  * a basic form of enemy in the world
  */
@@ -149,7 +149,10 @@ public abstract class BasicEnemy extends MovingEntity {
         return health > 0;
     }
 
-    public void criticalHit(Entity e) {}
+    public Buff criticalHit() {
+        Buff buff = new Buff();
+        return buff;
+    }
 
     /**
      * move the enemy

@@ -1,10 +1,12 @@
 package unsw.loopmania.Items;
 
 import java.io.File;
+import java.util.List;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Soldier;
 
 public class TheOneRingStrategy implements ItemStrategy{
     /**
@@ -45,7 +47,7 @@ public class TheOneRingStrategy implements ItemStrategy{
      * @param enemy The monster/entity that the Character is in combat with
      */
     @Override
-    public void onHitEffects(BasicEnemy enemy) {}
+    public void onHitEffects(BasicEnemy enemy, List<Soldier> allyList) {}
 
     /**
      *  returns the image of the item to be displayed

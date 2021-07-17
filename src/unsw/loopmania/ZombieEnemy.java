@@ -2,6 +2,9 @@ package unsw.loopmania;
 
 import java.util.Random;
 
+import unsw.loopmania.Buffs.Buff;
+import unsw.loopmania.Buffs.ZombieCritBuff;
+
 public class ZombieEnemy extends BasicEnemy {
 
     private final double health = 30;
@@ -26,6 +29,11 @@ public class ZombieEnemy extends BasicEnemy {
         setExpDrop(expDrop);
         setGoldDrop(goldDrop);
         setCritRate(critRate);
+    }
+
+    @Override
+    public Buff criticalHit() {
+        return new ZombieCritBuff();
     }
 
     @Override

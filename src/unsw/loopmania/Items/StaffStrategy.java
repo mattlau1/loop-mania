@@ -1,10 +1,12 @@
 package unsw.loopmania.Items;
 
 import java.io.File;
+import java.util.List;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Soldier;
 
 public class StaffStrategy implements ItemStrategy{
     /**
@@ -46,11 +48,10 @@ public class StaffStrategy implements ItemStrategy{
      * @param enemy The monster/entity that the Character is in combat with
      */
     @Override
-    public void onHitEffects(BasicEnemy enemy) {
-        // TODO
-        //  random chance of inflicting a trance, which transforms the attacked
-        //  enemy into an allied soldier temporarily
-    }
+    public void onHitEffects(BasicEnemy enemy, List<Soldier> allyList) {
+        enemy.reduceHealth(100);
+        allyList.add(new Soldier());
+    };
 
     /**
      *  returns the image of the item to be displayed

@@ -12,6 +12,7 @@ public abstract class MovingEntity extends Entity {
      */
     private PathPosition position;
 
+
     /**
      * Create a moving entity which moves up and down the path in position
      * @param position represents the current position in the path
