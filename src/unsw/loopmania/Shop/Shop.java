@@ -45,4 +45,8 @@ public class Shop {
         shopItem.add(item);
     }
 
+    public void exitShop() {
+        // exit
+    }
+
 }
