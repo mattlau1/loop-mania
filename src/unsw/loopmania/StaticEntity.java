@@ -35,4 +35,10 @@ public abstract class StaticEntity extends Entity {
     public int getY() {
         return y().get();
     }
+
+    public void setCoords(int newX, int newY) {
+        this.x = new SimpleIntegerProperty(newX);
+        this.y = new SimpleIntegerProperty(newY);
+    }
+
 }

@@ -451,9 +451,9 @@ public class LoopManiaWorld {
      * @param x x coordinate from 0 to width-1
      * @param y y coordinate from 0 to height-1
      */
-    public void removeEquippedInventoryItemByCoordinates(int x, int y){
-        Entity item = getEquippedInventoryItemEntityByCoordinates(x, y);
-        removeEquippedInventoryItem(item);
+    public void addEquippedInventoryItemByCoordinates(int x, int y){
+        Item item = getEquippedInventoryItemEntityByCoordinates(x, y);
+        addEquippedInventoryItem(item);
     }
 
     /**
@@ -468,7 +468,7 @@ public class LoopManiaWorld {
      * remove an item from the unequipped inventory
      * @param item item to be removed
      */
-    private void removeUnequippedInventoryItem(Entity item){
+    public void removeUnequippedInventoryItem(Entity item){
         item.destroy();
         unequippedInventoryItems.remove(item);
     }
@@ -477,9 +477,17 @@ public class LoopManiaWorld {
      * remove an item from the unequipped inventory
      * @param item item to be removed
      */
-    private void removeEquippedInventoryItem(Entity item){
+    public void removeEquippedInventoryItem(Item item){
         item.destroy();
         equippedInventoryItems.remove(item);
+    }
+
+    /**
+     * add an item to the equipped inventory
+     * @param item item to be added
+     */
+    public void addEquippedInventoryItem(Item item){
+        equippedInventoryItems.add(item);
     }
 
     /**
@@ -489,7 +497,7 @@ public class LoopManiaWorld {
      * @param y y index from 0 to height-1
      * @return unequipped inventory item at the input position
      */
-    private Item getUnequippedInventoryItemEntityByCoordinates(int x, int y){
+    public Item getUnequippedInventoryItemEntityByCoordinates(int x, int y){
         for (Item e: unequippedInventoryItems){
             if ((e.getX() == x) && (e.getY() == y)){
                 return e;
@@ -625,6 +633,14 @@ public class LoopManiaWorld {
         Item item = getUnequippedInventoryItemEntityByCoordinates(oldX, oldY);
         Item newItem = new Item(new SimpleIntegerProperty(newX), new SimpleIntegerProperty(newY), item.getStrategy());
         return newItem;
+    }
+
+    public List<Item> getUnequip() {
+        return unequippedInventoryItems;
+    }
+
+    public List<Item> getEquip() {
+        return equippedInventoryItems;
     }
 
 }
