@@ -9,7 +9,8 @@ import unsw.loopmania.Buffs.Buff;
  * represents the main character in the backend of the game world
  */
 public class Character extends MovingEntity {
-  private double health = 6;
+  private final double maxHealth = 100;
+  private double health = 100;
   private int gold = 0;
   private int exp = 0;
   private double damage = 15;
@@ -20,6 +21,10 @@ public class Character extends MovingEntity {
   public Character(PathPosition position) {
     super(position);
     buffs = new ArrayList<>();
+  }
+
+  public double getMaxHealth() {
+    return maxHealth;
   }
 
   public double getHealth() {
