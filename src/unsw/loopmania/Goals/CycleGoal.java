@@ -6,7 +6,6 @@ public class CycleGoal extends SimpleGoal {
         super(goalValue, "Cycle");
         super.setGoalValue(goalValue);
         super.setGoalCheck(false);
-        addGoal(this);
     }
 
 }

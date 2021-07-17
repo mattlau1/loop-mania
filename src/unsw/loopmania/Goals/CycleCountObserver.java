@@ -6,13 +6,13 @@ public class CycleCountObserver extends Observer{
 
     public CycleCountObserver(Character character) {
         this.character = character;
-        // goal.addObserver(this);
+        this.character.addToObserver(this);
     }
 
     @Override
     public void update() {
         System.out.println("Update state for cycle");
         // notify the goal class with character.getCycleCount()
-        goal.notifyGoldObserver(character.getCycleCount());
+        System.out.printf("Experience: %d", character.getCycleCount());
     }
 }

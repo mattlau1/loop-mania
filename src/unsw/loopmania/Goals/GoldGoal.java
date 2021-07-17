@@ -6,6 +6,5 @@ public class GoldGoal extends SimpleGoal {
         super(goalValue, "Gold");
         super.setGoalValue(goalValue);
         super.setGoalCheck(false);
-        addGoal(this);
     }
 }

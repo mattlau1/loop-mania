@@ -6,14 +6,13 @@ public class GoldObserver extends Observer {
 
     public GoldObserver(Character character) {
         this.character = character;
-        // goal.addObserver(this);
+        this.character.addToObserver(this);
     }
 
     @Override
     public void update() {
         System.out.println("Update state for gold");
         // notify the goal class with character.getGold()
-        System.out.println(character.getGold());
-        goal.notifyGoldObserver(character.getGold());
+        System.out.printf("Experience: %d", character.getGold());
     }
 }

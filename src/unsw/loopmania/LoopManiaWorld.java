@@ -7,6 +7,12 @@ import java.util.Random;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.Goals.CycleCountObserver;
+import unsw.loopmania.Goals.EXPObserver;
+import unsw.loopmania.Goals.ExperienceGoal;
+import unsw.loopmania.Goals.Goal;
+import unsw.loopmania.Goals.GoldGoal;
+import unsw.loopmania.Goals.GoldObserver;
 
 /**
  * A backend world.
@@ -41,6 +47,7 @@ public class LoopManiaWorld {
     private Character character;
 
     // TODO = add more lists for other entities, for equipped inventory items, etc...
+    private Goal goal;
 
     // TODO = expand the range of enemies
     private List<BasicEnemy> enemies;
@@ -66,7 +73,7 @@ public class LoopManiaWorld {
      * @param height height of world in number of cells
      * @param orderedPath ordered list of x, y coordinate pairs representing position of path cells in world
      */
-    public LoopManiaWorld(int width, int height, List<Pair<Integer, Integer>> orderedPath) {
+    public LoopManiaWorld(int width, int height, List<Pair<Integer, Integer>> orderedPath, Goal goal) {
         this.width = width;
         this.height = height;
         nonSpecifiedEntities = new ArrayList<>();
@@ -76,6 +83,10 @@ public class LoopManiaWorld {
         unequippedInventoryItems = new ArrayList<>();
         this.orderedPath = orderedPath;
         buildingEntities = new ArrayList<>();
+
+        this.goal = goal;
+        // goal.addGoal(new GoldGoal(20000));
+        // goal.addGoal(new ExperienceGoal(30));
     }
 
     public int getWidth() {
@@ -145,7 +156,9 @@ public class LoopManiaWorld {
 
                 // do some damage
                 character.setGold(character.getGold() + 10000);
-                // if(complexGoal.isGameWon()) System.exit(0);
+                character.setExp(character.getExp() + 10000);
+                System.out.println(goal.getGoals());
+                if (goal.isGameWon(character)) System.exit(1);
 
                 defeatedEnemies.add(e);
             }

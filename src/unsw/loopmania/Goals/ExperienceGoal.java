@@ -6,7 +6,6 @@ public class ExperienceGoal extends SimpleGoal {
         super(goalValue, "Experience");
         super.setGoalValue(goalValue);
         super.setGoalCheck(false);
-        addGoal(this);
     }
 
 }

@@ -3,27 +3,18 @@ package unsw.loopmania;
 import java.util.ArrayList;
 import java.util.List;
 
-import unsw.loopmania.Goals.CycleCountObserver;
-import unsw.loopmania.Goals.EXPObserver;
-import unsw.loopmania.Goals.GoldObserver;
 import unsw.loopmania.Goals.Observer;
 
 /**
  * represents the main character in the backend of the game world
  */
 public class Character extends MovingEntity {
-    // TODO = potentially implement relationships between this class and other classes
     
     private int health;
     private int gold;
     private int exp;
     private int damage;
-
-    // private List<Observer> observers;
-    private EXPObserver expObserver;
-    private GoldObserver goldObserver;
-    private CycleCountObserver cycleCountObserver;
-    // private int state;
+    private List<Observer> observers;
     private int cycleCount;
 
     public Character(PathPosition position) {
@@ -33,10 +24,7 @@ public class Character extends MovingEntity {
         this.exp = 0;
         this.damage = 15;
         this.cycleCount = 0;
-        this.expObserver = new EXPObserver(this);
-        this.goldObserver = new GoldObserver(this);
-        this.cycleCountObserver = new CycleCountObserver(this);
-        // this.observers = new ArrayList<Observer>();
+        this.observers = new ArrayList<Observer>();
     }
 
     public int getHealth() {
@@ -53,7 +41,7 @@ public class Character extends MovingEntity {
 
     public void setGold(int gold) {
         this.gold = gold;
-        goldObserver.update();
+        // notifyAllObservers();
     }
 
     public int getExp() {
@@ -62,7 +50,7 @@ public class Character extends MovingEntity {
 
     public void setExp(int exp) {
         this.exp = exp;
-        expObserver.update();
+        // notifyAllObservers();
     }
 
     public int getCycleCount() {
@@ -71,7 +59,7 @@ public class Character extends MovingEntity {
 
     public void setCycleCount(int cycleCount) {
         this.cycleCount = cycleCount;
-        cycleCountObserver.update();
+        // notifyAllObservers();
     }
 
     public int getDamage() {
@@ -82,24 +70,15 @@ public class Character extends MovingEntity {
         this.damage = damage;
     }
 
-    // public void attach(Observer observer) {
-    //     observers.add(observer);
-    // }
+    public void addToObserver(Observer observer) {
+        observers.add(observer);
+    }
 
-    // public int getState() {
-    //     return state;
-    // }
-
-    // public void setState(int state) {
-    //     this.state = state;
-    //     notifyAllObservers();
-    // }
-
-    // public void notifyAllObservers() {
-    //     for (Observer observer: observers) {
-    //         observer.update();
-    //     }
-    // }
+    public void notifyAllObservers() {
+        for (Observer observer: observers) {
+            observer.update();
+        }
+    }
 
     
 }
