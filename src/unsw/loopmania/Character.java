@@ -3,49 +3,56 @@ package unsw.loopmania;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Buffs.Buff;
 
 /**
  * represents the main character in the backend of the game world
  */
 public class Character extends MovingEntity {
-  private double health = 6;
-  private int gold = 0;
-  private int exp = 0;
+  private final double initialHealth = 100;
+  private final int initialGold = 0;
+  private final int initialExp = 0;
   private double damage = 15;
   private double damageMultiplier = 1;
-  private int currentCycle = 0;
+  private SimpleDoubleProperty healthProperty;
+  private SimpleIntegerProperty goldProperty;
+  private SimpleIntegerProperty expProperty;
+  private SimpleIntegerProperty cycleProperty;
   private List<Buff> buffs;
 
   public Character(PathPosition position) {
     super(position);
     buffs = new ArrayList<>();
+    this.healthProperty = new SimpleDoubleProperty(this, "health", initialHealth);
+    this.goldProperty = new SimpleIntegerProperty(this, "gold", initialGold);
+    this.expProperty = new SimpleIntegerProperty(this, "exp", initialExp);
+    this.cycleProperty = new SimpleIntegerProperty(this, "cycle", 0);
   }
 
   public double getHealth() {
-    return health;
+    return healthProperty.get();
   }
 
   public void setHealth(double health) {
-    this.health = health;
+    healthProperty.set(health);
   }
 
   public int getGold() {
-    return gold;
+    return goldProperty.get();
   }
 
   public void setGold(int gold) {
-    this.gold = gold;
-    // notifyAllObservers();
+    goldProperty.set(gold);
   }
 
   public int getExp() {
-    return exp;
+    return expProperty.get();
   }
 
   public void setExp(int exp) {
-    this.exp = exp;
-    // notifyAllObservers();
+    expProperty.set(exp);
   }
 
   /**
@@ -83,23 +90,23 @@ public class Character extends MovingEntity {
   }
 
   public boolean isAlive() {
-    return health > 0;
+    return healthProperty.get() > 0;
   }
 
   public boolean isDead() {
-    return health <= 0;
+    return healthProperty.get() <= 0;
   }
 
-  public void addGold(int gainedGold) {
-    this.gold += gainedGold;
+  public void addGold(int gold) {
+    goldProperty.set(goldProperty.get() + gold);
   }
 
-  public void deductGold(int lostGold) {
-    this.gold -= lostGold;
+  public void deductGold(int gold) {
+    goldProperty.set(goldProperty.get() - gold);
   }
 
-  public void addEXP(int droppedEXP) {
-    this.exp += droppedEXP;
+  public void addEXP(int exp) {
+    expProperty.set(expProperty.get() + exp);
   }
 
   /**
@@ -108,7 +115,7 @@ public class Character extends MovingEntity {
    * @param health amount of damage to take
    */
   public void reduceHealth(double health) {
-    this.health -= health;
+    healthProperty.set(healthProperty.get() - health);
   }
 
   /**
@@ -117,14 +124,14 @@ public class Character extends MovingEntity {
    * @param health amount of damage to take
    */
   public void addHealth(double health) {
-    this.health += health;
+    healthProperty.set(healthProperty.get() + health);
   }
 
   /**
    * Adds 1 to the character's cycle count
    */
   public void incrementCycleCount() {
-    this.currentCycle++;
+    cycleProperty.set(cycleProperty.get() + 1);
   }
 
   /**
@@ -133,8 +140,7 @@ public class Character extends MovingEntity {
    * @return current cycle number
    */
   public int getCycleCount() {
-    // System.out.printf("Current Cycle Number: %d\n", currentCycle);
-    return this.currentCycle;
+    return cycleProperty.get();
   }
 
   public List<Buff> getBuffs() {
@@ -143,6 +149,22 @@ public class Character extends MovingEntity {
 
   public void addBuffs(Buff buff) {
     this.buffs.add(buff);
+  }
+
+  public SimpleDoubleProperty getHealthProperty() {
+    return healthProperty;
+  }
+
+  public SimpleIntegerProperty getExpProperty() {
+    return expProperty;
+  }
+
+  public SimpleIntegerProperty getGoldProperty() {
+    return goldProperty;
+  }
+
+  public SimpleIntegerProperty getCycleProperty() {
+    return cycleProperty;
   }
 
 }

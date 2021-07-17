@@ -188,6 +188,15 @@ public class LoopManiaWorld {
   }
 
   /**
+   * Gets the character of the world
+   *
+   * @return character
+   */
+  public Character getCharacter() {
+    return character;
+  }
+
+  /**
    * add a generic entity (without it's own dedicated method for adding to the
    * world)
    *
@@ -409,8 +418,8 @@ public class LoopManiaWorld {
             character.reduceHealth(enemyDamage);
           }
         }
-        // System.out.println("CHARACTER HEALTH");
-        // System.out.println(character.getHealth());
+        System.out.println("CHARACTER HEALTH");
+        System.out.println(character.getHealth());
         // System.out.println("ENEMY HEALTH");
         // System.out.println(enemy.getHealth());
       }
@@ -629,7 +638,7 @@ public class LoopManiaWorld {
 
   /**
    * add an item to the equipped inventory
-   * 
+   *
    * @param item item to be added
    */
   public void addEquippedInventoryItem(Item item) {
@@ -639,7 +648,7 @@ public class LoopManiaWorld {
   /**
    * return an unequipped inventory item by x and y coordinates assumes that no 2
    * unequipped inventory items share x and y coordinates
-   * 
+   *
    * @param x x index from 0 to width-1
    * @param y y index from 0 to height-1
    * @return unequipped inventory item at the input position
