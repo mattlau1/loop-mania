@@ -33,18 +33,18 @@ public class VampireEnemy extends Enemy {
     }
 
     @Override
-    public void move(){
+    public void move() {
         // vampire changes direction when near the campfire
 
         // campfire is yet to be implemented
         int directionChoice = (new Random()).nextInt(3);
-        if (directionChoice == 0){
+        if (directionChoice == 0) {
             moveUpPath();
         }
     }
 
     // @Override
     // public void criticalHit (Entity e) {
-    //     inflictedCriticalBite.add(e);
+    // inflictedCriticalBite.add(e);
     // }
 }
