@@ -35,7 +35,7 @@ public class ZombieEnemy extends Enemy {
     }
 
     @Override
-    public void move(){
+    public void move() {
         // zombie moves slower than all of the enemies
         int directionChoice = (new Random()).nextInt(3);
         if (directionChoice == 0)

@@ -102,7 +102,7 @@ public abstract class LoopManiaWorldLoader {
         }
         // load connected path tiles
         List<PathTile.Direction> connections = new ArrayList<>();
-        for (Object dir: path.getJSONArray("path").toList()){
+        for (Object dir: path.getJSONArray("path").toList()) {
             connections.add(Enum.valueOf(PathTile.Direction.class, dir.toString()));
         }
 

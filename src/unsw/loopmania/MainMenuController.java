@@ -13,7 +13,7 @@ public class MainMenuController {
      */
     private MenuSwitcher gameSwitcher;
 
-    public void setGameSwitcher(MenuSwitcher gameSwitcher){
+    public void setGameSwitcher(MenuSwitcher gameSwitcher) {
         this.gameSwitcher = gameSwitcher;
     }
 
