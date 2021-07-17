@@ -18,7 +18,7 @@ public class HerosCastleStrategy implements BuildingStrategy {
 
   @Override
   public void useBuilding(Character character) {
-    character.incrementCycleCount();
+    // character.incrementCycleCount();
     System.out.printf("Current Cycle Count After Using Heros Castle: %d\n", character.getCycleCount());
     // TODO: Open Shop if cycle count permits it
   }

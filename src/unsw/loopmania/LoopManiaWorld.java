@@ -194,6 +194,7 @@ public class LoopManiaWorld {
      */
     public List<Enemy> possiblySpawnEnemies() {
         // TODO = expand this very basic version
+
         Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
         List<Enemy> spawningEnemies = new ArrayList<>();
         if (pos != null) {
@@ -203,16 +204,20 @@ public class LoopManiaWorld {
             Enemy slug = new SlugEnemy(new PathPosition(indexInPath, orderedPath));
             enemies.add(slug);
             spawningEnemies.add(slug);
-
-            // go through every building in the world
-            // if the building can spawn enemies, check cycle count
-            // and spawn an enemy on the closest path tile to that building
-            for (Building building : buildingEntities) {
+        }
+        // go through every building in the world
+        // if the building can spawn enemies, check cycle count
+        // and spawn an enemy on the closest path tile to that building
+        // System.out.println("WOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+        for (Building building : buildingEntities) {
+            if (isAtHerosCastle()) {
                 if (building.canSpawnEnemy(character.getCycleCount())) {
                     // TODO: change spawn location to closest path
                     Pair<Integer, Integer> buildingLocation = new Pair<Integer, Integer>(building.getX(), building.getY());
                     int buildingIndexInPath = orderedPath.indexOf(buildingLocation);
                     Enemy enemy = building.spawnEnemy(new PathPosition(buildingIndexInPath, orderedPath));
+
+                    System.out.println(enemy);
                     if (enemy != null) {
                         enemies.add(enemy);
                         spawningEnemies.add(enemy);
@@ -334,10 +339,10 @@ public class LoopManiaWorld {
                         character.reduceHealth(enemyDamage);
                     }
                 }
-                System.out.println("CHARACTER HEALTH");
-                System.out.println(character.getHealth());
-                System.out.println("ENEMY HEALTH");
-                System.out.println(enemy.getHealth());
+                // System.out.println("CHARACTER HEALTH");
+                // System.out.println(character.getHealth());
+                // System.out.println("ENEMY HEALTH");
+                // System.out.println(enemy.getHealth());
             }
 
             defeatedEnemies.add(enemy);
@@ -478,22 +483,30 @@ public class LoopManiaWorld {
         removeEquippedInventoryItem(item);
     }
 
-    /**
-     *
-     */
-    private void checkIfAtHerosCastle() {
+    private void useIfAtHerosCastle() {
         for (Building building : buildingEntities) {
             if (building.isHerosCastle() && isInRange(building, character)) {
+                character.incrementCycleCount();
                 building.useBuilding(character);
             }
         }
     }
+
+    private boolean isAtHerosCastle() {
+        for (Building building : buildingEntities) {
+            if (building.isHerosCastle() && isInRange(building, character)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * run moves which occur with every tick without needing to spawn anything immediately
      */
     public void runTickMoves() {
         character.moveDownPath();
-        checkIfAtHerosCastle();
+        useIfAtHerosCastle();
         moveBasicEnemies();
     }
 

@@ -124,7 +124,7 @@ public class Character extends MovingEntity {
      * @return current cycle number
      */
     public int getCycleCount() {
-        System.out.printf("Current Cycle Number: %d\n", currentCycle);
+        // System.out.printf("Current Cycle Number: %d\n", currentCycle);
         return this.currentCycle;
     }
 }
