@@ -43,6 +43,9 @@ public class LoopManiaWorld {
     public static final int unequippedInventoryWidth = 4;
     public static final int unequippedInventoryHeight = 4;
 
+    // private ComplexGoal complexGoal;
+    // private Goal goal;
+
     /**
      * width of the world in GridPane cells
      */
@@ -102,7 +105,7 @@ public class LoopManiaWorld {
      * @param orderedPath ordered list of x, y coordinate pairs representing
      *                    position of path cells in world
      */
-    public LoopManiaWorld(int width, int height, List<Pair<Integer, Integer>> orderedPath) {
+    public LoopManiaWorld(int width, int height, List<Pair<Integer, Integer>> orderedPath, Goal goal) {
         this.width = width;
         this.height = height;
         nonSpecifiedEntities = new ArrayList<>();

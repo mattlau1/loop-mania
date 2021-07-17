@@ -1,5 +1,10 @@
 package unsw.loopmania;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import unsw.loopmania.Goals.Observer;
+
 /**
  * represents the main character in the backend of the game world
  */
@@ -31,6 +36,7 @@ public class Character extends MovingEntity {
 
     public void setGold(int gold) {
         this.gold = gold;
+        // notifyAllObservers();
     }
 
     public int getExp() {
@@ -39,6 +45,16 @@ public class Character extends MovingEntity {
 
     public void setExp(int exp) {
         this.exp = exp;
+        // notifyAllObservers();
+    }
+
+    public int getCycleCount() {
+        return this.cycleCount;
+    }
+
+    public void setCycleCount(int cycleCount) {
+        this.cycleCount = cycleCount;
+        // notifyAllObservers();
     }
 
     /**
