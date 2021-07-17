@@ -13,7 +13,7 @@ import unsw.loopmania.Enemies.VampireEnemy;
  * a basic form of building in the world
  */
 public class VampireCastleStrategy implements BuildingStrategy {
-  private final int range = 2;
+  private final int range = 0;
   private final int cycleNumberToSpawnAt = 5;
 
   @Override

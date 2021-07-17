@@ -19,6 +19,8 @@ import unsw.loopmania.Items.StakeStrategy;
 import unsw.loopmania.Items.SwordStrategy;
 import unsw.loopmania.Items.TheOneRingStrategy;
 import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Buildings.BuildingStrategy;
+import unsw.loopmania.Buildings.HerosCastleStrategy;
 import unsw.loopmania.Cards.BarracksCardStrategy;
 import unsw.loopmania.Cards.CampfireCardStrategy;
 import unsw.loopmania.Cards.Card;
@@ -264,6 +266,7 @@ public class LoopManiaWorld {
         // building for character outside of combat
         for (Building b : buildingEntities) {
             if (isInRange(b, character) && b.usableOutsideCombat()) {
+                System.out.printf("Character just used %s\n", b.getClass());
                 b.useBuilding(character);
             }
         }
@@ -272,6 +275,7 @@ public class LoopManiaWorld {
         for (Building b : buildingEntities) {
             for (Enemy e : enemies) {
                 if (isInRange(b, e) && b.usableOutsideCombat()) {
+                    System.out.printf("%s just used %s\n", e.getClass(), b.getClass());
                     b.useBuilding(e);
                 }
             }
@@ -478,6 +482,13 @@ public class LoopManiaWorld {
      */
     public void runTickMoves() {
         character.moveDownPath();
+        for (Building building : buildingEntities) {
+            if (building.getClass().equals((new HerosCastleStrategy()).getClass())) {
+                if (isInRange(building, character)) {
+                    building.useBuilding(character);
+                }
+            }
+        }
         moveBasicEnemies();
     }
 
@@ -627,8 +638,11 @@ public class LoopManiaWorld {
             }
         }
         // now spawn building
-        Building newBuilding = new Building(new SimpleIntegerProperty(buildingNodeX), new SimpleIntegerProperty(buildingNodeY), card.getBuildingStrategy());
-        buildingEntities.add(newBuilding);
+        SimpleIntegerProperty xIntegerProperty = new SimpleIntegerProperty(buildingNodeX);
+        SimpleIntegerProperty yIntegerProperty = new SimpleIntegerProperty(buildingNodeY);
+        Building newBuilding = new Building(xIntegerProperty, yIntegerProperty, card.getBuildingStrategy());
+
+        addBuildingToWorld(newBuilding);
 
         // destroy the card
         card.destroy();
@@ -636,6 +650,10 @@ public class LoopManiaWorld {
         shiftCardsDownFromXCoordinate(cardNodeX);
 
         return newBuilding;
+    }
+
+    public void addBuildingToWorld(Building building) {
+        buildingEntities.add(building);
     }
 
     public Item equipItembyCoordinates(int oldX, int oldY, int newX, int newY) {

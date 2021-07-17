@@ -396,6 +396,9 @@ public class LoopManiaWorldController {
     private void onLoad(Building building) {
         ImageView view = building.getImage();
         addEntity(building, view);
+
+        world.addBuildingToWorld(building);
+        System.out.println(building.getStrategy());
         squares.getChildren().add(view);
     }
 

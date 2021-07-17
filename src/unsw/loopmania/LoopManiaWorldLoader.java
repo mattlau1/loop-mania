@@ -76,7 +76,10 @@ public abstract class LoopManiaWorldLoader {
             Character character = new Character(new PathPosition(indexInPath, orderedPath));
             world.setCharacter(character);
             onLoad(character);
-            onLoad(new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y), new HerosCastleStrategy()));
+            Building building = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y), new HerosCastleStrategy());
+            onLoad(building);
+            world.addBuildingToWorld(building);
+
             entity = character;
             break;
         case "path_tile":

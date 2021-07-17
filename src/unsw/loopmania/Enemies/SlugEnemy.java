@@ -11,7 +11,7 @@ public class SlugEnemy extends Enemy {
 
     private final double health = 20;
     private final int battleRange = 2;
-    private final int supportRange = 10;
+    private final int supportRange = 5;
     private final double damage = 5;
     private final int expDrop = 10;
     private final int goldDrop = 10;

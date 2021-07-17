@@ -11,8 +11,8 @@ import unsw.loopmania.PathPosition;
 public class ZombieEnemy extends Enemy {
 
     private final double health = 30;
-    private final int battleRange = 10;
-    private final int supportRange = 50;
+    private final int battleRange = 2;
+    private final int supportRange = 5;
     private final double damage = 10;
     private final int expDrop = 25;
     private final int goldDrop = 25;

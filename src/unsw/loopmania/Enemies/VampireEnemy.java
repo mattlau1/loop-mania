@@ -11,8 +11,8 @@ import unsw.loopmania.PathPosition;
 public class VampireEnemy extends Enemy {
 
     private final double health = 60;
-    private final int battleRange = 20;
-    private final int supportRange = 50;
+    private final int battleRange = 2;
+    private final int supportRange = 5;
     private final double damage = 20;
     private final int expDrop = 100;
     private final int goldDrop = 100;

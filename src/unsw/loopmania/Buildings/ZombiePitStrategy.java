@@ -10,7 +10,7 @@ import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.ZombieEnemy;
 
 public class ZombiePitStrategy implements BuildingStrategy {
-  private final int range = 2;
+  private final int range = 0;
 
   @Override
   public int getRange() {
