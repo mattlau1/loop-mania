@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 import unsw.loopmania.Character;
 import unsw.loopmania.Enemies.Enemy;
 
-public class ZombiePitStrategy implements BuildingStrategy {
+public class ZombiePitStrategy implements BuildingStrategy, EnemySpawning {
   private final int range = 2;
 
   @Override
