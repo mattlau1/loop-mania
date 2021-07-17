@@ -10,8 +10,13 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import javafx.beans.property.SimpleIntegerProperty;
+
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.HerosCastleStrategy;
+import unsw.loopmania.Goals.Goal;
+import unsw.loopmania.Goals.GoldGoal;
+import unsw.loopmania.Goals.ExperienceGoal;
+import unsw.loopmania.Goals.CycleGoal;
 
 import java.util.List;
 
@@ -27,9 +32,11 @@ import java.util.List;
  */
 public abstract class LoopManiaWorldLoader {
     private JSONObject json;
+    private Goal goal;
 
     public LoopManiaWorldLoader(String filename) throws FileNotFoundException {
         json = new JSONObject(new JSONTokener(new FileReader("worlds/" + filename)));
+        goal = new Goal();
     }
 
     /**
@@ -41,8 +48,11 @@ public abstract class LoopManiaWorldLoader {
 
         // path variable is collection of coordinates with directions of path taken...
         List<Pair<Integer, Integer>> orderedPath = loadPathTiles(json.getJSONObject("path"), width, height);
+        // extract goals from JSON
+        JSONObject goalList = json.getJSONObject("goal-condition");
+        loadGoals(goalList);
 
-        LoopManiaWorld world = new LoopManiaWorld(width, height, orderedPath);
+        LoopManiaWorld world = new LoopManiaWorld(width, height, orderedPath, goal);
         world.generateItemDrops();
         world.generateCardDrops();
 
@@ -54,6 +64,25 @@ public abstract class LoopManiaWorldLoader {
         }
 
         return world;
+    }
+
+    private void loadGoals(JSONObject goals) {
+        if (goals.getString("goal").equals("AND")) {
+            JSONArray g = goals.getJSONArray("subgoals");
+            loadArrayOfGoals(g);
+        } else if (goals.getString("goal").equals("experience")) {
+            goal.addGoal(new ExperienceGoal(goals.getInt("quantity")));
+        } else if (goals.getString("goal").equals("gold")) {
+            goal.addGoal(new GoldGoal(goals.getInt("quantity")));
+        } else if (goals.getString("goal").equals("cycle")) {
+            goal.addGoal(new CycleGoal(goals.getInt("quantity")));
+        }
+    }
+
+    private void loadArrayOfGoals(JSONArray g) {
+        for (int i = 0; i < g.length(); i++) {
+            loadGoals(g.getJSONObject(i));
+        }
     }
 
     /**

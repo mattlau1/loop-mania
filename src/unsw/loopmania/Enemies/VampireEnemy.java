@@ -49,7 +49,7 @@ public class VampireEnemy extends Enemy {
 
     // @Override
     // public void criticalHit (Entity e) {
-    //     inflictedCriticalBite.add(e);
+    // inflictedCriticalBite.add(e);
     // }
 
     @Override
