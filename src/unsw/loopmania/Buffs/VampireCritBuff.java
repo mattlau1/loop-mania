@@ -8,26 +8,28 @@ import unsw.loopmania.Soldier;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.VampireEnemy;
 
-public class VampireCritBuff extends Buff{
+public class VampireCritBuff extends Buff {
 
-    public VampireCritBuff() {
+  public VampireCritBuff() {
+  }
+
+  @Override
+  public void activateEffect(Character character, Enemy enemy, List<Soldier> allyList, List<Enemy> zombieSoldiers) {
+    if (enemy instanceof VampireEnemy) {
+      substractTurns(1);
+      Random random = new Random();
+      int randInt = random.nextInt(6) + 5;
+      character.reduceHealth(randInt);
     }
-    @Override
-    public void activateEffect(Character character, Enemy enemy, List<Soldier> allyList, List<Enemy> zombieSoldiers) {
-        if (enemy instanceof VampireEnemy) {
-            substractTurns(1);
-            Random random = new Random();
-            int randInt = random.nextInt(6) + 5;
-            character.reduceHealth(randInt);
-        }
-    };
-    @Override
-    public void activateEffect(Soldier soldier, Enemy enemy, List<Soldier> allyList, List<Enemy> zombieSoldiers) {
-        if (enemy instanceof VampireEnemy) {
-            substractTurns(1);
-            Random random = new Random();
-            int randInt = random.nextInt(6) + 5;
-            soldier.reduceHealth(randInt);
-        }
-    };
+  };
+
+  @Override
+  public void activateEffect(Soldier soldier, Enemy enemy, List<Soldier> allyList, List<Enemy> zombieSoldiers) {
+    if (enemy instanceof VampireEnemy) {
+      substractTurns(1);
+      Random random = new Random();
+      int randInt = random.nextInt(6) + 5;
+      soldier.reduceHealth(randInt);
+    }
+  };
 }

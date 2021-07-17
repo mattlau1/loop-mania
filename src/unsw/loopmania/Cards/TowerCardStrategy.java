@@ -10,13 +10,14 @@ import unsw.loopmania.Buildings.TowerStrategy;
 public class TowerCardStrategy implements CardStrategy {
   /**
    * returns the image of the item to be displayed
+   * 
    * @return the imageview of the item
    */
   @Override
   public ImageView getImage() {
-      Image towerImage = new Image((new File("src/images/tower_card.png")).toURI().toString());
-      ImageView view = new ImageView(towerImage);
-      return view;
+    Image towerImage = new Image((new File("src/images/tower_card.png")).toURI().toString());
+    ImageView view = new ImageView(towerImage);
+    return view;
   }
 
   @Override

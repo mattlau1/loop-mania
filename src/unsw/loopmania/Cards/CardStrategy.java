@@ -13,7 +13,7 @@ public interface CardStrategy {
 
   /**
    * Returns the corresponding building strategy for the card
-   *
+   * 
    * @return corresponding building strategy
    */
   public BuildingStrategy getBuildingStrategy();

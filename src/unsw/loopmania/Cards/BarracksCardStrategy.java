@@ -10,6 +10,7 @@ import unsw.loopmania.Buildings.BuildingStrategy;
 public class BarracksCardStrategy implements CardStrategy {
   /**
    * returns the image of the item to be displayed
+   *
    * @return the imageview of the item
    */
   @Override

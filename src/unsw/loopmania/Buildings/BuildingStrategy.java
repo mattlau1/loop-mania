@@ -7,7 +7,8 @@ import unsw.loopmania.Enemies.Enemy;
 
 public interface BuildingStrategy {
   /**
-   * Activates the building for a character. Does nothing if character cannot use it.
+   * Activates the building for a character. Does nothing if character cannot use
+   * it.
    *
    * @param character character to activate building on
    */

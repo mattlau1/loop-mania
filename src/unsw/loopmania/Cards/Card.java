@@ -6,23 +6,22 @@ import unsw.loopmania.StaticEntity;
 import unsw.loopmania.Buildings.BuildingStrategy;
 
 /**
- * a Card in the world
- * which doesn't move
+ * a Card in the world which doesn't move
  */
 public class Card extends StaticEntity implements CardStrategy {
-    private CardStrategy strategy;
+  private CardStrategy strategy;
 
-    public Card(SimpleIntegerProperty x, SimpleIntegerProperty y, CardStrategy cardStrategy) {
-        super(x, y);
-        this.strategy = cardStrategy;
-    }
+  public Card(SimpleIntegerProperty x, SimpleIntegerProperty y, CardStrategy cardStrategy) {
+    super(x, y);
+    this.strategy = cardStrategy;
+  }
 
-    public ImageView getImage() {
-       return strategy.getImage();
-    }
+  public ImageView getImage() {
+    return strategy.getImage();
+  }
 
-    public BuildingStrategy getBuildingStrategy() {
-        return strategy.getBuildingStrategy();
-    }
+  public BuildingStrategy getBuildingStrategy() {
+    return strategy.getBuildingStrategy();
+  }
 
 }
