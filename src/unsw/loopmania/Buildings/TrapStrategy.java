@@ -38,4 +38,9 @@ public class TrapStrategy implements BuildingStrategy {
     return view;
   }
 
+  @Override
+  public boolean canSpawnEnemy() {
+    return false;
+  }
+
 }

@@ -20,14 +20,12 @@ public class VampireCastleStrategy implements BuildingStrategy {
 
   @Override
   public void useBuilding(Character character) {
-    // TODO Auto-generated method stub
-
+    return;
   }
 
   @Override
   public void useBuilding(Enemy enemy) {
-    // TODO Auto-generated method stub
-
+    return;
   }
 
   @Override
@@ -42,5 +40,8 @@ public class VampireCastleStrategy implements BuildingStrategy {
     return view;
   }
 
-
+  @Override
+  public boolean canSpawnEnemy() {
+    return true;
+  }
 }

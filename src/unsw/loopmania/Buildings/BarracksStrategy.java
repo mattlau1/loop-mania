@@ -12,14 +12,12 @@ public class BarracksStrategy implements BuildingStrategy {
 
   @Override
   public void useBuilding(Character character) {
-    // TODO Auto-generated method stub
-
+    // TODO: Add allied soldier
   }
 
   @Override
   public void useBuilding(Enemy enemy) {
-    // TODO Auto-generated method stub
-
+    return;
   }
 
   @Override
@@ -38,4 +36,12 @@ public class BarracksStrategy implements BuildingStrategy {
     ImageView view = new ImageView(image);
     return view;
   }
+
+  @Override
+  public boolean canSpawnEnemy() {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
+
 }

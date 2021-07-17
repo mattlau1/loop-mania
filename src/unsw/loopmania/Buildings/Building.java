@@ -42,4 +42,9 @@ public class Building extends StaticEntity implements BuildingStrategy {
     return strategy.getRange();
   }
 
+  @Override
+  public boolean canSpawnEnemy() {
+    return strategy.canSpawnEnemy();
+  }
+
 }

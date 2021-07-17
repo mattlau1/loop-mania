@@ -22,7 +22,6 @@ public class CampfireStrategy implements BuildingStrategy {
 
   @Override
   public void useBuilding(Enemy enemy) {
-    // enemies cannot use campfires so do nothing
     return;
   }
 
@@ -38,5 +37,9 @@ public class CampfireStrategy implements BuildingStrategy {
     return view;
   }
 
+  @Override
+  public boolean canSpawnEnemy() {
+    return false;
+  }
 
 }

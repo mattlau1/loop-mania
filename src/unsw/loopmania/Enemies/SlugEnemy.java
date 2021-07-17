@@ -1,7 +1,10 @@
 package unsw.loopmania.Enemies;
 
+import java.io.File;
 import java.util.Random;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import unsw.loopmania.PathPosition;
 
 public class SlugEnemy extends Enemy {
@@ -39,6 +42,13 @@ public class SlugEnemy extends Enemy {
         } else if (directionChoice == 1) {
             moveDownPath();
         }
+    }
+
+    @Override
+    public ImageView getImage() {
+      Image image = new Image((new File("src/images/slug.png")).toURI().toString());
+      ImageView view = new ImageView(image);
+      return view;
     }
 
 }

@@ -17,13 +17,12 @@ public class HerosCastleStrategy implements BuildingStrategy {
 
   @Override
   public void useBuilding(Character character) {
-    // TODO Auto-generated method stub
+    // TODO: Open Shop
   }
 
   @Override
   public void useBuilding(Enemy enemy) {
-    // TODO Auto-generated method stub
-
+    return;
   }
 
   @Override
@@ -38,5 +37,8 @@ public class HerosCastleStrategy implements BuildingStrategy {
     return view;
   }
 
-
+  @Override
+  public boolean canSpawnEnemy() {
+    return false;
+  }
 }

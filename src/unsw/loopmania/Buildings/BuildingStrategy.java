@@ -27,7 +27,7 @@ public interface BuildingStrategy {
   public int getRange();
 
   /**
-   * Checks is building is usable outside of combat
+   * Checks if building is usable outside of combat
    *
    * @return true if usable outside combat else false
    */
@@ -39,4 +39,12 @@ public interface BuildingStrategy {
    * @return building image
    */
   public ImageView getImage();
+
+  /**
+   * Checks if building can spawn enemies
+   *
+   * @return true if building can spawn enemies else false
+   */
+  public boolean canSpawnEnemy();
+
 }

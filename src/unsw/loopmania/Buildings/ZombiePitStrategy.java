@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 import unsw.loopmania.Character;
 import unsw.loopmania.Enemies.Enemy;
 
-public class ZombiePitStrategy implements BuildingStrategy, EnemySpawning {
+public class ZombiePitStrategy implements BuildingStrategy {
   private final int range = 2;
 
   @Override
@@ -17,14 +17,12 @@ public class ZombiePitStrategy implements BuildingStrategy, EnemySpawning {
 
   @Override
   public void useBuilding(Character character) {
-    // TODO Auto-generated method stub
-
+    return;
   }
 
   @Override
   public void useBuilding(Enemy enemy) {
-    // TODO Auto-generated method stub
-
+    return;
   }
 
   @Override
@@ -39,4 +37,8 @@ public class ZombiePitStrategy implements BuildingStrategy, EnemySpawning {
     return view;
   }
 
+  @Override
+  public boolean canSpawnEnemy() {
+    return true;
+  }
 }

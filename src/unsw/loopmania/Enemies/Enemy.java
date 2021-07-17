@@ -2,6 +2,7 @@ package unsw.loopmania.Enemies;
 
 import java.util.Random;
 
+import javafx.scene.image.ImageView;
 import unsw.loopmania.Entity;
 import unsw.loopmania.MovingEntity;
 import unsw.loopmania.PathPosition;
@@ -10,7 +11,6 @@ import unsw.loopmania.PathPosition;
  * a basic form of enemy in the world
  */
 public abstract class Enemy extends MovingEntity {
-
     private double health;
     private int battleRange;
     private int supportRange;
@@ -153,7 +153,9 @@ public abstract class Enemy extends MovingEntity {
         return health > 0;
     }
 
-    public void criticalHit(Entity e) {}
+    public void criticalHit(Entity e) {
+
+    }
 
     /**
      * move the enemy
@@ -171,4 +173,6 @@ public abstract class Enemy extends MovingEntity {
             moveDownPath();
         }
     }
+
+    public abstract ImageView getImage();
 }
