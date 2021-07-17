@@ -43,13 +43,8 @@ import unsw.loopmania.Goals.Goal;
  * can occupy the same square.
  */
 public class LoopManiaWorld {
-    // TODO = add additional backend functionality
-
     public static final int unequippedInventoryWidth = 4;
     public static final int unequippedInventoryHeight = 4;
-
-    // private ComplexGoal complexGoal;
-    // private Goal goal;
 
     /**
      * width of the world in GridPane cells
