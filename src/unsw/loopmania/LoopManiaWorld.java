@@ -33,6 +33,7 @@ import unsw.loopmania.Cards.ZombiePitCardStrategy;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SlugEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
+import unsw.loopmania.Goals.Goal;
 
 /**
  * A backend world.
