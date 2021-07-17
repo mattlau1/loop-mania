@@ -48,4 +48,10 @@ public class VillageStrategy implements BuildingStrategy {
   public Enemy spawnEnemy(PathPosition position) {
     return null;
   }
+
+  @Override
+  public boolean isHerosCastle() {
+    return false;
+  }
+
 }

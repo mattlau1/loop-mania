@@ -90,6 +90,7 @@ public class LoopManiaWorld {
     // TODO = expand the range of buildings
     private List<Building> buildingEntities;
 
+
     /**
      * list of x,y coordinate pairs in the order by which moving entities traverse them
      */
@@ -265,7 +266,7 @@ public class LoopManiaWorld {
 
         // building for character outside of combat
         for (Building b : buildingEntities) {
-            if (isInRange(b, character) && b.usableOutsideCombat()) {
+            if (isInRange(b, character) && b.usableOutsideCombat() && !b.isHerosCastle()) {
                 System.out.printf("Character just used %s\n", b.getClass());
                 b.useBuilding(character);
             }
@@ -478,17 +479,21 @@ public class LoopManiaWorld {
     }
 
     /**
+     *
+     */
+    private void checkIfAtHerosCastle() {
+        for (Building building : buildingEntities) {
+            if (building.isHerosCastle() && isInRange(building, character)) {
+                building.useBuilding(character);
+            }
+        }
+    }
+    /**
      * run moves which occur with every tick without needing to spawn anything immediately
      */
     public void runTickMoves() {
         character.moveDownPath();
-        for (Building building : buildingEntities) {
-            if (building.getClass().equals((new HerosCastleStrategy()).getClass())) {
-                if (isInRange(building, character)) {
-                    building.useBuilding(character);
-                }
-            }
-        }
+        checkIfAtHerosCastle();
         moveBasicEnemies();
     }
 
@@ -661,5 +666,4 @@ public class LoopManiaWorld {
         Item newItem = new Item(new SimpleIntegerProperty(newX), new SimpleIntegerProperty(newY), item.getStrategy());
         return newItem;
     }
-
 }

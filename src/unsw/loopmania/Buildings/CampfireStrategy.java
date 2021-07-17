@@ -48,4 +48,9 @@ public class CampfireStrategy implements BuildingStrategy {
     return null;
   }
 
+  @Override
+  public boolean isHerosCastle() {
+    return false;
+  }
+
 }

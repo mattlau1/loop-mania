@@ -49,4 +49,9 @@ public class TrapStrategy implements BuildingStrategy {
     return null;
   }
 
+  @Override
+  public boolean isHerosCastle() {
+    return false;
+  }
+
 }

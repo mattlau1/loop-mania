@@ -49,4 +49,9 @@ public class ZombiePitStrategy implements BuildingStrategy {
     return new ZombieEnemy(position);
   }
 
+  @Override
+  public boolean isHerosCastle() {
+    return false;
+  }
+
 }

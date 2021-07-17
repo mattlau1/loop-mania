@@ -50,4 +50,9 @@ public class TowerStrategy implements BuildingStrategy {
     return null;
   }
 
+  @Override
+  public boolean isHerosCastle() {
+    return false;
+  }
+
 }

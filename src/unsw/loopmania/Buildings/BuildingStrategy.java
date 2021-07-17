@@ -50,6 +50,14 @@ public interface BuildingStrategy {
   public boolean canSpawnEnemy(int currentCycle);
 
   /**
+   * Checks if building can spawn enemies, given the current cycle number
+   *
+   * @param currentCycle current cycle count of character
+   * @return true if building can spawn enemies else false
+   */
+  public boolean isHerosCastle();
+
+  /**
    * Spawns a new enemy at given position and returns it
    *
    * @param position position to spawn enemy at

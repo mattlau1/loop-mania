@@ -53,4 +53,9 @@ public class VampireCastleStrategy implements BuildingStrategy {
     return new VampireEnemy(position);
   }
 
+  @Override
+  public boolean isHerosCastle() {
+    return false;
+  }
+
 }

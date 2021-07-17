@@ -52,4 +52,9 @@ public class Building extends StaticEntity implements BuildingStrategy {
     return strategy.spawnEnemy(position);
   }
 
+  @Override
+  public boolean isHerosCastle() {
+    return strategy.isHerosCastle();
+  }
+
 }

@@ -19,7 +19,7 @@ public class HerosCastleStrategy implements BuildingStrategy {
   @Override
   public void useBuilding(Character character) {
     character.incrementCycleCount();
-    System.out.printf("Current Cycle Count After Using Heros Castle: %d", character.getCycleCount());
+    System.out.printf("Current Cycle Count After Using Heros Castle: %d\n", character.getCycleCount());
     // TODO: Open Shop if cycle count permits it
   }
 
@@ -48,6 +48,11 @@ public class HerosCastleStrategy implements BuildingStrategy {
   @Override
   public Enemy spawnEnemy(PathPosition position) {
     return null;
+  }
+
+  @Override
+  public boolean isHerosCastle() {
+    return true;
   }
 
 }
