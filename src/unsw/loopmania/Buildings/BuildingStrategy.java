@@ -24,7 +24,7 @@ public interface BuildingStrategy {
    *
    * @return building range
    */
-  public int getBuildingRange();
+  public int getRange();
 
   /**
    * Checks is building is usable outside of combat

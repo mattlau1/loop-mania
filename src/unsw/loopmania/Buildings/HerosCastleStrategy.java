@@ -11,7 +11,7 @@ public class HerosCastleStrategy implements BuildingStrategy {
   private final int range = 2;
 
   @Override
-  public int getBuildingRange() {
+  public int getRange() {
     return range;
   }
 

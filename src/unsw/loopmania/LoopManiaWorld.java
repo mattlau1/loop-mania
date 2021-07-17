@@ -8,8 +8,6 @@ import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Buildings.Building;
-import unsw.loopmania.Buildings.TowerStrategy;
-import unsw.loopmania.Buildings.ZombiePitStrategy;
 import unsw.loopmania.Cards.BarracksCardStrategy;
 import unsw.loopmania.Cards.CampfireCardStrategy;
 import unsw.loopmania.Cards.Card;

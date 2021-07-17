@@ -9,7 +9,7 @@ import unsw.loopmania.Buildings.BuildingStrategy;
  * a Card in the world
  * which doesn't move
  */
-public class Card extends StaticEntity {
+public class Card extends StaticEntity implements CardStrategy {
     private CardStrategy strategy;
 
     public Card(SimpleIntegerProperty x, SimpleIntegerProperty y, CardStrategy cardStrategy) {

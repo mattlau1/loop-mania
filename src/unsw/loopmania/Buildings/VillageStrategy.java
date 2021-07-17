@@ -12,7 +12,7 @@ public class VillageStrategy implements BuildingStrategy {
   private final int healAmount = 50;
 
   @Override
-  public int getBuildingRange() {
+  public int getRange() {
     return range;
   }
 

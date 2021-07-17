@@ -6,14 +6,12 @@ import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.Character;
 import unsw.loopmania.StaticEntity;
 
-public class Building extends StaticEntity {
+public class Building extends StaticEntity implements BuildingStrategy {
   private BuildingStrategy strategy;
-  private int range;
 
   public Building(SimpleIntegerProperty x, SimpleIntegerProperty y, BuildingStrategy buildingStrategy) {
     super(x, y);
     this.strategy = buildingStrategy;
-    this.range = strategy.getBuildingRange();
   }
 
   public void useBuilding(Character character) {
@@ -41,11 +39,7 @@ public class Building extends StaticEntity {
   }
 
   public int getRange() {
-    return range;
-  }
-
-  public void setRange(int range) {
-    this.range = range;
+    return strategy.getRange();
   }
 
 }
