@@ -11,7 +11,7 @@ public class Shop {
     private Character character;
     private List<ShopItem> shopItem;
     private List<Item> inventory;
-    private ShopItem selectedItem;
+    private ShopItem selectedItem; 
 
     public Shop(Character character, List<Item> inventory) {
         this.character = character;
@@ -21,7 +21,7 @@ public class Shop {
     
     }
 
-    public void buy() {
+    public Item buy() {
         // if theres room for unquipped inventory
         if (inventory.size() < 16) {
             // get the item from the menu
@@ -32,9 +32,10 @@ public class Shop {
             if (balance < price) {
                 balance -= price;
                 character.setGold(balance);
-                inventory.add(newItem);
+                return newItem;
             }
         }
+        return null;
     }
 
     public void setSelectedItem(ShopItem item) {
@@ -43,10 +44,6 @@ public class Shop {
 
     public void addShopItem(ShopItem item) {
         shopItem.add(item);
-    }
-
-    public void exitShop() {
-        // exit
     }
 
 }
