@@ -5,6 +5,7 @@ import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Character;
+import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.Enemy;
 
 public class CampfireStrategy implements BuildingStrategy {
@@ -22,7 +23,6 @@ public class CampfireStrategy implements BuildingStrategy {
 
   @Override
   public void useBuilding(Enemy enemy) {
-    // enemies cannot use campfires so do nothing
     return;
   }
 
@@ -38,5 +38,19 @@ public class CampfireStrategy implements BuildingStrategy {
     return view;
   }
 
+  @Override
+  public boolean canSpawnEnemy(int currentCycle) {
+    return false;
+  }
+
+  @Override
+  public Enemy spawnEnemy(PathPosition position) {
+    return null;
+  }
+
+  @Override
+  public boolean isHerosCastle() {
+    return false;
+  }
 
 }

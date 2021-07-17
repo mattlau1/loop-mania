@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import unsw.loopmania.Buildings.Building;
 import javafx.geometry.Rectangle2D;
 
 import java.io.File;
@@ -18,7 +19,7 @@ import java.io.File;
 /**
  * A LoopManiaLoader that also creates the necessary ImageViews for the UI,
  * connects them via listeners to the model, and creates a controller.
- * 
+ *
  * this should NOT be used to load any entities which spawn, or might be removed (use controller for that)
  * since this doesnt add listeners or teardown functions (so it will be very hacky to remove event handlers)
  */
@@ -36,7 +37,7 @@ public class LoopManiaWorldControllerLoader extends LoopManiaWorldLoader {
         entities = new ArrayList<>();
         characterImage = new Image((new File("src/images/human_new.png")).toURI().toString());
         pathTilesImage = new Image((new File("src/images/32x32GrassAndDirtPath.png")).toURI().toString());
-        
+
     }
 
     // TODO = load more entity types from the file
@@ -44,6 +45,12 @@ public class LoopManiaWorldControllerLoader extends LoopManiaWorldLoader {
     public void onLoad(Character character) {
         ImageView view = new ImageView(characterImage);
         addEntity(character, view);
+    }
+
+    @Override
+    public void onLoad(Building building) {
+        ImageView view = building.getImage();
+        addEntity(building, view);
     }
 
     /**
@@ -137,7 +144,7 @@ public class LoopManiaWorldControllerLoader extends LoopManiaWorldLoader {
      * @throws FileNotFoundException
      */
     public LoopManiaWorldController loadController() throws FileNotFoundException {
-        return new LoopManiaWorldController(load(), entities);        
+        return new LoopManiaWorldController(load(), entities);
     }
 
 

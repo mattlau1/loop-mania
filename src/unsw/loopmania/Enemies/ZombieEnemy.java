@@ -1,14 +1,18 @@
 package unsw.loopmania.Enemies;
 
+import java.io.File;
 import java.util.Random;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import unsw.loopmania.PathPosition;
 
 public class ZombieEnemy extends Enemy {
 
     private final double health = 30;
-    private final int battleRange = 10;
-    private final int supportRange = 50;
+    private final int battleRange = 2;
+    private final int supportRange = 5;
     private final double damage = 10;
     private final int expDrop = 25;
     private final int goldDrop = 25;
@@ -31,10 +35,18 @@ public class ZombieEnemy extends Enemy {
     }
 
     @Override
-    public void move(){
+    public void move() {
         // zombie moves slower than all of the enemies
         int directionChoice = (new Random()).nextInt(3);
         if (directionChoice == 0)
             moveUpPath();
     }
+
+    @Override
+    public ImageView getImage() {
+      Image image = new Image((new File("src/images/zombie.png")).toURI().toString());
+      ImageView view = new ImageView(image);
+      return view;
+    }
+
 }

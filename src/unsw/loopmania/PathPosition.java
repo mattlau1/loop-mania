@@ -26,7 +26,7 @@ public class PathPosition{
      * usingValue0 is true if using value0 in path, false if using value1
      * orderedPath is the list of path coordinates in pairs
      */
-    public PathPosition(int currentPositionInPath, List<Pair<Integer, Integer>> orderedPath){
+    public PathPosition(int currentPositionInPath, List<Pair<Integer, Integer>> orderedPath) {
         this.currentPositionInPath = currentPositionInPath;
         this.orderedPath = orderedPath;
         x = new SimpleIntegerProperty();
@@ -38,7 +38,7 @@ public class PathPosition{
     /**
      * move forward through the path i.e. clockwise
      */
-    public void moveDownPath(){
+    public void moveDownPath() {
         currentPositionInPath = (currentPositionInPath + 1)%orderedPath.size();
         resetCoordinatesBasedOnPositionInPath();
     }
@@ -46,7 +46,7 @@ public class PathPosition{
     /**
      * move backwards through the path, i.e. anticlockwise
      */
-    public void moveUpPath(){
+    public void moveUpPath() {
         currentPositionInPath = (currentPositionInPath - 1 + orderedPath.size())%orderedPath.size();
         resetCoordinatesBasedOnPositionInPath();
     }
@@ -55,16 +55,16 @@ public class PathPosition{
      * change the x and y SimpleIntegerProperties to reflect the current values of
      * the current position in the path, and the ordered path.
      */
-    private void resetCoordinatesBasedOnPositionInPath(){
+    private void resetCoordinatesBasedOnPositionInPath() {
         x.set(orderedPath.get(currentPositionInPath).getValue0());
         y.set(orderedPath.get(currentPositionInPath).getValue1());
     }
 
-    public SimpleIntegerProperty getX(){
+    public SimpleIntegerProperty getX() {
         return x;
     }
 
-    public SimpleIntegerProperty getY(){
+    public SimpleIntegerProperty getY() {
         return y;
     }
 }

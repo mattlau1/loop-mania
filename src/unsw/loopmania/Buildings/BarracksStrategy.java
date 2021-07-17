@@ -5,6 +5,7 @@ import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Character;
+import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.Enemy;
 
 public class BarracksStrategy implements BuildingStrategy {
@@ -12,14 +13,12 @@ public class BarracksStrategy implements BuildingStrategy {
 
   @Override
   public void useBuilding(Character character) {
-    // TODO Auto-generated method stub
-
+    // TODO: Add allied soldier
   }
 
   @Override
   public void useBuilding(Enemy enemy) {
-    // TODO Auto-generated method stub
-
+    return;
   }
 
   @Override
@@ -38,4 +37,21 @@ public class BarracksStrategy implements BuildingStrategy {
     ImageView view = new ImageView(image);
     return view;
   }
+
+  @Override
+  public boolean canSpawnEnemy(int currentCycle) {
+    return false;
+  }
+
+  @Override
+  public Enemy spawnEnemy(PathPosition position) {
+    return null;
+  }
+
+  @Override
+  public boolean isHerosCastle() {
+    return false;
+  }
+
+
 }

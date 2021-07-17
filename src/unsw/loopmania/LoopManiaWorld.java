@@ -19,6 +19,8 @@ import unsw.loopmania.Items.StakeStrategy;
 import unsw.loopmania.Items.SwordStrategy;
 import unsw.loopmania.Items.TheOneRingStrategy;
 import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Buildings.BuildingStrategy;
+import unsw.loopmania.Buildings.HerosCastleStrategy;
 import unsw.loopmania.Cards.BarracksCardStrategy;
 import unsw.loopmania.Cards.CampfireCardStrategy;
 import unsw.loopmania.Cards.Card;
@@ -30,6 +32,7 @@ import unsw.loopmania.Cards.VillageCardStrategy;
 import unsw.loopmania.Cards.ZombiePitCardStrategy;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SlugEnemy;
+import unsw.loopmania.Enemies.VampireEnemy;
 
 /**
  * A backend world.
@@ -90,6 +93,7 @@ public class LoopManiaWorld {
 
     // TODO = expand the range of buildings
     private List<Building> buildingEntities;
+
 
     /**
      * list of x,y coordinate pairs in the order by which moving entities traverse
@@ -202,13 +206,36 @@ public class LoopManiaWorld {
      */
     public List<Enemy> possiblySpawnEnemies() {
         // TODO = expand this very basic version
+
         Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
         List<Enemy> spawningEnemies = new ArrayList<>();
         if (pos != null) {
             int indexInPath = orderedPath.indexOf(pos);
-            Enemy enemy = new SlugEnemy(new PathPosition(indexInPath, orderedPath));
-            enemies.add(enemy);
-            spawningEnemies.add(enemy);
+
+            // spawns a slug
+            Enemy slug = new SlugEnemy(new PathPosition(indexInPath, orderedPath));
+            enemies.add(slug);
+            spawningEnemies.add(slug);
+        }
+        // go through every building in the world
+        // if the building can spawn enemies, check cycle count
+        // and spawn an enemy on the closest path tile to that building
+        // System.out.println("WOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+        for (Building building : buildingEntities) {
+            if (isAtHerosCastle()) {
+                if (building.canSpawnEnemy(character.getCycleCount())) {
+                    // TODO: change spawn location to closest path
+                    Pair<Integer, Integer> buildingLocation = new Pair<Integer, Integer>(building.getX(), building.getY());
+                    int buildingIndexInPath = orderedPath.indexOf(buildingLocation);
+                    Enemy enemy = building.spawnEnemy(new PathPosition(buildingIndexInPath, orderedPath));
+
+                    System.out.println(enemy);
+                    if (enemy != null) {
+                        enemies.add(enemy);
+                        spawningEnemies.add(enemy);
+                    }
+                }
+            }
         }
         return spawningEnemies;
     }
@@ -251,16 +278,15 @@ public class LoopManiaWorld {
      * @return list of enemies which have been killed
      */
     public List<Enemy> runBattles() {
-        // we have four types of buildings:
+        // we have three types of buildings:
         // one that is for the character outside of combat (i.e village)
         // one that is for the enemies outside of combat (i.e trap)
-        // one that is for the character and enemies inside of combat (i.e tower,
-        // campfire)
-        // TODO = one that is for the game (i.e vampire castle, zombie pit)
+        // one that is for the character and enemies inside of combat (i.e tower, campfire)
 
         // building for character outside of combat
         for (Building b : buildingEntities) {
-            if (isInRange(b, character) && b.usableOutsideCombat()) {
+            if (isInRange(b, character) && b.usableOutsideCombat() && !b.isHerosCastle()) {
+                System.out.printf("Character just used %s\n", b.getClass());
                 b.useBuilding(character);
             }
         }
@@ -269,6 +295,7 @@ public class LoopManiaWorld {
         for (Building b : buildingEntities) {
             for (Enemy e : enemies) {
                 if (isInRange(b, e) && b.usableOutsideCombat()) {
+                    System.out.printf("%s just used %s\n", e.getClass(), b.getClass());
                     b.useBuilding(e);
                 }
             }
@@ -329,10 +356,10 @@ public class LoopManiaWorld {
                         character.reduceHealth(enemyDamage);
                     }
                 }
-                System.out.println("CHARACTER HEALTH");
-                System.out.println(character.getHealth());
-                System.out.println("ENEMY HEALTH");
-                System.out.println(enemy.getHealth());
+                // System.out.println("CHARACTER HEALTH");
+                // System.out.println(character.getHealth());
+                // System.out.println("ENEMY HEALTH");
+                // System.out.println(enemy.getHealth());
             }
 
             defeatedEnemies.add(enemy);
@@ -340,11 +367,9 @@ public class LoopManiaWorld {
             character.addGold(enemy.getGoldDrop());
         }
 
-        for (Enemy e : defeatedEnemies) {
-            // IMPORTANT = we kill enemies here, because killEnemy removes the enemy from
-            // the enemies list
-            // if we killEnemy in prior loop, we get
-            // java.util.ConcurrentModificationException
+        for (Enemy e: defeatedEnemies) {
+            // IMPORTANT = we kill enemies here, because killEnemy removes the enemy from the enemies list
+            // if we killEnemy in prior loop, we get java.util.ConcurrentModificationException
             // due to mutating list we're iterating over
             killEnemy(e);
         }
@@ -391,14 +416,11 @@ public class LoopManiaWorld {
      * @return a sword to be spawned in the controller as a JavaFX node
      */
     public Item addUnequippedItem() {
-        // TODO = expand this - we would like to be able to add multiple types of items,
-        // apart from swords
+        // TODO = expand this - we would like to be able to add multiple types of items, apart from swords
         Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
         if (firstAvailableSlot == null) {
-            // eject the oldest unequipped item and replace it... oldest item is that at
-            // beginning of items
-            // TODO = give some cash/experience rewards for the discarding of the oldest
-            // sword
+            // eject the oldest unequipped item and replace it... oldest item is that at beginning of items
+            // TODO = give some cash/experience rewards for the discarding of the oldest sword
             removeItemByPositionInUnequippedInventoryItems(0);
             firstAvailableSlot = getFirstAvailableSlotForItem();
         }
@@ -494,12 +516,31 @@ public class LoopManiaWorld {
         removeEquippedInventoryItem(item);
     }
 
+    private void useIfAtHerosCastle() {
+        for (Building building : buildingEntities) {
+            if (building.isHerosCastle() && isInRange(building, character)) {
+                character.incrementCycleCount();
+                building.useBuilding(character);
+            }
+        }
+    }
+
+    private boolean isAtHerosCastle() {
+        for (Building building : buildingEntities) {
+            if (building.isHerosCastle() && isInRange(building, character)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * run moves which occur with every tick without needing to spawn anything
      * immediately
      */
     public void runTickMoves() {
         character.moveDownPath();
+        useIfAtHerosCastle();
         moveBasicEnemies();
     }
 
@@ -665,9 +706,11 @@ public class LoopManiaWorld {
             }
         }
         // now spawn building
-        Building newBuilding = new Building(new SimpleIntegerProperty(buildingNodeX),
-                new SimpleIntegerProperty(buildingNodeY), card.getBuildingStrategy());
-        buildingEntities.add(newBuilding);
+        SimpleIntegerProperty xIntegerProperty = new SimpleIntegerProperty(buildingNodeX);
+        SimpleIntegerProperty yIntegerProperty = new SimpleIntegerProperty(buildingNodeY);
+        Building newBuilding = new Building(xIntegerProperty, yIntegerProperty, card.getBuildingStrategy());
+
+        addBuildingToWorld(newBuilding);
 
         // destroy the card
         card.destroy();
@@ -677,10 +720,13 @@ public class LoopManiaWorld {
         return newBuilding;
     }
 
+    public void addBuildingToWorld(Building building) {
+        buildingEntities.add(building);
+    }
+
     public Item equipItembyCoordinates(int oldX, int oldY, int newX, int newY) {
         Item item = getUnequippedInventoryItemEntityByCoordinates(oldX, oldY);
         Item newItem = new Item(new SimpleIntegerProperty(newX), new SimpleIntegerProperty(newY), item.getStrategy());
         return newItem;
     }
-
 }

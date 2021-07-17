@@ -5,6 +5,7 @@ import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Character;
+import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.Enemy;
 
 public class TowerStrategy implements BuildingStrategy {
@@ -37,6 +38,21 @@ public class TowerStrategy implements BuildingStrategy {
     Image image = new Image((new File("src/images/tower.png")).toURI().toString());
     ImageView view = new ImageView(image);
     return view;
+  }
+
+  @Override
+  public boolean canSpawnEnemy(int currentCycle) {
+    return false;
+  }
+
+  @Override
+  public Enemy spawnEnemy(PathPosition position) {
+    return null;
+  }
+
+  @Override
+  public boolean isHerosCastle() {
+    return false;
   }
 
 }

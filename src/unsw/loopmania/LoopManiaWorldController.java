@@ -218,20 +218,20 @@ public class LoopManiaWorldController {
         }
 
         // load entities loaded from the file in the loader into the squares gridpane
-        for (ImageView entity : entityImages){
+        for (ImageView entity : entityImages) {
             squares.getChildren().add(entity);
         }
 
         // add the ground underneath the cards
-        for (int x=0; x<world.getWidth(); x++){
+        for (int x=0; x<world.getWidth(); x++) {
             ImageView groundView = new ImageView(pathTilesImage);
             groundView.setViewport(imagePart);
             cards.add(groundView, x, 0);
         }
 
         // add the empty slot images for the unequipped inventory
-        for (int x=0; x<LoopManiaWorld.unequippedInventoryWidth; x++){
-            for (int y=0; y<LoopManiaWorld.unequippedInventoryHeight; y++){
+        for (int x=0; x<LoopManiaWorld.unequippedInventoryWidth; x++) {
+            for (int y=0; y<LoopManiaWorld.unequippedInventoryHeight; y++) {
                 ImageView emptySlotView = new ImageView(inventorySlotImage);
                 unequippedInventory.add(emptySlotView, x, y);
             }
@@ -247,7 +247,7 @@ public class LoopManiaWorldController {
     /**
      * create and run the timer
      */
-    public void startTimer(){
+    public void startTimer() {
         // TODO = handle more aspects of the behaviour required by the specification
         System.out.println("starting timer");
         isPaused = false;
@@ -255,11 +255,11 @@ public class LoopManiaWorldController {
         timeline = new Timeline(new KeyFrame(Duration.seconds(0.1), event -> {
             world.runTickMoves();
             List<Enemy> defeatedEnemies = world.runBattles();
-            for (Enemy e: defeatedEnemies){
+            for (Enemy e: defeatedEnemies) {
                 reactToEnemyDefeat(e);
             }
             List<Enemy> newEnemies = world.possiblySpawnEnemies();
-            for (Enemy newEnemy: newEnemies){
+            for (Enemy newEnemy: newEnemies) {
                 onLoad(newEnemy);
             }
             printThreadingNotes("HANDLED TIMER");
@@ -272,13 +272,13 @@ public class LoopManiaWorldController {
      * pause the execution of the game loop
      * the human player can still drag and drop items during the game pause
      */
-    public void pause(){
+    public void pause() {
         isPaused = true;
         System.out.println("pausing");
         timeline.stop();
     }
 
-    public void terminate(){
+    public void terminate() {
         pause();
     }
 
@@ -304,7 +304,7 @@ public class LoopManiaWorldController {
     /**
      * load a sword from the world, and pair it with an image in the GUI
      */
-    private void loadItem(){
+    private void loadItem() {
         // TODO = load more types of weapon
         // start by getting first available coordinates
         Item item = world.addUnequippedItem();
@@ -315,7 +315,7 @@ public class LoopManiaWorldController {
      * run GUI events after an enemy is defeated, such as spawning items/experience/gold
      * @param enemy defeated enemy for which we should react to the death of
      */
-    private void reactToEnemyDefeat(Enemy enemy){
+    private void reactToEnemyDefeat(Enemy enemy) {
         // react to character defeating an enemy
         // in starter code, spawning extra card/weapon...
         // TODO = provide different benefits to defeating the enemy based on the type of enemy
@@ -384,7 +384,7 @@ public class LoopManiaWorldController {
      * @param enemy
      */
     private void onLoad(Enemy enemy) {
-        ImageView view = new ImageView(basicEnemyImage);
+        ImageView view = enemy.getImage();
         addEntity(enemy, view);
         squares.getChildren().add(view);
     }
@@ -396,6 +396,9 @@ public class LoopManiaWorldController {
     private void onLoad(Building building) {
         ImageView view = building.getImage();
         addEntity(building, view);
+
+        world.addBuildingToWorld(building);
+        System.out.println(building.getStrategy());
         squares.getChildren().add(view);
     }
 
@@ -406,7 +409,7 @@ public class LoopManiaWorldController {
      * @param sourceGridPane the gridpane being dragged from
      * @param targetGridPane the gridpane the human player should be dragging to (but we of course cannot guarantee they will do so)
      */
-    private void buildNonEntityDragHandlers(DRAGGABLE_TYPE draggableType, GridPane sourceGridPane, GridPane targetGridPane){
+    private void buildNonEntityDragHandlers(DRAGGABLE_TYPE draggableType, GridPane sourceGridPane, GridPane targetGridPane) {
         // TODO = be more selective about where something can be dropped
         // for example, in the specification, villages can only be dropped on path, whilst vampire castles cannot go on the path
 
@@ -417,7 +420,7 @@ public class LoopManiaWorldController {
                  *you might want to design the application so dropping at an invalid location drops at the most recent valid location hovered over,
                  * or simply allow the card/item to return to its slot (the latter is easier, as you won't have to store the last valid drop location!)
                  */
-                if (currentlyDraggedType == draggableType){
+                if (currentlyDraggedType == draggableType) {
                     // problem = event is drop completed is false when should be true...
                     // https://bugs.openjdk.java.net/browse/JDK-8117019
                     // putting drop completed at start not making complete on VLAB...
@@ -426,7 +429,7 @@ public class LoopManiaWorldController {
                     //If there is an image on the dragboard, read it and use it
                     Dragboard db = event.getDragboard();
                     Node node = event.getPickResult().getIntersectedNode();
-                    if(node != targetGridPane && db.hasImage()){
+                    if(node != targetGridPane && db.hasImage()) {
 
                         Integer cIndex = GridPane.getColumnIndex(node);
                         Integer rIndex = GridPane.getRowIndex(node);
@@ -437,7 +440,7 @@ public class LoopManiaWorldController {
 
                         int nodeX = GridPane.getColumnIndex(currentlyDraggedImage);
                         int nodeY = GridPane.getRowIndex(currentlyDraggedImage);
-                        switch (draggableType){
+                        switch (draggableType) {
                             case CARD:
                                 removeDraggableDragEventHandlers(draggableType, targetGridPane);
                                 // TODO = spawn a building here of different types
@@ -479,16 +482,16 @@ public class LoopManiaWorldController {
         });
 
         // this doesn't fire when we drag over GridPane because in the event handler for dragging over GridPanes, we consume the event
-        anchorPaneRootSetOnDragOver.put(draggableType, new EventHandler<DragEvent>(){
+        anchorPaneRootSetOnDragOver.put(draggableType, new EventHandler<DragEvent>() {
             // https://github.com/joelgraff/java_fx_node_link_demo/blob/master/Draggable_Node/DraggableNodeDemo/src/application/RootLayout.java#L110
             @Override
             public void handle(DragEvent event) {
-                if (currentlyDraggedType == draggableType){
-                    if(event.getGestureSource() != anchorPaneRoot && event.getDragboard().hasImage()){
+                if (currentlyDraggedType == draggableType) {
+                    if(event.getGestureSource() != anchorPaneRoot && event.getDragboard().hasImage()) {
                         event.acceptTransferModes(TransferMode.MOVE);
                     }
                 }
-                if (currentlyDraggedType != null){
+                if (currentlyDraggedType != null) {
                     draggedEntity.relocateToPoint(new Point2D(event.getSceneX(), event.getSceneY()));
                 }
                 event.consume();
@@ -498,12 +501,12 @@ public class LoopManiaWorldController {
         // this doesn't fire when we drop over GridPane because in the event handler for dropping over GridPanes, we consume the event
         anchorPaneRootSetOnDragDropped.put(draggableType, new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
-                if (currentlyDraggedType == draggableType){
+                if (currentlyDraggedType == draggableType) {
                     //Data dropped
                     //If there is an image on the dragboard, read it and use it
                     Dragboard db = event.getDragboard();
                     Node node = event.getPickResult().getIntersectedNode();
-                    if(node != anchorPaneRoot && db.hasImage()){
+                    if(node != anchorPaneRoot && db.hasImage()) {
                         //Places at 0,0 - will need to take coordinates once that is implemented
                         currentlyDraggedImage.setVisible(true);
                         draggedEntity.setVisible(false);
@@ -554,7 +557,7 @@ public class LoopManiaWorldController {
      * @param sourceGridPane the relevant gridpane from which the entity would be dragged
      * @param targetGridPane the relevant gridpane to which the entity would be dragged to
      */
-    private void addDragEventHandlers(ImageView view, DRAGGABLE_TYPE draggableType, GridPane sourceGridPane, GridPane targetGridPane){
+    private void addDragEventHandlers(ImageView view, DRAGGABLE_TYPE draggableType, GridPane sourceGridPane, GridPane targetGridPane) {
         view.setOnDragDetected(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 currentlyDraggedImage = view; // set image currently being dragged, so squares setOnDragEntered can detect it...
@@ -572,7 +575,7 @@ public class LoopManiaWorldController {
                 buildNonEntityDragHandlers(draggableType, sourceGridPane, targetGridPane);
 
                 draggedEntity.relocateToPoint(new Point2D(event.getSceneX(), event.getSceneY()));
-                switch (draggableType){
+                switch (draggableType) {
                     case CARD:
                         draggedEntity.setImage(view.getImage());
                         break;
@@ -594,17 +597,17 @@ public class LoopManiaWorldController {
                 anchorPaneRoot.addEventHandler(DragEvent.DRAG_OVER, anchorPaneRootSetOnDragOver.get(draggableType));
                 anchorPaneRoot.addEventHandler(DragEvent.DRAG_DROPPED, anchorPaneRootSetOnDragDropped.get(draggableType));
 
-                for (Node n: targetGridPane.getChildren()){
+                for (Node n: targetGridPane.getChildren()) {
                     // events for entering and exiting are attached to squares children because that impacts opacity change
                     // these do not affect visibility of original image...
                     // https://stackoverflow.com/questions/41088095/javafx-drag-and-drop-to-gridpane
                     gridPaneNodeSetOnDragEntered.put(draggableType, new EventHandler<DragEvent>() {
                         // TODO = be more selective about whether highlighting changes - if it cannot be dropped in the location, the location shouldn't be highlighted!
                         public void handle(DragEvent event) {
-                            if (currentlyDraggedType == draggableType){
+                            if (currentlyDraggedType == draggableType) {
                             //The drag-and-drop gesture entered the target
                             //show the user that it is an actual gesture target
-                                if(event.getGestureSource() != n && event.getDragboard().hasImage()){
+                                if(event.getGestureSource() != n && event.getDragboard().hasImage()) {
                                     n.setOpacity(0.7);
                                 }
                             }
@@ -614,7 +617,7 @@ public class LoopManiaWorldController {
                     gridPaneNodeSetOnDragExited.put(draggableType, new EventHandler<DragEvent>() {
                         // TODO = since being more selective about whether highlighting changes, you could program the game so if the new highlight location is invalid the highlighting doesn't change, or leave this as-is
                         public void handle(DragEvent event) {
-                            if (currentlyDraggedType == draggableType){
+                            if (currentlyDraggedType == draggableType) {
                                 n.setOpacity(1);
                             }
 
@@ -636,14 +639,14 @@ public class LoopManiaWorldController {
      * @param draggableType either cards, or items in unequipped inventory
      * @param targetGridPane the gridpane to remove the drag event handlers from
      */
-    private void removeDraggableDragEventHandlers(DRAGGABLE_TYPE draggableType, GridPane targetGridPane){
+    private void removeDraggableDragEventHandlers(DRAGGABLE_TYPE draggableType, GridPane targetGridPane) {
         // remove event handlers from nodes in children squares, from anchorPaneRoot, and squares
         targetGridPane.removeEventHandler(DragEvent.DRAG_DROPPED, gridPaneSetOnDragDropped.get(draggableType));
 
         anchorPaneRoot.removeEventHandler(DragEvent.DRAG_OVER, anchorPaneRootSetOnDragOver.get(draggableType));
         anchorPaneRoot.removeEventHandler(DragEvent.DRAG_DROPPED, anchorPaneRootSetOnDragDropped.get(draggableType));
 
-        for (Node n: targetGridPane.getChildren()){
+        for (Node n: targetGridPane.getChildren()) {
             n.removeEventHandler(DragEvent.DRAG_ENTERED, gridPaneNodeSetOnDragEntered.get(draggableType));
             n.removeEventHandler(DragEvent.DRAG_EXITED, gridPaneNodeSetOnDragExited.get(draggableType));
         }
@@ -659,7 +662,7 @@ public class LoopManiaWorldController {
         // TODO = handle additional key presses, e.g. for consuming a health potion
         switch (event.getCode()) {
         case SPACE:
-            if (isPaused){
+            if (isPaused) {
                 startTimer();
             }
             else{
@@ -671,7 +674,7 @@ public class LoopManiaWorldController {
         }
     }
 
-    public void setMainMenuSwitcher(MenuSwitcher mainMenuSwitcher){
+    public void setMainMenuSwitcher(MenuSwitcher mainMenuSwitcher) {
         // TODO = possibly set other menu switchers
         this.mainMenuSwitcher = mainMenuSwitcher;
     }
@@ -750,7 +753,7 @@ public class LoopManiaWorldController {
 
         // this means that if we change boolean property in an entity tracked from here, position will stop being tracked
         // this wont work on character/path entities loaded from loader classes
-        entity.shouldExist().addListener(new ChangeListener<Boolean>(){
+        entity.shouldExist().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> obervable, Boolean oldValue, Boolean newValue) {
                 handleX.detach();
@@ -766,7 +769,7 @@ public class LoopManiaWorldController {
      * We recommend only running code on the application thread, by using Timelines when you want to run multiple processes at once.
      * EventHandlers will run on the application thread.
      */
-    private void printThreadingNotes(String currentMethodLabel){
+    private void printThreadingNotes(String currentMethodLabel) {
         // System.out.println("\n###########################################");
         // System.out.println("current method = "+currentMethodLabel);
         // System.out.println("In application thread? = "+Platform.isFxApplicationThread());

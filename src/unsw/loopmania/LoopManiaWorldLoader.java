@@ -10,6 +10,9 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import javafx.beans.property.SimpleIntegerProperty;
+
+import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Buildings.HerosCastleStrategy;
 import unsw.loopmania.Goals.Goal;
 import unsw.loopmania.Goals.GoldGoal;
 import unsw.loopmania.Goals.ExperienceGoal;
@@ -102,6 +105,10 @@ public abstract class LoopManiaWorldLoader {
             Character character = new Character(new PathPosition(indexInPath, orderedPath));
             world.setCharacter(character);
             onLoad(character);
+            Building building = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y), new HerosCastleStrategy());
+            onLoad(building);
+            world.addBuildingToWorld(building);
+
             entity = character;
             break;
         case "path_tile":
@@ -130,7 +137,7 @@ public abstract class LoopManiaWorldLoader {
         }
         // load connected path tiles
         List<PathTile.Direction> connections = new ArrayList<>();
-        for (Object dir: path.getJSONArray("path").toList()){
+        for (Object dir: path.getJSONArray("path").toList()) {
             connections.add(Enum.valueOf(PathTile.Direction.class, dir.toString()));
         }
 
@@ -175,6 +182,7 @@ public abstract class LoopManiaWorldLoader {
     }
 
     public abstract void onLoad(Character character);
+    public abstract void onLoad(Building building);
     public abstract void onLoad(PathTile pathTile, PathTile.Direction into, PathTile.Direction out);
 
     // TODO Create additional abstract methods for the other entities
