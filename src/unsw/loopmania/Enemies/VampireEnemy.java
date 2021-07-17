@@ -5,11 +5,11 @@ import java.util.Random;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import unsw.loopmania.PathPosition;
+import unsw.loopmania.Buffs.Buff;
+import unsw.loopmania.Buffs.VampireCritBuff;
 
 public class VampireEnemy extends Enemy {
-
     private final double health = 60;
     private final int battleRange = 2;
     private final int supportRange = 5;
@@ -17,7 +17,6 @@ public class VampireEnemy extends Enemy {
     private final int expDrop = 100;
     private final int goldDrop = 100;
     private final int critRate = 30;
-    // private List<Entity> inflictedCriticalBite;
 
     /**
      * spawn the vampire constructor
@@ -33,7 +32,6 @@ public class VampireEnemy extends Enemy {
         setExpDrop(expDrop);
         setGoldDrop(goldDrop);
         setCritRate(critRate);
-        // inflictedCriticalBite = new ArrayList<>();
     }
 
     @Override
@@ -47,10 +45,10 @@ public class VampireEnemy extends Enemy {
         }
     }
 
-    // @Override
-    // public void criticalHit (Entity e) {
-    // inflictedCriticalBite.add(e);
-    // }
+    @Override
+    public Buff criticalHit() {
+        return new VampireCritBuff();
+    }
 
     @Override
     public ImageView getImage() {

@@ -5,8 +5,9 @@ import java.util.Random;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import unsw.loopmania.PathPosition;
+import unsw.loopmania.Buffs.Buff;
+import unsw.loopmania.Buffs.ZombieCritBuff;
 
 public class ZombieEnemy extends Enemy {
 
@@ -35,7 +36,12 @@ public class ZombieEnemy extends Enemy {
     }
 
     @Override
-    public void move() {
+    public Buff criticalHit() {
+        return new ZombieCritBuff();
+    }
+
+    @Override
+    public void move(){
         // zombie moves slower than all of the enemies
         int directionChoice = (new Random()).nextInt(3);
         if (directionChoice == 0)

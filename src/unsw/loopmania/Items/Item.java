@@ -1,11 +1,14 @@
 package unsw.loopmania.Items;
 
+import java.util.List;
+
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.ImageView;
+import unsw.loopmania.Soldier;
 import unsw.loopmania.StaticEntity;
 import unsw.loopmania.Enemies.Enemy;
-import javafx.beans.property.SimpleIntegerProperty;
 
-public class Item extends StaticEntity implements ItemStrategy{
+public class Item extends StaticEntity implements ItemStrategy {
     private ItemStrategy strategy;
 
     public Item(SimpleIntegerProperty x, SimpleIntegerProperty y, ItemStrategy strategy) {
@@ -25,8 +28,8 @@ public class Item extends StaticEntity implements ItemStrategy{
         return strategy.critMultiplier(enemy);
     }
 
-    public void onHitEffects(Enemy enemy) {
-        strategy.onHitEffects(enemy);
+    public void onHitEffects(Enemy enemy, List<Soldier> allyList) {
+        strategy.onHitEffects(enemy, allyList);
     }
 
     public ImageView getImage() {
@@ -40,7 +43,5 @@ public class Item extends StaticEntity implements ItemStrategy{
     public void setStrategy(ItemStrategy strategy) {
         this.strategy = strategy;
     }
-
-
 
 }

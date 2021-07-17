@@ -1,15 +1,21 @@
 package unsw.loopmania;
 
-import javafx.beans.property.SimpleIntegerProperty;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Soldier extends StaticEntity {
+import unsw.loopmania.Buffs.Buff;
+
+// import javafx.beans.property.SimpleIntegerProperty;
+
+public class Soldier {
     private double health;
     private double damage;
+    private List<Buff> buffs;
 
-    public Soldier(SimpleIntegerProperty x, SimpleIntegerProperty y) {
-        super(x, y);
+    public Soldier() {
         this.health = 25;
         this.damage = 10;
+        buffs = new ArrayList<>();
     }
 
     public double getHealth() {
@@ -43,6 +49,14 @@ public class Soldier extends StaticEntity {
      */
     public void reduceHealth(double health) {
         this.health -= health;
+    }
+
+    public List<Buff> getBuffs() {
+        return buffs;
+    }
+
+    public void addBuffs(Buff buff) {
+        this.buffs.add(buff);
     }
 
 }

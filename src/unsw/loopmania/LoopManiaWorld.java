@@ -18,6 +18,7 @@ import unsw.loopmania.Items.StaffStrategy;
 import unsw.loopmania.Items.StakeStrategy;
 import unsw.loopmania.Items.SwordStrategy;
 import unsw.loopmania.Items.TheOneRingStrategy;
+import unsw.loopmania.Buffs.Buff;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.BuildingStrategy;
 import unsw.loopmania.Buildings.HerosCastleStrategy;
@@ -84,7 +85,10 @@ public class LoopManiaWorld {
     // TODO = expand the range of enemies
     private List<Enemy> enemies;
 
+    private List<Enemy> zombieSoldiers;
+
     private List<Soldier> soldiers;
+    private List<Soldier> trancedSoldiers;
 
     // TODO = expand the range of cards
     private List<Card> cardEntities;
@@ -116,6 +120,7 @@ public class LoopManiaWorld {
         nonSpecifiedEntities = new ArrayList<>();
         character = null;
         enemies = new ArrayList<>();
+        zombieSoldiers = new ArrayList<>();
         cardEntities = new ArrayList<>();
         unequippedInventoryItems = new ArrayList<>();
         equippedInventoryItems = new ArrayList<>();
@@ -130,6 +135,7 @@ public class LoopManiaWorld {
         this.orderedPath = orderedPath;
         buildingEntities = new ArrayList<>();
         soldiers = new ArrayList<>();
+        trancedSoldiers = new ArrayList<>();
     }
 
     public void generateItemDrops() {
@@ -336,18 +342,66 @@ public class LoopManiaWorld {
                 for (Item equippedItems : equippedInventoryItems) {
                     characterDamage *= equippedItems.atkMultiplier(enemy);
                 }
+                Random random = new Random();
+                int randInt = random.nextInt(2);
+                if (randInt == 1) {
+                    for (Item equippedItems : equippedInventoryItems) {
+                        equippedItems.onHitEffects(enemy, trancedSoldiers);
+                    }
+                }
                 enemy.reduceHealth(characterDamage);
                 // Every enemy in the battle attacks any soldiers, then the character
                 for (Enemy currBattlingEnemy : battlingEnemies) {
-                    // boolean criticalHit = false;
-                    // Random random = new Random();
-                    // int randInt = random.nextInt(100) + 1;
-                    // if (randInt <= currBattlingEnemy.getCritRate()) criticalHit = true;
+                    // test(currBattlingEnemy);
+                    boolean criticalHit = false;
+                    random = new Random();
+                    randInt = random.nextInt(100) + 1;
+                    if (randInt <= currBattlingEnemy.getCritRate()) criticalHit = true;
 
                     for (Item equippedItems : equippedInventoryItems) {
                         enemyDamage *= equippedItems.defMultiplier(currBattlingEnemy);
                     }
-
+                    if (trancedSoldiers.size() > 0) {
+                        Soldier s = trancedSoldiers.get(0);
+                        if (criticalHit) {
+                            if (!s.getBuffs().contains(currBattlingEnemy.criticalHit())) {
+                                s.addBuffs(currBattlingEnemy.criticalHit());
+                            }
+                        }
+                        s.reduceHealth(enemyDamage);
+                        for (Buff buff : s.getBuffs()) {
+                            buff.activateEffect(s, currBattlingEnemy, soldiers, zombieSoldiers);
+                        }
+                        if (s.isDead()) soldiers.remove(0);
+                    } else if (soldiers.size() > 0) {
+                        Soldier s = soldiers.get(0);
+                        if (criticalHit) {
+                            if (!s.getBuffs().contains(currBattlingEnemy.criticalHit())) {
+                                s.addBuffs(currBattlingEnemy.criticalHit());
+                            }
+                        }
+                        s.reduceHealth(enemyDamage);
+                        for (Buff buff : s.getBuffs()) {
+                            buff.activateEffect(s, currBattlingEnemy, soldiers, zombieSoldiers);
+                        }
+                        if (s.isDead()) soldiers.remove(0);
+                    } else {
+                        if (criticalHit) {
+                            if (!character.getBuffs().contains(currBattlingEnemy.criticalHit())) {
+                                character.addBuffs(currBattlingEnemy.criticalHit());
+                            }
+                        }
+                        character.reduceHealth(enemyDamage);
+                        for (Buff buff : character.getBuffs()) {
+                            buff.activateEffect(character, currBattlingEnemy, soldiers, zombieSoldiers);
+                        }
+                        character.reduceHealth(enemyDamage);
+                    }
+                }
+                for (Enemy currBattlingEnemy : zombieSoldiers) {
+                    for (Item equippedItems : equippedInventoryItems) {
+                        enemyDamage *= equippedItems.defMultiplier(currBattlingEnemy);
+                    }
                     if (soldiers.size() > 0) {
                         Soldier s = soldiers.get(0);
                         s.reduceHealth(enemyDamage);
@@ -362,13 +416,13 @@ public class LoopManiaWorld {
                 // System.out.println("ENEMY HEALTH");
                 // System.out.println(enemy.getHealth());
             }
-
             defeatedEnemies.add(enemy);
             character.addEXP(enemy.getExpDrop());
             character.addGold(enemy.getGoldDrop());
         }
 
-        for (Enemy e: defeatedEnemies) {
+        trancedSoldiers.clear();
+        for (Enemy e: defeatedEnemies){
             // IMPORTANT = we kill enemies here, because killEnemy removes the enemy from the enemies list
             // if we killEnemy in prior loop, we get java.util.ConcurrentModificationException
             // due to mutating list we're iterating over
@@ -377,6 +431,7 @@ public class LoopManiaWorld {
 
         return defeatedEnemies;
     }
+
 
     /**
      * spawn a card in the world and return the card entity
@@ -513,8 +568,13 @@ public class LoopManiaWorld {
      * @param y y coordinate from 0 to height-1
      */
     public void removeEquippedInventoryItemByCoordinates(int x, int y) {
-        Entity item = getEquippedInventoryItemEntityByCoordinates(x, y);
+        Item item = getEquippedInventoryItemEntityByCoordinates(x, y);
         removeEquippedInventoryItem(item);
+    }
+
+    public void addEquippedInventoryItemByCoordinates(int x, int y){
+        Item item = getEquippedInventoryItemEntityByCoordinates(x, y);
+        addEquippedInventoryItem(item);
     }
 
     private void useIfAtHerosCastle() {
@@ -550,7 +610,7 @@ public class LoopManiaWorld {
      *
      * @param item item to be removed
      */
-    private void removeUnequippedInventoryItem(Entity item) {
+    public void removeUnequippedInventoryItem(Entity item){
         item.destroy();
         unequippedInventoryItems.remove(item);
     }
@@ -560,22 +620,29 @@ public class LoopManiaWorld {
      *
      * @param item item to be removed
      */
-    private void removeEquippedInventoryItem(Entity item) {
+    public void removeEquippedInventoryItem(Item item){
         item.destroy();
         equippedInventoryItems.remove(item);
     }
 
     /**
-     * return an unequipped inventory item by x and y coordinates assumes that no 2
-     * unequipped inventory items share x and y coordinates
-     *
+     * add an item to the equipped inventory
+     * @param item item to be added
+     */
+    public void addEquippedInventoryItem(Item item){
+        equippedInventoryItems.add(item);
+    }
+
+    /**
+     * return an unequipped inventory item by x and y coordinates
+     * assumes that no 2 unequipped inventory items share x and y coordinates
      * @param x x index from 0 to width-1
      * @param y y index from 0 to height-1
      * @return unequipped inventory item at the input position
      */
-    private Item getUnequippedInventoryItemEntityByCoordinates(int x, int y) {
-        for (Item e : unequippedInventoryItems) {
-            if ((e.getX() == x) && (e.getY() == y)) {
+    public Item getUnequippedInventoryItemEntityByCoordinates(int x, int y){
+        for (Item e: unequippedInventoryItems){
+            if ((e.getX() == x) && (e.getY() == y)){
                 return e;
             }
         }
@@ -730,4 +797,13 @@ public class LoopManiaWorld {
         Item newItem = new Item(new SimpleIntegerProperty(newX), new SimpleIntegerProperty(newY), item.getStrategy());
         return newItem;
     }
+
+    public List<Item> getUnequip() {
+        return unequippedInventoryItems;
+    }
+
+    public List<Item> getEquip() {
+        return equippedInventoryItems;
+    }
+
 }

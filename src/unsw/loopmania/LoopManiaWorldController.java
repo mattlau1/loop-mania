@@ -10,6 +10,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -372,9 +373,9 @@ public class LoopManiaWorldController {
      * and load the image into the unequippedInventory GridPane.
      * @param sword
      */
-    private void onLoadEquipped(Item item, ImageView view) {
-        // ImageView view = item.getImage();
-        addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, equippedItems, unequippedInventory);
+    private void onLoadEquipped(Item item) {
+        ImageView view = item.getImage();
+        addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, equippedItems, equippedItems);
         addEntity(item, view);
         equippedItems.getChildren().add(view);
     }
@@ -449,16 +450,26 @@ public class LoopManiaWorldController {
                                 break;
                             case ITEM:
                                 removeDraggableDragEventHandlers(draggableType, targetGridPane);
+
                                 // TODO = spawn an item in the new location. The above code for spawning a building will help, it is very similar
                                 // onLoadEquipped(world.getEquippedInventoryItemEntityByCoordinates(x, y));
-                                // Item newItem = equipItembyCoordinates(nodeX, nodeY, x, y);
-                                // if (targetGridPane == equippedItems) {
-                                //     onLoadEquipped(newItem, image);
-                                // } else {
-                                //     onLoad(newItem, image);
-                                // }
-                                removeItemByCoordinates(nodeX, nodeY);
 
+                                // Item newItem = equipItembyCoordinates(nodeX, nodeY, x, y);
+                                if (targetGridPane == equippedItems) {
+                                    Item currItem = world.getEquippedInventoryItemEntityByCoordinates(x, y);
+                                    if (currItem != null) {
+                                        world.removeEquippedInventoryItem(currItem);
+                                        // removeItemByCoordinates(x, y);
+                                    }
+                                    Item item = world.getUnequippedInventoryItemEntityByCoordinates(nodeX, nodeY);
+                                    Item newItem = new Item(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y), item.getStrategy());
+                                    onLoadEquipped(newItem);
+                                    world.addEquippedInventoryItem(item);
+                                    removeItemByCoordinates(nodeX, nodeY);
+                                    world.removeUnequippedInventoryItem(item);
+                                } else {
+                                    removeItemByCoordinates(nodeX, nodeY);
+                                }
                                 targetGridPane.add(image, x, y, 1, 1);
                                 break;
                             default:
@@ -733,7 +744,7 @@ public class LoopManiaWorldController {
                                                     entityImages.remove(node);
                                                     squares.getChildren().remove(node);
                                                     cards.getChildren().remove(node);
-                                                    equippedItems.getChildren().remove(node);
+                                                    // equippedItems.getChildren().remove(node);
                                                     unequippedInventory.getChildren().remove(node);
                                                 })
                                                .buildAttached();
@@ -744,7 +755,7 @@ public class LoopManiaWorldController {
                                                    entityImages.remove(node);
                                                    squares.getChildren().remove(node);
                                                    cards.getChildren().remove(node);
-                                                   equippedItems.getChildren().remove(node);
+                                                //    equippedItems.getChildren().remove(node);
                                                    unequippedInventory.getChildren().remove(node);
                                                 })
                                                .buildAttached();
@@ -769,7 +780,11 @@ public class LoopManiaWorldController {
      * We recommend only running code on the application thread, by using Timelines when you want to run multiple processes at once.
      * EventHandlers will run on the application thread.
      */
-    private void printThreadingNotes(String currentMethodLabel) {
+    private void printThreadingNotes(String currentMethodLabel){
+        // System.out.println("Unequiped");
+        // System.out.println(world.getUnequip());
+        // System.out.println("Equiped");
+        // System.out.println(world.getEquip());
         // System.out.println("\n###########################################");
         // System.out.println("current method = "+currentMethodLabel);
         // System.out.println("In application thread? = "+Platform.isFxApplicationThread());

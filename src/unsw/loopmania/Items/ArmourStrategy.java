@@ -1,12 +1,14 @@
 package unsw.loopmania.Items;
 
 import java.io.File;
+import java.util.List;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Enemies.Enemy;
+import unsw.loopmania.Soldier;
 
-public class ArmourStrategy implements ItemStrategy{
+public class ArmourStrategy implements ItemStrategy {
     /**
      *  Armour item does not have any attack mechanics, so returns 1
      * @param enemy The monster/entity that the Character is in combat with
@@ -45,7 +47,9 @@ public class ArmourStrategy implements ItemStrategy{
      * @param enemy The monster/entity that the Character is in combat with
      */
     @Override
-    public void onHitEffects(Enemy enemy) {}
+    public void onHitEffects(Enemy enemy, List<Soldier> allyList) {
+        return;
+    }
 
     /**
      *  returns the image of the item to be displayed

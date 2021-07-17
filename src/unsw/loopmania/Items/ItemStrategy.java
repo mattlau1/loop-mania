@@ -1,7 +1,10 @@
 package unsw.loopmania.Items;
 
+import java.util.List;
+
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Enemies.Enemy;
+import unsw.loopmania.Soldier;
 
 public interface ItemStrategy {
     /**
@@ -29,7 +32,7 @@ public interface ItemStrategy {
      *  Deals with any on hit effects as a result of the weapon
      * @param enemy The monster/entity that the Character is in combat with
      */
-    public void onHitEffects(Enemy enemy);
+    public void onHitEffects(Enemy enemy, List<Soldier> allyList);
 
     /**
      * Gets the image of the item to be shown

@@ -1,5 +1,10 @@
 package unsw.loopmania;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import unsw.loopmania.Buffs.Buff;
+
 /**
  * represents the main character in the backend of the game world
  */
@@ -10,9 +15,11 @@ public class Character extends MovingEntity {
     private double damage = 15;
     private double damageMultiplier = 1;
     private int currentCycle = 0;
+    private List<Buff> buffs;
 
     public Character(PathPosition position) {
         super(position);
+        buffs = new ArrayList<>();
     }
 
     public double getHealth() {
@@ -129,4 +136,12 @@ public class Character extends MovingEntity {
         // System.out.printf("Current Cycle Number: %d\n", currentCycle);
         return this.currentCycle;
     }
+    public List<Buff> getBuffs() {
+        return buffs;
+    }
+
+    public void addBuffs(Buff buff) {
+        this.buffs.add(buff);
+    }
+
 }

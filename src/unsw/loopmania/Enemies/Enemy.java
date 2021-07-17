@@ -3,9 +3,9 @@ package unsw.loopmania.Enemies;
 import java.util.Random;
 
 import javafx.scene.image.ImageView;
-import unsw.loopmania.Entity;
 import unsw.loopmania.MovingEntity;
 import unsw.loopmania.PathPosition;
+import unsw.loopmania.Buffs.Buff;
 
 /**
  * a basic form of enemy in the world
@@ -153,8 +153,9 @@ public abstract class Enemy extends MovingEntity {
         return health > 0;
     }
 
-    public void criticalHit(Entity e) {
-
+    public Buff criticalHit() {
+        Buff buff = new Buff();
+        return buff;
     }
 
     /**
