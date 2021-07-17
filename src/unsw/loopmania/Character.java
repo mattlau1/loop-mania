@@ -46,15 +46,6 @@ public class Character extends MovingEntity {
         // notifyAllObservers();
     }
 
-    public int getCycleCount() {
-        return this.cycleCount;
-    }
-
-    public void setCycleCount(int cycleCount) {
-        this.cycleCount = cycleCount;
-        // notifyAllObservers();
-    }
-
     /**
      * Gets raw damage (not including damage multiplier)
      *
