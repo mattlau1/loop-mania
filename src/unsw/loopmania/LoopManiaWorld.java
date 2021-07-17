@@ -7,12 +7,7 @@ import java.util.Random;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import unsw.loopmania.Goals.CycleCountObserver;
-import unsw.loopmania.Goals.EXPObserver;
-import unsw.loopmania.Goals.ExperienceGoal;
 import unsw.loopmania.Goals.Goal;
-import unsw.loopmania.Goals.GoldGoal;
-import unsw.loopmania.Goals.GoldObserver;
 
 /**
  * A backend world.
@@ -83,10 +78,7 @@ public class LoopManiaWorld {
         unequippedInventoryItems = new ArrayList<>();
         this.orderedPath = orderedPath;
         buildingEntities = new ArrayList<>();
-
         this.goal = goal;
-        // goal.addGoal(new GoldGoal(20000));
-        // goal.addGoal(new ExperienceGoal(30));
     }
 
     public int getWidth() {
@@ -155,10 +147,10 @@ public class LoopManiaWorld {
                 // fight...
 
                 // do some damage
-                character.setGold(character.getGold() + 10000);
-                character.setExp(character.getExp() + 10000);
-                System.out.println(goal.getGoals());
-                if (goal.isGameWon(character)) System.exit(1);
+                // character.setGold(character.getGold() + 10000);
+                // character.setExp(character.getExp() + 10000);
+                // System.out.println(goal.getGoals());
+                // if (goal.isGameWon(character)) System.exit(1);
 
                 defeatedEnemies.add(e);
             }
