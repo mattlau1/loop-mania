@@ -1,10 +1,5 @@
 package unsw.loopmania;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import unsw.loopmania.Goals.Observer;
-
 /**
  * represents the main character in the backend of the game world
  */
