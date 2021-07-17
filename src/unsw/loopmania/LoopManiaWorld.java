@@ -319,6 +319,8 @@ public class LoopManiaWorld {
             }
 
             defeatedEnemies.add(enemy);
+            character.addEXP(enemy.getExpDrop());
+            character.addGold(enemy.getGoldDrop());
         }
 
         for (BasicEnemy e: defeatedEnemies){
