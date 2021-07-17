@@ -4,8 +4,8 @@ import java.io.File;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.Character;
+import unsw.loopmania.Enemies.Enemy;
 
 public class CampfireStrategy implements BuildingStrategy {
   private final int range = 10;
@@ -21,7 +21,7 @@ public class CampfireStrategy implements BuildingStrategy {
   }
 
   @Override
-  public void useBuilding(BasicEnemy enemy) {
+  public void useBuilding(Enemy enemy) {
     // enemies cannot use campfires so do nothing
     return;
   }

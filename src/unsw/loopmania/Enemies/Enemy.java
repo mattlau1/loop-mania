@@ -1,11 +1,15 @@
-package unsw.loopmania;
+package unsw.loopmania.Enemies;
 
 import java.util.Random;
+
+import unsw.loopmania.Entity;
+import unsw.loopmania.MovingEntity;
+import unsw.loopmania.PathPosition;
 
 /**
  * a basic form of enemy in the world
  */
-public abstract class BasicEnemy extends MovingEntity {
+public abstract class Enemy extends MovingEntity {
 
     private double health;
     private int battleRange;
@@ -20,7 +24,7 @@ public abstract class BasicEnemy extends MovingEntity {
      *
      * @param position the position where the enemy will spawn in the map
      */
-    public BasicEnemy(PathPosition position) {
+    public Enemy(PathPosition position) {
         super(position);
     }
 

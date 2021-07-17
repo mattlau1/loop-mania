@@ -1,8 +1,8 @@
 package unsw.loopmania.Items;
 
 import javafx.scene.image.ImageView;
-import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.StaticEntity;
+import unsw.loopmania.Enemies.Enemy;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class Item extends StaticEntity implements ItemStrategy{
@@ -13,19 +13,19 @@ public class Item extends StaticEntity implements ItemStrategy{
         this.strategy = strategy;
     }
 
-    public double atkMultiplier(BasicEnemy enemy) {
+    public double atkMultiplier(Enemy enemy) {
         return strategy.atkMultiplier(enemy);
     }
 
-    public double defMultiplier(BasicEnemy enemy) {
+    public double defMultiplier(Enemy enemy) {
         return strategy.defMultiplier(enemy);
     }
 
-    public double critMultiplier(BasicEnemy enemy) {
+    public double critMultiplier(Enemy enemy) {
         return strategy.critMultiplier(enemy);
     }
 
-    public void onHitEffects(BasicEnemy enemy) {
+    public void onHitEffects(Enemy enemy) {
         strategy.onHitEffects(enemy);
     }
 

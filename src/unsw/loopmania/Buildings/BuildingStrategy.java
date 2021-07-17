@@ -1,8 +1,8 @@
 package unsw.loopmania.Buildings;
 
 import javafx.scene.image.ImageView;
-import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.Character;
+import unsw.loopmania.Enemies.Enemy;
 
 public interface BuildingStrategy {
   /**
@@ -17,7 +17,7 @@ public interface BuildingStrategy {
    *
    * @param enemy enemy to activate building on
    */
-  public void useBuilding(BasicEnemy enemy);
+  public void useBuilding(Enemy enemy);
 
   /**
    * Gets the range of the building

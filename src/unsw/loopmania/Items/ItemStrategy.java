@@ -1,7 +1,7 @@
 package unsw.loopmania.Items;
 
 import javafx.scene.image.ImageView;
-import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Enemies.Enemy;
 
 public interface ItemStrategy {
     /**
@@ -10,26 +10,26 @@ public interface ItemStrategy {
      * @return The attack multiplier against the monster, can vary depending on
      *          the monster type
      */
-    public double atkMultiplier(BasicEnemy enemy);
+    public double atkMultiplier(Enemy enemy);
     /**
      *
      * @param enemy The monster/entity that the Character is in combat with
      * @return The crit multiplier against the monster, can vary depending on
      *          the monster type
      */
-    public double critMultiplier(BasicEnemy enemy);
+    public double critMultiplier(Enemy enemy);
     /**
      *
      * @param enemy The monster/entity that the Character is in combat with
      * @return The defence multiplier against the monster, can vary depending on
      *          the monster type
      */
-    public double defMultiplier(BasicEnemy enemy);
+    public double defMultiplier(Enemy enemy);
     /**
      *  Deals with any on hit effects as a result of the weapon
      * @param enemy The monster/entity that the Character is in combat with
      */
-    public void onHitEffects(BasicEnemy enemy);
+    public void onHitEffects(Enemy enemy);
 
     /**
      * Gets the image of the item to be shown

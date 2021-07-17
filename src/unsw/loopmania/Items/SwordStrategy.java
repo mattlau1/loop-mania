@@ -4,7 +4,7 @@ import java.io.File;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import unsw.loopmania.BasicEnemy;
+import unsw.loopmania.Enemies.Enemy;
 
 public class SwordStrategy implements ItemStrategy{
     /**
@@ -14,7 +14,7 @@ public class SwordStrategy implements ItemStrategy{
      *          the monster type
      */
     @Override
-    public double atkMultiplier(BasicEnemy enemy) {
+    public double atkMultiplier(Enemy enemy) {
         return 2;
     }
 
@@ -25,7 +25,7 @@ public class SwordStrategy implements ItemStrategy{
      *          the monster type
      */
     @Override
-    public double defMultiplier(BasicEnemy enemy) {
+    public double defMultiplier(Enemy enemy) {
         return 1;
     }
 
@@ -36,7 +36,7 @@ public class SwordStrategy implements ItemStrategy{
      *          the monster type
      */
     @Override
-    public double critMultiplier(BasicEnemy enemy) {
+    public double critMultiplier(Enemy enemy) {
         return 1;
     }
 
@@ -45,7 +45,7 @@ public class SwordStrategy implements ItemStrategy{
      * @param enemy The monster/entity that the Character is in combat with
      */
     @Override
-    public void onHitEffects(BasicEnemy enemy) {}
+    public void onHitEffects(Enemy enemy) {}
 
     /**
      *  returns the image of the item to be displayed

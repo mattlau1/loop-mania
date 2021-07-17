@@ -1,8 +1,10 @@
-package unsw.loopmania;
+package unsw.loopmania.Enemies;
 
 import java.util.Random;
 
-public class ZombieEnemy extends BasicEnemy {
+import unsw.loopmania.PathPosition;
+
+public class ZombieEnemy extends Enemy {
 
     private final double health = 30;
     private final int battleRange = 10;

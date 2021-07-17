@@ -2,9 +2,9 @@ package unsw.loopmania.Buildings;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.ImageView;
-import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.Character;
 import unsw.loopmania.StaticEntity;
+import unsw.loopmania.Enemies.Enemy;
 
 public class Building extends StaticEntity implements BuildingStrategy {
   private BuildingStrategy strategy;
@@ -18,7 +18,7 @@ public class Building extends StaticEntity implements BuildingStrategy {
     strategy.useBuilding(character);
   }
 
-  public void useBuilding(BasicEnemy enemy) {
+  public void useBuilding(Enemy enemy) {
     strategy.useBuilding(enemy);
   }
 

@@ -28,6 +28,8 @@ import unsw.loopmania.Cards.TrapCardStrategy;
 import unsw.loopmania.Cards.VampireCastleCardStrategy;
 import unsw.loopmania.Cards.VillageCardStrategy;
 import unsw.loopmania.Cards.ZombiePitCardStrategy;
+import unsw.loopmania.Enemies.Enemy;
+import unsw.loopmania.Enemies.SlugEnemy;
 
 /**
  * A backend world.
@@ -72,7 +74,7 @@ public class LoopManiaWorld {
     private List<CardStrategy> highRarityCards;
 
     // TODO = expand the range of enemies
-    private List<BasicEnemy> enemies;
+    private List<Enemy> enemies;
 
     private List<Soldier> soldiers;
 
@@ -186,13 +188,13 @@ public class LoopManiaWorld {
      * spawns enemies if the conditions warrant it, adds to world
      * @return list of the enemies to be displayed on screen
      */
-    public List<BasicEnemy> possiblySpawnEnemies(){
+    public List<Enemy> possiblySpawnEnemies(){
         // TODO = expand this very basic version
         Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
-        List<BasicEnemy> spawningEnemies = new ArrayList<>();
+        List<Enemy> spawningEnemies = new ArrayList<>();
         if (pos != null) {
             int indexInPath = orderedPath.indexOf(pos);
-            BasicEnemy enemy = new SlugEnemy(new PathPosition(indexInPath, orderedPath));
+            Enemy enemy = new SlugEnemy(new PathPosition(indexInPath, orderedPath));
             enemies.add(enemy);
             spawningEnemies.add(enemy);
         }
@@ -203,19 +205,19 @@ public class LoopManiaWorld {
      * kill an enemy
      * @param enemy enemy to be killed
      */
-    private void killEnemy(BasicEnemy enemy){
+    private void killEnemy(Enemy enemy){
         enemy.destroy();
         enemies.remove(enemy);
     }
 
-    private boolean isInRange(BasicEnemy e, Character c) {
+    private boolean isInRange(Enemy e, Character c) {
         // Pythagoras: a^2+b^2 < radius^2 to see if within radius
         // TODO = you should implement different RHS on this inequality, based on
         // influence radii and battle radii
         return Math.pow((c.getX() - e.getX()), 2) + Math.pow((c.getY() - e.getY()), 2) < e.getBattleRange();
     }
 
-    private boolean isInSuppRange(BasicEnemy e, Character c) {
+    private boolean isInSuppRange(Enemy e, Character c) {
         // Pythagoras: a^2+b^2 < radius^2 to see if within radius
         // TODO = you should implement different RHS on this inequality, based on
         // influence radii and battle radii
@@ -226,7 +228,7 @@ public class LoopManiaWorld {
         return Math.pow((c.getX() - b.getX()), 2) + Math.pow((c.getY() - b.getY()), 2) < b.getRange();
     }
 
-    private boolean isInRange(Building b, BasicEnemy e) {
+    private boolean isInRange(Building b, Enemy e) {
         return Math.pow((e.getX() - b.getX()), 2) + Math.pow((e.getY() - b.getY()), 2) < b.getRange();
     }
 
@@ -234,7 +236,7 @@ public class LoopManiaWorld {
      * run the expected battles in the world, based on current world state
      * @return list of enemies which have been killed
      */
-    public List<BasicEnemy> runBattles() {
+    public List<Enemy> runBattles() {
         // we have four types of buildings:
         // one that is for the character outside of combat (i.e village)
         // one that is for the enemies outside of combat (i.e trap)
@@ -250,7 +252,7 @@ public class LoopManiaWorld {
 
         // building for enemies outside of combat
         for (Building b : buildingEntities) {
-            for (BasicEnemy e : enemies) {
+            for (Enemy e : enemies) {
                 if (isInRange(b, e) && b.usableOutsideCombat()) {
                     b.useBuilding(e);
                 }
@@ -259,13 +261,13 @@ public class LoopManiaWorld {
 
 
         // building for enemies and character inside of combat
-        List<BasicEnemy> battlingEnemies = new ArrayList<BasicEnemy>();
-        List<BasicEnemy> defeatedEnemies = new ArrayList<BasicEnemy>();
+        List<Enemy> battlingEnemies = new ArrayList<Enemy>();
+        List<Enemy> defeatedEnemies = new ArrayList<Enemy>();
 
-        for (BasicEnemy enemy : enemies) {
+        for (Enemy enemy : enemies) {
             if (isInRange(enemy, character)) {
                 battlingEnemies.add(enemy);
-                for (BasicEnemy support : enemies) {
+                for (Enemy support : enemies) {
                     if (support != enemy) {
                         if (isInSuppRange(support, character)) battlingEnemies.add(support);
                     }
@@ -273,7 +275,7 @@ public class LoopManiaWorld {
             }
         }
 
-        for (BasicEnemy enemy : battlingEnemies) {
+        for (Enemy enemy : battlingEnemies) {
             while (enemy.isAlive()) {
                 for (Building building : buildingEntities) {
                     if (isInRange(building, character)) {
@@ -292,7 +294,7 @@ public class LoopManiaWorld {
                 }
                 enemy.reduceHealth(characterDamage);
                 // Every enemy in the battle attacks any soldiers, then the character
-                for (BasicEnemy currBattlingEnemy : battlingEnemies) {
+                for (Enemy currBattlingEnemy : battlingEnemies) {
                     // boolean criticalHit = false;
                     // Random random = new Random();
                     // int randInt = random.nextInt(100) + 1;
@@ -321,7 +323,7 @@ public class LoopManiaWorld {
             character.addGold(enemy.getGoldDrop());
         }
 
-        for (BasicEnemy e: defeatedEnemies){
+        for (Enemy e: defeatedEnemies){
             // IMPORTANT = we kill enemies here, because killEnemy removes the enemy from the enemies list
             // if we killEnemy in prior loop, we get java.util.ConcurrentModificationException
             // due to mutating list we're iterating over
@@ -556,7 +558,7 @@ public class LoopManiaWorld {
      */
     private void moveBasicEnemies() {
         // TODO = expand to more types of enemy
-        for (BasicEnemy e: enemies){
+        for (Enemy e: enemies){
             e.move();
         }
     }

@@ -4,8 +4,8 @@ import java.io.File;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.Character;
+import unsw.loopmania.Enemies.Enemy;
 
 public class VillageStrategy implements BuildingStrategy {
   private final int range = 2;
@@ -22,7 +22,7 @@ public class VillageStrategy implements BuildingStrategy {
   }
 
   @Override
-  public void useBuilding(BasicEnemy enemy) {
+  public void useBuilding(Enemy enemy) {
     return;
   }
 

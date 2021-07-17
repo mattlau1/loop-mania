@@ -1,10 +1,10 @@
-package unsw.loopmania;
+package unsw.loopmania.Enemies;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-public class VampireEnemy extends BasicEnemy {
+import unsw.loopmania.PathPosition;
+
+public class VampireEnemy extends Enemy {
 
     private final double health = 60;
     private final int battleRange = 20;

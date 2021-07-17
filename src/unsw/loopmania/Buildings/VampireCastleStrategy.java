@@ -4,8 +4,8 @@ import java.io.File;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import unsw.loopmania.BasicEnemy;
 import unsw.loopmania.Character;
+import unsw.loopmania.Enemies.Enemy;
 
 /**
  * a basic form of building in the world
@@ -25,7 +25,7 @@ public class VampireCastleStrategy implements BuildingStrategy {
   }
 
   @Override
-  public void useBuilding(BasicEnemy enemy) {
+  public void useBuilding(Enemy enemy) {
     // TODO Auto-generated method stub
 
   }
