@@ -16,6 +16,7 @@ public class StakeStrategy implements ItemStrategy {
   private final double defMultiplier = 1;
   private final double critMultiplier = 1;
   private final int range = 0;
+  private final int price = 100;
 
   /**
    * Stake item lowers danage dealt by 50% unless the Character is attacking a
@@ -72,6 +73,11 @@ public class StakeStrategy implements ItemStrategy {
     Image image = new Image((new File("src/images/stake.png")).toURI().toString());
     ImageView view = new ImageView(image);
     return view;
+  }
+
+  @Override
+  public int getPrice() {
+    return price;
   }
 
 }
