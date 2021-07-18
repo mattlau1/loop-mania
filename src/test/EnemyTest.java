@@ -20,22 +20,7 @@ import unsw.loopmania.Enemies.VampireEnemy;
 public class EnemyTest {
 
     @Test
-    void testCriticalHit() {
-
-    }
-
-    @Test
-    void testMove() {
-        TestSetup s = new TestSetup();
-        LoopManiaWorld d = s.makeTestWorld();
-
-        SlugEnemy slug = new SlugEnemy(new PathPosition(1, d.getOrderedPath()));
-        PathPosition x = slug.getX()
-
-    }
-
-    @Test
-    void testReduceHealth() {
+    public void testReduceHealth() {
         TestSetup s = new TestSetup();
         LoopManiaWorld d = s.makeTestWorld();
 
@@ -48,7 +33,7 @@ public class EnemyTest {
     }
 
     @Test
-    void testIsAlive() {
+    public void testIsAlive() {
         // test if returns false when enemy recieves dmg greater than their hp
         TestSetup s = new TestSetup();
         LoopManiaWorld d = s.makeTestWorld();
@@ -62,7 +47,8 @@ public class EnemyTest {
     }
 
     @Test
-    void testEnemyDrops() {
+    public void testEnemyDrops() {
+        // tests that enemies drop gold and exp
         TestSetup s = new TestSetup();
         LoopManiaWorld d = s.makeTestWorld();
         Character testChar = new Character(new PathPosition(1, d.getOrderedPath()));

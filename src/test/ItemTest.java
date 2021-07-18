@@ -32,7 +32,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class ItemTest {
     @Test
-    void testAtkMultiplier() throws FileNotFoundException {
+    public void testAtkMultiplier() throws FileNotFoundException {
         // test stake against vampire and non vampire
         SimpleIntegerProperty x = new SimpleIntegerProperty(1);
         SimpleIntegerProperty y = new SimpleIntegerProperty(2);
@@ -49,7 +49,7 @@ public class ItemTest {
     }
 
     @Test
-    void testStaffBuff() {
+    public void testStaffBuff() {
         // test staff's effect to convert zombies to allied soldiers
         SimpleIntegerProperty x = new SimpleIntegerProperty(1);
         SimpleIntegerProperty y = new SimpleIntegerProperty(2);
@@ -65,17 +65,26 @@ public class ItemTest {
 
     }
 
-    void testHealthPotion() {
-        SimpleIntegerProperty x = new SimpleIntegerProperty(1);
-        SimpleIntegerProperty y = new SimpleIntegerProperty(2);
+    @Test
+    public void testHealthPotion() {
+        // tests that the health potions heal the player
         HealthPotionStrategy strat = new HealthPotionStrategy();
-        Item testStaff = new Item(x, y, strat);
         TestSetup s = new TestSetup();
         LoopManiaWorld d = s.makeTestWorld();
+        PathPosition pathPos = new PathPosition(1, d.getOrderedPath());
+        Character testChar = new Character(pathPos);
+        d.setCharacter(testChar);
+        testChar.reduceHealth(50);
+        assertEquals(50, testChar.getHealth());
+        Item testPot = new Item(pathPos.getX(), pathPos.getY(), strat);
+        d.addPathItems(testPot);
+        d.runBattles();
+        assertEquals(100, testChar.getHealth());
+
     }
 
     @Test
-    void testOneRing() {
+    public void testOneRing() {
         // if character has one ring equiped should prevent death once
         TheOneRingStrategy strat = new TheOneRingStrategy();
         TestSetup s = new TestSetup();

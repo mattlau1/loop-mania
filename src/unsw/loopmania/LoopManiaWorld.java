@@ -289,6 +289,7 @@ public class LoopManiaWorld {
    *
    * @return list of the enemies to be displayed on screen
    */
+
   public List<Enemy> possiblySpawnEnemies() {
 
     Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
@@ -349,6 +350,10 @@ public class LoopManiaWorld {
    */
   public List<Item> getPathItems() {
     return pathItems;
+  }
+
+  public void addPathItems(Item item) {
+    pathItems.add(item);
   }
 
   /**
@@ -706,8 +711,8 @@ public class LoopManiaWorld {
           character.addBuffs(currBattlingEnemy.criticalHit());
         }
 
-        // character takes damage
-        character.reduceHealth(enemyDamage);
+        // // character takes damage
+        // character.reduceHealth(enemyDamage);
 
         // activate buffs
         for (Buff buff : character.getBuffs()) {
