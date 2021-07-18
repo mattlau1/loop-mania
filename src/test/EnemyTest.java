@@ -20,21 +20,6 @@ import unsw.loopmania.Enemies.VampireEnemy;
 public class EnemyTest {
 
     @Test
-    public void testCriticalHit() {
-
-    }
-
-    @Test
-    public void testMove() {
-        TestSetup s = new TestSetup();
-        LoopManiaWorld d = s.makeTestWorld();
-
-        SlugEnemy slug = new SlugEnemy(new PathPosition(1, d.getOrderedPath()));
-        PathPosition x = slug.getX();
-
-    }
-
-    @Test
     public void testReduceHealth() {
         TestSetup s = new TestSetup();
         LoopManiaWorld d = s.makeTestWorld();
