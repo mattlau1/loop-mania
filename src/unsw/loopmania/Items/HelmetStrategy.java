@@ -4,60 +4,63 @@ import java.io.File;
 import java.util.List;
 
 import javafx.scene.image.Image;
+import unsw.loopmania.Character;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Soldier;
 
 public class HelmetStrategy implements ItemStrategy {
+  private final double atkMultiplier = 0.75;
+  private final double defMultiplier = 0.75;
+  private final double critMultiplier = 1;
+
   /**
    * Helmet item lowers damage dealt by the Character by 25% so returns 0.75
-   * 
-   * @param enemy The monster/entity that the Character is in combat with
-   * @return The attack multiplier against the monster, may vary depending on the
-   *         monster type
+   *
+   * @param enemy The enemy that the Character is in combat with
+   * @return The attack multiplier against the enemy, may vary depending on the
+   *         enemy type
    */
   @Override
-  public double atkMultiplier(Enemy enemy) {
-    return 0.75;
+  public double getAtkMultiplier(Enemy enemy) {
+    return atkMultiplier;
   }
 
   /**
    * Helmet item lowers damage recieved by the Character by 25% so returns 0.75
-   * 
-   * @param enemy The monster/entity that the Character is in combat with
-   * @return The defence multiplier against the monster, can vary depending on the
-   *         monster type
+   *
+   * @param enemy The enemy that the Character is in combat with
+   * @return The defence multiplier against the enemy, can vary depending on the
+   *         enemy type
    */
   @Override
-  public double defMultiplier(Enemy enemy) {
-    return 0.75;
+  public double getDefMultiplier(Enemy enemy) {
+    return defMultiplier;
   }
 
-  /**
-   * Helmet item does not have any critical hit mechanics, so returns 1
-   * 
-   * @param enemy The monster/entity that the Character is in combat with
-   * @return The crit multiplier against the monster, can vary depending on the
-   *         monster type
-   */
   @Override
-  public double critMultiplier(Enemy enemy) {
-    return 1;
+  public double getCritMultiplier(Enemy enemy) {
+    return critMultiplier;
   }
 
-  /**
-   * Helmet item does not have any on hit effects so does nothing
-   * 
-   * @param enemy The monster/entity that the Character is in combat with
-   */
   @Override
   public void onHitEffects(Enemy enemy, List<Soldier> allyList) {
     return;
   }
 
+  @Override
+  public boolean isDestroyedOnUse() {
+    return false;
+  }
+
+  @Override
+  public void useItem(Character character) {
+    return;
+  }
+
   /**
    * returns the image of the item to be displayed
-   * 
+   *
    * @return the imageview of the item
    */
   @Override

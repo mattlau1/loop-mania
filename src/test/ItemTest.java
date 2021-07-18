@@ -33,8 +33,8 @@ public class ItemTest {
 
         SlugEnemy slug = new SlugEnemy(new PathPosition(1, d.getOrderedPath()));
         VampireEnemy vamp = new VampireEnemy(new PathPosition(1, d.getOrderedPath()));
-        assertEquals(0.5, testStake.atkMultiplier(slug));
-        assertEquals(3, testStake.atkMultiplier(vamp));
+        assertEquals(0.5, testStake.getAtkMultiplier(slug));
+        assertEquals(3, testStake.getAtkMultiplier(vamp));
     }
 
     @Test

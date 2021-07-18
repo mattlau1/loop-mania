@@ -5,51 +5,42 @@ import java.util.List;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import unsw.loopmania.Character;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Soldier;
 
 public class StaffStrategy implements ItemStrategy {
+  private final double atkMultiplier = 2;
+  private final double defMultiplier = 1;
+  private final double critMultiplier = 1;
+
   /**
    * Staff item reduces damange dealt by the Character by 65% so returns 0.35
-   * 
-   * @param enemy The monster/entity that the Character is in combat with
-   * @return The attack multiplier against the monster, may vary depending on the
-   *         monster type
+   *
+   * @param enemy The enemy that the Character is in combat with
+   * @return The attack multiplier against the enemy, may vary depending on the
+   *         enemy type
    */
   @Override
-  public double atkMultiplier(Enemy enemy) {
-    return 2;
+  public double getAtkMultiplier(Enemy enemy) {
+    return atkMultiplier;
   }
 
-  /**
-   * Staff item does not have any defence mechanics, so returns 1
-   * 
-   * @param enemy The monster/entity that the Character is in combat with
-   * @return The defence multiplier against the monster, can vary depending on the
-   *         monster type
-   */
   @Override
-  public double defMultiplier(Enemy enemy) {
-    return 1;
+  public double getDefMultiplier(Enemy enemy) {
+    return defMultiplier;
   }
 
-  /**
-   * Staff item does not have any critical hit mechanics, so returns 1
-   * 
-   * @param enemy The monster/entity that the Character is in combat with
-   * @return The crit multiplier against the monster, can vary depending on the
-   *         monster type
-   */
   @Override
-  public double critMultiplier(Enemy enemy) {
-    return 1;
+  public double getCritMultiplier(Enemy enemy) {
+    return critMultiplier;
   }
 
   /**
    * "Random chance of inflicting a trance, which transforms the attacked enemy
    * into an allied soldier temporarily"
-   * 
-   * @param enemy The monster/entity that the Character is in combat with
+   *
+   * @param enemy The enemy that the Character is in combat with
    */
   @Override
   public void onHitEffects(Enemy enemy, List<Soldier> allyList) {
@@ -57,9 +48,19 @@ public class StaffStrategy implements ItemStrategy {
     allyList.add(new Soldier());
   };
 
+  @Override
+  public boolean isDestroyedOnUse() {
+    return false;
+  }
+
+  @Override
+  public void useItem(Character character) {
+    return;
+  }
+
   /**
    * returns the image of the item to be displayed
-   * 
+   *
    * @return the imageview of the item
    */
   @Override
