@@ -105,6 +105,8 @@ public class LoopManiaWorld {
    */
   private List<Pair<Integer, Integer>> orderedPath;
 
+  private Goal goal;
+
   /**
    * create the world (constructor)
    *
@@ -133,8 +135,8 @@ public class LoopManiaWorld {
     highRarityCards = new ArrayList<>();
     this.orderedPath = orderedPath;
     buildingEntities = new ArrayList<>();
-    // soldiers = new ArrayList<>();
     trancedSoldiers = new ArrayList<>();
+    this.goal = goal;
     cardDestroyed = false;
   }
 
@@ -726,6 +728,7 @@ public class LoopManiaWorld {
     character.moveDownPath();
     useIfAtHerosCastle();
     moveBasicEnemies();
+    if (goal.isGameWon(character)) System.exit(0);
   }
 
   /**
