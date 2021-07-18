@@ -17,6 +17,7 @@ public class GoalTest {
 
     @Test
     public void testGoldGoal() {
+        // creates world with gold goal of 200 and tests the goals completion
         TestSetupNoGoals s = new TestSetupNoGoals();
         Goal goal = new Goal();
         goal.addGoal(new GoldGoal(200));
@@ -30,6 +31,7 @@ public class GoalTest {
 
     @Test
     public void testExpGoal() {
+        // creates world with EXP goal of 200 and tests the goals completion
         TestSetupNoGoals s = new TestSetupNoGoals();
         Goal goal = new Goal();
         goal.addGoal(new ExperienceGoal(200));
@@ -43,6 +45,7 @@ public class GoalTest {
 
     @Test
     public void testCycleGoal() {
+        // creates world with cycle goal of 20 and tests the goals completion
         TestSetupNoGoals s = new TestSetupNoGoals();
         Goal goal = new Goal();
         goal.addGoal(new CycleGoal(20));
@@ -58,6 +61,8 @@ public class GoalTest {
 
     @Test
     public void testComplexGoal() {
+        // creates world with complex goal consisting of all other goals and tests each
+        // one before testing them all
         TestSetupNoGoals s = new TestSetupNoGoals();
         Goal goal = new Goal();
         goal.addGoal(new GoldGoal(200));

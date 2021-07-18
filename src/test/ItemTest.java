@@ -67,6 +67,7 @@ public class ItemTest {
 
     @Test
     public void testHealthPotion() {
+        // tests that the health potions heal the player
         HealthPotionStrategy strat = new HealthPotionStrategy();
         TestSetup s = new TestSetup();
         LoopManiaWorld d = s.makeTestWorld();

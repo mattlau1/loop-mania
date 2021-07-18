@@ -48,6 +48,7 @@ public class EnemyTest {
 
     @Test
     public void testEnemyDrops() {
+        // tests that enemies drop gold and exp
         TestSetup s = new TestSetup();
         LoopManiaWorld d = s.makeTestWorld();
         Character testChar = new Character(new PathPosition(1, d.getOrderedPath()));

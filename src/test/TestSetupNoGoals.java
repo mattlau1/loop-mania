@@ -18,6 +18,7 @@ public class TestSetupNoGoals {
     }
 
     public LoopManiaWorld makeTestWorld(Goal goal) {
+        // helper function to setup world for tests which need flexible goals
         ArrayList<String> pathString = new ArrayList<>();
         pathString.add("RIGHT");
         pathString.add("RIGHT");

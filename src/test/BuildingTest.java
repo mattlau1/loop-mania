@@ -28,6 +28,7 @@ public class BuildingTest {
 
     @Test
     public void testBarracks() {
+        // tests that character gains soldiers at barracks
         BarracksStrategy strat = new BarracksStrategy();
         TestSetup s = new TestSetup();
         LoopManiaWorld d = s.makeTestWorld();
@@ -43,6 +44,7 @@ public class BuildingTest {
 
     @Test
     public void testCampfire() {
+        // tests that character deals double dmg at campfire
         CampfireStrategy strat = new CampfireStrategy();
         TestSetup s = new TestSetup();
         LoopManiaWorld d = s.makeTestWorld();
@@ -60,6 +62,7 @@ public class BuildingTest {
 
     @Test
     public void testHerosCastle() {
+        // tests that cycle count increments at heroscastle
         HerosCastleStrategy strat = new HerosCastleStrategy();
         TestSetup s = new TestSetup();
         LoopManiaWorld d = s.makeTestWorld();
@@ -75,6 +78,7 @@ public class BuildingTest {
 
     @Test
     public void testTowers() {
+        // tests that towers deal 10 damage to enemies in range
         TowerStrategy strat = new TowerStrategy();
         TestSetup s = new TestSetup();
         LoopManiaWorld d = s.makeTestWorld();
@@ -92,6 +96,7 @@ public class BuildingTest {
 
     @Test
     public void testTrap() {
+        // tests that traps deal 20 dmg to enemies in range
         TrapStrategy strat = new TrapStrategy();
         TestSetup s = new TestSetup();
         LoopManiaWorld d = s.makeTestWorld();
@@ -109,6 +114,7 @@ public class BuildingTest {
 
     @Test
     public void testVampireCastle() {
+        // tests that vampires spawn at vampire castle at cycle increments of 5
         VampireCastleStrategy strat = new VampireCastleStrategy();
         HerosCastleStrategy strat2 = new HerosCastleStrategy();
         TestSetup s = new TestSetup();
@@ -143,6 +149,7 @@ public class BuildingTest {
 
     @Test
     public void testVillage() {
+        // tests that the village restores 50 health to the player when in range
         VillageStrategy strat = new VillageStrategy();
         TestSetup s = new TestSetup();
         LoopManiaWorld d = s.makeTestWorld();
@@ -159,6 +166,7 @@ public class BuildingTest {
 
     @Test
     public void testZombiePit() {
+        // tests that zombies spawn at the zombie pit after cycle 1
         ZombiePitStrategy strat = new ZombiePitStrategy();
         HerosCastleStrategy strat2 = new HerosCastleStrategy();
         TestSetup s = new TestSetup();
