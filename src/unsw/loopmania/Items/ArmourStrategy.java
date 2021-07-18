@@ -7,11 +7,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Soldier;
+import unsw.loopmania.Character;
 
 public class ArmourStrategy implements ItemStrategy {
   /**
    * Armour item does not have any attack mechanics, so returns 1
-   * 
+   *
    * @param enemy The monster/entity that the Character is in combat with
    * @return The attack multiplier against the monster, may vary depending on the
    *         monster type
@@ -23,7 +24,7 @@ public class ArmourStrategy implements ItemStrategy {
 
   /**
    * Armour halves the damage recieved so returns 0.5
-   * 
+   *
    * @param enemy The monster/entity that the Character is in combat with
    * @return The defence multiplier against the monster, can vary depending on the
    *         monster type
@@ -35,7 +36,7 @@ public class ArmourStrategy implements ItemStrategy {
 
   /**
    * Armour item does not have any critical hit mechanics, so returns 1
-   * 
+   *
    * @param enemy The monster/entity that the Character is in combat with
    * @return The crit multiplier against the monster, can vary depending on the
    *         monster type
@@ -47,7 +48,7 @@ public class ArmourStrategy implements ItemStrategy {
 
   /**
    * Armour item does not have any on hit effects so does nothing
-   * 
+   *
    * @param enemy The monster/entity that the Character is in combat with
    */
   @Override
@@ -56,8 +57,16 @@ public class ArmourStrategy implements ItemStrategy {
   }
 
   /**
+   * Deals with any effects that may occur on character death
+   * @return a boolean for if the item should be destroyed
+   */
+  public boolean onDeath(Character character) {
+    return false;
+  }
+
+  /**
    * returns the image of the item to be displayed
-   * 
+   *
    * @return the imageview of the item
    */
   @Override

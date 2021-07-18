@@ -1,6 +1,7 @@
 package unsw.loopmania.Buffs;
 
 import java.util.List;
+import java.util.Random;
 
 import unsw.loopmania.Character;
 import unsw.loopmania.Soldier;
@@ -10,15 +11,16 @@ public class Buff {
   private int turns;
 
   public Buff() {
-    this.turns = 3;
+    Random random = new Random();
+    this.turns = random.nextInt(3) + 1;
   }
 
   public void activateEffect(Character character, Enemy enemy, List<Soldier> allyList, List<Enemy> zombieSoldiers) {
-    substractTurns(1);
+    subtractTurns(1);
   };
 
   public void activateEffect(Soldier soldier, Enemy enemy, List<Soldier> allyList, List<Enemy> zombieSoldiers) {
-    substractTurns(1);
+    subtractTurns(1);
   };
 
   public int getTurns() {
@@ -33,7 +35,7 @@ public class Buff {
     this.turns += turns;
   }
 
-  public void substractTurns(int turns) {
+  public void subtractTurns(int turns) {
     this.turns -= turns;
   }
 

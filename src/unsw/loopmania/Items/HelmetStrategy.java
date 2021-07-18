@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import javafx.scene.image.Image;
+import unsw.loopmania.Character;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Soldier;
@@ -11,7 +12,7 @@ import unsw.loopmania.Soldier;
 public class HelmetStrategy implements ItemStrategy {
   /**
    * Helmet item lowers damage dealt by the Character by 25% so returns 0.75
-   * 
+   *
    * @param enemy The monster/entity that the Character is in combat with
    * @return The attack multiplier against the monster, may vary depending on the
    *         monster type
@@ -23,7 +24,7 @@ public class HelmetStrategy implements ItemStrategy {
 
   /**
    * Helmet item lowers damage recieved by the Character by 25% so returns 0.75
-   * 
+   *
    * @param enemy The monster/entity that the Character is in combat with
    * @return The defence multiplier against the monster, can vary depending on the
    *         monster type
@@ -35,7 +36,7 @@ public class HelmetStrategy implements ItemStrategy {
 
   /**
    * Helmet item does not have any critical hit mechanics, so returns 1
-   * 
+   *
    * @param enemy The monster/entity that the Character is in combat with
    * @return The crit multiplier against the monster, can vary depending on the
    *         monster type
@@ -47,7 +48,7 @@ public class HelmetStrategy implements ItemStrategy {
 
   /**
    * Helmet item does not have any on hit effects so does nothing
-   * 
+   *
    * @param enemy The monster/entity that the Character is in combat with
    */
   @Override
@@ -56,8 +57,16 @@ public class HelmetStrategy implements ItemStrategy {
   }
 
   /**
+   * Deals with any effects that may occur on character death
+   * @return a boolean for if the item should be destroyed
+   */
+  public boolean onDeath(Character character) {
+    return false;
+  }
+
+  /**
    * returns the image of the item to be displayed
-   * 
+   *
    * @return the imageview of the item
    */
   @Override

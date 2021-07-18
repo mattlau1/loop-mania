@@ -21,14 +21,44 @@ public class Character extends MovingEntity {
   private SimpleIntegerProperty expProperty;
   private SimpleIntegerProperty cycleProperty;
   private List<Buff> buffs;
+  private List<Soldier> soldiers;
 
   public Character(PathPosition position) {
     super(position);
+    soldiers = new ArrayList<>();
     buffs = new ArrayList<>();
     this.healthProperty = new SimpleDoubleProperty(this, "health", initialHealth);
     this.goldProperty = new SimpleIntegerProperty(this, "gold", initialGold);
     this.expProperty = new SimpleIntegerProperty(this, "exp", initialExp);
     this.cycleProperty = new SimpleIntegerProperty(this, "cycle", 0);
+  }
+
+  public List<Soldier> getSoldiers() {
+    return soldiers;
+  }
+
+  public Soldier getSoldiersFromIndex(int index) {
+    return soldiers.get(index);
+  }
+
+  public Soldier removeSoldiersFromIndex(int index) {
+    return soldiers.remove(index);
+  }
+
+  public void setSoldiers(List<Soldier> soldiers) {
+    this.soldiers = soldiers;
+  }
+
+  public void addSoldier() {
+    this.soldiers.add(new Soldier());
+  }
+
+  public int soldiersSize() {
+    return this.soldiers.size();
+  }
+
+  public double getInitialHealth() {
+    return initialHealth;
   }
 
   public double getHealth() {

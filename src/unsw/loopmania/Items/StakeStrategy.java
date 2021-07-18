@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import unsw.loopmania.Character;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.VampireEnemy;
 import unsw.loopmania.Soldier;
@@ -13,7 +14,7 @@ public class StakeStrategy implements ItemStrategy {
   /**
    * Stake item lowers danage dealt by 50% unless the Character is attacking a
    * vampire, in which case deal three times as much damage
-   * 
+   *
    * @param enemy The monster/entity that the Character is in combat with
    * @return The attack multiplier against the monster, may vary depending on the
    *         monster type
@@ -27,7 +28,7 @@ public class StakeStrategy implements ItemStrategy {
 
   /**
    * Stake item does not have any defence mechanics, so returns 1
-   * 
+   *
    * @param enemy The monster/entity that the Character is in combat with
    * @return The defence multiplier against the monster, can vary depending on the
    *         monster type
@@ -39,7 +40,7 @@ public class StakeStrategy implements ItemStrategy {
 
   /**
    * Stake item does not have any defence mechanics, so returns 1
-   * 
+   *
    * @param enemy The monster/entity that the Character is in combat with
    * @return The defence multiplier against the monster, can vary depending on the
    *         monster type
@@ -51,7 +52,7 @@ public class StakeStrategy implements ItemStrategy {
 
   /**
    * Stake item does not have any on hit effects so does nothing
-   * 
+   *
    * @param enemy The monster/entity that the Character is in combat with
    */
   @Override
@@ -60,8 +61,16 @@ public class StakeStrategy implements ItemStrategy {
   }
 
   /**
+   * Deals with any effects that may occur on character death
+   * @return a boolean for if the item should be destroyed
+   */
+  public boolean onDeath(Character character) {
+    return false;
+  }
+
+  /**
    * returns the image of the item to be displayed
-   * 
+   *
    * @return the imageview of the item
    */
   @Override
