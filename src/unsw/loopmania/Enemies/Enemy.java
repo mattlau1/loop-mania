@@ -197,7 +197,7 @@ public abstract class Enemy extends MovingEntity {
     return;
   }
 
-  public void setHasChangedDirection() {
+  public void resetHasChangedDirection() {
     return;
   }
 

@@ -222,11 +222,11 @@ public class LoopManiaWorld {
     character.setHealth(character.getMaxHealth());
     // Item potion = null;
     // for (Item item : unequippedInventoryItems) {
-    //   if (item.getStrategy() instanceof HealthPotionStrategy) {
-    //     character.setHealth(character.getMaxHealth());
-    //   }
-    //   potion = item;
-    //   break;
+    // if (item.getStrategy() instanceof HealthPotionStrategy) {
+    // character.setHealth(character.getMaxHealth());
+    // }
+    // potion = item;
+    // break;
     // }
     // potion.destroy();
     // unequippedInventoryItems.remove(potion);
@@ -332,45 +332,37 @@ public class LoopManiaWorld {
     return false;
   }
 
-  /**
-   * run the expected battles in the world, based on current world state
-   *
-   * @return list of enemies which have been killed
-   */
-  public List<Enemy> runBattles() {
-    if (isGameLost()) {
-      System.exit(0);
-    }
-
-    System.out.println(character.soldiersSize());
-    // we have three types of buildings:
-    // one that is for the character outside of combat (i.e village)
-    // one that is for the enemies outside of combat (i.e trap)
-    // one that is for the character and enemies inside of combat (i.e tower,
-    // campfire)
-    List<Enemy> defeatedEnemies = new ArrayList<Enemy>();
-    // building for character outside of combat
+  private void useBuildingsOnCharacterOutsideCombat() {
     for (Building b : buildingEntities) {
       if (isInRange(b, character) && b.usableOutsideCombat() && !b.isSpawnLocation()) {
         System.out.printf("Character just used %s\n", b.getClass());
         b.useBuilding(character);
       }
     }
+  }
 
-    List<Building> buildingsToDestroy = new ArrayList<>();
+  /**
+   * Changes enemy direction if they are a vampire and they are within range of a
+   * campfire
+   *
+   * @param enemy    enemy whose direction to change
+   * @param building building to check if campfire
+   */
+  private void changeVampireDirection(Enemy enemy, Building building) {
+    // vampire has special interaction with the campfire
+    if (isInRange(building, enemy) && (building.getStrategy() instanceof CampfireStrategy)) {
+      if (enemy instanceof VampireEnemy)
+        enemy.changeDirection();
+    } else {
+      enemy.resetHasChangedDirection();
+    }
+  }
+
+  private void useBuildingsOnEnemiesOutsideCombat(List<Building> buildingsToDestroy, List<Enemy> defeatedEnemies) {
     for (Building b : buildingEntities) {
       for (Enemy e : enemies) {
-        // vampire has special interaction with the campfire
-        if (isInRange(b, e) && (b.getStrategy() instanceof CampfireStrategy)) {
-          if (e instanceof VampireEnemy)
-            e.changeDirection();
-        } else {
-          e.setHasChangedDirection();
-        }
-
-        // building for enemies outside of combat
+        changeVampireDirection(e, b);
         if (isInRange(b, e) && b.usableOutsideCombat()) {
-          // System.out.printf("%s just used %s\n", e.getClass(), b.getClass());
           b.useBuilding(e);
           if (e.isDead())
             defeatedEnemies.add(e);
@@ -382,8 +374,9 @@ public class LoopManiaWorld {
         }
       }
     }
+  }
 
-    // destroy traps and related buildings
+  private void destroyBuildings(List<Building> buildingsToDestroy) {
     for (Building buildingToDestroy : buildingsToDestroy) {
       buildingToDestroy.destroy();
       int buildingIndexInBuildingsList = buildingEntities.indexOf(buildingToDestroy);
@@ -391,10 +384,10 @@ public class LoopManiaWorld {
         buildingEntities.remove(buildingIndexInBuildingsList);
       }
     }
+  }
 
-    // building for enemies and character inside of combat
+  private List<Enemy> getBattlingEnemies() {
     List<Enemy> battlingEnemies = new ArrayList<Enemy>();
-
     for (Enemy enemy : enemies) {
       if (isInRange(enemy, character)) {
         battlingEnemies.add(enemy);
@@ -405,117 +398,185 @@ public class LoopManiaWorld {
         }
       }
     }
+    return battlingEnemies;
+  }
 
+  private void useBuildingsOnEntitiesInCombat(Enemy enemy) {
+    for (Building building : buildingEntities) {
+      if (isInRange(building, character)) {
+        building.useBuilding(character);
+        building.useBuilding(enemy);
+      }
+    }
+  }
+
+  private double getCharacterDamageAgainstEnemy(Enemy enemy) {
+    double characterDamage = character.getMultipliedDamage();
+    for (Item equippedItems : equippedInventoryItems) {
+      characterDamage *= equippedItems.getAtkMultiplier(enemy);
+    }
+    return characterDamage;
+  }
+
+  private void possiblyTriggerOnHitEffect(Enemy enemy) {
+    Random random = new Random();
+    int randInt = random.nextInt(2);
+    if (randInt == 1) {
+      for (Item equippedItems : equippedInventoryItems) {
+        equippedItems.onHitEffects(enemy, trancedSoldiers);
+      }
+    }
+  }
+
+  private boolean doesEnemyCrit(Enemy enemy) {
+    boolean isCriticalHit = false;
+    Random random = new Random();
+    int randInt = random.nextInt(100) + 1;
+
+    double enemyCriR = enemy.getCritRate();
+    for (Item equippedItems : equippedInventoryItems) {
+      enemyCriR *= equippedItems.getCritMultiplier(enemy);
+    }
+
+    if (randInt <= enemyCriR)
+      isCriticalHit = true;
+
+    return isCriticalHit;
+  }
+
+  private double getEnemyDamageAfterDefense(double enemyDamageBeforeDef, Enemy enemy) {
+    double enemyDamageAfterDef = enemyDamageBeforeDef;
+    for (Item equippedItems : equippedInventoryItems) {
+      enemyDamageAfterDef *= equippedItems.getDefMultiplier(enemy);
+    }
+    return enemyDamageAfterDef;
+  }
+
+  private void damageSoldiers(Soldier s, boolean isCriticalHit, Enemy enemy, double enemyDamage) {
+    if (isCriticalHit && !s.getBuffs().contains(enemy.criticalHit())) {
+      s.addBuffs(enemy.criticalHit());
+    }
+
+    s.reduceHealth(enemyDamage);
+
+    for (Buff buff : s.getBuffs()) {
+      buff.activateEffect(s, enemy, character.getSoldiers(), zombieSoldiers);
+    }
+  }
+
+  /**
+   * Every enemy in the battle attacks any soldiers, if none, then the character
+   *
+   * @param battlingEnemies
+   * @param enemy
+   */
+  private void attackSoldiers(List<Enemy> battlingEnemies, Enemy enemy) {
+    double enemyDamage = enemy.getDamage();
+    for (Enemy currBattlingEnemy : battlingEnemies) {
+      if (currBattlingEnemy.isDead())
+        continue;
+
+      boolean isCriticalHit = doesEnemyCrit(currBattlingEnemy);
+      enemyDamage = getEnemyDamageAfterDefense(enemyDamage, currBattlingEnemy);
+
+      // System.out.println(enemyDamage);
+      if (trancedSoldiers.size() > 0) {
+        // tranced soldiers
+        Soldier s = trancedSoldiers.get(0);
+        damageSoldiers(s, isCriticalHit, enemy, enemyDamage);
+
+        // remove tranced soldier if dead
+        if (s.isDead())
+          trancedSoldiers.remove(0);
+
+      } else if (character.soldiersSize() > 0) {
+        // normal soldiers
+        Soldier s = character.getSoldiersFromIndex(0);
+        damageSoldiers(s, isCriticalHit, enemy, enemyDamage);
+
+        // remove soldier if dead
+        if (s.isDead())
+          character.removeSoldiersFromIndex(0);
+
+      } else {
+        // if no soldiers or tranced soldiers left, character takes the damage
+
+        // apply buffs
+        if (isCriticalHit && !character.getBuffs().contains(currBattlingEnemy.criticalHit())) {
+          character.addBuffs(currBattlingEnemy.criticalHit());
+        }
+
+        // character takes damage
+        character.reduceHealth(enemyDamage);
+
+        // activate buffs
+        for (Buff buff : character.getBuffs()) {
+          buff.activateEffect(character, currBattlingEnemy, character.getSoldiers(), zombieSoldiers);
+        }
+
+        // character takes damage
+        character.reduceHealth(enemyDamage);
+      }
+    }
+  }
+
+  private void processZombieSoldierAttacks(Enemy enemy) {
+    double enemyDamage = enemy.getDamage();
+    for (Enemy currBattlingEnemy : zombieSoldiers) {
+      if (currBattlingEnemy.isDead())
+        continue;
+
+      enemyDamage = getEnemyDamageAfterDefense(enemyDamage, currBattlingEnemy);
+
+      if (trancedSoldiers.size() > 0) {
+        Soldier s = trancedSoldiers.get(0);
+        s.reduceHealth(enemyDamage);
+        if (s.isDead())
+          character.removeSoldiersFromIndex(0);
+      } else if (character.soldiersSize() > 0) {
+        Soldier s = character.getSoldiersFromIndex(0);
+        s.reduceHealth(enemyDamage);
+        if (s.isDead())
+          character.removeSoldiersFromIndex(0);
+      } else {
+        character.reduceHealth(enemyDamage);
+      }
+    }
+  }
+
+  /**
+   * run the expected battles in the world, based on current world state
+   *
+   * @return list of enemies which have been killed
+   */
+  public List<Enemy> runBattles() {
+    List<Enemy> defeatedEnemies = new ArrayList<Enemy>();
+    List<Building> buildingsToDestroy = new ArrayList<>();
+    List<Enemy> battlingEnemies = getBattlingEnemies();
+
+    if (isGameLost()) {
+      System.exit(0);
+    }
+
+    // we have three types of buildings:
+    // character outside of combat (i.e village)
+    // enemies outside of combat (i.e trap)
+    // character and enemies inside of combat (i.e tower, campfire)
+    useBuildingsOnCharacterOutsideCombat();
+    useBuildingsOnEnemiesOutsideCombat(buildingsToDestroy, defeatedEnemies);
+    destroyBuildings(buildingsToDestroy);
+
+    // building for enemies and character inside of combat
     for (Enemy enemy : battlingEnemies) {
       while (enemy.isAlive()) {
-        for (Building building : buildingEntities) {
-          if (isInRange(building, character)) {
-            building.useBuilding(character);
-            building.useBuilding(enemy);
-          }
-        }
-
-        double characterDamage = character.getMultipliedDamage();
-        double enemyDamage = enemy.getDamage();
-
-        // Character attacks first enemy
-        for (Item equippedItems : equippedInventoryItems) {
-          characterDamage *= equippedItems.getAtkMultiplier(enemy);
-        }
-        // System.out.println("WOOOOOOOOOOOO");
-        // System.out.println(characterDamage);
-        // System.out.println("WOOOOOOOOOOOO");
-
-        Random random = new Random();
-        int randInt = random.nextInt(2);
-        if (randInt == 1) {
-          for (Item equippedItems : equippedInventoryItems) {
-            equippedItems.onHitEffects(enemy, trancedSoldiers);
-          }
-        }
+        double characterDamage = getCharacterDamageAgainstEnemy(enemy);
+        useBuildingsOnEntitiesInCombat(enemy);
+        possiblyTriggerOnHitEffect(enemy);
         enemy.reduceHealth(characterDamage);
-        // Every enemy in the battle attacks any soldiers, then the character
-        for (Enemy currBattlingEnemy : battlingEnemies) {
-          // test(currBattlingEnemy);
-          if (currBattlingEnemy.isDead())
-            continue;
-          boolean criticalHit = false;
-          random = new Random();
-          randInt = random.nextInt(100) + 1;
-          double enemyCriR = currBattlingEnemy.getCritRate();
-          for (Item equippedItems : equippedInventoryItems) {
-            enemyCriR *= equippedItems.getCritMultiplier(enemy);
-          }
-          if (randInt <= enemyCriR)
-            criticalHit = true;
-
-          for (Item equippedItems : equippedInventoryItems) {
-            enemyDamage *= equippedItems.getDefMultiplier(currBattlingEnemy);
-          }
-          // System.out.println(enemyDamage);
-          if (trancedSoldiers.size() > 0) {
-            Soldier s = trancedSoldiers.get(0);
-            if (criticalHit) {
-              if (!s.getBuffs().contains(currBattlingEnemy.criticalHit())) {
-                s.addBuffs(currBattlingEnemy.criticalHit());
-              }
-            }
-            s.reduceHealth(enemyDamage);
-            for (Buff buff : s.getBuffs()) {
-              buff.activateEffect(s, currBattlingEnemy, character.getSoldiers(), zombieSoldiers);
-            }
-            if (s.isDead())
-              trancedSoldiers.remove(0);
-          } else if (character.soldiersSize() > 0) {
-            Soldier s = character.getSoldiersFromIndex(0);
-            if (criticalHit) {
-              if (!s.getBuffs().contains(currBattlingEnemy.criticalHit())) {
-                s.addBuffs(currBattlingEnemy.criticalHit());
-              }
-            }
-            s.reduceHealth(enemyDamage);
-            for (Buff buff : s.getBuffs()) {
-              buff.activateEffect(s, currBattlingEnemy, character.getSoldiers(), zombieSoldiers);
-            }
-            if (s.isDead())
-              character.removeSoldiersFromIndex(0);
-          } else {
-            if (criticalHit) {
-              if (!character.getBuffs().contains(currBattlingEnemy.criticalHit())) {
-                character.addBuffs(currBattlingEnemy.criticalHit());
-              }
-            }
-            character.reduceHealth(enemyDamage);
-            for (Buff buff : character.getBuffs()) {
-              buff.activateEffect(character, currBattlingEnemy, character.getSoldiers(), zombieSoldiers);
-            }
-            character.reduceHealth(enemyDamage);
-          }
-        }
-        for (Enemy currBattlingEnemy : zombieSoldiers) {
-          System.out.println("WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-          if (currBattlingEnemy.isDead())
-            continue;
-          for (Item equippedItems : equippedInventoryItems) {
-            enemyDamage *= equippedItems.getDefMultiplier(currBattlingEnemy);
-          }
-          if (trancedSoldiers.size() > 0) {
-            Soldier s = trancedSoldiers.get(0);
-            s.reduceHealth(enemyDamage);
-            if (s.isDead())
-              character.removeSoldiersFromIndex(0);
-          } else if (character.soldiersSize() > 0) {
-            Soldier s = character.getSoldiersFromIndex(0);
-            s.reduceHealth(enemyDamage);
-            if (s.isDead())
-              character.removeSoldiersFromIndex(0);
-          } else {
-            character.reduceHealth(enemyDamage);
-          }
-        }
+        attackSoldiers(battlingEnemies, enemy);
+        processZombieSoldierAttacks(enemy);
       }
-      // System.out.println("ENEMY HEALTH");
-      // System.out.println(enemy.getHealth());
+
       defeatedEnemies.add(enemy);
       character.addEXP(enemy.getExpDrop());
       character.addGold(enemy.getGoldDrop());
@@ -523,11 +584,6 @@ public class LoopManiaWorld {
 
     trancedSoldiers.clear();
     for (Enemy e : defeatedEnemies) {
-      // IMPORTANT = we kill enemies here, because killEnemy removes the enemy from
-      // the enemies list
-      // if we killEnemy in prior loop, we get
-      // java.util.ConcurrentModificationException
-      // due to mutating list we're iterating over
       killEnemy(e);
     }
 
@@ -758,7 +814,8 @@ public class LoopManiaWorld {
     character.moveDownPath();
     useIfAtHerosCastle();
     moveBasicEnemies();
-    if (goal.isGameWon(character)) System.exit(0);
+    if (goal.isGameWon(character))
+      System.exit(0);
   }
 
   /**
