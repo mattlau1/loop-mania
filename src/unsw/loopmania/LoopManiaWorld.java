@@ -400,7 +400,7 @@ public class LoopManiaWorld {
 
         // Character attacks first enemy
         for (Item equippedItems : equippedInventoryItems) {
-          characterDamage *= equippedItems.atkMultiplier(enemy);
+          characterDamage *= equippedItems.getAtkMultiplier(enemy);
         }
         // System.out.println("WOOOOOOOOOOOO");
         // System.out.println(characterDamage);
@@ -424,13 +424,13 @@ public class LoopManiaWorld {
           randInt = random.nextInt(100) + 1;
           double enemyCriR = currBattlingEnemy.getCritRate();
           for (Item equippedItems : equippedInventoryItems) {
-            enemyCriR *= equippedItems.critMultiplier(enemy);
+            enemyCriR *= equippedItems.getCritMultiplier(enemy);
           }
           if (randInt <= enemyCriR)
             criticalHit = true;
 
           for (Item equippedItems : equippedInventoryItems) {
-            enemyDamage *= equippedItems.defMultiplier(currBattlingEnemy);
+            enemyDamage *= equippedItems.getDefMultiplier(currBattlingEnemy);
           }
           // System.out.println(enemyDamage);
           if (trancedSoldiers.size() > 0) {
@@ -477,7 +477,7 @@ public class LoopManiaWorld {
           if (currBattlingEnemy.isDead())
             continue;
           for (Item equippedItems : equippedInventoryItems) {
-            enemyDamage *= equippedItems.defMultiplier(currBattlingEnemy);
+            enemyDamage *= equippedItems.getDefMultiplier(currBattlingEnemy);
           }
           if (trancedSoldiers.size() > 0) {
             Soldier s = trancedSoldiers.get(0);

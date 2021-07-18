@@ -22,7 +22,7 @@ public class ArmourStrategy implements ItemStrategy {
   /**
    * Armour halves the damage recieved, so multiplier will be 0.5
    *
-   * @param enemy The monster/entity that the Character is in combat with
+   * @param enemy The enemy that the Character is in combat with
    * @return defense multiplier against enemy
    */
   @Override

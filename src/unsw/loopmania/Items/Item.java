@@ -17,16 +17,16 @@ public class Item extends StaticEntity implements ItemStrategy {
     this.strategy = strategy;
   }
 
-  public double atkMultiplier(Enemy enemy) {
-    return strategy.atkMultiplier(enemy);
+  public double getAtkMultiplier(Enemy enemy) {
+    return strategy.getAtkMultiplier(enemy);
   }
 
-  public double defMultiplier(Enemy enemy) {
-    return strategy.defMultiplier(enemy);
+  public double getDefMultiplier(Enemy enemy) {
+    return strategy.getDefMultiplier(enemy);
   }
 
-  public double critMultiplier(Enemy enemy) {
-    return strategy.critMultiplier(enemy);
+  public double getCritMultiplier(Enemy enemy) {
+    return strategy.getCritMultiplier(enemy);
   }
 
   public void onHitEffects(Enemy enemy, List<Soldier> allyList) {
