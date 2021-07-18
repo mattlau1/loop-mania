@@ -196,7 +196,6 @@ public abstract class Enemy extends MovingEntity {
    */
   public void move() {
     int directionChoice = (new Random()).nextInt(2);
-    // System.out.println(directionChoice);
     if (directionChoice == 0) {
       moveUpPath();
     } else if (directionChoice == 1) {
