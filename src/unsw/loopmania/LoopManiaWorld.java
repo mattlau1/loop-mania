@@ -210,6 +210,14 @@ public class LoopManiaWorld {
     return character;
   }
 
+  public List<Soldier> getTrancedSoldiers() {
+    return trancedSoldiers;
+  }
+
+  public int trancedSoldiersSize() {
+    return this.trancedSoldiers.size();
+  }
+
   /**
    * add a generic entity (without it's own dedicated method for adding to the
    * world)
@@ -227,11 +235,11 @@ public class LoopManiaWorld {
     character.setHealth(character.getMaxHealth());
     // Item potion = null;
     // for (Item item : unequippedInventoryItems) {
-    //   if (item.getStrategy() instanceof HealthPotionStrategy) {
-    //     character.setHealth(character.getMaxHealth());
-    //   }
-    //   potion = item;
-    //   break;
+    // if (item.getStrategy() instanceof HealthPotionStrategy) {
+    // character.setHealth(character.getMaxHealth());
+    // }
+    // potion = item;
+    // break;
     // }
     // potion.destroy();
     // unequippedInventoryItems.remove(potion);
@@ -347,7 +355,12 @@ public class LoopManiaWorld {
     return Math.pow((e.getX() - b.getX()), 2) + Math.pow((e.getY() - b.getY()), 2) < b.getRange();
   }
 
-  private boolean isGameLost() {
+  /**
+   * Checks if game is lost
+   *
+   * @return true if game is lost else false
+   */
+  public boolean isGameLost() {
     // if character hp is at 0
     if (character.isDead()) {
       // check if user has one ring and add to usedItems list
@@ -442,6 +455,22 @@ public class LoopManiaWorld {
       }
     }
   }
+<<<<<<< src/unsw/loopmania/LoopManiaWorld.java
+
+  /**
+   * Uses buildings on entities (character and enemy) that are in combat, if in
+   * range
+   *
+   * @param enemy enemy to use building on during combat
+   */
+  private void useBuildingsOnEntitiesInCombat(Enemy enemy) {
+    for (Building building : buildingEntities) {
+      if (isInRange(building, character)) {
+        building.useBuilding(character);
+        building.useBuilding(enemy);
+      }
+    }
+  }
 
   /**
    * Uses buildings on entities (character and enemy) that are in combat, if in
@@ -507,6 +536,116 @@ public class LoopManiaWorld {
     }
     return characterDamage;
   }
+<<<<<<< src/unsw/loopmania/LoopManiaWorld.java
+
+  /**
+   * Randomly trigger on-hit effects for equipped items
+   *
+   * @param enemy enemy to trigger on-hit effect on
+   */
+  private void triggerOnHitEffects(Enemy enemy) {
+    Random random = new Random();
+    int randInt = random.nextInt(2);
+    if (randInt == 1) {
+      for (Item equippedItems : equippedInventoryItems) {
+        equippedItems.onHitEffects(enemy, trancedSoldiers);
+      }
+    }
+  }
+
+  /**
+   * Checks if enemy will critically strike
+   *
+   * @param enemy enemy that will potentially critically strike
+   * @return true if enemy will critically strike else false
+   */
+  private boolean doesEnemyCrit(Enemy enemy) {
+    boolean isCriticalHit = false;
+    Random random = new Random();
+    int randInt = random.nextInt(100) + 1;
+
+    double enemyCriR = enemy.getCritRate();
+    for (Item equippedItems : equippedInventoryItems) {
+      enemyCriR *= equippedItems.getCritMultiplier(enemy);
+    }
+
+    if (randInt <= enemyCriR)
+      isCriticalHit = true;
+
+    return isCriticalHit;
+  }
+
+  /**
+   * Calculates enemy's damage after applying character's equipped defensive items
+   *
+   * @param enemyDamageBeforeDef enemy's damage before taking any defensive items
+   *                             into account
+   * @param enemy                enemy to take damage from
+   * @return new enemy damage after taking defensive items into account
+   */
+  private double getEnemyDamageAfterDefense(double enemyDamageBeforeDef, Enemy enemy) {
+    double enemyDamageAfterDef = enemyDamageBeforeDef;
+    for (Item equippedItems : equippedInventoryItems) {
+      enemyDamageAfterDef *= equippedItems.getDefMultiplier(enemy);
+    }
+    return enemyDamageAfterDef;
+  }
+
+  /**
+   * Causes the given soldier to take damage from an enemy
+   *
+   * @param soldier       soldier that will take damage
+   * @param isCriticalHit true if soldier is taking a critical hit else false
+   * @param enemy         enemy dealing the damage to soldier
+   * @param enemyDamage   damage that soldier will take after defense
+   */
+  private void damageSoldier(Soldier soldier, boolean isCriticalHit, Enemy enemy, double enemyDamage) {
+    if (isCriticalHit && !soldier.getBuffs().contains(enemy.criticalHit())) {
+      soldier.addBuffs(enemy.criticalHit());
+    }
+
+    soldier.reduceHealth(enemyDamage);
+
+    for (Buff buff : soldier.getBuffs()) {
+      buff.activateEffect(soldier, enemy, character.getSoldiers(), zombieSoldiers);
+    }
+  }
+
+  /**
+   * Every enemy in the battle attacks any soldiers, if bo soldiers, then enemy
+   * will attack the character
+   *
+   * @param battlingEnemies all battling enemies
+   * @param enemy           enemy that is attacking soldier
+   */
+  private void attackSoldiers(List<Enemy> battlingEnemies, Enemy enemy) {
+    double enemyDamage = enemy.getDamage();
+    for (Enemy currBattlingEnemy : battlingEnemies) {
+      if (currBattlingEnemy.isDead())
+        continue;
+
+      boolean isCriticalHit = doesEnemyCrit(currBattlingEnemy);
+      enemyDamage = getEnemyDamageAfterDefense(enemyDamage, currBattlingEnemy);
+
+      // System.out.println(enemyDamage);
+      if (trancedSoldiers.size() > 0) {
+        // tranced soldiers
+        Soldier s = trancedSoldiers.get(0);
+        damageSoldier(s, isCriticalHit, enemy, enemyDamage);
+
+        // remove tranced soldier if dead
+        if (s.isDead())
+          trancedSoldiers.remove(0);
+
+      } else if (character.soldiersSize() > 0) {
+        // normal soldiers
+        Soldier s = character.getSoldiersFromIndex(0);
+        damageSoldier(s, isCriticalHit, enemy, enemyDamage);
+
+        // remove soldier if dead
+        if (s.isDead())
+          character.removeSoldiersFromIndex(0);
+     
 
   /**
    * Randomly trigger on-hit effects for equipped items
@@ -749,6 +888,14 @@ public class LoopManiaWorld {
     return cardDestroyed;
   }
 
+  public List<Card> getCards() {
+    return cardEntities;
+  }
+
+  public void addEnemy(Enemy enemy) {
+    enemies.add(enemy);
+  }
+
   /**
    * remove card at a particular index of cards (position in gridpane of unplayed
    * cards)
@@ -941,7 +1088,8 @@ public class LoopManiaWorld {
     character.moveDownPath();
     useIfAtHerosCastle();
     moveBasicEnemies();
-    if (goal.isGameWon(character)) System.exit(0);
+    if (goal.isGameWon(character))
+      System.exit(0);
   }
 
   /**

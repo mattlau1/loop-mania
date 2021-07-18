@@ -56,7 +56,7 @@ public class VampireEnemy extends Enemy {
     // direction = 0 -> moveDown
     if (direction == 1 && !hasChangedDirection) {
       this.direction = 0;
-    } else if (direction == 0 && !hasChangedDirection){
+    } else if (direction == 0 && !hasChangedDirection) {
       this.direction = 1;
     }
     this.hasChangedDirection = true;
