@@ -21,10 +21,10 @@ public class EnemyTest {
 
     @Test
     public void testReduceHealth() {
-        TestSetup s = new TestSetup();
-        LoopManiaWorld d = s.makeTestWorld();
+        TestSetup setup = new TestSetup();
+        LoopManiaWorld world = setup.makeTestWorld();
 
-        SlugEnemy slug = new SlugEnemy(new PathPosition(1, d.getOrderedPath()));
+        SlugEnemy slug = new SlugEnemy(new PathPosition(1, world.getOrderedPath()));
         // slug spawns with 20 hp reduceHealth called with value 10 should leave slug
         // with 10hp
         assertEquals(20, slug.getHealth());
@@ -55,13 +55,12 @@ public class EnemyTest {
         d.setCharacter(testChar);
         SlugEnemy slug = new SlugEnemy(new PathPosition(1, d.getOrderedPath()));
         d.addEnemy(slug);
+        // check that character initially has 0 gold and exp
         assertEquals(0, testChar.getGold());
         assertEquals(0, testChar.getExp());
-        assertEquals(0, d.getCards().size());
-        assertEquals(0, d.getUnequip().size());
         d.runBattles();
+        // check that after killing the slug, the character gained 10 gold and exp
         assertEquals(10, testChar.getGold());
         assertEquals(10, testChar.getExp());
-
     }
 }

@@ -39,12 +39,14 @@ public class ItemTest {
         StakeStrategy strat = new StakeStrategy();
         Item testStake = new Item(x, y, strat);
 
-        TestSetup s = new TestSetup();
-        LoopManiaWorld d = s.makeTestWorld();
+        TestSetup setup = new TestSetup();
+        LoopManiaWorld world = setup.makeTestWorld();
 
-        SlugEnemy slug = new SlugEnemy(new PathPosition(1, d.getOrderedPath()));
-        VampireEnemy vamp = new VampireEnemy(new PathPosition(1, d.getOrderedPath()));
+        SlugEnemy slug = new SlugEnemy(new PathPosition(1, world.getOrderedPath()));
+        VampireEnemy vamp = new VampireEnemy(new PathPosition(1, world.getOrderedPath()));
+        // stake should have a low multiplier against non-vampire
         assertEquals(0.5, testStake.getAtkMultiplier(slug));
+        // stake should have a high multiplier against vampire
         assertEquals(3, testStake.getAtkMultiplier(vamp));
     }
 
@@ -55,12 +57,15 @@ public class ItemTest {
         SimpleIntegerProperty y = new SimpleIntegerProperty(2);
         StaffStrategy strat = new StaffStrategy();
         Item testStaff = new Item(x, y, strat);
-        TestSetup s = new TestSetup();
-        LoopManiaWorld d = s.makeTestWorld();
-        ZombieEnemy zombie = new ZombieEnemy(new PathPosition(1, d.getOrderedPath()));
-        assertEquals(0, d.trancedSoldiersSize());
-        testStaff.onHitEffects(zombie, d.getTrancedSoldiers());
-        assertEquals(1, d.trancedSoldiersSize());
+        TestSetup setup = new TestSetup();
+        LoopManiaWorld world = setup.makeTestWorld();
+        ZombieEnemy zombie = new ZombieEnemy(new PathPosition(1, world.getOrderedPath()));
+        // checks that there are initially no tranced soldiers
+        assertEquals(0, world.trancedSoldiersSize());
+        testStaff.onHitEffects(zombie, world.getTrancedSoldiers());
+        // checks that the soldier was turned into a tranced solider
+        assertEquals(1, world.trancedSoldiersSize());
+        // checks that the former zombie no longer exists
         assertEquals(false, zombie.isAlive());
 
     }
@@ -69,16 +74,18 @@ public class ItemTest {
     public void testHealthPotion() {
         // tests that the health potions heal the player
         HealthPotionStrategy strat = new HealthPotionStrategy();
-        TestSetup s = new TestSetup();
-        LoopManiaWorld d = s.makeTestWorld();
-        PathPosition pathPos = new PathPosition(1, d.getOrderedPath());
+        TestSetup setup = new TestSetup();
+        LoopManiaWorld world = setup.makeTestWorld();
+        PathPosition pathPos = new PathPosition(1, world.getOrderedPath());
         Character testChar = new Character(pathPos);
-        d.setCharacter(testChar);
+        world.setCharacter(testChar);
         testChar.reduceHealth(50);
+        // checks that the character initially has half health (50)
         assertEquals(50, testChar.getHealth());
         Item testPot = new Item(pathPos.getX(), pathPos.getY(), strat);
-        d.addPathItems(testPot);
-        d.runBattles();
+        world.addPathItems(testPot);
+        world.runBattles();
+        // checks that after consuming the potion the character is at maxed health
         assertEquals(100, testChar.getHealth());
 
     }
@@ -87,20 +94,25 @@ public class ItemTest {
     public void testOneRing() {
         // if character has one ring equiped should prevent death once
         TheOneRingStrategy strat = new TheOneRingStrategy();
-        TestSetup s = new TestSetup();
-        LoopManiaWorld d = s.makeTestWorld();
-        Character testChar = new Character(new PathPosition(1, d.getOrderedPath()));
-        d.setCharacter(testChar);
-        d.addSpecificUnequippedItem(strat);
-        assertEquals(false, d.isGameLost());
+        TestSetup setup = new TestSetup();
+        LoopManiaWorld world = setup.makeTestWorld();
+        Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+        world.setCharacter(testChar);
+        // gives the character the one ring
+        world.addSpecificUnequippedItem(strat);
+        assertEquals(false, world.isGameLost());
+        // kills the character
         testChar.reduceHealth(100);
+        // checks that the character is revived
         assertEquals(true, testChar.isDead());
-        assertEquals(false, d.isGameLost());
+        assertEquals(false, world.isGameLost());
         assertEquals(100, testChar.getHealth());
         assertEquals(true, testChar.isAlive());
+        // kills the character
         testChar.reduceHealth(100);
+        // checks that the character does not revive and the game is lost
         assertEquals(false, testChar.isAlive());
-        assertEquals(true, d.isGameLost());
+        assertEquals(true, world.isGameLost());
 
     }
 

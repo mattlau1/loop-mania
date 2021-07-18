@@ -25,28 +25,32 @@ public class ShopTest {
   @Test
   public void testBuyItem() {
       // tests if buying an item deducts money and adds it to inventory
-      TestSetup s = new TestSetup();
-      LoopManiaWorld d = s.makeTestWorld();
-      Character testChar = new Character(new PathPosition(1, d.getOrderedPath()));
-      d.setCharacter(testChar);
+      TestSetup setup = new TestSetup();
+      LoopManiaWorld world = setup.makeTestWorld();
+      Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+      world.setCharacter(testChar);
       testChar.addGold(1000);
-      d.buyItem(new SwordStrategy());
-      List<Item> unequipedItems = d.getUnequip();
+      world.buyItem(new SwordStrategy());
+      List<Item> unequipedItems = world.getUnequip();
+      // checks to see if the item bought is a sword
       assertTrue(unequipedItems.get(0).getStrategy() instanceof SwordStrategy);
+      // checks to see if gold has been deducted from character
       assertEquals(900, testChar.getGold());
   }
 
   @Test
   public void testBuyItemNoGold() {
-      // tests if buying an item deducts money and adds it to inventory
-      TestSetup s = new TestSetup();
-      LoopManiaWorld d = s.makeTestWorld();
-      Character testChar = new Character(new PathPosition(1, d.getOrderedPath()));
-      d.setCharacter(testChar);
+      // Should not be able to buy items with insufficient gold
+      TestSetup setup = new TestSetup();
+      LoopManiaWorld world = setup.makeTestWorld();
+      Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+      world.setCharacter(testChar);
       testChar.addGold(50);
-      d.buyItem(new SwordStrategy());
-      List<Item> unequipedItems = d.getUnequip();
+      world.buyItem(new SwordStrategy());
+      List<Item> unequipedItems = world.getUnequip();
+      // checks that no item has been bought
       assertTrue(unequipedItems.size() == 0);
+      // checks that gold was not deducted
       assertEquals(50, testChar.getGold());
   }
 
