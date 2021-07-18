@@ -12,9 +12,6 @@ import unsw.loopmania.PathTile;
 import unsw.loopmania.Goals.Goal;
 
 public class TestSetupNoGoals {
-    public TestSetupNoGoals() {
-
-    }
 
     public LoopManiaWorld makeTestWorld(Goal goal) {
         // helper function to setup world for tests which need flexible goals

@@ -13,10 +13,6 @@ import unsw.loopmania.Goals.CycleGoal;
 import unsw.loopmania.Goals.Goal;
 
 public class TestSetup {
-    public TestSetup() {
-
-    }
-
     public LoopManiaWorld makeTestWorld() {
         ArrayList<String> pathString = new ArrayList<>();
         pathString.add("RIGHT");
