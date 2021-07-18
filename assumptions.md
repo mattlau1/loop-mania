@@ -10,3 +10,4 @@
 - All items and cards have different tiers of rarity, depending on how powerful they are
 - Zombie pits and vampire castles spawn 2 enemies
 - Health potions are immediately used on obtaining it
+- Character/Allied soldiers always attacks first, this means the character is able to kill an enemy before it attacks
