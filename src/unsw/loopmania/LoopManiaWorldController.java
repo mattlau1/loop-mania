@@ -472,7 +472,7 @@ public class LoopManiaWorldController {
     addEntity(building, view);
 
     world.addBuildingToWorld(building);
-    System.out.println(building.getStrategy());
+    // System.out.println(building.getStrategy());
     squares.getChildren().add(view);
   }
 
