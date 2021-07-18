@@ -10,6 +10,8 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -18,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -89,6 +92,18 @@ enum DRAGGABLE_TYPE {
  * This is run on the JavaFX application thread when it has enough time.
  */
 public class LoopManiaWorldController {
+
+  @FXML
+  private Label health;
+
+  @FXML
+  private Label experience;
+
+  @FXML
+  private Label gold;
+
+  @FXML
+  private Label cycle;
 
   /**
    * squares gridpane includes path images, enemies, character, empty grass,
@@ -282,6 +297,14 @@ public class LoopManiaWorldController {
     draggedEntity.setVisible(false);
     draggedEntity.setOpacity(0.7);
     anchorPaneRoot.getChildren().add(draggedEntity);
+
+    // character stats
+    Character worldCharacter = world.getCharacter();
+
+    health.textProperty().bind(Bindings.convert(worldCharacter.getHealthProperty()));
+    experience.textProperty().bind(Bindings.convert(worldCharacter.getExpProperty()));
+    gold.textProperty().bind(Bindings.convert(worldCharacter.getGoldProperty()));
+    cycle.textProperty().bind(Bindings.convert(worldCharacter.getCycleProperty()));
   }
 
   /**
@@ -326,7 +349,7 @@ public class LoopManiaWorldController {
   /**
    * pair the entity an view so that the view copies the movements of the entity.
    * add view to list of entity images
-   * 
+   *
    * @param entity backend entity to be paired with view
    * @param view   frontend imageview to be paired with backend entity
    */
@@ -356,7 +379,7 @@ public class LoopManiaWorldController {
   /**
    * run GUI events after an enemy is defeated, such as spawning
    * items/experience/gold
-   * 
+   *
    * @param enemy defeated enemy for which we should react to the death of
    */
   private void reactToEnemyDefeat(Enemy enemy) {
@@ -371,7 +394,7 @@ public class LoopManiaWorldController {
   /**
    * load a card image into the GUI. Particularly, we must connect to the drag
    * detection event handler, and load the image into the cards GridPane.
-   * 
+   *
    * @param card
    */
   private void onLoad(Card card) {
@@ -390,7 +413,7 @@ public class LoopManiaWorldController {
    * load a sword into the GUI. Particularly, we must connect to the drag
    * detection event handler, and load the image into the unequippedInventory
    * GridPane.
-   * 
+   *
    * @param sword
    */
   private void onLoad(Item item) {
@@ -404,7 +427,7 @@ public class LoopManiaWorldController {
    * load a sword into the GUI. Particularly, we must connect to the drag
    * detection event handler, and load the image into the unequippedInventory
    * GridPane.
-   * 
+   *
    * @param sword
    */
   private void onLoad(Item item, ImageView view) {
@@ -418,7 +441,7 @@ public class LoopManiaWorldController {
    * load a sword into the GUI. Particularly, we must connect to the drag
    * detection event handler, and load the image into the unequippedInventory
    * GridPane.
-   * 
+   *
    * @param sword
    */
   private void onLoadEquipped(Item item) {
@@ -430,7 +453,7 @@ public class LoopManiaWorldController {
 
   /**
    * load an enemy into the GUI
-   * 
+   *
    * @param enemy
    */
   private void onLoad(Enemy enemy) {
@@ -441,7 +464,7 @@ public class LoopManiaWorldController {
 
   /**
    * load a building into the GUI
-   * 
+   *
    * @param building
    */
   private void onLoad(Building building) {
@@ -457,7 +480,7 @@ public class LoopManiaWorldController {
    * add drag event handlers for dropping into gridpanes, dragging over the
    * background, dropping over the background. These are not attached to invidual
    * items such as swords/cards.
-   * 
+   *
    * @param draggableType  the type being dragged - card or item
    * @param sourceGridPane the gridpane being dragged from
    * @param targetGridPane the gridpane the human player should be dragging to
@@ -603,7 +626,7 @@ public class LoopManiaWorldController {
   /**
    * remove the card from the world, and spawn and return a building instead where
    * the card was dropped
-   * 
+   *
    * @param cardNodeX     the x coordinate of the card which was dragged, from 0
    *                      to width-1
    * @param cardNodeY     the y coordinate of the card which was dragged (in
@@ -626,7 +649,7 @@ public class LoopManiaWorldController {
   /**
    * remove an item from the unequipped inventory by its x and y coordinates in
    * the unequipped inventory gridpane
-   * 
+   *
    * @param nodeX x coordinate from 0 to unequippedInventoryWidth-1
    * @param nodeY y coordinate from 0 to unequippedInventoryHeight-1
    */
@@ -636,7 +659,7 @@ public class LoopManiaWorldController {
 
   /**
    * add drag event handlers to an ImageView
-   * 
+   *
    * @param view           the view to attach drag event handlers to
    * @param draggableType  the type of item being dragged - card or item
    * @param sourceGridPane the relevant gridpane from which the entity would be
@@ -729,7 +752,7 @@ public class LoopManiaWorldController {
   /**
    * remove drag event handlers so that we don't process redundant events this is
    * particularly important for slower machines such as over VLAB.
-   * 
+   *
    * @param draggableType  either cards, or items in unequipped inventory
    * @param targetGridPane the gridpane to remove the drag event handlers from
    */
@@ -750,7 +773,7 @@ public class LoopManiaWorldController {
   /**
    * handle the pressing of keyboard keys. Specifically, we should pause when
    * pressing SPACE
-   * 
+   *
    * @param event some keyboard key press
    */
   @FXML
@@ -776,7 +799,7 @@ public class LoopManiaWorldController {
 
   /**
    * this method is triggered when click button to go to main menu in FXML
-   * 
+   *
    * @throws IOException
    */
   @FXML
@@ -800,7 +823,7 @@ public class LoopManiaWorldController {
    *
    * NOTE teardown functions setup here also remove nodes from their GridPane. So
    * it is vital this is handled in this Controller class
-   * 
+   *
    * @param entity
    * @param node
    */
