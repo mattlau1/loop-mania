@@ -10,9 +10,15 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import javafx.beans.property.SimpleIntegerProperty;
-
+import unsw.loopmania.Buildings.BarracksStrategy;
 import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Buildings.CampfireStrategy;
 import unsw.loopmania.Buildings.HerosCastleStrategy;
+import unsw.loopmania.Buildings.TowerStrategy;
+import unsw.loopmania.Buildings.TrapStrategy;
+import unsw.loopmania.Buildings.VampireCastleStrategy;
+import unsw.loopmania.Buildings.VillageStrategy;
+import unsw.loopmania.Buildings.ZombiePitStrategy;
 import unsw.loopmania.Goals.Goal;
 import unsw.loopmania.Goals.GoldGoal;
 import unsw.loopmania.Goals.ExperienceGoal;
@@ -87,7 +93,7 @@ public abstract class LoopManiaWorldLoader {
 
   /**
    * load an entity into the world
-   * 
+   *
    * @param world       backend world object
    * @param json        a JSON object to parse (different from the )
    * @param orderedPath list of pairs of x, y cell coordinates representing game
@@ -107,23 +113,62 @@ public abstract class LoopManiaWorldLoader {
         Character character = new Character(new PathPosition(indexInPath, orderedPath));
         world.setCharacter(character);
         onLoad(character);
-        Building building = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y),
+        Building heroCastle = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y),
             new HerosCastleStrategy());
-        onLoad(building);
-        world.addBuildingToWorld(building);
+        onLoad(heroCastle);
+        world.addBuildingToWorld(heroCastle);
 
         entity = character;
         break;
+      case "vampire_castle":
+        Building vampireCastle = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y),
+            new VampireCastleStrategy());
+        onLoad(vampireCastle);
+        world.addBuildingToWorld(vampireCastle);
+        break;
+      case "tower":
+        Building tower = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y), new TowerStrategy());
+        onLoad(tower);
+        world.addBuildingToWorld(tower);
+        break;
+      case "zombie_pit":
+        Building zombiePit = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y),
+            new ZombiePitStrategy());
+        onLoad(zombiePit);
+        world.addBuildingToWorld(zombiePit);
+        break;
+      case "village":
+        Building village = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y),
+            new VillageStrategy());
+        onLoad(village);
+        world.addBuildingToWorld(village);
+        break;
+      case "barracks":
+        Building barracks = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y),
+            new BarracksStrategy());
+        onLoad(barracks);
+        world.addBuildingToWorld(barracks);
+        break;
+      case "trap":
+        Building trap = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y), new TrapStrategy());
+        onLoad(trap);
+        world.addBuildingToWorld(trap);
+        break;
+      case "campfire":
+        Building campfire = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y),
+            new CampfireStrategy());
+        onLoad(campfire);
+        world.addBuildingToWorld(campfire);
+        break;
       case "path_tile":
         throw new RuntimeException("path_tile's aren't valid entities, define the path externally.");
-      // TODO Handle other possible entities
     }
     world.addEntity(entity);
   }
 
   /**
    * load path tiles
-   * 
+   *
    * @param path   json data loaded from file containing path information
    * @param width  width in number of cells
    * @param height height in number of cells
@@ -191,7 +236,5 @@ public abstract class LoopManiaWorldLoader {
   public abstract void onLoad(Building building);
 
   public abstract void onLoad(PathTile pathTile, PathTile.Direction into, PathTile.Direction out);
-
-  // TODO Create additional abstract methods for the other entities
 
 }

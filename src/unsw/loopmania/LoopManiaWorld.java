@@ -20,9 +20,7 @@ import unsw.loopmania.Items.SwordStrategy;
 import unsw.loopmania.Items.TheOneRingStrategy;
 import unsw.loopmania.Buffs.Buff;
 import unsw.loopmania.Buildings.Building;
-import unsw.loopmania.Buildings.BuildingStrategy;
 import unsw.loopmania.Buildings.CampfireStrategy;
-import unsw.loopmania.Buildings.HerosCastleStrategy;
 import unsw.loopmania.Buildings.TrapStrategy;
 import unsw.loopmania.Cards.BarracksCardStrategy;
 import unsw.loopmania.Cards.CampfireCardStrategy;
@@ -63,43 +61,49 @@ public class LoopManiaWorld {
    */
   private List<Entity> nonSpecifiedEntities;
 
+  // character for the world
   private Character character;
 
-  // TODO = add more lists for other entities, for equipped inventory items,
-  // etc...
+  // list of equipped items
   private List<Item> equippedInventoryItems;
 
+  // items sorted by rarity
   private List<ItemStrategy> commonItems;
   private List<ItemStrategy> lowRarityItems;
   private List<ItemStrategy> midRarityItems;
   private List<ItemStrategy> highRarityItems;
   private List<ItemStrategy> superRarityItems;
 
+  // cards sorted by rarity
   private List<CardStrategy> lowRarityCards;
   private List<CardStrategy> midRarityCards;
   private List<CardStrategy> highRarityCards;
 
+  // drop for destroyed cards
   private final int destroyedCardGold = 100;
   private final int destroyedCardExp = 100;
 
-  // TODO = expand the range of enemies
   private List<Enemy> enemies;
 
   // list of items on on the path
   private List<Item> pathItems;
 
+  // list of enemies
   private List<Enemy> zombieSoldiers;
 
-  // private List<Soldier> soldiers;
+  // list of soliders
   private List<Soldier> trancedSoldiers;
 
-  // TODO = expand the range of cards
+  // list of cards
   private List<Card> cardEntities;
 
-  // TODO = expand the range of items
+  private int heroCastleCycles;
+  private int nextHeroCastleCycle;
+
+  // list of unequipped inventory
   private List<Item> unequippedInventoryItems;
 
-  // TODO = expand the range of buildings
+  // list of buildings
   private List<Building> buildingEntities;
 
   private boolean cardDestroyed;
@@ -110,6 +114,7 @@ public class LoopManiaWorld {
    */
   private List<Pair<Integer, Integer>> orderedPath;
 
+  // the goal which contains simple goals
   private Goal goal;
 
   /**
@@ -119,6 +124,7 @@ public class LoopManiaWorld {
    * @param height      height of world in number of cells
    * @param orderedPath ordered list of x, y coordinate pairs representing
    *                    position of path cells in world
+   * @param goal        the goal contains multiple simple goals
    */
 
   public LoopManiaWorld(int width, int height, List<Pair<Integer, Integer>> orderedPath, Goal goal) {
@@ -145,8 +151,29 @@ public class LoopManiaWorld {
     this.goal = goal;
     cardDestroyed = false;
     pathItems = new ArrayList<>();
+    heroCastleCycles = 1;
+    nextHeroCastleCycle = 1;
   }
 
+  public int getHeroCastleCycles() {
+    return heroCastleCycles;
+  }
+
+  public void addHeroCastleCycles(int num) {
+    heroCastleCycles += num;
+  }
+
+  public int getNextHeroCastleCycle() {
+    return nextHeroCastleCycle;
+  }
+
+  public void addNextHeroCastleCycle(int num) {
+    nextHeroCastleCycle += num;
+  }
+
+  /**
+   * generate random item drop
+   */
   public void generateItemDrops() {
     commonItems.clear();
     lowRarityItems.clear();
@@ -166,10 +193,12 @@ public class LoopManiaWorld {
     highRarityItems.add(new StaffStrategy());
     highRarityItems.add(new HealthPotionStrategy());
 
-    lowRarityItems.add(new TheOneRingStrategy());
     superRarityItems.add(new TheOneRingStrategy());
   }
 
+  /**
+   * generate random card drop
+   */
   public void generateCardDrops() {
     lowRarityCards.clear();
     midRarityCards.clear();
@@ -186,10 +215,16 @@ public class LoopManiaWorld {
     highRarityCards.add(new BarracksCardStrategy());
   }
 
+  /**
+   * get the grid width of the world
+   */
   public int getWidth() {
     return width;
   }
 
+  /**
+   * get the grid height of the world
+   */
   public int getHeight() {
     return height;
   }
@@ -213,10 +248,20 @@ public class LoopManiaWorld {
     return character;
   }
 
+  /**
+   * Gets the tranced soliders of the world
+   *
+   * @return tranced soliders
+   */
   public List<Soldier> getTrancedSoldiers() {
     return trancedSoldiers;
   }
 
+  /**
+   * Gets the number of tranced soliders of the world
+   *
+   * @return the number of tranced soliders
+   */
   public int trancedSoldiersSize() {
     return this.trancedSoldiers.size();
   }
@@ -229,23 +274,14 @@ public class LoopManiaWorld {
    */
   public void addEntity(Entity entity) {
     // for adding non-specific entities (ones without another dedicated list)
-    // TODO = if more specialised types being added from main menu, add more methods
-    // like this with specific input types...
     nonSpecifiedEntities.add(entity);
   }
 
+  /**
+   * Character consumes the potion to restore health
+   */
   public void consumePotion() {
     character.setHealth(character.getMaxHealth());
-    // Item potion = null;
-    // for (Item item : unequippedInventoryItems) {
-    // if (item.getStrategy() instanceof HealthPotionStrategy) {
-    // character.setHealth(character.getMaxHealth());
-    // }
-    // potion = item;
-    // break;
-    // }
-    // potion.destroy();
-    // unequippedInventoryItems.remove(potion);
   }
 
   /**
@@ -253,8 +289,8 @@ public class LoopManiaWorld {
    *
    * @return list of the enemies to be displayed on screen
    */
+
   public List<Enemy> possiblySpawnEnemies() {
-    // TODO = expand this very basic version
 
     Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
     List<Enemy> spawningEnemies = new ArrayList<>();
@@ -269,16 +305,13 @@ public class LoopManiaWorld {
     // go through every building in the world
     // if the building can spawn enemies, check cycle count
     // and spawn an enemy on the closest path tile to that building
-    // System.out.println("WOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
     for (Building building : buildingEntities) {
       if (isAtHerosCastle()) {
         if (building.canSpawnEnemy(character.getCycleCount())) {
-          // TODO: change spawn location to closest path
           Pair<Integer, Integer> buildingLocation = neighbourPath(building.getX(), building.getY());
           int buildingIndexInPath = orderedPath.indexOf(buildingLocation);
           Enemy enemy = building.spawnEnemy(new PathPosition(buildingIndexInPath, orderedPath));
 
-          // System.out.println(enemy);
           if (enemy != null) {
             enemies.add(enemy);
             spawningEnemies.add(enemy);
@@ -289,6 +322,13 @@ public class LoopManiaWorld {
     return spawningEnemies;
   }
 
+  /**
+   * returns the adjacent path or grid with the given coordinates
+   *
+   * @param x the x coordinate of the path
+   * @param y the y coordinate of the path
+   * @return the coordinates of the adjacent path
+   */
   public Pair<Integer, Integer> neighbourPath(int x, int y) {
     for (Pair<Integer, Integer> path : orderedPath) {
       if ((x + 1) == path.getValue0() && (y) == path.getValue1())
@@ -303,8 +343,17 @@ public class LoopManiaWorld {
     return null;
   }
 
+  /**
+   * Returns the array of items on the floor
+   *
+   * @return the list of items on the floor
+   */
   public List<Item> getPathItems() {
     return pathItems;
+  }
+
+  public void addPathItems(Item item) {
+    pathItems.add(item);
   }
 
   /**
@@ -313,7 +362,6 @@ public class LoopManiaWorld {
    * @return list of the enemies to be displayed on screen
    */
   public List<Item> possiblySpawnItems() {
-    // TODO = expand this very basic version
 
     Pair<Integer, Integer> pos = possiblyGetBasicItemSpawnPosition();
     List<Item> spawningItems = new ArrayList<>();
@@ -341,21 +389,29 @@ public class LoopManiaWorld {
     enemies.remove(enemy);
   }
 
+  /**
+   * remove an item
+   *
+   * @param item item to be removed
+   */
   private void killItem(Item item) {
     item.destroy();
     pathItems.remove(item);
   }
 
+  /**
+   * check if the character and enemy are in range of each other
+   *
+   * @return the boolean when the character and enemy in range
+   */
   private boolean isInRange(Enemy e, Character c) {
     // Pythagoras: a^2+b^2 < radius^2 to see if within radius
-    // TODO = you should implement different RHS on this inequality, based on
     // influence radii and battle radii
     return Math.pow((c.getX() - e.getX()), 2) + Math.pow((c.getY() - e.getY()), 2) < e.getBattleRange();
   }
 
   private boolean isInSuppRange(Enemy e, Character c) {
     // Pythagoras: a^2+b^2 < radius^2 to see if within radius
-    // TODO = you should implement different RHS on this inequality, based on
     // influence radii and battle radii
     return Math.pow((c.getX() - e.getX()), 2) + Math.pow((c.getY() - e.getY()), 2) < e.getSupportRange();
   }
@@ -404,18 +460,19 @@ public class LoopManiaWorld {
     return false;
   }
 
+  /**
+   * Use the item on the character outside the combat
+   */
   private void useItemsOnCharacterOutsideCombat() {
     List<Item> pathItemsToDestroy = new ArrayList<>();
     for (Item i : pathItems) {
       if (isInRange(i, character)) {
         i.useItem(character);
         pathItemsToDestroy.add(i);
-        // System.out.println("WOOOOOOO");
       }
 
     }
     for (Item item : pathItemsToDestroy) {
-      // System.out.println("FUUUUUUUUUUUUUUUUK");
       killItem(item);
     }
   }
@@ -628,7 +685,6 @@ public class LoopManiaWorld {
       boolean isCriticalHit = doesEnemyCrit(currBattlingEnemy);
       enemyDamage = getEnemyDamageAfterDefense(enemyDamage, currBattlingEnemy);
 
-      // System.out.println(enemyDamage);
       if (trancedSoldiers.size() > 0) {
         // tranced soldiers
         Soldier s = trancedSoldiers.get(0);
@@ -655,8 +711,8 @@ public class LoopManiaWorld {
           character.addBuffs(currBattlingEnemy.criticalHit());
         }
 
-        // character takes damage
-        character.reduceHealth(enemyDamage);
+        // // character takes damage
+        // character.reduceHealth(enemyDamage);
 
         // activate buffs
         for (Buff buff : character.getBuffs()) {
@@ -756,11 +812,7 @@ public class LoopManiaWorld {
     // if adding more cards than have, remove the first card...
     cardDestroyed = false;
     if (cardEntities.size() >= getWidth()) {
-      // TODO = give some cash/experience/item rewards for the discarding of the
-      // oldest card
-
       cardDestroyed = true;
-      // addUnequippedItem();
       removeCard(0);
     }
 
@@ -807,8 +859,6 @@ public class LoopManiaWorld {
    * @return a sword to be spawned in the controller as a JavaFX node
    */
   public Item addUnequippedItem() {
-    // TODO = expand this - we would like to be able to add multiple types of items,
-    // apart from swords
     ItemStrategy randStrat = randomItemStrategy();
     while (randStrat instanceof HealthPotionStrategy) {
       consumePotion();
@@ -818,8 +868,6 @@ public class LoopManiaWorld {
     if (firstAvailableSlot == null) {
       // eject the oldest unequipped item and replace it... oldest item is that at
       // beginning of items
-      // TODO = give some cash/experience rewards for the discarding of the oldest
-      // sword
       character.addEXP(destroyedCardExp);
       character.addGold(destroyedCardGold);
       removeItemByPositionInUnequippedInventoryItems(0);
@@ -842,14 +890,10 @@ public class LoopManiaWorld {
    * @return an item to be spawned in the controller as a JavaFX node
    */
   public Item addSpecificUnequippedItem(ItemStrategy itemStrategy) {
-    // TODO = expand this - we would like to be able to add multiple types of items,
-    // apart from swords
     Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
     if (firstAvailableSlot == null) {
       // eject the oldest unequipped item and replace it... oldest item is that at
       // beginning of items
-      // TODO = give some cash/experience rewards for the discarding of the oldest
-      // sword
       character.addEXP(destroyedCardExp);
       character.addGold(destroyedCardGold);
       removeItemByPositionInUnequippedInventoryItems(0);
@@ -896,6 +940,11 @@ public class LoopManiaWorld {
     }
   }
 
+  /**
+   * Gets the world path in order
+   *
+   * @return the world path in order
+   */
   public List<Pair<Integer, Integer>> getOrderedPath() {
     return orderedPath;
   }
@@ -948,11 +997,20 @@ public class LoopManiaWorld {
     removeEquippedInventoryItem(item);
   }
 
+  /**
+   * add item by x,y coordinates
+   *
+   * @param x x coordinate from 0 to width-1
+   * @param y y coordinate from 0 to height-1
+   */
   public void addEquippedInventoryItemByCoordinates(int x, int y) {
     Item item = getEquippedInventoryItemEntityByCoordinates(x, y);
     addEquippedInventoryItem(item);
   }
 
+  /**
+   * Use the hero castle strategy
+   */
   private void useIfAtHerosCastle() {
     for (Building building : buildingEntities) {
       if (building.isSpawnLocation() && isInRange(building, character)) {
@@ -962,6 +1020,11 @@ public class LoopManiaWorld {
     }
   }
 
+  /**
+   * Checks if the character is in range of the hero castle
+   *
+   * @return the boolean if the character is at the hero castle
+   */
   private boolean isAtHerosCastle() {
     for (Building building : buildingEntities) {
       if (building.isSpawnLocation() && isInRange(building, character)) {
@@ -1095,7 +1158,6 @@ public class LoopManiaWorld {
    * move all enemies
    */
   private void moveBasicEnemies() {
-    // TODO = expand to more types of enemy
     for (Enemy e : enemies) {
       e.move();
     }
@@ -1108,13 +1170,11 @@ public class LoopManiaWorld {
    *         possible, or random coordinate pair if should go ahead
    */
   private Pair<Integer, Integer> possiblyGetBasicEnemySpawnPosition() {
-    // TODO = modify this
 
     // has a chance spawning a basic enemy on a tile the character isn't on or
     // immediately before or after (currently space required = 2)...
     Random rand = new Random();
-    int choice = rand.nextInt(2); // TODO = change based on spec... currently low value for dev purposes...
-    // TODO = change based on spec
+    int choice = rand.nextInt(2);
     if ((choice == 0) && (enemies.size() < 2)) {
       List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
       int indexPosition = orderedPath.indexOf(new Pair<Integer, Integer>(character.getX(), character.getY()));
@@ -1156,13 +1216,11 @@ public class LoopManiaWorld {
    *         possible, or random coordinate pair if should go ahead
    */
   private Pair<Integer, Integer> possiblyGetBasicItemSpawnPosition() {
-    // TODO = modify this
 
     // has a chance spawning a basic enemy on a tile the character isn't on or
     // immediately before or after (currently space required = 2)...
     Random rand = new Random();
-    int choice = rand.nextInt(2); // TODO = change based on spec... currently low value for dev purposes...
-    // TODO = change based on spec
+    int choice = rand.nextInt(2);
     if ((choice == 0) && (pathItems.size() < 2)) {
       List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
       int indexPosition = orderedPath.indexOf(new Pair<Integer, Integer>(character.getX(), character.getY()));
@@ -1205,25 +1263,16 @@ public class LoopManiaWorld {
     SimpleIntegerProperty xIntegerProperty = new SimpleIntegerProperty(buildingNodeX);
     SimpleIntegerProperty yIntegerProperty = new SimpleIntegerProperty(buildingNodeY);
     Building newBuilding = new Building(xIntegerProperty, yIntegerProperty, card.getBuildingStrategy());
-    // boolean spawnBuilding = false;
     boolean isPath = false;
     for (Pair<Integer, Integer> path : orderedPath) {
-      // System.out.println(buildingNodeX);
-      // System.out.println("FUCK");
-      // System.out.println(path.getValue0());
-      // System.out.println(buildingNodeY);
-      // System.out.println("YOU");
-      // System.out.println(path.getValue1());
       // check if card is on path tile
       if (buildingNodeX == path.getValue0() && buildingNodeY == path.getValue1()) {
         isPath = true;
       }
     }
-    // System.out.println(isPath);
     if (newBuilding.canOnlySpawnOnPath()) {
       if (isPath) {
         addBuildingToWorld(newBuilding);
-        // spawnBuilding = true;
       } else {
         return null;
       }
@@ -1233,7 +1282,6 @@ public class LoopManiaWorld {
           return null;
         } else if (isNeighbourPath(buildingNodeX, buildingNodeY)) {
           addBuildingToWorld(newBuilding);
-          // spawnBuilding = true;
         }
       } else {
         if (!isPath) {
@@ -1241,33 +1289,10 @@ public class LoopManiaWorld {
         } else {
           return null;
         }
-        // addBuildingToWorld(newBuilding);
-        // spawnBuilding = true;
       }
     }
 
-    // if (spawnBuilding) {
-    // addBuildingToWorld(newBuilding);
-    // } else {
-    // return null;
-    // }
-
-    // if tile is in newbuilding.possibleSpawnTiles
-    // if newBuilding.canOnlySpawnNextToPath() {
-    // if isNextToPath(x, y)
-    // spawn building
-    // else
-    // return null
-    // } else {
-    // spawn building
-    // }
-
-    // check if placable on PATH and/or OUTSIDE OF PATH
-
-    // addBuildingToWorld(newBuilding);
-
     // destroy the card
-    // System.out.println("LOLLLLLLLLLLLLLLLLLLLLLLLLLL");
     card.destroy();
     cardEntities.remove(card);
     shiftCardsDownFromXCoordinate(cardNodeX);
@@ -1275,22 +1300,51 @@ public class LoopManiaWorld {
     return newBuilding;
   }
 
+  /**
+   * Add the specified building to the world
+   */
   public void addBuildingToWorld(Building building) {
     buildingEntities.add(building);
   }
 
+  /**
+   * Returns an item after dragging from unequipped inventory the the equipped
+   * inventory
+   *
+   * @return the item after its equipped
+   */
   public Item equipItembyCoordinates(int oldX, int oldY, int newX, int newY) {
     Item item = getUnequippedInventoryItemEntityByCoordinates(oldX, oldY);
     Item newItem = new Item(new SimpleIntegerProperty(newX), new SimpleIntegerProperty(newY), item.getStrategy());
     return newItem;
   }
 
+  /**
+   * Get the list of unequipped items
+   *
+   * @return the list of unequipped items
+   */
   public List<Item> getUnequip() {
     return unequippedInventoryItems;
   }
 
+  /**
+   * Get the list of equipped items
+   *
+   * @return the list of equipped items
+   */
   public List<Item> getEquip() {
     return equippedInventoryItems;
+  }
+
+  public Item buyItem(ItemStrategy strat) {
+    Item newItem = null;
+    int balance = character.getGold();
+    if (balance - strat.getPrice() >= 0) {
+      character.deductGold(strat.getPrice());
+      newItem = addSpecificUnequippedItem(strat);
+    }
+    return newItem;
   }
 
 }

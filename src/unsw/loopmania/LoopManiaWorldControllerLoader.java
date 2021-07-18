@@ -40,7 +40,6 @@ public class LoopManiaWorldControllerLoader extends LoopManiaWorldLoader {
 
   }
 
-  // TODO = load more entity types from the file
   @Override
   public void onLoad(Character character) {
     ImageView view = new ImageView(characterImage);
@@ -107,7 +106,7 @@ public class LoopManiaWorldControllerLoader extends LoopManiaWorldLoader {
   /**
    * pair the backendentity and view, so the view tracks the coordinates of the
    * entity
-   * 
+   *
    * @param entity backend entity
    * @param view   frontend image to be paired with the backend entity
    */
@@ -121,7 +120,7 @@ public class LoopManiaWorldControllerLoader extends LoopManiaWorldLoader {
    * setup the node to follow the coordinates of the backend entity.<br>
    * Items which potentially need to be removed should be spawned by controller,
    * and have listener handles and teardown functions added.
-   * 
+   *
    * @param entity backend entity
    * @param node   frontend image to track the coordinates of the backend entity
    */
@@ -146,7 +145,7 @@ public class LoopManiaWorldControllerLoader extends LoopManiaWorldLoader {
   /**
    * Create a controller that can be attached to the LoopManiaView with all the
    * loaded entities.
-   * 
+   *
    * @return
    * @throws FileNotFoundException
    */

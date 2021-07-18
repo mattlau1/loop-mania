@@ -9,11 +9,12 @@ import org.json.JSONObject;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathTile;
-import unsw.loopmania.Goals.CycleGoal;
 import unsw.loopmania.Goals.Goal;
 
-public class TestSetup {
-    public LoopManiaWorld makeTestWorld() {
+public class TestSetupNoGoals {
+
+    public LoopManiaWorld makeTestWorld(Goal goal) {
+        // helper function to setup world for tests which need flexible goals
         ArrayList<String> pathString = new ArrayList<>();
         pathString.add("RIGHT");
         pathString.add("RIGHT");
@@ -30,11 +31,8 @@ public class TestSetup {
         path.put("y", 0);
         path.put("path", pathString);
 
-        Goal gg = new Goal();
-        gg.addGoal(new CycleGoal(200));
-
         List<Pair<Integer, Integer>> orderedPath = loadPathTiles(path, 3, 3);
-        return new LoopManiaWorld(3, 3, orderedPath, gg);
+        return new LoopManiaWorld(3, 3, orderedPath, goal);
     }
 
     public List<Pair<Integer, Integer>> loadPathTiles(JSONObject path, int width, int height) {
