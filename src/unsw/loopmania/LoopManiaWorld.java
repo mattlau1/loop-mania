@@ -118,6 +118,7 @@ public class LoopManiaWorld {
    * @param orderedPath ordered list of x, y coordinate pairs representing
    *                    position of path cells in world
    */
+
   public LoopManiaWorld(int width, int height, List<Pair<Integer, Integer>> orderedPath, Goal goal) {
     this.width = width;
     this.height = height;
@@ -1118,6 +1119,16 @@ public class LoopManiaWorld {
     return null;
   }
 
+  public boolean isNeighbourPath(int x, int y) {
+    for (Pair<Integer, Integer> path : orderedPath) {
+      if ((x + 1) == path.getValue0() && (y) == path.getValue1()) return true;
+      if ((x - 1) == path.getValue0() && (y) == path.getValue1()) return true;
+      if ((x) == path.getValue0() && (y + 1) == path.getValue1()) return true;
+      if ((x) == path.getValue0() && (y - 1) == path.getValue1()) return true;
+    }
+    return false;
+  }
+
   /**
    * get a randomly generated position which could be used to spawn an enemy
    *
@@ -1174,10 +1185,73 @@ public class LoopManiaWorld {
     SimpleIntegerProperty xIntegerProperty = new SimpleIntegerProperty(buildingNodeX);
     SimpleIntegerProperty yIntegerProperty = new SimpleIntegerProperty(buildingNodeY);
     Building newBuilding = new Building(xIntegerProperty, yIntegerProperty, card.getBuildingStrategy());
+    // boolean spawnBuilding = false;
+    boolean isPath = false;
+    for (Pair<Integer, Integer> path : orderedPath) {
+      // System.out.println(buildingNodeX);
+      // System.out.println("FUCK");
+      // System.out.println(path.getValue0());
+      // System.out.println(buildingNodeY);
+      // System.out.println("YOU");
+      // System.out.println(path.getValue1());
+      // check if card is on path tile
+      if (buildingNodeX == path.getValue0() && buildingNodeY == path.getValue1()) {
+        isPath = true;
+      }
+    }
+      // System.out.println(isPath);
+    if (newBuilding.canOnlySpawnOnPath()) {
+      if (isPath) {
+        System.out.println("FUCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCK");
+        addBuildingToWorld(newBuilding);
+        // spawnBuilding = true;
+      } else {
+        System.out.println("222222222222222222222222222222222222");
+        return null;
+      }
+    } else {
+      if (newBuilding.canOnlySpawnNextToPath()) {
+        if (isPath) {
+          return null;
+        } else if (isNeighbourPath(buildingNodeX, buildingNodeY)) {
+          System.out.println("WOOOOOOOOOOOOOOOOOOOOOOO");
+          addBuildingToWorld(newBuilding);
+          // spawnBuilding = true;
+        }
+      } else {
+        if (!isPath) {
+          addBuildingToWorld(newBuilding);
+        } else {
+          return null;
+        }
+        // addBuildingToWorld(newBuilding);
+        // spawnBuilding = true;
+      }
+    }
 
-    addBuildingToWorld(newBuilding);
+
+    // if (spawnBuilding) {
+    //   addBuildingToWorld(newBuilding);
+    // } else {
+    //   return null;
+    // }
+
+    // if tile is in newbuilding.possibleSpawnTiles
+    // if newBuilding.canOnlySpawnNextToPath()  {
+    // if isNextToPath(x, y)
+    // spawn building
+    // else
+    // return null
+    // } else {
+    // spawn building
+    // }
+
+    // check if placable on PATH and/or OUTSIDE OF PATH
+
+    // addBuildingToWorld(newBuilding);
 
     // destroy the card
+    // System.out.println("LOLLLLLLLLLLLLLLLLLLLLLLLLLL");
     card.destroy();
     cardEntities.remove(card);
     shiftCardsDownFromXCoordinate(cardNodeX);

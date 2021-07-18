@@ -55,4 +55,14 @@ public class TowerStrategy implements BuildingStrategy {
     return false;
   }
 
+  @Override
+  public boolean canOnlySpawnNextToPath() {
+    return true;
+  }
+
+  @Override
+  public boolean canOnlySpawnOnPath() {
+    return false;
+  }
+
 }

@@ -55,4 +55,14 @@ public class HerosCastleStrategy implements BuildingStrategy {
     return true;
   }
 
+  @Override
+  public boolean canOnlySpawnNextToPath() {
+    return false;
+  }
+
+  @Override
+  public boolean canOnlySpawnOnPath() {
+    return true;
+  }
+
 }

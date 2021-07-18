@@ -331,7 +331,7 @@ public class LoopManiaWorldController {
     // create the draggable icon
     draggedEntity = new DragIcon();
     draggedEntity.setVisible(false);
-    draggedEntity.setOpacity(0.7);
+    draggedEntity.setOpacity(0);
     anchorPaneRoot.getChildren().add(draggedEntity);
 
     // character stats
@@ -635,6 +635,9 @@ public class LoopManiaWorldController {
                 removeDraggableDragEventHandlers(draggableType, targetGridPane);
                 // TODO = spawn a building here of different types
                 Building newBuilding = convertCardToBuildingByCoordinates(nodeX, nodeY, x, y);
+
+                // check if null and dont load into ui if null
+                // else building has already spawned in backend, add to UI with onLoad(building)
                 onLoad(newBuilding);
                 break;
               case ITEM:

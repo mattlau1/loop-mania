@@ -65,4 +65,19 @@ public interface BuildingStrategy {
    * @return the new enemy if building can spawn enemies, else null
    */
   public Enemy spawnEnemy(PathPosition position);
+
+  /**
+   * Checks if the building can only spawn next to a path tile
+   *
+   * @return true if the building can only spawn next to a path tile
+   */
+  public boolean canOnlySpawnNextToPath();
+
+  /**
+   * Checks if the building can only spawn on path tile
+   *
+   * @return true if the building can only spawn on a path tile
+   */
+  public boolean canOnlySpawnOnPath();
+
 }
