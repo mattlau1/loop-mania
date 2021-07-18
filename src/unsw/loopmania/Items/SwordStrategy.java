@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import unsw.loopmania.Character;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Soldier;
 
@@ -53,6 +54,14 @@ public class SwordStrategy implements ItemStrategy {
   @Override
   public void onHitEffects(Enemy enemy, List<Soldier> allyList) {
     return;
+  }
+
+  /**
+   * Deals with any effects that may occur on character death
+   * @return a boolean for if the item should be destroyed
+   */
+  public boolean onDeath(Character character) {
+    return false;
   }
 
   /**

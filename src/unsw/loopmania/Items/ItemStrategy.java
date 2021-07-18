@@ -4,6 +4,7 @@ import java.util.List;
 
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Enemies.Enemy;
+import unsw.loopmania.Character;
 import unsw.loopmania.Soldier;
 
 public interface ItemStrategy {
@@ -33,14 +34,20 @@ public interface ItemStrategy {
 
   /**
    * Deals with any on hit effects as a result of the weapon
-   * 
+   *
    * @param enemy The monster/entity that the Character is in combat with
    */
   public void onHitEffects(Enemy enemy, List<Soldier> allyList);
 
   /**
+   * Deals with any effects that may occur on character death
+   * @return a boolean for if the item should be destroyed
+   */
+  public boolean onDeath(Character character);
+
+  /**
    * Gets the image of the item to be shown
-   * 
+   *
    * @return The image of the item to be shown
    */
   public ImageView getImage();

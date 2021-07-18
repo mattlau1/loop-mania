@@ -439,13 +439,13 @@ public class LoopManiaWorldController {
 
   /**
    * load a sword into the GUI. Particularly, we must connect to the drag
-   * detection event handler, and load the image into the unequippedInventory
+   * detection event handler, and load the image into the equippedInventory
    * GridPane.
    *
    * @param sword
    */
-  private void onLoadEquipped(Item item) {
-    ImageView view = item.getImage();
+  private void onLoadEquipped(Item item, ImageView view) {
+    // ImageView view = item.getImage();
     addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, equippedItems, equippedItems);
     addEntity(item, view);
     equippedItems.getChildren().add(view);
@@ -546,14 +546,14 @@ public class LoopManiaWorldController {
                   Item item = world.getUnequippedInventoryItemEntityByCoordinates(nodeX, nodeY);
                   Item newItem = new Item(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y),
                       item.getStrategy());
-                  onLoadEquipped(newItem);
+                  onLoadEquipped(newItem, world.getUnequippedInventoryItemEntityByCoordinates(nodeX, nodeY).getImage());
                   world.addEquippedInventoryItem(item);
                   removeItemByCoordinates(nodeX, nodeY);
                   world.removeUnequippedInventoryItem(item);
                 } else {
                   removeItemByCoordinates(nodeX, nodeY);
                 }
-                targetGridPane.add(image, x, y, 1, 1);
+                // targetGridPane.add(image, x, y, 1, 1);
                 break;
               default:
                 break;
@@ -853,7 +853,7 @@ public class LoopManiaWorldController {
           entityImages.remove(node);
           squares.getChildren().remove(node);
           cards.getChildren().remove(node);
-          // equippedItems.getChildren().remove(node);
+          equippedItems.getChildren().remove(node);
           unequippedInventory.getChildren().remove(node);
         }).buildAttached();
     ListenerHandle handleY = ListenerHandles.createFor(entity.y(), node).onAttach((o, l) -> o.addListener(yListener))
@@ -862,7 +862,7 @@ public class LoopManiaWorldController {
           entityImages.remove(node);
           squares.getChildren().remove(node);
           cards.getChildren().remove(node);
-          // equippedItems.getChildren().remove(node);
+          equippedItems.getChildren().remove(node);
           unequippedInventory.getChildren().remove(node);
         }).buildAttached();
     handleX.attach();

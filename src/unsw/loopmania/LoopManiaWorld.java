@@ -94,6 +94,7 @@ public class LoopManiaWorld {
   // TODO = expand the range of buildings
   private List<Building> buildingEntities;
 
+  private List<Item> usedItems = new ArrayList<>();
   /**
    * list of x,y coordinate pairs in the order by which moving entities traverse
    * them
@@ -130,6 +131,7 @@ public class LoopManiaWorld {
     buildingEntities = new ArrayList<>();
     // soldiers = new ArrayList<>();
     trancedSoldiers = new ArrayList<>();
+    usedItems = new ArrayList<>();
   }
 
   public void generateItemDrops() {
@@ -150,6 +152,7 @@ public class LoopManiaWorld {
     highRarityItems.add(new StaffStrategy());
     highRarityItems.add(new HealthPotionStrategy());
 
+    lowRarityItems.add(new TheOneRingStrategy());
     superRarityItems.add(new TheOneRingStrategy());
   }
 
@@ -250,6 +253,14 @@ public class LoopManiaWorld {
     return spawningEnemies;
   }
 
+  public List<Item> getUsedItems () {
+    return usedItems;
+  }
+
+  public void clearUsedItems () {
+    usedItems.clear();
+  }
+
   /**
    * kill an enemy
    *
@@ -282,12 +293,28 @@ public class LoopManiaWorld {
     return Math.pow((e.getX() - b.getX()), 2) + Math.pow((e.getY() - b.getY()), 2) < b.getRange();
   }
 
+
+
   /**
    * run the expected battles in the world, based on current world state
    *
    * @return list of enemies which have been killed
    */
   public List<Enemy> runBattles() {
+    if (character.isDead()) {
+      List<Item> usedItems = new ArrayList<>();
+      for (Item item : unequippedInventoryItems) {
+        if (item.onDeath(character)) {
+          usedItems.add(item);
+        }
+      }
+      for (Item item : usedItems) {
+        removeUnequippedInventoryItem(item);
+      }
+      usedItems.clear();
+    }
+
+
     System.out.println(character.soldiersSize());
     // we have three types of buildings:
     // one that is for the character outside of combat (i.e village)
@@ -299,7 +326,6 @@ public class LoopManiaWorld {
     for (Building b : buildingEntities) {
       if (isInRange(b, character) && b.usableOutsideCombat() && !b.isHerosCastle()) {
         // System.out.printf("Character just used %s\n", b.getClass());
-        System.out.println("xd");
         b.useBuilding(character);
       }
     }

@@ -57,6 +57,10 @@ public class Character extends MovingEntity {
     return this.soldiers.size();
   }
 
+  public double getInitialHealth() {
+    return initialHealth;
+  }
+
   public double getHealth() {
     return healthProperty.get();
   }
