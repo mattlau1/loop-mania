@@ -188,6 +188,15 @@ public class LoopManiaWorld {
   }
 
   /**
+   * Gets the character of the world
+   *
+   * @return character
+   */
+  public Character getCharacter() {
+    return character;
+  }
+
+  /**
    * add a generic entity (without it's own dedicated method for adding to the
    * world)
    *
@@ -410,8 +419,8 @@ public class LoopManiaWorld {
             character.reduceHealth(enemyDamage);
           }
         }
-        // System.out.println("CHARACTER HEALTH");
-        // System.out.println(character.getHealth());
+        System.out.println("CHARACTER HEALTH");
+        System.out.println(character.getHealth());
         // System.out.println("ENEMY HEALTH");
         // System.out.println(enemy.getHealth());
       }
