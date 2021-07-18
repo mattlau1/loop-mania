@@ -39,3 +39,17 @@ In the second meeting, we reviewed our progress for the work we had set from the
     -	Updated UML diagram, timeline and UI design with feedback from tutor.
 
 In this meeting, the team discussed how to implement feedback given from our tutor and how to start approaching the implementation of the project. We also allocated different parts of the implementation to complete for every team member. The team also allocated a timeslot to work on adding methods and fields to the UML diagram. 
+
+## Tuesday 18th of July
+### Attendees: 
+-	Michael Chidiac
+-	Raymond Chung
+-	Matthew Lau
+-	Steven Long Nguyen
+### Points discussed: 
+-	Final Things to Implement
+    - Discussed final methods and classes to implement
+    - Checked progress on project with other group members
+    - Allocated different tasks
+
+Team discussed what final adjustments needed to be done before the due date and how to implement different features that the team had questions about. The team scheduled a few meetings before the due date to work on the project together, merge branches together and to check if everything works together. The team also discussed what adjustments needed to be made on the UML diagram to represent new classes.
