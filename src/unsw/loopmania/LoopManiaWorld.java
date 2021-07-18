@@ -1066,6 +1066,17 @@ public class LoopManiaWorld {
     SimpleIntegerProperty yIntegerProperty = new SimpleIntegerProperty(buildingNodeY);
     Building newBuilding = new Building(xIntegerProperty, yIntegerProperty, card.getBuildingStrategy());
 
+    // if newBuilding.canOnlySpawnNextToPath() {
+    // if isNextToPath()
+    // spawn building
+    // else
+    // return null
+    // } else {
+    // spawn building
+    // }
+
+    // check if placable on PATH and/or OUTSIDE OF PATH
+
     addBuildingToWorld(newBuilding);
 
     // destroy the card

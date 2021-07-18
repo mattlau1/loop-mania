@@ -364,7 +364,8 @@ public class LoopManiaWorldController {
   private void loadCard() {
     Card card = world.loadCard();
     onLoad(card);
-    if (world.getCardDestroyed()) loadItem();
+    if (world.getCardDestroyed())
+      loadItem();
   }
 
   /**
