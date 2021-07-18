@@ -461,7 +461,7 @@ public class LoopManiaWorld {
    *
    * @param enemy enemy to trigger on-hit effect on
    */
-  private void possiblyTriggerOnHitEffect(Enemy enemy) {
+  private void triggerOnHitEffects(Enemy enemy) {
     Random random = new Random();
     int randInt = random.nextInt(2);
     if (randInt == 1) {
@@ -640,10 +640,12 @@ public class LoopManiaWorld {
     // building for enemies and character inside of combat
     for (Enemy enemy : battlingEnemies) {
       while (enemy.isAlive()) {
-        double characterDamage = getCharacterDamageAgainstEnemy(enemy);
         useBuildingsOnEntitiesInCombat(enemy);
-        possiblyTriggerOnHitEffect(enemy);
+        triggerOnHitEffects(enemy);
+
+        double characterDamage = getCharacterDamageAgainstEnemy(enemy);
         enemy.reduceHealth(characterDamage);
+
         attackSoldiers(battlingEnemies, enemy);
         processZombieSoldierAttacks(enemy);
       }
