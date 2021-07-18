@@ -615,6 +615,36 @@ public class LoopManiaWorld {
   }
 
   /**
+   * spawn a specific item in the world and return the sword entity
+   *
+   * @param item strategy of the item to be spawned
+   * @return an item to be spawned in the controller as a JavaFX node
+   */
+  public Item addSpecificUnequippedItem(ItemStrategy itemStrategy) {
+    // TODO = expand this - we would like to be able to add multiple types of items,
+    // apart from swords
+    Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
+    if (firstAvailableSlot == null) {
+      // eject the oldest unequipped item and replace it... oldest item is that at
+      // beginning of items
+      // TODO = give some cash/experience rewards for the discarding of the oldest
+      // sword
+      character.addEXP(destroyedCardExp);
+      character.addGold(destroyedCardGold);
+      removeItemByPositionInUnequippedInventoryItems(0);
+      firstAvailableSlot = getFirstAvailableSlotForItem();
+    }
+
+    // now we insert the new sword, as we know we have at least made a slot
+    // available...
+
+    Item item = new Item(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),
+        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), itemStrategy);
+    unequippedInventoryItems.add(item);
+    return item;
+  }
+
+  /**
    * chooses a random item strategy from a list
    *
    * @return the item strategy of the item to be spawned
