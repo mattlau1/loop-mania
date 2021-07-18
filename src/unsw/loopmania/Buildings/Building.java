@@ -53,8 +53,8 @@ public class Building extends StaticEntity implements BuildingStrategy {
   }
 
   @Override
-  public boolean isHerosCastle() {
-    return strategy.isHerosCastle();
+  public boolean isSpawnLocation() {
+    return strategy.isSpawnLocation();
   }
 
 }
