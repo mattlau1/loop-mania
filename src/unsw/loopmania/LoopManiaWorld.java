@@ -21,7 +21,9 @@ import unsw.loopmania.Items.TheOneRingStrategy;
 import unsw.loopmania.Buffs.Buff;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.BuildingStrategy;
+import unsw.loopmania.Buildings.CampfireStrategy;
 import unsw.loopmania.Buildings.HerosCastleStrategy;
+import unsw.loopmania.Buildings.TrapStrategy;
 import unsw.loopmania.Cards.BarracksCardStrategy;
 import unsw.loopmania.Cards.CampfireCardStrategy;
 import unsw.loopmania.Cards.Card;
@@ -296,19 +298,42 @@ public class LoopManiaWorld {
 
     // building for character outside of combat
     for (Building b : buildingEntities) {
-      if (isInRange(b, character) && b.usableOutsideCombat() && !b.isHerosCastle()) {
+      if (isInRange(b, character) && b.usableOutsideCombat() && !b.isSpawnLocation()) {
         System.out.printf("Character just used %s\n", b.getClass());
         b.useBuilding(character);
       }
     }
 
-    // building for enemies outside of combat
+    List<Building> buildingsToDestroy = new ArrayList<>();
     for (Building b : buildingEntities) {
       for (Enemy e : enemies) {
+        // vampire has special interaction with the campfire
+        if (isInRange(b, e) && (b.getStrategy() instanceof CampfireStrategy)) {
+          if (e instanceof VampireEnemy)
+            e.changeDirection();
+        } else {
+          e.setHasChangedDirection();
+        }
+
+        // building for enemies outside of combat
         if (isInRange(b, e) && b.usableOutsideCombat()) {
           System.out.printf("%s just used %s\n", e.getClass(), b.getClass());
           b.useBuilding(e);
+
+          // need to destroy traps
+          if (b.getStrategy() instanceof TrapStrategy) {
+            buildingsToDestroy.add(b);
+          }
         }
+      }
+    }
+
+    // destroy traps and related buildings
+    for (Building buildingToDestroy : buildingsToDestroy) {
+      buildingToDestroy.destroy();
+      int buildingIndexInBuildingsList = buildingEntities.indexOf(buildingToDestroy);
+      if (buildingIndexInBuildingsList != -1) {
+        buildingEntities.remove(buildingIndexInBuildingsList);
       }
     }
 
@@ -320,9 +345,8 @@ public class LoopManiaWorld {
       if (isInRange(enemy, character)) {
         battlingEnemies.add(enemy);
         for (Enemy support : enemies) {
-          if (support != enemy) {
-            if (isInSuppRange(support, character))
-              battlingEnemies.add(support);
+          if (support != enemy && isInSuppRange(support, character)) {
+            battlingEnemies.add(support);
           }
         }
       }
@@ -336,16 +360,15 @@ public class LoopManiaWorld {
             building.useBuilding(enemy);
           }
         }
-        // TODO = modify this - currently the character automatically wins all battles
-        // without any damage!
-        // TODO = check enemy hp and only add to defeatedEnemies if they are dead
-        // TODO = CRITS
+
         double characterDamage = character.getMultipliedDamage();
         double enemyDamage = enemy.getDamage();
+
         // Character attacks first enemy
         for (Item equippedItems : equippedInventoryItems) {
           characterDamage *= equippedItems.atkMultiplier(enemy);
         }
+
         Random random = new Random();
         int randInt = random.nextInt(2);
         if (randInt == 1) {
@@ -418,14 +441,14 @@ public class LoopManiaWorld {
             character.reduceHealth(enemyDamage);
           }
         }
-        System.out.println("CHARACTER HEALTH");
-        System.out.println(character.getHealth());
-        // System.out.println("ENEMY HEALTH");
-        // System.out.println(enemy.getHealth());
+        // System.out.println("CHARACTER HEALTH");
+        // System.out.println(character.getHealth());
       }
-      defeatedEnemies.add(enemy);
-      character.addEXP(enemy.getExpDrop());
-      character.addGold(enemy.getGoldDrop());
+      // System.out.println("ENEMY HEALTH");
+      // System.out.println(enemy.getHealth());
+      // defeatedEnemies.add(enemy);
+      // character.addEXP(enemy.getExpDrop());
+      // character.addGold(enemy.getGoldDrop());
     }
 
     trancedSoldiers.clear();
@@ -590,7 +613,7 @@ public class LoopManiaWorld {
 
   private void useIfAtHerosCastle() {
     for (Building building : buildingEntities) {
-      if (building.isHerosCastle() && isInRange(building, character)) {
+      if (building.isSpawnLocation() && isInRange(building, character)) {
         character.incrementCycleCount();
         building.useBuilding(character);
       }
@@ -599,7 +622,7 @@ public class LoopManiaWorld {
 
   private boolean isAtHerosCastle() {
     for (Building building : buildingEntities) {
-      if (building.isHerosCastle() && isInRange(building, character)) {
+      if (building.isSpawnLocation() && isInRange(building, character)) {
         return true;
       }
     }

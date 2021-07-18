@@ -10,4 +10,9 @@
 - All items and cards have different tiers of rarity, depending on how powerful they are
 - Zombie pits and vampire castles spawn 2 enemies
 - Health potions are immediately used on obtaining it
+- In one combat turn cycle, every entity attacks once, (if there are two zombies, the character is attacked twice whereas the character attacks once)
 - Character/Allied soldiers always attacks first, this means the character is able to kill an enemy before it attacks
+- Zombie enemies only move in an anti-clockwise direction
+- Vampire enemies initially move in an anti-clockwise direction and will change direction everytime they are in the range of the campfire
+- Vampires have a 30% chance to perform a critical bite
+- A critical bite from a vampire causes the next 1-3 attacks to deal an additional 5-10 damage
