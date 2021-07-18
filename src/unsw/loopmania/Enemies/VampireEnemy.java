@@ -48,6 +48,7 @@ public class VampireEnemy extends Enemy {
     } else if (direction == 0 && directionChoice == 0) {
       moveUpPath();
     }
+    System.out.println("zap");
   }
 
   @Override
@@ -60,6 +61,12 @@ public class VampireEnemy extends Enemy {
       this.direction = 1;
     }
     this.hasChangedDirection = true;
+    System.out.println("paz");
+  }
+
+  @Override
+  public int getDirection() {
+    return this.direction;
   }
 
   @Override
