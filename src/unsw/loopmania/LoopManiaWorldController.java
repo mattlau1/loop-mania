@@ -9,6 +9,7 @@ import org.codefx.libfx.listener.handle.ListenerHandles;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -402,8 +403,9 @@ public class LoopManiaWorldController {
    * load a sword from the world, and pair it with an image in the GUI
    */
   private void buyItem(ItemStrategy strat) {
-      Item item = world.buyItem(strat);
-      if (item != null) onLoad(item);
+    Item item = world.buyItem(strat);
+    if (item != null)
+      onLoad(item);
   }
 
   /**
@@ -452,25 +454,10 @@ public class LoopManiaWorldController {
   }
 
   /**
-   * load a sword into the GUI. Particularly, we must connect to the drag
-   * detection event handler, and load the image into the unequippedInventory
-   * GridPane.
+   * load a item into the GUI. Particularly, we must connect to the drag detection
+   * event handler, and load the image into the equippedInventory GridPane.
    *
-   * @param sword
-   */
-  private void onLoad(Item item, ImageView view) {
-    // ImageView view = item.getImage();
-    addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, unequippedInventory, equippedItems);
-    addEntity(item, view);
-    unequippedInventory.getChildren().add(view);
-  }
-
-  /**
-   * load a sword into the GUI. Particularly, we must connect to the drag
-   * detection event handler, and load the image into the equippedInventory
-   * GridPane.
-   *
-   * @param sword
+   * @param item item to be loaded
    */
   private void onLoadEquipped(Item item) {
     ImageView view = item.getImage();
@@ -669,10 +656,6 @@ public class LoopManiaWorldController {
   private Building convertCardToBuildingByCoordinates(int cardNodeX, int cardNodeY, int buildingNodeX,
       int buildingNodeY) {
     return world.convertCardToBuildingByCoordinates(cardNodeX, cardNodeY, buildingNodeX, buildingNodeY);
-  }
-
-  private Item equipItembyCoordinates(int oldX, int oldY, int newX, int newY) {
-    return world.equipItembyCoordinates(oldX, oldY, newX, newY);
   }
 
   /**
@@ -914,15 +897,9 @@ public class LoopManiaWorldController {
    * EventHandlers will run on the application thread.
    */
   private void printThreadingNotes(String currentMethodLabel) {
-    // System.out.println("Unequiped");
-    // System.out.println(world.getUnequip());
-    // System.out.println("Equiped");
-    // System.out.println(world.getEquip());
-    // System.out.println("\n###########################################");
-    // System.out.println("current method = "+currentMethodLabel);
-    // System.out.println("In application thread? =
-    // "+Platform.isFxApplicationThread());
-    // System.out.println("Current system time =
-    // "+java.time.LocalDateTime.now().toString().replace('T', ' '));
+    System.out.println("\n###########################################");
+    System.out.println("current method = " + currentMethodLabel);
+    System.out.println("In application thread? =" + Platform.isFxApplicationThread());
+    System.out.println("Current system time =" + java.time.LocalDateTime.now().toString().replace('T', ' '));
   }
 }
