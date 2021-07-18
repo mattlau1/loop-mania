@@ -402,13 +402,8 @@ public class LoopManiaWorldController {
    * load a sword from the world, and pair it with an image in the GUI
    */
   private void buyItem(ItemStrategy strat) {
-    int balance = world.getCharacter().getGold();
-    if (balance - strat.getPrice() >= 0) {
-      world.getCharacter().deductGold(strat.getPrice());
-      Item item = world.addSpecificUnequippedItem(strat);
-      onLoad(item);
-    }
-
+      Item item = world.buyItem(strat);
+      if (item != null) onLoad(item);
   }
 
   /**

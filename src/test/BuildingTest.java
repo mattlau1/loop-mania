@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.List;
 
-import org.graalvm.compiler.nodes.ValuePhiNode;
 import org.junit.Test;
 
 import unsw.loopmania.Character;
@@ -13,7 +12,6 @@ import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Buildings.BarracksStrategy;
 import unsw.loopmania.Buildings.Building;
-import unsw.loopmania.Buildings.BuildingStrategy;
 import unsw.loopmania.Buildings.CampfireStrategy;
 import unsw.loopmania.Buildings.HerosCastleStrategy;
 import unsw.loopmania.Buildings.TowerStrategy;

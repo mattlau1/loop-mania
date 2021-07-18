@@ -1337,4 +1337,14 @@ public class LoopManiaWorld {
     return equippedInventoryItems;
   }
 
+  public Item buyItem(ItemStrategy strat) {
+    Item newItem = null;
+    int balance = character.getGold();
+    if (balance - strat.getPrice() >= 0) {
+      character.deductGold(strat.getPrice());
+      newItem = addSpecificUnequippedItem(strat);
+    }
+    return newItem;
+  }
+
 }
