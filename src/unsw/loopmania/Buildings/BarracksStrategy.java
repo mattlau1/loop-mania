@@ -50,7 +50,7 @@ public class BarracksStrategy implements BuildingStrategy {
   }
 
   @Override
-  public boolean isHerosCastle() {
+  public boolean isSpawnLocation() {
     return false;
   }
 
