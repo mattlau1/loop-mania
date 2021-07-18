@@ -102,7 +102,9 @@ public class LoopManiaWorld {
 
   // list of buildings
   private List<Building> buildingEntities;
-  boolean cardDestroyed;
+
+  private boolean cardDestroyed;
+
   /**
    * list of x,y coordinate pairs in the order by which moving entities traverse
    * them
@@ -310,10 +312,14 @@ public class LoopManiaWorld {
    */
   public Pair<Integer, Integer> neighbourPath(int x, int y) {
     for (Pair<Integer, Integer> path : orderedPath) {
-      if ((x + 1) == path.getValue0() && (y) == path.getValue1()) return new Pair<Integer, Integer>(x + 1, y);
-      if ((x - 1) == path.getValue0() && (y) == path.getValue1()) return new Pair<Integer, Integer>(x - 1, y);
-      if ((x) == path.getValue0() && (y + 1) == path.getValue1()) return new Pair<Integer, Integer>(x, y + 1);
-      if ((x) == path.getValue0() && (y - 1) == path.getValue1()) return new Pair<Integer, Integer>(x, y - 1);
+      if ((x + 1) == path.getValue0() && (y) == path.getValue1())
+        return new Pair<Integer, Integer>(x + 1, y);
+      if ((x - 1) == path.getValue0() && (y) == path.getValue1())
+        return new Pair<Integer, Integer>(x - 1, y);
+      if ((x) == path.getValue0() && (y + 1) == path.getValue1())
+        return new Pair<Integer, Integer>(x, y + 1);
+      if ((x) == path.getValue0() && (y - 1) == path.getValue1())
+        return new Pair<Integer, Integer>(x, y - 1);
     }
     return null;
   }
@@ -1168,10 +1174,14 @@ public class LoopManiaWorld {
 
   public boolean isNeighbourPath(int x, int y) {
     for (Pair<Integer, Integer> path : orderedPath) {
-      if ((x + 1) == path.getValue0() && (y) == path.getValue1()) return true;
-      if ((x - 1) == path.getValue0() && (y) == path.getValue1()) return true;
-      if ((x) == path.getValue0() && (y + 1) == path.getValue1()) return true;
-      if ((x) == path.getValue0() && (y - 1) == path.getValue1()) return true;
+      if ((x + 1) == path.getValue0() && (y) == path.getValue1())
+        return true;
+      if ((x - 1) == path.getValue0() && (y) == path.getValue1())
+        return true;
+      if ((x) == path.getValue0() && (y + 1) == path.getValue1())
+        return true;
+      if ((x) == path.getValue0() && (y - 1) == path.getValue1())
+        return true;
     }
     return false;
   }
