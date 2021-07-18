@@ -167,6 +167,10 @@ public abstract class Enemy extends MovingEntity {
     return health > 0;
   }
 
+  public boolean isDead() {
+    return health <= 0;
+  }
+
   public Buff criticalHit() {
     Buff buff = new Buff();
     return buff;

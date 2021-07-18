@@ -284,7 +284,7 @@ public class LoopManiaWorld {
     // one that is for the enemies outside of combat (i.e trap)
     // one that is for the character and enemies inside of combat (i.e tower,
     // campfire)
-
+    List<Enemy> defeatedEnemies = new ArrayList<Enemy>();
     // building for character outside of combat
     for (Building b : buildingEntities) {
       if (isInRange(b, character) && b.usableOutsideCombat() && !b.isHerosCastle()) {
@@ -299,13 +299,14 @@ public class LoopManiaWorld {
         if (isInRange(b, e) && b.usableOutsideCombat()) {
           System.out.printf("%s just used %s\n", e.getClass(), b.getClass());
           b.useBuilding(e);
+          if (e.isDead()) defeatedEnemies.add(e);
         }
       }
     }
 
     // building for enemies and character inside of combat
     List<Enemy> battlingEnemies = new ArrayList<Enemy>();
-    List<Enemy> defeatedEnemies = new ArrayList<Enemy>();
+
 
     for (Enemy enemy : enemies) {
       if (isInRange(enemy, character)) {
@@ -629,7 +630,7 @@ public class LoopManiaWorld {
 
   /**
    * add an item to the equipped inventory
-   * 
+   *
    * @param item item to be added
    */
   public void addEquippedInventoryItem(Item item) {
@@ -639,7 +640,7 @@ public class LoopManiaWorld {
   /**
    * return an unequipped inventory item by x and y coordinates assumes that no 2
    * unequipped inventory items share x and y coordinates
-   * 
+   *
    * @param x x index from 0 to width-1
    * @param y y index from 0 to height-1
    * @return unequipped inventory item at the input position
