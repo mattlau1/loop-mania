@@ -85,6 +85,9 @@ public class LoopManiaWorld {
   // TODO = expand the range of enemies
   private List<Enemy> enemies;
 
+  // list of items on on the path
+  private List<Item> pathItems;
+
   private List<Enemy> zombieSoldiers;
 
   // private List<Soldier> soldiers;
@@ -138,6 +141,7 @@ public class LoopManiaWorld {
     trancedSoldiers = new ArrayList<>();
     this.goal = goal;
     cardDestroyed = false;
+    pathItems = new ArrayList<>();
   }
 
   public void generateItemDrops() {
@@ -147,6 +151,7 @@ public class LoopManiaWorld {
     superRarityItems.clear();
 
     commonItems.add(new GoldStrategy());
+    commonItems.add(new HealthPotionStrategy());
 
     lowRarityItems.add(new SwordStrategy());
     lowRarityItems.add(new StakeStrategy());
@@ -273,6 +278,34 @@ public class LoopManiaWorld {
     return spawningEnemies;
   }
 
+  public List<Item> getPathItems() {
+    return pathItems;
+  }
+
+  /**
+   * spawns items if the conditions warrant it, adds to world
+   *
+   * @return list of the enemies to be displayed on screen
+   */
+  public List<Item> possiblySpawnItems() {
+    // TODO = expand this very basic version
+
+    Pair<Integer, Integer> pos = possiblyGetBasicItemSpawnPosition();
+    List<Item> spawningItems = new ArrayList<>();
+    if (pos != null) {
+      int indexInPath = orderedPath.indexOf(pos);
+      PathPosition pathPos = new PathPosition(indexInPath, orderedPath);
+      // spawns a slug
+      // Enemy slug = new SlugEnemy(new PathPosition(indexInPath, orderedPath));
+      Random random = new Random();
+      int randInt = random.nextInt(2);
+      Item potion = new Item(pathPos.getX(), pathPos.getY(), commonItems.get(randInt));
+      pathItems.add(potion);
+      spawningItems.add(potion);
+    }
+    return spawningItems;
+  }
+
   /**
    * kill an enemy
    *
@@ -281,6 +314,11 @@ public class LoopManiaWorld {
   private void killEnemy(Enemy enemy) {
     enemy.destroy();
     enemies.remove(enemy);
+  }
+
+  private void killItem(Item item) {
+    item.destroy();
+    pathItems.remove(item);
   }
 
   private boolean isInRange(Enemy e, Character c) {
@@ -299,6 +337,10 @@ public class LoopManiaWorld {
 
   private boolean isInRange(Building b, Character c) {
     return Math.pow((c.getX() - b.getX()), 2) + Math.pow((c.getY() - b.getY()), 2) < b.getRange();
+  }
+
+  private boolean isInRange(Item i, Character c) {
+    return Math.pow((c.getX() - i.getX()), 2) + Math.pow((c.getY() - i.getY()), 2) < i.getRange();
   }
 
   private boolean isInRange(Building b, Enemy e) {
@@ -338,11 +380,13 @@ public class LoopManiaWorld {
    * @return list of enemies which have been killed
    */
   public List<Enemy> runBattles() {
+    // System.out.println(equippedInventoryItems);
+    // System.out.println(unequippedInventoryItems);
     if (isGameLost()) {
       System.exit(0);
     }
 
-    System.out.println(character.soldiersSize());
+    // System.out.println(character.soldiersSize());
     // we have three types of buildings:
     // one that is for the character outside of combat (i.e village)
     // one that is for the enemies outside of combat (i.e trap)
@@ -356,6 +400,21 @@ public class LoopManiaWorld {
         b.useBuilding(character);
       }
     }
+
+    List<Item> pathItemsToDestroy = new ArrayList<>();
+    for (Item i : pathItems) {
+      if (isInRange(i, character)) {
+        i.useItem(character);
+        pathItemsToDestroy.add(i);
+        // System.out.println("WOOOOOOO");
+      }
+
+    }
+    for (Item item : pathItemsToDestroy) {
+      // System.out.println("FUUUUUUUUUUUUUUUUK");
+      killItem(item);
+    }
+
 
     List<Building> buildingsToDestroy = new ArrayList<>();
     for (Building b : buildingEntities) {
@@ -493,7 +552,7 @@ public class LoopManiaWorld {
           }
         }
         for (Enemy currBattlingEnemy : zombieSoldiers) {
-          System.out.println("WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+          // System.out.println("WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
           if (currBattlingEnemy.isDead())
             continue;
           for (Item equippedItems : equippedInventoryItems) {
@@ -894,6 +953,40 @@ public class LoopManiaWorld {
     int choice = rand.nextInt(2); // TODO = change based on spec... currently low value for dev purposes...
     // TODO = change based on spec
     if ((choice == 0) && (enemies.size() < 2)) {
+      List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
+      int indexPosition = orderedPath.indexOf(new Pair<Integer, Integer>(character.getX(), character.getY()));
+      // inclusive start and exclusive end of range of positions not allowed
+      int startNotAllowed = (indexPosition - 2 + orderedPath.size()) % orderedPath.size();
+      int endNotAllowed = (indexPosition + 3) % orderedPath.size();
+      // note terminating condition has to be != rather than < since wrap around...
+      for (int i = endNotAllowed; i != startNotAllowed; i = (i + 1) % orderedPath.size()) {
+        orderedPathSpawnCandidates.add(orderedPath.get(i));
+      }
+
+      // choose random choice
+      Pair<Integer, Integer> spawnPosition = orderedPathSpawnCandidates
+          .get(rand.nextInt(orderedPathSpawnCandidates.size()));
+
+      return spawnPosition;
+    }
+    return null;
+  }
+
+  /**
+   * get a randomly generated position which could be used to spawn an enemy
+   *
+   * @return null if random choice is that wont be spawning an enemy or it isn't
+   *         possible, or random coordinate pair if should go ahead
+   */
+  private Pair<Integer, Integer> possiblyGetBasicItemSpawnPosition() {
+    // TODO = modify this
+
+    // has a chance spawning a basic enemy on a tile the character isn't on or
+    // immediately before or after (currently space required = 2)...
+    Random rand = new Random();
+    int choice = rand.nextInt(2); // TODO = change based on spec... currently low value for dev purposes...
+    // TODO = change based on spec
+    if ((choice == 0) && (pathItems.size() < 2)) {
       List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
       int indexPosition = orderedPath.indexOf(new Pair<Integer, Integer>(character.getX(), character.getY()));
       // inclusive start and exclusive end of range of positions not allowed

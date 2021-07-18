@@ -13,6 +13,8 @@ public class GoldStrategy implements ItemStrategy {
   private final double atkMultiplier = 1;
   private final double defMultiplier = 1;
   private final double critMultiplier = 1;
+  private final int range = 1;
+  private final int goldAmt = 10;
 
   @Override
   public double getAtkMultiplier(Enemy enemy) {
@@ -40,8 +42,13 @@ public class GoldStrategy implements ItemStrategy {
   }
 
   @Override
+  public int getRange() {
+    return range;
+  }
+
+  @Override
   public void useItem(Character character) {
-    return;
+    character.addGold(goldAmt);
   }
 
   /**

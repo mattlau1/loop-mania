@@ -61,4 +61,11 @@ public interface ItemStrategy {
    * @return The image of the item to be shown
    */
   public ImageView getImage();
+
+  /**
+   * Gets the range of an item
+   *
+   * @return the range of an item
+   */
+  public int getRange();
 }

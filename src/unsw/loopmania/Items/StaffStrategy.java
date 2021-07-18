@@ -13,6 +13,7 @@ public class StaffStrategy implements ItemStrategy {
   private final double atkMultiplier = 2;
   private final double defMultiplier = 1;
   private final double critMultiplier = 1;
+  private final int range = 0;
 
   /**
    * Staff item reduces damange dealt by the Character by 65% so returns 0.35
@@ -29,6 +30,11 @@ public class StaffStrategy implements ItemStrategy {
   @Override
   public double getDefMultiplier(Enemy enemy) {
     return defMultiplier;
+  }
+
+  @Override
+  public int getRange() {
+    return range;
   }
 
   @Override
