@@ -199,6 +199,14 @@ public class LoopManiaWorld {
     return character;
   }
 
+  public List<Soldier> getTrancedSoldiers() {
+    return trancedSoldiers;
+  }
+
+  public int trancedSoldiersSize() {
+    return this.trancedSoldiers.size();
+  }
+
   /**
    * add a generic entity (without it's own dedicated method for adding to the
    * world)
@@ -285,7 +293,7 @@ public class LoopManiaWorld {
     return Math.pow((e.getX() - b.getX()), 2) + Math.pow((e.getY() - b.getY()), 2) < b.getRange();
   }
 
-  private boolean isGameLost() {
+  public boolean isGameLost() {
     // if character hp is at 0
     if (character.isDead()) {
       // check if user has one ring and add to usedItems list

@@ -22,10 +22,12 @@ import unsw.loopmania.Enemies.VampireEnemy;
 import unsw.loopmania.Enemies.ZombieEnemy;
 import unsw.loopmania.Goals.Goal;
 import unsw.loopmania.Goals.GoldGoal;
+import unsw.loopmania.Items.HealthPotionStrategy;
 import unsw.loopmania.Items.Item;
 import unsw.loopmania.Items.StaffStrategy;
 import unsw.loopmania.Items.StakeStrategy;
 import unsw.loopmania.Items.SwordStrategy;
+import unsw.loopmania.Items.TheOneRingStrategy;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class ItemTest {
@@ -60,6 +62,39 @@ public class ItemTest {
         testStaff.onHitEffects(zombie, d.getTrancedSoldiers());
         assertEquals(1, d.trancedSoldiersSize());
         assertEquals(false, zombie.isAlive());
+
+    }
+
+    void testHealthPotion() {
+        SimpleIntegerProperty x = new SimpleIntegerProperty(1);
+        SimpleIntegerProperty y = new SimpleIntegerProperty(2);
+        HealthPotionStrategy strat = new HealthPotionStrategy();
+        Item testStaff = new Item(x, y, strat);
+        TestSetup s = new TestSetup();
+        LoopManiaWorld d = s.makeTestWorld();
+    }
+
+    @Test
+    void testOneRing() {
+        // if character has one ring equiped should prevent death once
+        SimpleIntegerProperty x = new SimpleIntegerProperty(1);
+        SimpleIntegerProperty y = new SimpleIntegerProperty(2);
+        TheOneRingStrategy strat = new TheOneRingStrategy();
+        Item testRing = new Item(x, y, strat);
+        TestSetup s = new TestSetup();
+        LoopManiaWorld d = s.makeTestWorld();
+        Character testChar = new Character(new PathPosition(1, d.getOrderedPath()));
+        d.setCharacter(testChar);
+        d.addUnequippedItem(testRing);
+        assertEquals(false, d.isGameLost());
+        testChar.reduceHealth(100);
+        assertEquals(true, testChar.isDead());
+        assertEquals(false, d.isGameLost());
+        assertEquals(100, testChar.getHealth());
+        assertEquals(true, testChar.isAlive());
+        testChar.reduceHealth(100);
+        assertEquals(false, testChar.isAlive());
+        assertEquals(true, d.isGameLost());
 
     }
 
