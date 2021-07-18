@@ -23,27 +23,39 @@ public class EnemyTest {
     }
 
     @Test
-    void testIsAlive() {
-
-    }
-
-    @Test
     void testMove() {
-        LoopManiaWorld d = new LoopManiaWorld(1, 2, new ArrayList<>());
-        int indexInPath = 3;
-        SlugEnemy slug = new SlugEnemy(new PathPosition(indexInPath, d.getOrderedPath()));
-        slug.move();
+        TestSetup s = new TestSetup();
+        LoopManiaWorld d = s.makeTestWorld();
+
+        SlugEnemy slug = new SlugEnemy(new PathPosition(1, d.getOrderedPath()));
+        PathPosition x = slug.getX()
 
     }
 
     @Test
     void testReduceHealth() {
-        LoopManiaWorld d = new LoopManiaWorld(1, 2, new ArrayList<>());
-        int indexInPath = 1;
-        SlugEnemy slug = new SlugEnemy(new PathPosition(indexInPath, d.getOrderedPath()));
+        TestSetup s = new TestSetup();
+        LoopManiaWorld d = s.makeTestWorld();
+
+        SlugEnemy slug = new SlugEnemy(new PathPosition(1, d.getOrderedPath()));
         // slug spawns with 20 hp reduceHealth called with value 10 should leave slug
         // with 10hp
+        assertEquals(20, slug.getHealth());
         slug.reduceHealth(10);
         assertEquals(10, slug.getHealth());
+    }
+
+    @Test
+    void testIsAlive() {
+        // test if returns false when enemy recieves dmg greater than their hp
+        TestSetup s = new TestSetup();
+        LoopManiaWorld d = s.makeTestWorld();
+
+        SlugEnemy slug = new SlugEnemy(new PathPosition(1, d.getOrderedPath()));
+        assertEquals(true, slug.isAlive());
+        // slug spawns with 20 hp reduceHealth called with value 10 should leave slug
+        // with 10hp
+        slug.reduceHealth(20);
+        assertEquals(false, slug.isAlive());
     }
 }
