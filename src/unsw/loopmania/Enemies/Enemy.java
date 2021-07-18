@@ -218,7 +218,17 @@ public abstract class Enemy extends MovingEntity {
   }
 
   /**
+   * get the direction of the moving enemy
+   * 
+   * @return the direction of the enemy
+   */
+  public int getDirection() {
+    return 0;
+  }
+
+/**
    * load an image for the respective enemy
    */
+
   public abstract ImageView getImage();
 }
