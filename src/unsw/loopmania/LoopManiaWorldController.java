@@ -326,6 +326,10 @@ public class LoopManiaWorldController {
       for (Enemy newEnemy : newEnemies) {
         onLoad(newEnemy);
       }
+      List<Item> newItems = world.possiblySpawnItems();
+      for (Item item : newItems) {
+        onLoadPath(item);
+      }
       printThreadingNotes("HANDLED TIMER");
     }));
     timeline.setCycleCount(Animation.INDEFINITE);
@@ -446,11 +450,22 @@ public class LoopManiaWorldController {
    *
    * @param sword
    */
-  private void onLoadEquipped(Item item, ImageView view) {
-    // ImageView view = item.getImage();
+  private void onLoadEquipped(Item item) {
+    ImageView view = item.getImage();
     addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, equippedItems, equippedItems);
     addEntity(item, view);
     equippedItems.getChildren().add(view);
+  }
+
+  /**
+   * load an enemy into the GUI
+   *
+   * @param enemy
+   */
+  private void onLoadPath(Item item) {
+    ImageView view = item.getImage();
+    addEntity(item, view);
+    squares.getChildren().add(view);
   }
 
   /**
@@ -542,20 +557,21 @@ public class LoopManiaWorldController {
                 if (targetGridPane == equippedItems) {
                   Item currItem = world.getEquippedInventoryItemEntityByCoordinates(x, y);
                   if (currItem != null) {
-                    world.removeEquippedInventoryItem(currItem);
+                    // System.out.println("WOOOOOOOOOOOOOOOOOOOOO");
                     // removeItemByCoordinates(x, y);
+                    world.removeEquippedInventoryItemByCoordinates(x,y);
                   }
                   Item item = world.getUnequippedInventoryItemEntityByCoordinates(nodeX, nodeY);
                   Item newItem = new Item(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y),
                       item.getStrategy());
-                  onLoadEquipped(newItem, world.getUnequippedInventoryItemEntityByCoordinates(nodeX, nodeY).getImage());
+                  onLoadEquipped(newItem);
                   world.addEquippedInventoryItem(item);
                   removeItemByCoordinates(nodeX, nodeY);
                   world.removeUnequippedInventoryItem(item);
                 } else {
                   removeItemByCoordinates(nodeX, nodeY);
                 }
-                // targetGridPane.add(image, x, y, 1, 1);
+                targetGridPane.add(image, x, y, 1, 1);
                 break;
               default:
                 break;

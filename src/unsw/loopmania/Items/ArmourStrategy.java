@@ -13,6 +13,7 @@ public class ArmourStrategy implements ItemStrategy {
   private final double atkMultiplier = 1;
   private final double defMultiplier = 0.5;
   private final double critMultiplier = 1;
+  private final int range = 0;
 
   @Override
   public double getAtkMultiplier(Enemy enemy) {
@@ -48,6 +49,11 @@ public class ArmourStrategy implements ItemStrategy {
   @Override
   public void useItem(Character character) {
     return;
+  }
+
+  @Override
+  public int getRange() {
+    return range;
   }
 
   @Override

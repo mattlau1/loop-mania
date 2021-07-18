@@ -13,6 +13,7 @@ public class ShieldStrategy implements ItemStrategy {
   private final double atkMultiplier = 1;
   private final double defMultiplier = 1;
   private final double critMultiplier = 0.4;
+  private final int range = 0;
 
   @Override
   public double getAtkMultiplier(Enemy enemy) {
@@ -55,6 +56,11 @@ public class ShieldStrategy implements ItemStrategy {
   @Override
   public void useItem(Character character) {
     return;
+  }
+
+  @Override
+  public int getRange() {
+    return range;
   }
 
   @Override

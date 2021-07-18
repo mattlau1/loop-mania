@@ -15,6 +15,7 @@ public class StakeStrategy implements ItemStrategy {
   private final double vampireAtkMultiplier = 3;
   private final double defMultiplier = 1;
   private final double critMultiplier = 1;
+  private final int range = 0;
 
   /**
    * Stake item lowers danage dealt by 50% unless the Character is attacking a
@@ -29,6 +30,11 @@ public class StakeStrategy implements ItemStrategy {
     if (enemy instanceof VampireEnemy)
       return vampireAtkMultiplier;
     return atkMultiplier;
+  }
+
+  @Override
+  public int getRange() {
+    return range;
   }
 
   @Override

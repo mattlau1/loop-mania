@@ -13,6 +13,7 @@ public class HelmetStrategy implements ItemStrategy {
   private final double atkMultiplier = 0.75;
   private final double defMultiplier = 0.75;
   private final double critMultiplier = 1;
+  private final int range = 0;
 
   /**
    * Helmet item lowers damage dealt by the Character by 25% so returns 0.75
@@ -51,6 +52,11 @@ public class HelmetStrategy implements ItemStrategy {
   @Override
   public boolean isDestroyedOnUse() {
     return false;
+  }
+
+  @Override
+  public int getRange() {
+    return range;
   }
 
   @Override

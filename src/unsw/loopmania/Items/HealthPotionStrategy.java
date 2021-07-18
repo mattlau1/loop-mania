@@ -13,6 +13,7 @@ public class HealthPotionStrategy implements ItemStrategy {
   private final double atkMultiplier = 1;
   private final double defMultiplier = 1;
   private final double critMultiplier = 1;
+  private final int range = 1;
 
   @Override
   public double getAtkMultiplier(Enemy enemy) {
@@ -40,8 +41,13 @@ public class HealthPotionStrategy implements ItemStrategy {
   }
 
   @Override
+  public int getRange() {
+    return range;
+  }
+
+  @Override
   public void useItem(Character character) {
-    return;
+    character.setHealth(character.getInitialHealth());
   }
 
   /**
