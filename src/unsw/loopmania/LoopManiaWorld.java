@@ -193,7 +193,6 @@ public class LoopManiaWorld {
     highRarityItems.add(new StaffStrategy());
     highRarityItems.add(new HealthPotionStrategy());
 
-    lowRarityItems.add(new TheOneRingStrategy());
     superRarityItems.add(new TheOneRingStrategy());
   }
 
