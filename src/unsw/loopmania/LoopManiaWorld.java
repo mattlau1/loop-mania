@@ -85,6 +85,9 @@ public class LoopManiaWorld {
   // TODO = expand the range of enemies
   private List<Enemy> enemies;
 
+  // list of items on on the path
+  private List<Item> pathItems;
+
   private List<Enemy> zombieSoldiers;
 
   // private List<Soldier> soldiers;
@@ -138,6 +141,7 @@ public class LoopManiaWorld {
     trancedSoldiers = new ArrayList<>();
     this.goal = goal;
     cardDestroyed = false;
+    pathItems = new ArrayList<>();
   }
 
   public void generateItemDrops() {
@@ -147,6 +151,7 @@ public class LoopManiaWorld {
     superRarityItems.clear();
 
     commonItems.add(new GoldStrategy());
+    commonItems.add(new HealthPotionStrategy());
 
     lowRarityItems.add(new SwordStrategy());
     lowRarityItems.add(new StakeStrategy());
@@ -281,6 +286,34 @@ public class LoopManiaWorld {
     return spawningEnemies;
   }
 
+  public List<Item> getPathItems() {
+    return pathItems;
+  }
+
+  /**
+   * spawns items if the conditions warrant it, adds to world
+   *
+   * @return list of the enemies to be displayed on screen
+   */
+  public List<Item> possiblySpawnItems() {
+    // TODO = expand this very basic version
+
+    Pair<Integer, Integer> pos = possiblyGetBasicItemSpawnPosition();
+    List<Item> spawningItems = new ArrayList<>();
+    if (pos != null) {
+      int indexInPath = orderedPath.indexOf(pos);
+      PathPosition pathPos = new PathPosition(indexInPath, orderedPath);
+      // spawns a slug
+      // Enemy slug = new SlugEnemy(new PathPosition(indexInPath, orderedPath));
+      Random random = new Random();
+      int randInt = random.nextInt(2);
+      Item potion = new Item(pathPos.getX(), pathPos.getY(), commonItems.get(randInt));
+      pathItems.add(potion);
+      spawningItems.add(potion);
+    }
+    return spawningItems;
+  }
+
   /**
    * kill an enemy
    *
@@ -289,6 +322,11 @@ public class LoopManiaWorld {
   private void killEnemy(Enemy enemy) {
     enemy.destroy();
     enemies.remove(enemy);
+  }
+
+  private void killItem(Item item) {
+    item.destroy();
+    pathItems.remove(item);
   }
 
   private boolean isInRange(Enemy e, Character c) {
@@ -307,6 +345,10 @@ public class LoopManiaWorld {
 
   private boolean isInRange(Building b, Character c) {
     return Math.pow((c.getX() - b.getX()), 2) + Math.pow((c.getY() - b.getY()), 2) < b.getRange();
+  }
+
+  private boolean isInRange(Item i, Character c) {
+    return Math.pow((c.getX() - i.getX()), 2) + Math.pow((c.getY() - i.getY()), 2) < i.getRange();
   }
 
   private boolean isInRange(Building b, Enemy e) {
@@ -343,6 +385,21 @@ public class LoopManiaWorld {
       }
     }
     return false;
+  }
+  private void useItemsOnCharacterOutsideCombat() {
+    List<Item> pathItemsToDestroy = new ArrayList<>();
+    for (Item i : pathItems) {
+      if (isInRange(i, character)) {
+        i.useItem(character);
+        pathItemsToDestroy.add(i);
+        // System.out.println("WOOOOOOO");
+      }
+
+    }
+    for (Item item : pathItemsToDestroy) {
+      // System.out.println("FUUUUUUUUUUUUUUUUK");
+      killItem(item);
+    }
   }
 
   /**
@@ -395,6 +452,22 @@ public class LoopManiaWorld {
             buildingsToDestroy.add(b);
           }
         }
+      }
+    }
+  }
+<<<<<<< src/unsw/loopmania/LoopManiaWorld.java
+
+  /**
+   * Uses buildings on entities (character and enemy) that are in combat, if in
+   * range
+   *
+   * @param enemy enemy to use building on during combat
+   */
+  private void useBuildingsOnEntitiesInCombat(Enemy enemy) {
+    for (Building building : buildingEntities) {
+      if (isInRange(building, character)) {
+        building.useBuilding(character);
+        building.useBuilding(enemy);
       }
     }
   }
@@ -463,6 +536,116 @@ public class LoopManiaWorld {
     }
     return characterDamage;
   }
+<<<<<<< src/unsw/loopmania/LoopManiaWorld.java
+
+  /**
+   * Randomly trigger on-hit effects for equipped items
+   *
+   * @param enemy enemy to trigger on-hit effect on
+   */
+  private void triggerOnHitEffects(Enemy enemy) {
+    Random random = new Random();
+    int randInt = random.nextInt(2);
+    if (randInt == 1) {
+      for (Item equippedItems : equippedInventoryItems) {
+        equippedItems.onHitEffects(enemy, trancedSoldiers);
+      }
+    }
+  }
+
+  /**
+   * Checks if enemy will critically strike
+   *
+   * @param enemy enemy that will potentially critically strike
+   * @return true if enemy will critically strike else false
+   */
+  private boolean doesEnemyCrit(Enemy enemy) {
+    boolean isCriticalHit = false;
+    Random random = new Random();
+    int randInt = random.nextInt(100) + 1;
+
+    double enemyCriR = enemy.getCritRate();
+    for (Item equippedItems : equippedInventoryItems) {
+      enemyCriR *= equippedItems.getCritMultiplier(enemy);
+    }
+
+    if (randInt <= enemyCriR)
+      isCriticalHit = true;
+
+    return isCriticalHit;
+  }
+
+  /**
+   * Calculates enemy's damage after applying character's equipped defensive items
+   *
+   * @param enemyDamageBeforeDef enemy's damage before taking any defensive items
+   *                             into account
+   * @param enemy                enemy to take damage from
+   * @return new enemy damage after taking defensive items into account
+   */
+  private double getEnemyDamageAfterDefense(double enemyDamageBeforeDef, Enemy enemy) {
+    double enemyDamageAfterDef = enemyDamageBeforeDef;
+    for (Item equippedItems : equippedInventoryItems) {
+      enemyDamageAfterDef *= equippedItems.getDefMultiplier(enemy);
+    }
+    return enemyDamageAfterDef;
+  }
+
+  /**
+   * Causes the given soldier to take damage from an enemy
+   *
+   * @param soldier       soldier that will take damage
+   * @param isCriticalHit true if soldier is taking a critical hit else false
+   * @param enemy         enemy dealing the damage to soldier
+   * @param enemyDamage   damage that soldier will take after defense
+   */
+  private void damageSoldier(Soldier soldier, boolean isCriticalHit, Enemy enemy, double enemyDamage) {
+    if (isCriticalHit && !soldier.getBuffs().contains(enemy.criticalHit())) {
+      soldier.addBuffs(enemy.criticalHit());
+    }
+
+    soldier.reduceHealth(enemyDamage);
+
+    for (Buff buff : soldier.getBuffs()) {
+      buff.activateEffect(soldier, enemy, character.getSoldiers(), zombieSoldiers);
+    }
+  }
+
+  /**
+   * Every enemy in the battle attacks any soldiers, if bo soldiers, then enemy
+   * will attack the character
+   *
+   * @param battlingEnemies all battling enemies
+   * @param enemy           enemy that is attacking soldier
+   */
+  private void attackSoldiers(List<Enemy> battlingEnemies, Enemy enemy) {
+    double enemyDamage = enemy.getDamage();
+    for (Enemy currBattlingEnemy : battlingEnemies) {
+      if (currBattlingEnemy.isDead())
+        continue;
+
+      boolean isCriticalHit = doesEnemyCrit(currBattlingEnemy);
+      enemyDamage = getEnemyDamageAfterDefense(enemyDamage, currBattlingEnemy);
+
+      // System.out.println(enemyDamage);
+      if (trancedSoldiers.size() > 0) {
+        // tranced soldiers
+        Soldier s = trancedSoldiers.get(0);
+        damageSoldier(s, isCriticalHit, enemy, enemyDamage);
+
+        // remove tranced soldier if dead
+        if (s.isDead())
+          trancedSoldiers.remove(0);
+
+      } else if (character.soldiersSize() > 0) {
+        // normal soldiers
+        Soldier s = character.getSoldiersFromIndex(0);
+        damageSoldier(s, isCriticalHit, enemy, enemyDamage);
+
+        // remove soldier if dead
+        if (s.isDead())
+          character.removeSoldiersFromIndex(0);
+     
 
   /**
    * Randomly trigger on-hit effects for equipped items
@@ -644,6 +827,7 @@ public class LoopManiaWorld {
     useBuildingsOnCharacterOutsideCombat();
     useBuildingsOnEnemiesOutsideCombat(buildingsToDestroy, defeatedEnemies);
     destroyBuildings(buildingsToDestroy);
+    useItemsOnCharacterOutsideCombat();
 
     // building for enemies and character inside of combat
     for (Enemy enemy : battlingEnemies) {
@@ -670,6 +854,7 @@ public class LoopManiaWorld {
 
     return defeatedEnemies;
   }
+
 
   /**
    * spawn a card in the world and return the card entity
@@ -1040,6 +1225,40 @@ public class LoopManiaWorld {
     int choice = rand.nextInt(2); // TODO = change based on spec... currently low value for dev purposes...
     // TODO = change based on spec
     if ((choice == 0) && (enemies.size() < 2)) {
+      List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
+      int indexPosition = orderedPath.indexOf(new Pair<Integer, Integer>(character.getX(), character.getY()));
+      // inclusive start and exclusive end of range of positions not allowed
+      int startNotAllowed = (indexPosition - 2 + orderedPath.size()) % orderedPath.size();
+      int endNotAllowed = (indexPosition + 3) % orderedPath.size();
+      // note terminating condition has to be != rather than < since wrap around...
+      for (int i = endNotAllowed; i != startNotAllowed; i = (i + 1) % orderedPath.size()) {
+        orderedPathSpawnCandidates.add(orderedPath.get(i));
+      }
+
+      // choose random choice
+      Pair<Integer, Integer> spawnPosition = orderedPathSpawnCandidates
+          .get(rand.nextInt(orderedPathSpawnCandidates.size()));
+
+      return spawnPosition;
+    }
+    return null;
+  }
+
+  /**
+   * get a randomly generated position which could be used to spawn an enemy
+   *
+   * @return null if random choice is that wont be spawning an enemy or it isn't
+   *         possible, or random coordinate pair if should go ahead
+   */
+  private Pair<Integer, Integer> possiblyGetBasicItemSpawnPosition() {
+    // TODO = modify this
+
+    // has a chance spawning a basic enemy on a tile the character isn't on or
+    // immediately before or after (currently space required = 2)...
+    Random rand = new Random();
+    int choice = rand.nextInt(2); // TODO = change based on spec... currently low value for dev purposes...
+    // TODO = change based on spec
+    if ((choice == 0) && (pathItems.size() < 2)) {
       List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
       int indexPosition = orderedPath.indexOf(new Pair<Integer, Integer>(character.getX(), character.getY()));
       // inclusive start and exclusive end of range of positions not allowed

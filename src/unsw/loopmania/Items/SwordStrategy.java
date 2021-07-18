@@ -13,6 +13,7 @@ public class SwordStrategy implements ItemStrategy {
   private final double atkMultiplier = 2;
   private final double defMultiplier = 1;
   private final double critMultiplier = 1;
+  private final int range = 0;
 
   /**
    * Sword item incresaes damage dealth by Character by a factor of two
@@ -29,6 +30,11 @@ public class SwordStrategy implements ItemStrategy {
   @Override
   public double getDefMultiplier(Enemy enemy) {
     return defMultiplier;
+  }
+
+  @Override
+  public int getRange() {
+    return range;
   }
 
   @Override

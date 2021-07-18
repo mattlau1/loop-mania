@@ -53,4 +53,7 @@ public class Item extends StaticEntity implements ItemStrategy {
     strategy.useItem(character);
   }
 
+  public int getRange() {
+    return strategy.getRange();
+  }
 }
