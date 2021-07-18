@@ -643,8 +643,8 @@ public class LoopManiaWorld {
           character.addBuffs(currBattlingEnemy.criticalHit());
         }
 
-        // character takes damage
-        character.reduceHealth(enemyDamage);
+        // // character takes damage
+        // character.reduceHealth(enemyDamage);
 
         // activate buffs
         for (Buff buff : character.getBuffs()) {
