@@ -4,6 +4,7 @@ import java.util.List;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.ImageView;
+import unsw.loopmania.Character;
 import unsw.loopmania.Soldier;
 import unsw.loopmania.StaticEntity;
 import unsw.loopmania.Enemies.Enemy;
@@ -42,6 +43,10 @@ public class Item extends StaticEntity implements ItemStrategy {
 
   public void setStrategy(ItemStrategy strategy) {
     this.strategy = strategy;
+  }
+
+  public boolean onDeath (Character character) {
+    return strategy.onDeath(character);
   }
 
 }

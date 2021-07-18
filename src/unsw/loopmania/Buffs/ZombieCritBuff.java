@@ -17,7 +17,7 @@ public class ZombieCritBuff extends Buff {
   @Override
   public void activateEffect(Soldier soldier, Enemy enemy, List<Soldier> allyList, List<Enemy> zombieSoldiers) {
     soldier.reduceHealth(20);
-    Enemy newZombie = zombieSoldiers.get(0);
+    Enemy newZombie = enemy;
     zombieSoldiers.add(newZombie);
   };
 }

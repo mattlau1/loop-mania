@@ -16,7 +16,7 @@ public class VampireCritBuff extends Buff {
   @Override
   public void activateEffect(Character character, Enemy enemy, List<Soldier> allyList, List<Enemy> zombieSoldiers) {
     if (enemy instanceof VampireEnemy) {
-      substractTurns(1);
+      subtractTurns(1);
       Random random = new Random();
       int randInt = random.nextInt(6) + 5;
       character.reduceHealth(randInt);
@@ -26,7 +26,7 @@ public class VampireCritBuff extends Buff {
   @Override
   public void activateEffect(Soldier soldier, Enemy enemy, List<Soldier> allyList, List<Enemy> zombieSoldiers) {
     if (enemy instanceof VampireEnemy) {
-      substractTurns(1);
+      subtractTurns(1);
       Random random = new Random();
       int randInt = random.nextInt(6) + 5;
       soldier.reduceHealth(randInt);

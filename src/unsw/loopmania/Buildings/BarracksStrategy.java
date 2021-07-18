@@ -9,11 +9,12 @@ import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.Enemy;
 
 public class BarracksStrategy implements BuildingStrategy {
-  private final int range = 2;
+  private final int range = 1;
 
   @Override
   public void useBuilding(Character character) {
     // TODO: Add allied soldier
+    character.addSoldier();
   }
 
   @Override
