@@ -75,7 +75,6 @@ public class TestSetupNoGoals {
             }
 
             PathTile.Direction dir = connections.get(i);
-            PathTile tile = new PathTile(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y));
             x += dir.getXOffset();
             y += dir.getYOffset();
             if (orderedPath.contains(Pair.with(x, y)) && !(x == starting.getX() && y == starting.getY())) {
