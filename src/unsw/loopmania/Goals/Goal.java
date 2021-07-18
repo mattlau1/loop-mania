@@ -61,7 +61,6 @@ public class Goal {
    * @param exp the exp will be compared to the goal's quantity
    */
   public void updateExperienceStatus(int exp) {
-    // System.out.println(exp);
     for (SimpleGoal g : goals) {
       if (g.getGoalType().equals("Experience") && g.goalMeetsRequirement(exp)) {
         g.setGoalCheck(true);
