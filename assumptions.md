@@ -10,4 +10,5 @@
 - All items and cards have different tiers of rarity, depending on how powerful they are
 - Zombie pits and vampire castles spawn 2 enemies
 - Health potions are immediately used on obtaining it
+- In one combat turn cycle, every entity attacks once, (if there are two zombies, the character is attacked twice whereas the character attacks once)
 - Character/Allied soldiers always attacks first, this means the character is able to kill an enemy before it attacks
