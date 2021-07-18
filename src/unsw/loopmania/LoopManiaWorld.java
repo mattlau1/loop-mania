@@ -96,6 +96,9 @@ public class LoopManiaWorld {
   // TODO = expand the range of cards
   private List<Card> cardEntities;
 
+  private int heroCastleCycles;
+  private int nextHeroCastleCycle;
+
   // TODO = expand the range of items
   private List<Item> unequippedInventoryItems;
 
@@ -143,6 +146,24 @@ public class LoopManiaWorld {
     this.goal = goal;
     cardDestroyed = false;
     pathItems = new ArrayList<>();
+    heroCastleCycles = 1;
+    nextHeroCastleCycle = 1;
+  }
+
+  public int getHeroCastleCycles() {
+    return heroCastleCycles;
+  }
+
+  public void addHeroCastleCycles(int num) {
+    heroCastleCycles += num;
+  }
+
+  public int getNextHeroCastleCycle() {
+    return nextHeroCastleCycle;
+  }
+
+  public void addNextHeroCastleCycle(int num) {
+    nextHeroCastleCycle += num;
   }
 
   public void generateItemDrops() {
