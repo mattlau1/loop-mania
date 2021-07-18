@@ -14,3 +14,5 @@
 - Character/Allied soldiers always attacks first, this means the character is able to kill an enemy before it attacks
 - Zombie enemies only move in an anti-clockwise direction
 - Vampire enemies initially move in an anti-clockwise direction and will change direction everytime they are in the range of the campfire
+- Vampires have a 30% chance to perform a critical bite
+- A critical bite from a vampire causes the next 1-3 attacks to deal an additional 5-10 damage
