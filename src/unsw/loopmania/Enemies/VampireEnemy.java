@@ -63,6 +63,11 @@ public class VampireEnemy extends Enemy {
   }
 
   @Override
+  public int getDirection() {
+    return this.direction;
+  }
+
+  @Override
   public void resetHasChangedDirection() {
     this.hasChangedDirection = false;
   }
