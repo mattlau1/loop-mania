@@ -96,7 +96,6 @@ public class LoopManiaWorld {
   // TODO = expand the range of buildings
   private List<Building> buildingEntities;
 
-  private List<Item> usedItems = new ArrayList<>();
   /**
    * list of x,y coordinate pairs in the order by which moving entities traverse
    * them
@@ -133,7 +132,6 @@ public class LoopManiaWorld {
     buildingEntities = new ArrayList<>();
     // soldiers = new ArrayList<>();
     trancedSoldiers = new ArrayList<>();
-    usedItems = new ArrayList<>();
   }
 
   public void generateItemDrops() {
@@ -255,14 +253,6 @@ public class LoopManiaWorld {
     return spawningEnemies;
   }
 
-  public List<Item> getUsedItems () {
-    return usedItems;
-  }
-
-  public void clearUsedItems () {
-    usedItems.clear();
-  }
-
   /**
    * kill an enemy
    *
@@ -295,7 +285,31 @@ public class LoopManiaWorld {
     return Math.pow((e.getX() - b.getX()), 2) + Math.pow((e.getY() - b.getY()), 2) < b.getRange();
   }
 
+  private boolean isGameLost() {
+    // if character hp is at 0
+    if (character.isDead()) {
+      // check if user has one ring and add to usedItems list
+      List<Item> usedItems = new ArrayList<>();
+      for (Item item : unequippedInventoryItems) {
+        if (item.onDeath(character)) {
+          usedItems.add(item);
+        }
+      }
 
+      // check if user had The One Ring
+      if (usedItems.isEmpty()) {
+        // character does not have one ring, game is lost
+        return true;
+      } else {
+        // character has the one ring, remove from inventory
+        for (Item item : usedItems) {
+          removeUnequippedInventoryItem(item);
+          break;
+        }
+      }
+    }
+    return false;
+  }
 
   /**
    * run the expected battles in the world, based on current world state
@@ -303,19 +317,9 @@ public class LoopManiaWorld {
    * @return list of enemies which have been killed
    */
   public List<Enemy> runBattles() {
-    if (character.isDead()) {
-      List<Item> usedItems = new ArrayList<>();
-      for (Item item : unequippedInventoryItems) {
-        if (item.onDeath(character)) {
-          usedItems.add(item);
-        }
-      }
-      for (Item item : usedItems) {
-        removeUnequippedInventoryItem(item);
-      }
-      usedItems.clear();
+    if (isGameLost()) {
+      System.exit(0);
     }
-
 
     System.out.println(character.soldiersSize());
     // we have three types of buildings:
@@ -347,7 +351,8 @@ public class LoopManiaWorld {
         if (isInRange(b, e) && b.usableOutsideCombat()) {
           // System.out.printf("%s just used %s\n", e.getClass(), b.getClass());
           b.useBuilding(e);
-          if (e.isDead()) defeatedEnemies.add(e);
+          if (e.isDead())
+            defeatedEnemies.add(e);
 
           // need to destroy traps
           if (b.getStrategy() instanceof TrapStrategy) {
@@ -368,7 +373,6 @@ public class LoopManiaWorld {
 
     // building for enemies and character inside of combat
     List<Enemy> battlingEnemies = new ArrayList<Enemy>();
-
 
     for (Enemy enemy : enemies) {
       if (isInRange(enemy, character)) {
@@ -412,7 +416,8 @@ public class LoopManiaWorld {
         // Every enemy in the battle attacks any soldiers, then the character
         for (Enemy currBattlingEnemy : battlingEnemies) {
           // test(currBattlingEnemy);
-          if (currBattlingEnemy.isDead()) continue;
+          if (currBattlingEnemy.isDead())
+            continue;
           boolean criticalHit = false;
           random = new Random();
           randInt = random.nextInt(100) + 1;
@@ -439,7 +444,7 @@ public class LoopManiaWorld {
               buff.activateEffect(s, currBattlingEnemy, character.getSoldiers(), zombieSoldiers);
             }
             if (s.isDead())
-            trancedSoldiers.remove(0);
+              trancedSoldiers.remove(0);
           } else if (character.soldiersSize() > 0) {
             Soldier s = character.getSoldiersFromIndex(0);
             if (criticalHit) {
@@ -468,18 +473,21 @@ public class LoopManiaWorld {
         }
         for (Enemy currBattlingEnemy : zombieSoldiers) {
           System.out.println("WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-          if (currBattlingEnemy.isDead()) continue;
+          if (currBattlingEnemy.isDead())
+            continue;
           for (Item equippedItems : equippedInventoryItems) {
             enemyDamage *= equippedItems.defMultiplier(currBattlingEnemy);
           }
           if (trancedSoldiers.size() > 0) {
             Soldier s = trancedSoldiers.get(0);
             s.reduceHealth(enemyDamage);
-            if (s.isDead()) character.removeSoldiersFromIndex(0);
+            if (s.isDead())
+              character.removeSoldiersFromIndex(0);
           } else if (character.soldiersSize() > 0) {
             Soldier s = character.getSoldiersFromIndex(0);
             s.reduceHealth(enemyDamage);
-            if (s.isDead()) character.removeSoldiersFromIndex(0);
+            if (s.isDead())
+              character.removeSoldiersFromIndex(0);
           } else {
             character.reduceHealth(enemyDamage);
           }

@@ -45,7 +45,7 @@ public class Item extends StaticEntity implements ItemStrategy {
     this.strategy = strategy;
   }
 
-  public boolean onDeath (Character character) {
+  public boolean onDeath(Character character) {
     return strategy.onDeath(character);
   }
 
