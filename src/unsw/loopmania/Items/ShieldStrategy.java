@@ -14,6 +14,7 @@ public class ShieldStrategy implements ItemStrategy {
   private final double defMultiplier = 1;
   private final double critMultiplier = 0.4;
   private final int range = 0;
+  private final int price = 100;
 
   @Override
   public double getAtkMultiplier(Enemy enemy) {
@@ -68,6 +69,11 @@ public class ShieldStrategy implements ItemStrategy {
     Image image = new Image((new File("src/images/shield.png")).toURI().toString());
     ImageView view = new ImageView(image);
     return view;
+  }
+
+  @Override
+  public int getPrice() {
+    return price;
   }
 
 }

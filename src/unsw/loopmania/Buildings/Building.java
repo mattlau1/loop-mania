@@ -57,4 +57,14 @@ public class Building extends StaticEntity implements BuildingStrategy {
     return strategy.isSpawnLocation();
   }
 
+  @Override
+  public boolean canOnlySpawnNextToPath() {
+    return strategy.canOnlySpawnNextToPath();
+  }
+
+  @Override
+  public boolean canOnlySpawnOnPath() {
+    return strategy.canOnlySpawnOnPath();
+  }
+
 }

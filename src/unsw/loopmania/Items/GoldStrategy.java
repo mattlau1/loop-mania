@@ -15,6 +15,7 @@ public class GoldStrategy implements ItemStrategy {
   private final double critMultiplier = 1;
   private final int range = 1;
   private final int goldAmt = 10;
+  private final int price = 100;
 
   @Override
   public double getAtkMultiplier(Enemy enemy) {
@@ -62,4 +63,10 @@ public class GoldStrategy implements ItemStrategy {
     ImageView view = new ImageView(image);
     return view;
   }
+
+  @Override
+  public int getPrice() {
+    return price;
+  }
+
 }

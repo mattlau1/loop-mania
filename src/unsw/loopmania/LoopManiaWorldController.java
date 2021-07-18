@@ -15,6 +15,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
@@ -32,7 +33,15 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
+import unsw.loopmania.Items.ArmourStrategy;
+import unsw.loopmania.Items.HealthPotionStrategy;
+import unsw.loopmania.Items.HelmetStrategy;
 import unsw.loopmania.Items.Item;
+import unsw.loopmania.Items.ItemStrategy;
+import unsw.loopmania.Items.ShieldStrategy;
+import unsw.loopmania.Items.StaffStrategy;
+import unsw.loopmania.Items.StakeStrategy;
+import unsw.loopmania.Items.SwordStrategy;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Enemies.Enemy;
@@ -104,6 +113,33 @@ public class LoopManiaWorldController {
 
   @FXML
   private Label cycle;
+
+  // @FXML
+  // private Button buySwordButton;
+
+  // @FXML
+  // private Button buyStakeButton;
+
+  // @FXML
+  // private Button buyStaffButton;
+
+  // @FXML
+  // private Button buyHelmetButton;
+
+  // @FXML
+  // private Button buyArmourButton;
+
+  // @FXML
+  // private Button buyShieldButton;
+
+  // @FXML
+  // private Button buyPotionButton;
+
+  // @FXML
+  // private Label errorMessage;
+
+  // @FXML
+  // private Button exitShopButton;
 
   /**
    * squares gridpane includes path images, enemies, character, empty grass,
@@ -295,7 +331,7 @@ public class LoopManiaWorldController {
     // create the draggable icon
     draggedEntity = new DragIcon();
     draggedEntity.setVisible(false);
-    draggedEntity.setOpacity(0.7);
+    draggedEntity.setOpacity(0);
     anchorPaneRoot.getChildren().add(draggedEntity);
 
     // character stats
@@ -305,6 +341,46 @@ public class LoopManiaWorldController {
     experience.textProperty().bind(Bindings.convert(worldCharacter.getExpProperty()));
     gold.textProperty().bind(Bindings.convert(worldCharacter.getGoldProperty()));
     cycle.textProperty().bind(Bindings.convert(worldCharacter.getCycleProperty()));
+  }
+
+  @FXML
+  void buyArmour(ActionEvent event) {
+    buyItem(new ArmourStrategy());
+  }
+
+  @FXML
+  void buyHelmet(ActionEvent event) {
+    buyItem(new HelmetStrategy());
+  }
+
+  @FXML
+  void buyPotion(ActionEvent event) {
+    buyItem(new HealthPotionStrategy());
+  }
+
+  @FXML
+  void buyShield(ActionEvent event) {
+    buyItem(new ShieldStrategy());
+  }
+
+  @FXML
+  void buyStaff(ActionEvent event) {
+    buyItem(new StaffStrategy());
+  }
+
+  @FXML
+  void buyStake(ActionEvent event) {
+    buyItem(new StakeStrategy());
+  }
+
+  @FXML
+  void buySword(ActionEvent event) {
+    buyItem(new SwordStrategy());
+  }
+
+  @FXML
+  void exitShop(ActionEvent event) {
+
   }
 
   /**
@@ -380,6 +456,21 @@ public class LoopManiaWorldController {
     // start by getting first available coordinates
     Item item = world.addUnequippedItem();
     onLoad(item);
+  }
+
+  /**
+   * load a sword from the world, and pair it with an image in the GUI
+   */
+  private void buyItem(ItemStrategy strat) {
+    // TODO = load more types of weapon
+    // start by getting first available coordinates
+    int balance = world.getCharacter().getGold();
+    if (balance - strat.getPrice() >= 0) {
+      world.getCharacter().deductGold(strat.getPrice());
+      Item item = world.addSpecificUnequippedItem(strat);
+      onLoad(item);
+    }
+
   }
 
   /**
@@ -544,6 +635,9 @@ public class LoopManiaWorldController {
                 removeDraggableDragEventHandlers(draggableType, targetGridPane);
                 // TODO = spawn a building here of different types
                 Building newBuilding = convertCardToBuildingByCoordinates(nodeX, nodeY, x, y);
+
+                // check if null and dont load into ui if null
+                // else building has already spawned in backend, add to UI with onLoad(building)
                 onLoad(newBuilding);
                 break;
               case ITEM:
@@ -559,7 +653,7 @@ public class LoopManiaWorldController {
                   if (currItem != null) {
                     // System.out.println("WOOOOOOOOOOOOOOOOOOOOO");
                     // removeItemByCoordinates(x, y);
-                    world.removeEquippedInventoryItemByCoordinates(x,y);
+                    world.removeEquippedInventoryItemByCoordinates(x, y);
                   }
                   Item item = world.getUnequippedInventoryItemEntityByCoordinates(nodeX, nodeY);
                   Item newItem = new Item(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y),
