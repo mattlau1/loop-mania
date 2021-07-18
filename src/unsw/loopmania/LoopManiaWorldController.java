@@ -295,7 +295,7 @@ public class LoopManiaWorldController {
     // create the draggable icon
     draggedEntity = new DragIcon();
     draggedEntity.setVisible(false);
-    draggedEntity.setOpacity(0.7);
+    draggedEntity.setOpacity(0);
     anchorPaneRoot.getChildren().add(draggedEntity);
 
     // character stats

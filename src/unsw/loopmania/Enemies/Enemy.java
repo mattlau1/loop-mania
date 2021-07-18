@@ -185,7 +185,7 @@ public abstract class Enemy extends MovingEntity {
     // this basic enemy moves in a random direction... 25% chance up or down, 50%
     // chance not at all...
     int directionChoice = (new Random()).nextInt(2);
-    System.out.println(directionChoice);
+    // System.out.println(directionChoice);
     if (directionChoice == 0) {
       moveUpPath();
     } else if (directionChoice == 1) {
