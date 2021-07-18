@@ -347,6 +347,7 @@ public class LoopManiaWorldController {
       for (Enemy newEnemy : newEnemies) {
         onLoad(newEnemy);
       }
+      openHerosCastle();
       List<Item> newItems = world.possiblySpawnItems();
       for (Item item : newItems) {
         onLoadPath(item);
@@ -355,6 +356,14 @@ public class LoopManiaWorldController {
     }));
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
+  }
+
+  public void openHerosCastle() {
+    if (world.getCharacter().getCycleCount() == world.getNextHeroCastleCycle()) {
+      pause();
+      world.addHeroCastleCycles(1);
+      world.addNextHeroCastleCycle(world.getHeroCastleCycles());
+    }
   }
 
   /**
