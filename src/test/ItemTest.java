@@ -12,15 +12,18 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import unsw.loopmania.Character;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.LoopManiaWorldControllerLoader;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.PathTile;
 import unsw.loopmania.Enemies.SlugEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
+import unsw.loopmania.Enemies.ZombieEnemy;
 import unsw.loopmania.Goals.Goal;
 import unsw.loopmania.Goals.GoldGoal;
 import unsw.loopmania.Items.Item;
+import unsw.loopmania.Items.StaffStrategy;
 import unsw.loopmania.Items.StakeStrategy;
 import unsw.loopmania.Items.SwordStrategy;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -44,7 +47,19 @@ public class ItemTest {
     }
 
     @Test
-    void testOnHitEffects() {
+    void testStaffBuff() {
+        // test staff's effect to convert zombies to allied soldiers
+        SimpleIntegerProperty x = new SimpleIntegerProperty(1);
+        SimpleIntegerProperty y = new SimpleIntegerProperty(2);
+        StaffStrategy strat = new StaffStrategy();
+        Item testStaff = new Item(x, y, strat);
+        TestSetup s = new TestSetup();
+        LoopManiaWorld d = s.makeTestWorld();
+        ZombieEnemy zombie = new ZombieEnemy(new PathPosition(1, d.getOrderedPath()));
+        assertEquals(0, d.trancedSoldiersSize());
+        testStaff.onHitEffects(zombie, d.getTrancedSoldiers());
+        assertEquals(1, d.trancedSoldiersSize());
+        assertEquals(false, zombie.isAlive());
 
     }
 
