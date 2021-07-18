@@ -1,21 +1,13 @@
 package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.javatuples.Pair;
 import org.junit.jupiter.api.Test;
 
 import unsw.loopmania.Character;
 import unsw.loopmania.LoopManiaWorld;
-import unsw.loopmania.LoopManiaWorldControllerLoader;
 import unsw.loopmania.PathPosition;
-import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SlugEnemy;
-import unsw.loopmania.Enemies.VampireEnemy;
 
 public class EnemyTest {
 

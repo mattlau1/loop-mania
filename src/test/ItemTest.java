@@ -3,32 +3,21 @@ package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.javatuples.Pair;
 import org.junit.jupiter.api.Test;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Character;
 import unsw.loopmania.LoopManiaWorld;
-import unsw.loopmania.LoopManiaWorldControllerLoader;
 import unsw.loopmania.PathPosition;
-import unsw.loopmania.PathTile;
 import unsw.loopmania.Enemies.SlugEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
 import unsw.loopmania.Enemies.ZombieEnemy;
-import unsw.loopmania.Goals.Goal;
-import unsw.loopmania.Goals.GoldGoal;
 import unsw.loopmania.Items.HealthPotionStrategy;
 import unsw.loopmania.Items.Item;
 import unsw.loopmania.Items.StaffStrategy;
 import unsw.loopmania.Items.StakeStrategy;
-import unsw.loopmania.Items.SwordStrategy;
 import unsw.loopmania.Items.TheOneRingStrategy;
-import javafx.beans.property.SimpleIntegerProperty;
 
 public class ItemTest {
     @Test

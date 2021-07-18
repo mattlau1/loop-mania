@@ -9,13 +9,9 @@ import org.json.JSONObject;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathTile;
-import unsw.loopmania.Goals.CycleGoal;
 import unsw.loopmania.Goals.Goal;
 
 public class TestSetupNoGoals {
-    public TestSetupNoGoals() {
-
-    }
 
     public LoopManiaWorld makeTestWorld(Goal goal) {
         // helper function to setup world for tests which need flexible goals
@@ -79,7 +75,6 @@ public class TestSetupNoGoals {
             }
 
             PathTile.Direction dir = connections.get(i);
-            PathTile tile = new PathTile(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y));
             x += dir.getXOffset();
             y += dir.getYOffset();
             if (orderedPath.contains(Pair.with(x, y)) && !(x == starting.getX() && y == starting.getY())) {
