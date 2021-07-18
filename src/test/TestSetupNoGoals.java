@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathTile;
-import unsw.loopmania.Goals.CycleGoal;
 import unsw.loopmania.Goals.Goal;
 
 public class TestSetupNoGoals {
