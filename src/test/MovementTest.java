@@ -27,12 +27,16 @@ public class MovementTest {
         PathPosition vampirePos = new PathPosition(6, world.getOrderedPath());
         PathPosition charPos = new PathPosition(1, world.getOrderedPath());
         PathPosition campPos = new PathPosition(6, world.getOrderedPath());
+        // add character far away from the vampire to make sure it doesnt kill
+        // the vampire 
         Character testChar = new Character(charPos);
         world.setCharacter(testChar);
         Building campfire = new Building(campPos.getX(), campPos.getY(), strat);
         VampireEnemy vampire = new VampireEnemy(vampirePos);
         world.addEnemy(vampire);
-        world.addBuildingToWorld(campfire);
+        // test that the vampire initially moves in anti clockwise
         assertEquals(0, vampire.getDirection());
+        // the direction changes when theres a campfire nearby
+        world.addBuildingToWorld(campfire);
     }
 }
