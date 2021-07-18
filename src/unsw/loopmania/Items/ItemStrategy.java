@@ -10,40 +10,50 @@ import unsw.loopmania.Soldier;
 public interface ItemStrategy {
   /**
    *
-   * @param enemy The monster/entity that the Character is in combat with
-   * @return The attack multiplier against the monster, can vary depending on the
-   *         monster type
+   * @param enemy The enemy that the Character is in combat with
+   * @return attack multiplier against the enemy. returns 1 if item does not have
+   *         any attack mechanics
    */
-  public double atkMultiplier(Enemy enemy);
+  public double getAtkMultiplier(Enemy enemy);
 
   /**
    *
-   * @param enemy The monster/entity that the Character is in combat with
-   * @return The crit multiplier against the monster, can vary depending on the
-   *         monster type
+   * @param enemy The enemy that the Character is in combat with
+   * @return critical multiplier against the enemy. returns 1 if item does not
+   *         have any critical attack mechanics
    */
-  public double critMultiplier(Enemy enemy);
+  public double getCritMultiplier(Enemy enemy);
 
   /**
    *
-   * @param enemy The monster/entity that the Character is in combat with
-   * @return The defence multiplier against the monster, can vary depending on the
-   *         monster type
+   * @param enemy The enemy that the Character is in combat with
+   * @return defence multiplier against the enemy. returns 1 if item does not have
+   *         any defence mechanics
    */
-  public double defMultiplier(Enemy enemy);
+  public double getDefMultiplier(Enemy enemy);
 
   /**
-   * Deals with any on hit effects as a result of the weapon
+   * Deals with any on hit effects as a result of the weapon. Does nothing if item
+   * does not have an on hit effect
    *
-   * @param enemy The monster/entity that the Character is in combat with
+   * @param enemy    The enemy that the Character is in combat with
+   * @param allyList list of soldier allies
    */
   public void onHitEffects(Enemy enemy, List<Soldier> allyList);
 
   /**
-   * Deals with any effects that may occur on character death
-   * @return a boolean for if the item should be destroyed
+   * Checks if item should be destroyed on use
+   *
+   * @return true if item should be destroyed on use else false
    */
-  public boolean onDeath(Character character);
+  public boolean isDestroyedOnUse();
+
+  /**
+   * Uses item on character if item has an effect else do nothing
+   *
+   * @param character
+   */
+  public void useItem(Character character);
 
   /**
    * Gets the image of the item to be shown

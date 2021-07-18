@@ -8,10 +8,12 @@ import unsw.loopmania.Enemies.Enemy;
 
 public class ZombieCritBuff extends Buff {
   public ZombieCritBuff() {
+    return;
   }
 
   @Override
   public void activateEffect(Character character, Enemy enemy, List<Soldier> allyList, List<Enemy> zombieSoldiers) {
+    return;
   };
 
   @Override

@@ -291,7 +291,8 @@ public class LoopManiaWorld {
       // check if user has one ring and add to usedItems list
       List<Item> usedItems = new ArrayList<>();
       for (Item item : unequippedInventoryItems) {
-        if (item.onDeath(character)) {
+        if (item.isDestroyedOnUse()) {
+          item.useItem(character);
           usedItems.add(item);
         }
       }

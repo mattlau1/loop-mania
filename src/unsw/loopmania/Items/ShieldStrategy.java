@@ -10,65 +10,53 @@ import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Soldier;
 
 public class ShieldStrategy implements ItemStrategy {
-  /**
-   * Shield item does not have any attack mechanics, so returns 1
-   *
-   * @param enemy The monster/entity that the Character is in combat with
-   * @return The attack multiplier against the monster, may vary depending on the
-   *         monster type
-   */
+  private final double atkMultiplier = 1;
+  private final double defMultiplier = 1;
+  private final double critMultiplier = 0.4;
+
   @Override
-  public double atkMultiplier(Enemy enemy) {
-    return 1;
+  public double getAtkMultiplier(Enemy enemy) {
+    return atkMultiplier;
   }
 
-  /**
-   * Shield items does not have ay defence mechanics
-   *
-   * @param enemy The monster/entity that the Character is in combat with
-   * @return The defence multiplier against the monster, can vary depending on the
-   *         monster type
-   */
   @Override
-  public double defMultiplier(Enemy enemy) {
-    return 1;
+  public double getDefMultiplier(Enemy enemy) {
+    return defMultiplier;
   }
 
   /**
    * Shield item causes critical vampire attacks to have a 60% lower chance of
    * occurring so returns 0.4
    *
-   * @param enemy The monster/entity that the Character is in combat with
-   * @return The crit multiplier against the monster, can vary depending on the
-   *         monster type
+   * @param enemy The enemy that the Character is in combat with
+   * @return The crit multiplier against the enemy, can vary depending on the
+   *         enemy type
    */
   @Override
-  public double critMultiplier(Enemy enemy) {
-    return 0.4;
+  public double getCritMultiplier(Enemy enemy) {
+    return critMultiplier;
   }
 
   /**
    * Shield item does not have any on hit effects so does nothing
    *
-   * @param enemy The monster/entity that the Character is in combat with
+   * @param enemy The enemy that the Character is in combat with
    */
   @Override
   public void onHitEffects(Enemy enemy, List<Soldier> allyList) {
+    return;
   }
 
-  /**
-   * Deals with any effects that may occur on character death
-   * @return a boolean for if the item should be destroyed
-   */
-  public boolean onDeath(Character character) {
+  @Override
+  public boolean isDestroyedOnUse() {
     return false;
   }
 
-  /**
-   * returns the image of the item to be displayed
-   *
-   * @return the imageview of the item
-   */
+  @Override
+  public void useItem(Character character) {
+    return;
+  }
+
   @Override
   public ImageView getImage() {
     Image image = new Image((new File("src/images/shield.png")).toURI().toString());

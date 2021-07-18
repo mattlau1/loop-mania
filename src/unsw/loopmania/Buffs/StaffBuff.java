@@ -8,6 +8,7 @@ import unsw.loopmania.Enemies.Enemy;
 
 public class StaffBuff extends Buff {
   public StaffBuff() {
+    return;
   }
 
   @Override
