@@ -305,6 +305,11 @@ public class LoopManiaWorld {
     return Math.pow((e.getX() - b.getX()), 2) + Math.pow((e.getY() - b.getY()), 2) < b.getRange();
   }
 
+  /**
+   * Checks if game is lost
+   *
+   * @return true if game is lost else false
+   */
   private boolean isGameLost() {
     // if character hp is at 0
     if (character.isDead()) {
@@ -332,15 +337,6 @@ public class LoopManiaWorld {
     return false;
   }
 
-  private void useBuildingsOnCharacterOutsideCombat() {
-    for (Building b : buildingEntities) {
-      if (isInRange(b, character) && b.usableOutsideCombat() && !b.isSpawnLocation()) {
-        System.out.printf("Character just used %s\n", b.getClass());
-        b.useBuilding(character);
-      }
-    }
-  }
-
   /**
    * Changes enemy direction if they are a vampire and they are within range of a
    * campfire
@@ -358,6 +354,25 @@ public class LoopManiaWorld {
     }
   }
 
+  /**
+   * Uses all buildings that are in range of the character
+   */
+  private void useBuildingsOnCharacterOutsideCombat() {
+    for (Building b : buildingEntities) {
+      if (isInRange(b, character) && b.usableOutsideCombat() && !b.isSpawnLocation()) {
+        b.useBuilding(character);
+      }
+    }
+  }
+
+  /**
+   * Uses buildings on enemies that are outside of combat, if in range
+   *
+   * @param buildingsToDestroy list of buildings that will be destroyed after
+   *                           enemy usage
+   * @param defeatedEnemies    list of enemies that will be defeated after using
+   *                           building
+   */
   private void useBuildingsOnEnemiesOutsideCombat(List<Building> buildingsToDestroy, List<Enemy> defeatedEnemies) {
     for (Building b : buildingEntities) {
       for (Enemy e : enemies) {
@@ -376,6 +391,26 @@ public class LoopManiaWorld {
     }
   }
 
+  /**
+   * Uses buildings on entities (character and enemy) that are in combat, if in
+   * range
+   *
+   * @param enemy enemy to use building on during combat
+   */
+  private void useBuildingsOnEntitiesInCombat(Enemy enemy) {
+    for (Building building : buildingEntities) {
+      if (isInRange(building, character)) {
+        building.useBuilding(character);
+        building.useBuilding(enemy);
+      }
+    }
+  }
+
+  /**
+   * Removes buildings from the world, given a list of buildings to destroy
+   *
+   * @param buildingsToDestroy list of buildings to destroy
+   */
   private void destroyBuildings(List<Building> buildingsToDestroy) {
     for (Building buildingToDestroy : buildingsToDestroy) {
       buildingToDestroy.destroy();
@@ -386,6 +421,12 @@ public class LoopManiaWorld {
     }
   }
 
+  /**
+   * Gets all enemies that are battling the character by checking if character is
+   * in range of enemy.
+   *
+   * @return list of all enemies in battle with the character
+   */
   private List<Enemy> getBattlingEnemies() {
     List<Enemy> battlingEnemies = new ArrayList<Enemy>();
     for (Enemy enemy : enemies) {
@@ -401,15 +442,12 @@ public class LoopManiaWorld {
     return battlingEnemies;
   }
 
-  private void useBuildingsOnEntitiesInCombat(Enemy enemy) {
-    for (Building building : buildingEntities) {
-      if (isInRange(building, character)) {
-        building.useBuilding(character);
-        building.useBuilding(enemy);
-      }
-    }
-  }
-
+  /**
+   * Gets the damage that the character will deal against a given enemy
+   *
+   * @param enemy enemy that the character will deal damage against
+   * @return damage amount against the enemy
+   */
   private double getCharacterDamageAgainstEnemy(Enemy enemy) {
     double characterDamage = character.getMultipliedDamage();
     for (Item equippedItems : equippedInventoryItems) {
@@ -418,6 +456,11 @@ public class LoopManiaWorld {
     return characterDamage;
   }
 
+  /**
+   * Randomly trigger on-hit effects for equipped items
+   *
+   * @param enemy enemy to trigger on-hit effect on
+   */
   private void possiblyTriggerOnHitEffect(Enemy enemy) {
     Random random = new Random();
     int randInt = random.nextInt(2);
@@ -428,6 +471,12 @@ public class LoopManiaWorld {
     }
   }
 
+  /**
+   * Checks if enemy will critically strike
+   *
+   * @param enemy enemy that will potentially critically strike
+   * @return true if enemy will critically strike else false
+   */
   private boolean doesEnemyCrit(Enemy enemy) {
     boolean isCriticalHit = false;
     Random random = new Random();
@@ -444,6 +493,14 @@ public class LoopManiaWorld {
     return isCriticalHit;
   }
 
+  /**
+   * Calculates enemy's damage after applying character's equipped defensive items
+   *
+   * @param enemyDamageBeforeDef enemy's damage before taking any defensive items
+   *                             into account
+   * @param enemy                enemy to take damage from
+   * @return new enemy damage after taking defensive items into account
+   */
   private double getEnemyDamageAfterDefense(double enemyDamageBeforeDef, Enemy enemy) {
     double enemyDamageAfterDef = enemyDamageBeforeDef;
     for (Item equippedItems : equippedInventoryItems) {
@@ -452,23 +509,32 @@ public class LoopManiaWorld {
     return enemyDamageAfterDef;
   }
 
-  private void damageSoldiers(Soldier s, boolean isCriticalHit, Enemy enemy, double enemyDamage) {
-    if (isCriticalHit && !s.getBuffs().contains(enemy.criticalHit())) {
-      s.addBuffs(enemy.criticalHit());
+  /**
+   * Causes the given soldier to take damage from an enemy
+   *
+   * @param soldier       soldier that will take damage
+   * @param isCriticalHit true if soldier is taking a critical hit else false
+   * @param enemy         enemy dealing the damage to soldier
+   * @param enemyDamage   damage that soldier will take after defense
+   */
+  private void damageSoldier(Soldier soldier, boolean isCriticalHit, Enemy enemy, double enemyDamage) {
+    if (isCriticalHit && !soldier.getBuffs().contains(enemy.criticalHit())) {
+      soldier.addBuffs(enemy.criticalHit());
     }
 
-    s.reduceHealth(enemyDamage);
+    soldier.reduceHealth(enemyDamage);
 
-    for (Buff buff : s.getBuffs()) {
-      buff.activateEffect(s, enemy, character.getSoldiers(), zombieSoldiers);
+    for (Buff buff : soldier.getBuffs()) {
+      buff.activateEffect(soldier, enemy, character.getSoldiers(), zombieSoldiers);
     }
   }
 
   /**
-   * Every enemy in the battle attacks any soldiers, if none, then the character
+   * Every enemy in the battle attacks any soldiers, if bo soldiers, then enemy
+   * will attack the character
    *
-   * @param battlingEnemies
-   * @param enemy
+   * @param battlingEnemies all battling enemies
+   * @param enemy           enemy that is attacking soldier
    */
   private void attackSoldiers(List<Enemy> battlingEnemies, Enemy enemy) {
     double enemyDamage = enemy.getDamage();
@@ -483,7 +549,7 @@ public class LoopManiaWorld {
       if (trancedSoldiers.size() > 0) {
         // tranced soldiers
         Soldier s = trancedSoldiers.get(0);
-        damageSoldiers(s, isCriticalHit, enemy, enemyDamage);
+        damageSoldier(s, isCriticalHit, enemy, enemyDamage);
 
         // remove tranced soldier if dead
         if (s.isDead())
@@ -492,7 +558,7 @@ public class LoopManiaWorld {
       } else if (character.soldiersSize() > 0) {
         // normal soldiers
         Soldier s = character.getSoldiersFromIndex(0);
-        damageSoldiers(s, isCriticalHit, enemy, enemyDamage);
+        damageSoldier(s, isCriticalHit, enemy, enemyDamage);
 
         // remove soldier if dead
         if (s.isDead())
@@ -520,6 +586,11 @@ public class LoopManiaWorld {
     }
   }
 
+  /**
+   * Processes zombie soldier attacks against the character
+   *
+   * @param enemy enemy to process
+   */
   private void processZombieSoldierAttacks(Enemy enemy) {
     double enemyDamage = enemy.getDamage();
     for (Enemy currBattlingEnemy : zombieSoldiers) {
