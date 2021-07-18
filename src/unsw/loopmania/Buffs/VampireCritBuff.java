@@ -11,6 +11,7 @@ import unsw.loopmania.Enemies.VampireEnemy;
 public class VampireCritBuff extends Buff {
 
   public VampireCritBuff() {
+    return;
   }
 
   @Override

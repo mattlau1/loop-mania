@@ -79,6 +79,9 @@ public class LoopManiaWorld {
   private List<CardStrategy> midRarityCards;
   private List<CardStrategy> highRarityCards;
 
+  private final int destroyedCardGold = 100;
+  private final int destroyedCardExp = 100;
+
   // TODO = expand the range of enemies
   private List<Enemy> enemies;
 
@@ -95,7 +98,7 @@ public class LoopManiaWorld {
 
   // TODO = expand the range of buildings
   private List<Building> buildingEntities;
-
+  boolean cardDestroyed;
   /**
    * list of x,y coordinate pairs in the order by which moving entities traverse
    * them
@@ -132,9 +135,9 @@ public class LoopManiaWorld {
     highRarityCards = new ArrayList<>();
     this.orderedPath = orderedPath;
     buildingEntities = new ArrayList<>();
-    // soldiers = new ArrayList<>();
     trancedSoldiers = new ArrayList<>();
     this.goal = goal;
+    cardDestroyed = false;
   }
 
   public void generateItemDrops() {
@@ -213,6 +216,20 @@ public class LoopManiaWorld {
     // TODO = if more specialised types being added from main menu, add more methods
     // like this with specific input types...
     nonSpecifiedEntities.add(entity);
+  }
+
+  public void consumePotion() {
+    character.setHealth(character.getMaxHealth());
+    // Item potion = null;
+    // for (Item item : unequippedInventoryItems) {
+    //   if (item.getStrategy() instanceof HealthPotionStrategy) {
+    //     character.setHealth(character.getMaxHealth());
+    //   }
+    //   potion = item;
+    //   break;
+    // }
+    // potion.destroy();
+    // unequippedInventoryItems.remove(potion);
   }
 
   /**
@@ -294,7 +311,8 @@ public class LoopManiaWorld {
       // check if user has one ring and add to usedItems list
       List<Item> usedItems = new ArrayList<>();
       for (Item item : unequippedInventoryItems) {
-        if (item.onDeath(character)) {
+        if (item.isDestroyedOnUse()) {
+          item.useItem(character);
           usedItems.add(item);
         }
       }
@@ -402,7 +420,7 @@ public class LoopManiaWorld {
 
         // Character attacks first enemy
         for (Item equippedItems : equippedInventoryItems) {
-          characterDamage *= equippedItems.atkMultiplier(enemy);
+          characterDamage *= equippedItems.getAtkMultiplier(enemy);
         }
         // System.out.println("WOOOOOOOOOOOO");
         // System.out.println(characterDamage);
@@ -426,13 +444,13 @@ public class LoopManiaWorld {
           randInt = random.nextInt(100) + 1;
           double enemyCriR = currBattlingEnemy.getCritRate();
           for (Item equippedItems : equippedInventoryItems) {
-            enemyCriR *= equippedItems.critMultiplier(enemy);
+            enemyCriR *= equippedItems.getCritMultiplier(enemy);
           }
           if (randInt <= enemyCriR)
             criticalHit = true;
 
           for (Item equippedItems : equippedInventoryItems) {
-            enemyDamage *= equippedItems.defMultiplier(currBattlingEnemy);
+            enemyDamage *= equippedItems.getDefMultiplier(currBattlingEnemy);
           }
           // System.out.println(enemyDamage);
           if (trancedSoldiers.size() > 0) {
@@ -479,7 +497,7 @@ public class LoopManiaWorld {
           if (currBattlingEnemy.isDead())
             continue;
           for (Item equippedItems : equippedInventoryItems) {
-            enemyDamage *= equippedItems.defMultiplier(currBattlingEnemy);
+            enemyDamage *= equippedItems.getDefMultiplier(currBattlingEnemy);
           }
           if (trancedSoldiers.size() > 0) {
             Soldier s = trancedSoldiers.get(0);
@@ -495,8 +513,6 @@ public class LoopManiaWorld {
             character.reduceHealth(enemyDamage);
           }
         }
-        // System.out.println("CHARACTER HEALTH");
-        // System.out.println(character.getHealth());
       }
       // System.out.println("ENEMY HEALTH");
       // System.out.println(enemy.getHealth());
@@ -525,9 +541,13 @@ public class LoopManiaWorld {
    */
   public Card loadCard() {
     // if adding more cards than have, remove the first card...
+    cardDestroyed = false;
     if (cardEntities.size() >= getWidth()) {
       // TODO = give some cash/experience/item rewards for the discarding of the
       // oldest card
+
+      cardDestroyed = true;
+      // addUnequippedItem();
       removeCard(0);
     }
 
@@ -535,6 +555,15 @@ public class LoopManiaWorld {
         randomCardStrategy());
     cardEntities.add(card);
     return card;
+  }
+
+  public void destroyCard() {
+    character.addEXP(destroyedCardExp);
+    character.addGold(destroyedCardGold);
+  }
+
+  public boolean getCardDestroyed() {
+    return cardDestroyed;
   }
 
   /**
@@ -559,20 +588,28 @@ public class LoopManiaWorld {
   public Item addUnequippedItem() {
     // TODO = expand this - we would like to be able to add multiple types of items,
     // apart from swords
+    ItemStrategy randStrat = randomItemStrategy();
+    while (randStrat instanceof HealthPotionStrategy) {
+      consumePotion();
+      randStrat = randomItemStrategy();
+    }
     Pair<Integer, Integer> firstAvailableSlot = getFirstAvailableSlotForItem();
     if (firstAvailableSlot == null) {
       // eject the oldest unequipped item and replace it... oldest item is that at
       // beginning of items
       // TODO = give some cash/experience rewards for the discarding of the oldest
       // sword
+      character.addEXP(destroyedCardExp);
+      character.addGold(destroyedCardGold);
       removeItemByPositionInUnequippedInventoryItems(0);
       firstAvailableSlot = getFirstAvailableSlotForItem();
     }
 
     // now we insert the new sword, as we know we have at least made a slot
     // available...
+
     Item item = new Item(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),
-        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), randomItemStrategy());
+        new SimpleIntegerProperty(firstAvailableSlot.getValue1()), randStrat);
     unequippedInventoryItems.add(item);
     return item;
   }
