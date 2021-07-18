@@ -65,13 +65,21 @@ public class ItemTest {
 
     }
 
+    @Test
     void testHealthPotion() {
-        SimpleIntegerProperty x = new SimpleIntegerProperty(1);
-        SimpleIntegerProperty y = new SimpleIntegerProperty(2);
         HealthPotionStrategy strat = new HealthPotionStrategy();
-        Item testStaff = new Item(x, y, strat);
         TestSetup s = new TestSetup();
         LoopManiaWorld d = s.makeTestWorld();
+        PathPosition pathPos = new PathPosition(1, d.getOrderedPath());
+        Character testChar = new Character(pathPos);
+        d.setCharacter(testChar);
+        testChar.reduceHealth(50);
+        assertEquals(50, testChar.getHealth());
+        Item testPot = new Item(pathPos.getX(), pathPos.getY(), strat);
+        d.addPathItems(testPot);
+        d.runBattles();
+        assertEquals(100, testChar.getHealth());
+
     }
 
     @Test

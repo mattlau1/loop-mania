@@ -290,6 +290,10 @@ public class LoopManiaWorld {
     return pathItems;
   }
 
+  public void addPathItems(Item item) {
+    pathItems.add(item);
+  }
+
   /**
    * spawns items if the conditions warrant it, adds to world
    *

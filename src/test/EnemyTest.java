@@ -30,7 +30,7 @@ public class EnemyTest {
         LoopManiaWorld d = s.makeTestWorld();
 
         SlugEnemy slug = new SlugEnemy(new PathPosition(1, d.getOrderedPath()));
-        PathPosition x = slug.getX()
+        PathPosition x = slug.getX();
 
     }
 
