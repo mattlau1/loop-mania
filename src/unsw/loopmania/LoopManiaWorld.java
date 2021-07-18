@@ -1067,7 +1067,7 @@ public class LoopManiaWorld {
     Building newBuilding = new Building(xIntegerProperty, yIntegerProperty, card.getBuildingStrategy());
 
     // if newBuilding.canOnlySpawnNextToPath() {
-    // if isNextToPath()
+    // if isNextToPath(x, y)
     // spawn building
     // else
     // return null

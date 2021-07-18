@@ -529,6 +529,9 @@ public class LoopManiaWorldController {
                 removeDraggableDragEventHandlers(draggableType, targetGridPane);
                 // TODO = spawn a building here of different types
                 Building newBuilding = convertCardToBuildingByCoordinates(nodeX, nodeY, x, y);
+
+                // check if null and dont load into ui if null
+                // else building has already spawned in backend, add to UI with onLoad(building)
                 onLoad(newBuilding);
                 break;
               case ITEM:
