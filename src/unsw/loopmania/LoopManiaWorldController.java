@@ -456,6 +456,7 @@ public class LoopManiaWorldController {
     // start by getting first available coordinates
     Item item = world.addUnequippedItem();
     onLoad(item);
+    buyItem(new StaffStrategy());
   }
 
   /**
@@ -464,9 +465,13 @@ public class LoopManiaWorldController {
   private void buyItem(ItemStrategy strat) {
     // TODO = load more types of weapon
     // start by getting first available coordinates
-    world.getCharacter().deductGold(strat.getPrice());
-    Item item = world.addSpecificUnequippedItem(strat);
-    onLoad(item);
+    int balance = world.getCharacter().getGold();
+    if (balance - strat.getPrice() >= 0) {
+      world.getCharacter().deductGold(strat.getPrice());
+      Item item = world.addSpecificUnequippedItem(strat);
+      onLoad(item);
+    }
+
   }
 
   /**
