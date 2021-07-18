@@ -446,9 +446,9 @@ public class LoopManiaWorld {
       }
       // System.out.println("ENEMY HEALTH");
       // System.out.println(enemy.getHealth());
-      // defeatedEnemies.add(enemy);
-      // character.addEXP(enemy.getExpDrop());
-      // character.addGold(enemy.getGoldDrop());
+      defeatedEnemies.add(enemy);
+      character.addEXP(enemy.getExpDrop());
+      character.addGold(enemy.getGoldDrop());
     }
 
     trancedSoldiers.clear();
