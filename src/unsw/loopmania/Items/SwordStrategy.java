@@ -14,6 +14,7 @@ public class SwordStrategy implements ItemStrategy {
   private final double defMultiplier = 1;
   private final double critMultiplier = 1;
   private final int range = 0;
+  private final int price = 100;
 
   /**
    * Sword item incresaes damage dealth by Character by a factor of two
@@ -67,6 +68,11 @@ public class SwordStrategy implements ItemStrategy {
     Image image = new Image((new File("src/images/basic_sword.png")).toURI().toString());
     ImageView view = new ImageView(image);
     return view;
+  }
+
+  @Override
+  public int getPrice() {
+    return price;
   }
 
 }

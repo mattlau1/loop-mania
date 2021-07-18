@@ -54,4 +54,14 @@ public class VillageStrategy implements BuildingStrategy {
     return false;
   }
 
+  @Override
+  public boolean canOnlySpawnNextToPath() {
+    return false;
+  }
+
+  @Override
+  public boolean canOnlySpawnOnPath() {
+    return true;
+  }
+
 }

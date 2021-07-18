@@ -13,7 +13,6 @@ public class BarracksStrategy implements BuildingStrategy {
 
   @Override
   public void useBuilding(Character character) {
-    // TODO: Add allied soldier
     character.addSoldier();
   }
 
@@ -52,6 +51,16 @@ public class BarracksStrategy implements BuildingStrategy {
   @Override
   public boolean isSpawnLocation() {
     return false;
+  }
+
+  @Override
+  public boolean canOnlySpawnNextToPath() {
+    return false;
+  }
+
+  @Override
+  public boolean canOnlySpawnOnPath() {
+    return true;
   }
 
 }

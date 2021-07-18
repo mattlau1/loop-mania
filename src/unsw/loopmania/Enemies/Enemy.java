@@ -163,14 +163,29 @@ public abstract class Enemy extends MovingEntity {
     this.health -= health;
   }
 
+  /**
+   * Check if the enemy is still alive
+   *
+   * @return the boolean of enemy being alive
+   */
   public boolean isAlive() {
     return health > 0;
   }
 
+  /**
+   * Check if the enemy is dead
+   *
+   * @return the boolean of the dead enemy
+   */
   public boolean isDead() {
     return health <= 0;
   }
 
+  /**
+   * Enemy will give a buff status when it lands a critical hit
+   *
+   * @return the new buff for the enemy to inflict on character
+   */
   public Buff criticalHit() {
     Buff buff = new Buff();
     return buff;
@@ -180,12 +195,7 @@ public abstract class Enemy extends MovingEntity {
    * move the enemy
    */
   public void move() {
-    // TODO = modify this, since this implementation doesn't provide the expected
-    // enemy behaviour
-    // this basic enemy moves in a random direction... 25% chance up or down, 50%
-    // chance not at all...
     int directionChoice = (new Random()).nextInt(2);
-    System.out.println(directionChoice);
     if (directionChoice == 0) {
       moveUpPath();
     } else if (directionChoice == 1) {
@@ -193,13 +203,22 @@ public abstract class Enemy extends MovingEntity {
     }
   }
 
+  /**
+   * Enemy changes direction
+   */
   public void changeDirection() {
     return;
   }
 
+  /**
+   * a flag that confirms if the enemy has changed direction
+   */
   public void resetHasChangedDirection() {
     return;
   }
 
+  /**
+   * load an image for the respective enemy
+   */
   public abstract ImageView getImage();
 }

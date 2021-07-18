@@ -56,4 +56,9 @@ public class Item extends StaticEntity implements ItemStrategy {
   public int getRange() {
     return strategy.getRange();
   }
+
+  public int getPrice() {
+    return strategy.getPrice();
+  }
+
 }
