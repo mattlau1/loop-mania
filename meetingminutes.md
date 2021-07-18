@@ -52,4 +52,4 @@ In this meeting, the team discussed how to implement feedback given from our tut
     - Checked progress on project with other group members
     - Allocated different tasks
 
-Team disussed what final adjustments needed to be done before the due date and how to implement different features that the team had questions about. The team scheduled a few meetings before the due date to work on the project together, merge branches together and to check if everything works together. The team also discussed what adjustments needed to be made on the UML diagram to represent new classes.
+Team discussed what final adjustments needed to be done before the due date and how to implement different features that the team had questions about. The team scheduled a few meetings before the due date to work on the project together, merge branches together and to check if everything works together. The team also discussed what adjustments needed to be made on the UML diagram to represent new classes.
