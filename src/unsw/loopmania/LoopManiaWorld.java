@@ -230,11 +230,11 @@ public class LoopManiaWorld {
     character.setHealth(character.getMaxHealth());
     // Item potion = null;
     // for (Item item : unequippedInventoryItems) {
-    //   if (item.getStrategy() instanceof HealthPotionStrategy) {
-    //     character.setHealth(character.getMaxHealth());
-    //   }
-    //   potion = item;
-    //   break;
+    // if (item.getStrategy() instanceof HealthPotionStrategy) {
+    // character.setHealth(character.getMaxHealth());
+    // }
+    // potion = item;
+    // break;
     // }
     // potion.destroy();
     // unequippedInventoryItems.remove(potion);
@@ -574,6 +574,14 @@ public class LoopManiaWorld {
     return cardDestroyed;
   }
 
+  public List<Card> getCards() {
+    return cardEntities;
+  }
+
+  public void addEnemy(Enemy enemy) {
+    enemies.add(enemy);
+  }
+
   /**
    * remove card at a particular index of cards (position in gridpane of unplayed
    * cards)
@@ -766,7 +774,8 @@ public class LoopManiaWorld {
     character.moveDownPath();
     useIfAtHerosCastle();
     moveBasicEnemies();
-    if (goal.isGameWon(character)) System.exit(0);
+    if (goal.isGameWon(character))
+      System.exit(0);
   }
 
   /**

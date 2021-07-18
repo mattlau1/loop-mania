@@ -77,15 +77,12 @@ public class ItemTest {
     @Test
     void testOneRing() {
         // if character has one ring equiped should prevent death once
-        SimpleIntegerProperty x = new SimpleIntegerProperty(1);
-        SimpleIntegerProperty y = new SimpleIntegerProperty(2);
         TheOneRingStrategy strat = new TheOneRingStrategy();
-        Item testRing = new Item(x, y, strat);
         TestSetup s = new TestSetup();
         LoopManiaWorld d = s.makeTestWorld();
         Character testChar = new Character(new PathPosition(1, d.getOrderedPath()));
         d.setCharacter(testChar);
-        d.addUnequippedItem(testRing);
+        d.addSpecificUnequippedItem(strat);
         assertEquals(false, d.isGameLost());
         testChar.reduceHealth(100);
         assertEquals(true, testChar.isDead());
