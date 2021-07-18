@@ -13,7 +13,6 @@ public class BarracksStrategy implements BuildingStrategy {
 
   @Override
   public void useBuilding(Character character) {
-    // TODO: Add allied soldier
     character.addSoldier();
   }
 

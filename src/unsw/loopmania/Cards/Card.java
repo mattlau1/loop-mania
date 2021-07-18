@@ -16,10 +16,20 @@ public class Card extends StaticEntity implements CardStrategy {
     this.strategy = cardStrategy;
   }
 
+  /**
+   * Gets the image for the card for javafx UI
+   *
+   * @return card image
+   */
   public ImageView getImage() {
     return strategy.getImage();
   }
 
+  /**
+   * Returns the corresponding building strategy for the card
+   * 
+   * @return corresponding building strategy
+   */
   public BuildingStrategy getBuildingStrategy() {
     return strategy.getBuildingStrategy();
   }
