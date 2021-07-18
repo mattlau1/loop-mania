@@ -250,6 +250,7 @@ public class LoopManiaWorld {
    *
    * @return list of the enemies to be displayed on screen
    */
+
   public List<Enemy> possiblySpawnEnemies() {
     // TODO = expand this very basic version
 

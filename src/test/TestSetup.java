@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathTile;
+import unsw.loopmania.Goals.CycleGoal;
 import unsw.loopmania.Goals.Goal;
 
 public class TestSetup {
@@ -33,8 +34,11 @@ public class TestSetup {
         path.put("y", 0);
         path.put("path", pathString);
 
+        Goal gg = new Goal();
+        gg.addGoal(new CycleGoal(200));
+
         List<Pair<Integer, Integer>> orderedPath = loadPathTiles(path, 3, 3);
-        return new LoopManiaWorld(3, 3, orderedPath, new Goal());
+        return new LoopManiaWorld(3, 3, orderedPath, gg);
     }
 
     public List<Pair<Integer, Integer>> loadPathTiles(JSONObject path, int width, int height) {

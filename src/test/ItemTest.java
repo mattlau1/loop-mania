@@ -32,7 +32,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class ItemTest {
     @Test
-    void testAtkMultiplier() throws FileNotFoundException {
+    public void testAtkMultiplier() throws FileNotFoundException {
         // test stake against vampire and non vampire
         SimpleIntegerProperty x = new SimpleIntegerProperty(1);
         SimpleIntegerProperty y = new SimpleIntegerProperty(2);
@@ -49,7 +49,7 @@ public class ItemTest {
     }
 
     @Test
-    void testStaffBuff() {
+    public void testStaffBuff() {
         // test staff's effect to convert zombies to allied soldiers
         SimpleIntegerProperty x = new SimpleIntegerProperty(1);
         SimpleIntegerProperty y = new SimpleIntegerProperty(2);
@@ -66,7 +66,7 @@ public class ItemTest {
     }
 
     @Test
-    void testHealthPotion() {
+    public void testHealthPotion() {
         HealthPotionStrategy strat = new HealthPotionStrategy();
         TestSetup s = new TestSetup();
         LoopManiaWorld d = s.makeTestWorld();
@@ -83,7 +83,7 @@ public class ItemTest {
     }
 
     @Test
-    void testOneRing() {
+    public void testOneRing() {
         // if character has one ring equiped should prevent death once
         TheOneRingStrategy strat = new TheOneRingStrategy();
         TestSetup s = new TestSetup();
