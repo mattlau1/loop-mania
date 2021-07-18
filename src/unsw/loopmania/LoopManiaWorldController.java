@@ -456,7 +456,6 @@ public class LoopManiaWorldController {
     // start by getting first available coordinates
     Item item = world.addUnequippedItem();
     onLoad(item);
-    buyItem(new StaffStrategy());
   }
 
   /**
@@ -651,7 +650,7 @@ public class LoopManiaWorldController {
                   if (currItem != null) {
                     // System.out.println("WOOOOOOOOOOOOOOOOOOOOO");
                     // removeItemByCoordinates(x, y);
-                    world.removeEquippedInventoryItemByCoordinates(x,y);
+                    world.removeEquippedInventoryItemByCoordinates(x, y);
                   }
                   Item item = world.getUnequippedInventoryItemEntityByCoordinates(nodeX, nodeY);
                   Item newItem = new Item(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y),
