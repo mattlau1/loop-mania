@@ -61,6 +61,10 @@ public class Character extends MovingEntity {
     return initialHealth;
   }
 
+  public double getMaxHealth() {
+    return initialHealth;
+  }
+
   public double getHealth() {
     return healthProperty.get();
   }
