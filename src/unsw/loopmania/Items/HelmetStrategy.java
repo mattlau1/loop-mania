@@ -14,6 +14,7 @@ public class HelmetStrategy implements ItemStrategy {
   private final double defMultiplier = 0.75;
   private final double critMultiplier = 1;
   private final int range = 0;
+  private final int price = 100;
 
   /**
    * Helmet item lowers damage dealt by the Character by 25% so returns 0.75
@@ -74,6 +75,11 @@ public class HelmetStrategy implements ItemStrategy {
     Image image = new Image((new File("src/images/helmet.png")).toURI().toString());
     ImageView view = new ImageView(image);
     return view;
+  }
+
+  @Override
+  public int getPrice() {
+    return price;
   }
 
 }

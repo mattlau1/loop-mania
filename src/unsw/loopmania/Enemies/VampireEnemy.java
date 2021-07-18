@@ -16,7 +16,7 @@ public class VampireEnemy extends Enemy {
   private final double damage = 20;
   private final int expDrop = 100;
   private final int goldDrop = 100;
-  private final int critRate = 30;
+  private int critRate = 30;
   private int direction;
   private boolean hasChangedDirection;
 
