@@ -17,6 +17,8 @@ public class VampireEnemy extends Enemy {
   private final int expDrop = 100;
   private final int goldDrop = 100;
   private final int critRate = 30;
+  private int direction;
+  private boolean hasChangedDirection;
 
   /**
    * spawn the vampire constructor
@@ -32,17 +34,37 @@ public class VampireEnemy extends Enemy {
     setExpDrop(expDrop);
     setGoldDrop(goldDrop);
     setCritRate(critRate);
+    this.direction = 0;
+    this.hasChangedDirection = false;
   }
 
   @Override
   public void move() {
     // vampire changes direction when near the campfire
 
-    // campfire is yet to be implemented
-    int directionChoice = (new Random()).nextInt(3);
-    if (directionChoice == 0) {
+    int directionChoice = (new Random()).nextInt(2);
+    if (direction == 1 && directionChoice == 0) {
+      moveDownPath();
+    } else if (direction == 0 && directionChoice == 0) {
       moveUpPath();
     }
+  }
+
+  @Override
+  public void changeDirection() {
+    // direction = 1 -> moveUp
+    // direction = 0 -> moveDown
+    if (direction == 1 && !hasChangedDirection) {
+      this.direction = 0;
+    } else if (direction == 0 && !hasChangedDirection) {
+      this.direction = 1;
+    }
+    this.hasChangedDirection = true;
+  }
+
+  @Override
+  public void resetHasChangedDirection() {
+    this.hasChangedDirection = false;
   }
 
   @Override

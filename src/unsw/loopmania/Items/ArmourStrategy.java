@@ -7,59 +7,55 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Soldier;
+import unsw.loopmania.Character;
 
 public class ArmourStrategy implements ItemStrategy {
-  /**
-   * Armour item does not have any attack mechanics, so returns 1
-   * 
-   * @param enemy The monster/entity that the Character is in combat with
-   * @return The attack multiplier against the monster, may vary depending on the
-   *         monster type
-   */
+  private final double atkMultiplier = 1;
+  private final double defMultiplier = 0.5;
+  private final double critMultiplier = 1;
+  private final int range = 0;
+
   @Override
-  public double atkMultiplier(Enemy enemy) {
-    return 1;
+  public double getAtkMultiplier(Enemy enemy) {
+    return atkMultiplier;
   }
 
   /**
-   * Armour halves the damage recieved so returns 0.5
-   * 
-   * @param enemy The monster/entity that the Character is in combat with
-   * @return The defence multiplier against the monster, can vary depending on the
-   *         monster type
+   * Armour halves the damage recieved, so multiplier will be 0.5
+   *
+   * @param enemy The enemy that the Character is in combat with
+   * @return defense multiplier against enemy
    */
   @Override
-  public double defMultiplier(Enemy enemy) {
-    return 0.5;
+  public double getDefMultiplier(Enemy enemy) {
+    return defMultiplier;
   }
 
-  /**
-   * Armour item does not have any critical hit mechanics, so returns 1
-   * 
-   * @param enemy The monster/entity that the Character is in combat with
-   * @return The crit multiplier against the monster, can vary depending on the
-   *         monster type
-   */
   @Override
-  public double critMultiplier(Enemy enemy) {
-    return 1;
+  public double getCritMultiplier(Enemy enemy) {
+    return critMultiplier;
   }
 
-  /**
-   * Armour item does not have any on hit effects so does nothing
-   * 
-   * @param enemy The monster/entity that the Character is in combat with
-   */
   @Override
   public void onHitEffects(Enemy enemy, List<Soldier> allyList) {
     return;
   }
 
-  /**
-   * returns the image of the item to be displayed
-   * 
-   * @return the imageview of the item
-   */
+  @Override
+  public boolean isDestroyedOnUse() {
+    return false;
+  }
+
+  @Override
+  public void useItem(Character character) {
+    return;
+  }
+
+  @Override
+  public int getRange() {
+    return range;
+  }
+
   @Override
   public ImageView getImage() {
     Image image = new Image((new File("src/images/armour.png")).toURI().toString());

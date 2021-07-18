@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 import org.javatuples.Pair;
 import org.junit.jupiter.api.Test;
 
+import unsw.loopmania.Character;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.LoopManiaWorldControllerLoader;
 import unsw.loopmania.PathPosition;
@@ -23,27 +25,57 @@ public class EnemyTest {
     }
 
     @Test
-    void testIsAlive() {
-
-    }
-
-    @Test
     void testMove() {
-        LoopManiaWorld d = new LoopManiaWorld(1, 2, new ArrayList<>());
-        int indexInPath = 3;
-        SlugEnemy slug = new SlugEnemy(new PathPosition(indexInPath, d.getOrderedPath()));
-        slug.move();
+        TestSetup s = new TestSetup();
+        LoopManiaWorld d = s.makeTestWorld();
+
+        SlugEnemy slug = new SlugEnemy(new PathPosition(1, d.getOrderedPath()));
+        PathPosition x = slug.getX()
 
     }
 
     @Test
     void testReduceHealth() {
-        LoopManiaWorld d = new LoopManiaWorld(1, 2, new ArrayList<>());
-        int indexInPath = 1;
-        SlugEnemy slug = new SlugEnemy(new PathPosition(indexInPath, d.getOrderedPath()));
+        TestSetup s = new TestSetup();
+        LoopManiaWorld d = s.makeTestWorld();
+
+        SlugEnemy slug = new SlugEnemy(new PathPosition(1, d.getOrderedPath()));
         // slug spawns with 20 hp reduceHealth called with value 10 should leave slug
         // with 10hp
+        assertEquals(20, slug.getHealth());
         slug.reduceHealth(10);
         assertEquals(10, slug.getHealth());
+    }
+
+    @Test
+    void testIsAlive() {
+        // test if returns false when enemy recieves dmg greater than their hp
+        TestSetup s = new TestSetup();
+        LoopManiaWorld d = s.makeTestWorld();
+
+        SlugEnemy slug = new SlugEnemy(new PathPosition(1, d.getOrderedPath()));
+        assertEquals(true, slug.isAlive());
+        // slug spawns with 20 hp reduceHealth called with value 10 should leave slug
+        // with 10hp
+        slug.reduceHealth(20);
+        assertEquals(false, slug.isAlive());
+    }
+
+    @Test
+    void testEnemyDrops() {
+        TestSetup s = new TestSetup();
+        LoopManiaWorld d = s.makeTestWorld();
+        Character testChar = new Character(new PathPosition(1, d.getOrderedPath()));
+        d.setCharacter(testChar);
+        SlugEnemy slug = new SlugEnemy(new PathPosition(1, d.getOrderedPath()));
+        d.addEnemy(slug);
+        assertEquals(0, testChar.getGold());
+        assertEquals(0, testChar.getExp());
+        assertEquals(0, d.getCards().size());
+        assertEquals(0, d.getUnequip().size());
+        d.runBattles();
+        assertEquals(10, testChar.getGold());
+        assertEquals(10, testChar.getExp());
+
     }
 }

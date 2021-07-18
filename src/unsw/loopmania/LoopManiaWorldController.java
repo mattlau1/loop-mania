@@ -326,6 +326,10 @@ public class LoopManiaWorldController {
       for (Enemy newEnemy : newEnemies) {
         onLoad(newEnemy);
       }
+      List<Item> newItems = world.possiblySpawnItems();
+      for (Item item : newItems) {
+        onLoadPath(item);
+      }
       printThreadingNotes("HANDLED TIMER");
     }));
     timeline.setCycleCount(Animation.INDEFINITE);
@@ -364,6 +368,8 @@ public class LoopManiaWorldController {
   private void loadCard() {
     Card card = world.loadCard();
     onLoad(card);
+    if (world.getCardDestroyed())
+      loadItem();
   }
 
   /**
@@ -439,7 +445,7 @@ public class LoopManiaWorldController {
 
   /**
    * load a sword into the GUI. Particularly, we must connect to the drag
-   * detection event handler, and load the image into the unequippedInventory
+   * detection event handler, and load the image into the equippedInventory
    * GridPane.
    *
    * @param sword
@@ -449,6 +455,17 @@ public class LoopManiaWorldController {
     addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, equippedItems, equippedItems);
     addEntity(item, view);
     equippedItems.getChildren().add(view);
+  }
+
+  /**
+   * load an enemy into the GUI
+   *
+   * @param enemy
+   */
+  private void onLoadPath(Item item) {
+    ImageView view = item.getImage();
+    addEntity(item, view);
+    squares.getChildren().add(view);
   }
 
   /**
@@ -472,7 +489,7 @@ public class LoopManiaWorldController {
     addEntity(building, view);
 
     world.addBuildingToWorld(building);
-    System.out.println(building.getStrategy());
+    // System.out.println(building.getStrategy());
     squares.getChildren().add(view);
   }
 
@@ -540,8 +557,9 @@ public class LoopManiaWorldController {
                 if (targetGridPane == equippedItems) {
                   Item currItem = world.getEquippedInventoryItemEntityByCoordinates(x, y);
                   if (currItem != null) {
-                    world.removeEquippedInventoryItem(currItem);
+                    // System.out.println("WOOOOOOOOOOOOOOOOOOOOO");
                     // removeItemByCoordinates(x, y);
+                    world.removeEquippedInventoryItemByCoordinates(x,y);
                   }
                   Item item = world.getUnequippedInventoryItemEntityByCoordinates(nodeX, nodeY);
                   Item newItem = new Item(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y),
@@ -853,7 +871,7 @@ public class LoopManiaWorldController {
           entityImages.remove(node);
           squares.getChildren().remove(node);
           cards.getChildren().remove(node);
-          // equippedItems.getChildren().remove(node);
+          equippedItems.getChildren().remove(node);
           unequippedInventory.getChildren().remove(node);
         }).buildAttached();
     ListenerHandle handleY = ListenerHandles.createFor(entity.y(), node).onAttach((o, l) -> o.addListener(yListener))
@@ -862,7 +880,7 @@ public class LoopManiaWorldController {
           entityImages.remove(node);
           squares.getChildren().remove(node);
           cards.getChildren().remove(node);
-          // equippedItems.getChildren().remove(node);
+          equippedItems.getChildren().remove(node);
           unequippedInventory.getChildren().remove(node);
         }).buildAttached();
     handleX.attach();

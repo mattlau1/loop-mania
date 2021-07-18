@@ -167,6 +167,10 @@ public abstract class Enemy extends MovingEntity {
     return health > 0;
   }
 
+  public boolean isDead() {
+    return health <= 0;
+  }
+
   public Buff criticalHit() {
     Buff buff = new Buff();
     return buff;
@@ -187,6 +191,14 @@ public abstract class Enemy extends MovingEntity {
     } else if (directionChoice == 1) {
       moveDownPath();
     }
+  }
+
+  public void changeDirection() {
+    return;
+  }
+
+  public void resetHasChangedDirection() {
+    return;
   }
 
   public abstract ImageView getImage();

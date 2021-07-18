@@ -4,6 +4,7 @@ import java.util.List;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.ImageView;
+import unsw.loopmania.Character;
 import unsw.loopmania.Soldier;
 import unsw.loopmania.StaticEntity;
 import unsw.loopmania.Enemies.Enemy;
@@ -16,16 +17,16 @@ public class Item extends StaticEntity implements ItemStrategy {
     this.strategy = strategy;
   }
 
-  public double atkMultiplier(Enemy enemy) {
-    return strategy.atkMultiplier(enemy);
+  public double getAtkMultiplier(Enemy enemy) {
+    return strategy.getAtkMultiplier(enemy);
   }
 
-  public double defMultiplier(Enemy enemy) {
-    return strategy.defMultiplier(enemy);
+  public double getDefMultiplier(Enemy enemy) {
+    return strategy.getDefMultiplier(enemy);
   }
 
-  public double critMultiplier(Enemy enemy) {
-    return strategy.critMultiplier(enemy);
+  public double getCritMultiplier(Enemy enemy) {
+    return strategy.getCritMultiplier(enemy);
   }
 
   public void onHitEffects(Enemy enemy, List<Soldier> allyList) {
@@ -44,4 +45,15 @@ public class Item extends StaticEntity implements ItemStrategy {
     this.strategy = strategy;
   }
 
+  public boolean isDestroyedOnUse() {
+    return strategy.isDestroyedOnUse();
+  }
+
+  public void useItem(Character character) {
+    strategy.useItem(character);
+  }
+
+  public int getRange() {
+    return strategy.getRange();
+  }
 }

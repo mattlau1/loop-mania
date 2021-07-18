@@ -49,7 +49,7 @@ public class CampfireStrategy implements BuildingStrategy {
   }
 
   @Override
-  public boolean isHerosCastle() {
+  public boolean isSpawnLocation() {
     return false;
   }
 
