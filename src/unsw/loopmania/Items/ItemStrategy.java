@@ -68,4 +68,12 @@ public interface ItemStrategy {
    * @return the range of an item
    */
   public int getRange();
+
+  /**
+   * Gets the price of an item
+   *
+   * @return the price of an item
+   */
+  public int getPrice();
+
 }
