@@ -272,7 +272,7 @@ public class LoopManiaWorld {
       if (isAtHerosCastle()) {
         if (building.canSpawnEnemy(character.getCycleCount())) {
           // TODO: change spawn location to closest path
-          Pair<Integer, Integer> buildingLocation = new Pair<Integer, Integer>(building.getX(), building.getY());
+          Pair<Integer, Integer> buildingLocation = neighbourPath(building.getX(), building.getY());
           int buildingIndexInPath = orderedPath.indexOf(buildingLocation);
           Enemy enemy = building.spawnEnemy(new PathPosition(buildingIndexInPath, orderedPath));
 
@@ -285,6 +285,16 @@ public class LoopManiaWorld {
       }
     }
     return spawningEnemies;
+  }
+
+  public Pair<Integer, Integer> neighbourPath(int x, int y) {
+    for (Pair<Integer, Integer> path : orderedPath) {
+      if ((x + 1) == path.getValue0() && (y) == path.getValue1()) return new Pair<Integer, Integer>(x + 1, y);
+      if ((x - 1) == path.getValue0() && (y) == path.getValue1()) return new Pair<Integer, Integer>(x - 1, y);
+      if ((x) == path.getValue0() && (y + 1) == path.getValue1()) return new Pair<Integer, Integer>(x, y + 1);
+      if ((x) == path.getValue0() && (y - 1) == path.getValue1()) return new Pair<Integer, Integer>(x, y - 1);
+    }
+    return null;
   }
 
   public List<Item> getPathItems() {
@@ -1202,11 +1212,9 @@ public class LoopManiaWorld {
       // System.out.println(isPath);
     if (newBuilding.canOnlySpawnOnPath()) {
       if (isPath) {
-        System.out.println("FUCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCK");
         addBuildingToWorld(newBuilding);
         // spawnBuilding = true;
       } else {
-        System.out.println("222222222222222222222222222222222222");
         return null;
       }
     } else {
@@ -1214,7 +1222,6 @@ public class LoopManiaWorld {
         if (isPath) {
           return null;
         } else if (isNeighbourPath(buildingNodeX, buildingNodeY)) {
-          System.out.println("WOOOOOOOOOOOOOOOOOOOOOOO");
           addBuildingToWorld(newBuilding);
           // spawnBuilding = true;
         }
