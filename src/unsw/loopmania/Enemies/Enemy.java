@@ -189,5 +189,13 @@ public abstract class Enemy extends MovingEntity {
     }
   }
 
+  public void changeDirection() {
+    return;
+  }
+
+  public void setHasChangedDirection() {
+    return;
+  }
+
   public abstract ImageView getImage();
 }

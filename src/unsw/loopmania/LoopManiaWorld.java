@@ -21,6 +21,7 @@ import unsw.loopmania.Items.TheOneRingStrategy;
 import unsw.loopmania.Buffs.Buff;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.BuildingStrategy;
+import unsw.loopmania.Buildings.CampfireStrategy;
 import unsw.loopmania.Buildings.HerosCastleStrategy;
 import unsw.loopmania.Cards.BarracksCardStrategy;
 import unsw.loopmania.Cards.CampfireCardStrategy;
@@ -305,6 +306,13 @@ public class LoopManiaWorld {
     // building for enemies outside of combat
     for (Building b : buildingEntities) {
       for (Enemy e : enemies) {
+        // vampire has special interaction with the campfire
+        if (isInRange(b,e) && (b.getStrategy() instanceof CampfireStrategy)) {
+          if (e instanceof VampireEnemy) e.changeDirection();
+        } else {
+          e.setHasChangedDirection();
+        }
+
         if (isInRange(b, e) && b.usableOutsideCombat()) {
           System.out.printf("%s just used %s\n", e.getClass(), b.getClass());
           b.useBuilding(e);

@@ -36,7 +36,7 @@ public class SimpleGoal extends Goal {
   }
 
   public boolean goalMeetsRequirement(int value) {
-    if ((value == goalValue) && !isCompleted()) {
+    if ((value >= goalValue) && !isCompleted()) {
       setGoalCheck(true);
       return true;
     }
