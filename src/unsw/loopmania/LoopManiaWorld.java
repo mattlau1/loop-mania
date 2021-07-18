@@ -287,12 +287,10 @@ public class LoopManiaWorld {
     for (Building building : buildingEntities) {
       if (isAtHerosCastle()) {
         if (building.canSpawnEnemy(character.getCycleCount())) {
-          // TODO: change spawn location to closest path
           Pair<Integer, Integer> buildingLocation = neighbourPath(building.getX(), building.getY());
           int buildingIndexInPath = orderedPath.indexOf(buildingLocation);
           Enemy enemy = building.spawnEnemy(new PathPosition(buildingIndexInPath, orderedPath));
 
-          // System.out.println(enemy);
           if (enemy != null) {
             enemies.add(enemy);
             spawningEnemies.add(enemy);
@@ -999,7 +997,7 @@ public class LoopManiaWorld {
 
   /**
    * Checks if the character is in range of the hero castle
-   * 
+   *
    * @return the boolean if the character is at the hero castle
    */
   private boolean isAtHerosCastle() {
@@ -1285,8 +1283,9 @@ public class LoopManiaWorld {
   }
 
   /**
-   * Returns an item after dragging from unequipped inventory the the equipped inventory
-   * 
+   * Returns an item after dragging from unequipped inventory the the equipped
+   * inventory
+   *
    * @return the item after its equipped
    */
   public Item equipItembyCoordinates(int oldX, int oldY, int newX, int newY) {
@@ -1297,7 +1296,7 @@ public class LoopManiaWorld {
 
   /**
    * Get the list of unequipped items
-   * 
+   *
    * @return the list of unequipped items
    */
   public List<Item> getUnequip() {
@@ -1306,7 +1305,7 @@ public class LoopManiaWorld {
 
   /**
    * Get the list of equipped items
-   * 
+   *
    * @return the list of equipped items
    */
   public List<Item> getEquip() {

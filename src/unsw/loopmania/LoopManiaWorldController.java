@@ -161,18 +161,11 @@ public class LoopManiaWorldController {
    */
   private Timeline timeline;
 
-  private Image vampireCastleCardImage;
-  private Image basicEnemyImage;
-  private Image swordImage;
-  private Image basicBuildingImage;
-
   /**
    * the image currently being dragged, if there is one, otherwise null. Holding
    * the ImageView being dragged allows us to spawn it again in the drop location
    * if appropriate.
    */
-  // TODO = it would be a good idea for you to instead replace this with the
-  // building/item which should be dropped
   private ImageView currentlyDraggedImage;
 
   /**
@@ -221,11 +214,6 @@ public class LoopManiaWorldController {
   public LoopManiaWorldController(LoopManiaWorld world, List<ImageView> initialEntities) {
     this.world = world;
     entityImages = new ArrayList<>(initialEntities);
-    vampireCastleCardImage = new Image((new File("src/images/vampire_castle_card.png")).toURI().toString());
-    basicEnemyImage = new Image((new File("src/images/slug.png")).toURI().toString());
-    swordImage = new Image((new File("src/images/basic_sword.png")).toURI().toString());
-    basicBuildingImage = new Image(
-        (new File("src/images/vampire_castle_building_purple_background.png")).toURI().toString());
     currentlyDraggedImage = null;
     currentlyDraggedType = null;
 

@@ -87,7 +87,7 @@ public abstract class LoopManiaWorldLoader {
 
   /**
    * load an entity into the world
-   * 
+   *
    * @param world       backend world object
    * @param json        a JSON object to parse (different from the )
    * @param orderedPath list of pairs of x, y cell coordinates representing game
@@ -123,7 +123,7 @@ public abstract class LoopManiaWorldLoader {
 
   /**
    * load path tiles
-   * 
+   *
    * @param path   json data loaded from file containing path information
    * @param width  width in number of cells
    * @param height height in number of cells
@@ -191,7 +191,5 @@ public abstract class LoopManiaWorldLoader {
   public abstract void onLoad(Building building);
 
   public abstract void onLoad(PathTile pathTile, PathTile.Direction into, PathTile.Direction out);
-
-  // TODO Create additional abstract methods for the other entities
 
 }
