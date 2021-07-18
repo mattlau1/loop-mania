@@ -347,6 +347,9 @@ public class LoopManiaWorld {
         for (Item equippedItems : equippedInventoryItems) {
           characterDamage *= equippedItems.atkMultiplier(enemy);
         }
+        System.out.println("WOOOOOOOOOOOO");
+        System.out.println(characterDamage);
+        System.out.println("WOOOOOOOOOOOO");
         Random random = new Random();
         int randInt = random.nextInt(2);
         if (randInt == 1) {
@@ -358,6 +361,7 @@ public class LoopManiaWorld {
         // Every enemy in the battle attacks any soldiers, then the character
         for (Enemy currBattlingEnemy : battlingEnemies) {
           // test(currBattlingEnemy);
+          if (currBattlingEnemy.isDead()) continue;
           boolean criticalHit = false;
           random = new Random();
           randInt = random.nextInt(100) + 1;
@@ -407,10 +411,16 @@ public class LoopManiaWorld {
           }
         }
         for (Enemy currBattlingEnemy : zombieSoldiers) {
+          if (currBattlingEnemy.isDead()) continue;
           for (Item equippedItems : equippedInventoryItems) {
             enemyDamage *= equippedItems.defMultiplier(currBattlingEnemy);
           }
-          if (soldiers.size() > 0) {
+          if (trancedSoldiers.size() > 0) {
+            Soldier s = trancedSoldiers.get(0);
+            s.reduceHealth(enemyDamage);
+            if (s.isDead())
+              soldiers.remove(0);
+          } else if (soldiers.size() > 0) {
             Soldier s = soldiers.get(0);
             s.reduceHealth(enemyDamage);
             if (s.isDead())
