@@ -12,12 +12,14 @@ public class AndComplex extends ComplexGoal {
     public String getValue() {
       StringBuilder result = new StringBuilder();
       result.append("(");
-      result.append("AND ");
       for (ComplexNode child : children) {
         result.append(child.getValue());
         result.append(" ");
+        result.append("AND ");
       }
-      result.deleteCharAt(result.length() - 1);
+      for (int i = 1; i <= 5; i++) {
+        result.deleteCharAt(result.length() - 1);
+      }
       result.append(")");
       return result.toString();
     }

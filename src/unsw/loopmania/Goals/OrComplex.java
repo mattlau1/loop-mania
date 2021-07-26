@@ -12,12 +12,14 @@ public class OrComplex extends ComplexGoal {
     public String getValue() {
       StringBuilder result = new StringBuilder();
       result.append("(");
-      result.append("OR ");
       for (ComplexNode child : children) {
         result.append(child.getValue());
         result.append(" ");
+        result.append("OR ");
       }
-      result.deleteCharAt(result.length() - 1);
+      for (int i = 1; i <= 4; i++) {
+        result.deleteCharAt(result.length() - 1);
+      }
       result.append(")");
       return result.toString();
     }

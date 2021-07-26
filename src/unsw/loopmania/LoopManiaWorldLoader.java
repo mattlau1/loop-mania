@@ -118,9 +118,9 @@ public abstract class LoopManiaWorldLoader {
     if (goals.getString("goal").equals("experience")) {
       root.add(new ExperienceGoal(goals.getInt("quantity")));
     } else if (goals.getString("goal").equals("gold")) {
-      root.add(new ExperienceGoal(goals.getInt("quantity")));
-    } else if (goals.getString("goal").equals("cycle")) {
-      root.add(new ExperienceGoal(goals.getInt("quantity")));
+      root.add(new GoldGoal(goals.getInt("quantity")));
+    } else if (goals.getString("goal").equals("cycles")) {
+      root.add(new CycleGoal(goals.getInt("quantity")));
     } else if (goals.getString("goal").equals("AND")) {
       ComplexGoal andComplexGoal = new AndComplex();
       JSONArray g = goals.getJSONArray("subgoals");

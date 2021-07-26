@@ -94,7 +94,15 @@ public class SimpleGoal implements ComplexNode {
 
   public String getValue() {
     // return Boolean.toString(value);
-    return ("zap" + quantity + goalType);
+    if (goalType.equals("Experience")) {
+      return ("obtaining " + quantity + " experience points");
+    } else if (goalType.equals("Cycle")) {
+      return ("completing " + quantity + " cycles");
+    } else if (goalType.equals("Gold")) {
+      return ("amassing " + quantity + " gold");
+    }
+    
+    return ("no goal");
   }
 
 }
