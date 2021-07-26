@@ -93,7 +93,8 @@ public class SimpleGoal implements ComplexNode {
   }
 
   public String getValue() {
-    return Boolean.toString(value);
+    // return Boolean.toString(value);
+    return ("zap" + quantity + goalType);
   }
 
 }

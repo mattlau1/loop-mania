@@ -114,7 +114,7 @@ public abstract class LoopManiaWorldLoader {
     } 
   }
 
-  private ComplexGoal addComplexGoals(JSONObject goals, ComplexGoal root) {
+  private void addComplexGoals(JSONObject goals, ComplexGoal root) {
     if (goals.getString("goal").equals("experience")) {
       root.add(new ExperienceGoal(goals.getInt("quantity")));
     } else if (goals.getString("goal").equals("gold")) {
@@ -132,14 +132,16 @@ public abstract class LoopManiaWorldLoader {
       JSONArray g = goals.getJSONArray("subgoals");
       loadArrayOfGoals(g, orComplexGoal);
       root.add(orComplexGoal);
+    } else {
+      return;
     }
-    return root;
+    return;
   }
 
   // FOR COMPLEX GOALS
   private void loadArrayOfGoals(JSONArray g, ComplexGoal cg) {
     for (int i = 0; i < g.length(); i++) {
-      cg.add(addComplexGoals(g.getJSONObject(i), cg));
+      addComplexGoals(g.getJSONObject(i), cg);
     }
   }
 
