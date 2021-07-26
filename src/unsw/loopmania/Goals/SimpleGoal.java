@@ -1,8 +1,8 @@
 package unsw.loopmania.Goals;
 
-public class SimpleGoal extends Goal {
-  private int goalValue;
-  private boolean isCompleted;
+public class SimpleGoal implements ComplexNode {
+  private int quantity;
+  private boolean value;
   private String goalType;
 
   /**
@@ -12,8 +12,8 @@ public class SimpleGoal extends Goal {
    * @param goalType a string which classify the simple goal (gold, exp, cycle)
    */
   public SimpleGoal(int goalValue, String goalType) {
-    this.goalValue = goalValue;
-    this.isCompleted = false;
+    this.quantity = goalValue;
+    this.value = false;
     this.goalType = goalType;
   }
 
@@ -23,7 +23,7 @@ public class SimpleGoal extends Goal {
    * @return the quantitiy for the goal
    */
   public int getGoalValue() {
-    return goalValue;
+    return quantity;
   }
 
   /**
@@ -32,7 +32,7 @@ public class SimpleGoal extends Goal {
    * @param goalValue the new quantitiy for the goal
    */
   public void setGoalValue(int goalValue) {
-    this.goalValue = goalValue;
+    this.quantity = goalValue;
   }
 
   /**
@@ -40,8 +40,8 @@ public class SimpleGoal extends Goal {
    *
    * @return the boolean for if the goal is completed
    */
-  public boolean isCompleted() {
-    return isCompleted;
+  public boolean isValue() {
+    return value;
   }
 
   /**
@@ -50,7 +50,7 @@ public class SimpleGoal extends Goal {
    * @param goalCheck the boolean to change the state of goal check
    */
   public void setGoalCheck(boolean goalCheck) {
-    this.isCompleted = goalCheck;
+    this.value = goalCheck;
   }
 
   /**
@@ -77,11 +77,23 @@ public class SimpleGoal extends Goal {
    * @param value check if the value has meet the goal's quantity
    */
   public boolean goalMeetsRequirement(int value) {
-    if ((value >= goalValue) && !isCompleted()) {
+    if ((value >= quantity) && !isValue()) {
       setGoalCheck(true);
       return true;
     }
     return false;
+  }
+
+  public ComplexNode add(ComplexNode expression) {
+    return this;
+  }
+
+  public boolean evaluate() {
+    return value;
+  }
+
+  public String getValue() {
+    return Boolean.toString(value);
   }
 
 }

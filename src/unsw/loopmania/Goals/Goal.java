@@ -7,12 +7,14 @@ import unsw.loopmania.Character;
 
 public class Goal {
   private List<SimpleGoal> goals;
+  private List<ComplexGoal> complexGoals;
 
   /**
    * A goal constructur which will hold lists of simple goals
    */
   public Goal() {
     this.goals = new ArrayList<SimpleGoal>();
+    this.complexGoals = new ArrayList<ComplexGoal>();
   }
 
   /**
@@ -23,6 +25,16 @@ public class Goal {
   public void addGoal(SimpleGoal goal) {
     goals.add(goal);
   }
+
+  /**
+   * Add the simple goal into the goal list
+   *
+   * @param goal the goal will be added into the goal list
+   */
+  public void addComplexGoal(ComplexGoal goal) {
+    complexGoals.add(goal);
+  }
+
 
   /**
    * Get the list of goals
@@ -102,7 +114,7 @@ public class Goal {
     int numGoals = getGoals().size();
 
     for (SimpleGoal g : getGoals()) {
-      if (g.isCompleted())
+      if (g.isValue())
         count++;
     }
 
@@ -111,6 +123,20 @@ public class Goal {
       return true;
     // not yet
     return false;
+  }
+
+  /**
+   * Pretty prints the complex goals
+   */
+  public static String prettyPrint(ComplexNode expression) {
+    // Pretty print the expression
+    return expression.getValue();
+  }
+
+  public void printGoals() {
+    for (ComplexGoal g: complexGoals) {
+      System.out.println(prettyPrint(g));
+    }
   }
 
 }

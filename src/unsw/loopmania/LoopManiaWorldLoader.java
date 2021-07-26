@@ -22,6 +22,9 @@ import unsw.loopmania.Buildings.ZombiePitStrategy;
 import unsw.loopmania.Goals.Goal;
 import unsw.loopmania.Goals.GoldGoal;
 import unsw.loopmania.Goals.ExperienceGoal;
+import unsw.loopmania.Goals.AndComplex;
+import unsw.loopmania.Goals.OrComplex;
+import unsw.loopmania.Goals.ComplexGoal;
 import unsw.loopmania.Goals.CycleGoal;
 
 import java.util.List;
@@ -69,25 +72,74 @@ public abstract class LoopManiaWorldLoader {
       loadEntity(world, jsonEntities.getJSONObject(i), orderedPath);
     }
 
+    // add pretty print
+    goal.printGoals();
+
     return world;
   }
 
+  // private void loadGoals(JSONObject goals) {
+  //   if (goals.getString("goal").equals("AND")) {
+  //     JSONArray g = goals.getJSONArray("subgoals");
+  //     loadArrayOfGoals(g);
+  //   } else if (goals.getString("goal").equals("experience")) {
+  //     goal.addGoal(new ExperienceGoal(goals.getInt("quantity")));
+  //   } else if (goals.getString("goal").equals("gold")) {
+  //     goal.addGoal(new GoldGoal(goals.getInt("quantity")));
+  //   } else if (goals.getString("goal").equals("cycle")) {
+  //     goal.addGoal(new CycleGoal(goals.getInt("quantity")));
+  //   }
+  // }
+
+  // private void loadArrayOfGoals(JSONArray g) {
+  //   for (int i = 0; i < g.length(); i++) {
+  //     loadGoals(g.getJSONObject(i));
+  //   }
+  // }
+
+  // FOR COMPLEX GOALS
   private void loadGoals(JSONObject goals) {
     if (goals.getString("goal").equals("AND")) {
+      // COMPLEX GOAL FOUND
+      ComplexGoal andComplexGoal = new AndComplex();
       JSONArray g = goals.getJSONArray("subgoals");
-      loadArrayOfGoals(g);
-    } else if (goals.getString("goal").equals("experience")) {
-      goal.addGoal(new ExperienceGoal(goals.getInt("quantity")));
-    } else if (goals.getString("goal").equals("gold")) {
-      goal.addGoal(new GoldGoal(goals.getInt("quantity")));
-    } else if (goals.getString("goal").equals("cycle")) {
-      goal.addGoal(new CycleGoal(goals.getInt("quantity")));
-    }
+      loadArrayOfGoals(g, andComplexGoal);
+      goal.addComplexGoal(andComplexGoal);
+    } else if (goals.getString("goal").equals("OR")) {
+      // COMPLEX GOAL FOUND
+      ComplexGoal orComplexGoal = new OrComplex();
+      JSONArray g = goals.getJSONArray("subgoals");
+      loadArrayOfGoals(g, orComplexGoal);
+      goal.addComplexGoal(orComplexGoal);
+    } 
   }
 
-  private void loadArrayOfGoals(JSONArray g) {
+  private ComplexGoal addComplexGoals(JSONObject goals, ComplexGoal root) {
+    if (goals.getString("goal").equals("experience")) {
+      root.add(new ExperienceGoal(goals.getInt("quantity")));
+    } else if (goals.getString("goal").equals("gold")) {
+      root.add(new ExperienceGoal(goals.getInt("quantity")));
+    } else if (goals.getString("goal").equals("cycle")) {
+      root.add(new ExperienceGoal(goals.getInt("quantity")));
+    } else if (goals.getString("goal").equals("AND")) {
+      ComplexGoal andComplexGoal = new AndComplex();
+      JSONArray g = goals.getJSONArray("subgoals");
+      loadArrayOfGoals(g, andComplexGoal);
+      root.add(andComplexGoal);
+      // do something 
+    } else if (goals.getString("goal").equals("OR")) {
+      ComplexGoal orComplexGoal = new OrComplex();
+      JSONArray g = goals.getJSONArray("subgoals");
+      loadArrayOfGoals(g, orComplexGoal);
+      root.add(orComplexGoal);
+    }
+    return root;
+  }
+
+  // FOR COMPLEX GOALS
+  private void loadArrayOfGoals(JSONArray g, ComplexGoal cg) {
     for (int i = 0; i < g.length(); i++) {
-      loadGoals(g.getJSONObject(i));
+      cg.add(addComplexGoals(g.getJSONObject(i), cg));
     }
   }
 
