@@ -1042,8 +1042,8 @@ public class LoopManiaWorld {
     character.moveDownPath();
     useIfAtHerosCastle();
     moveBasicEnemies();
-    // if (goal.isGameWon(character))
-    //   System.exit(0);
+    if (goal.isGameWon(character))
+      System.exit(0);
   }
 
   /**

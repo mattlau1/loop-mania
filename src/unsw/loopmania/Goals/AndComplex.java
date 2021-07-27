@@ -1,12 +1,14 @@
 package unsw.loopmania.Goals;
 
+import unsw.loopmania.Character;
+
 public class AndComplex extends ComplexGoal {
     @Override
-    public boolean evaluate() {
+    public boolean evaluate(Character character) {
       for (ComplexNode child : children)
-        if (!child.evaluate())
-          return true;
-      return false;
+        if (!child.evaluate(character))
+          return false;
+      return true;
     }
   
     public String getValue() {

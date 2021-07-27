@@ -1,10 +1,12 @@
 package unsw.loopmania.Goals;
 
+import unsw.loopmania.Character;
+
 public class OrComplex extends ComplexGoal {
     @Override
-    public boolean evaluate() {
+    public boolean evaluate(Character character) {
       for (ComplexNode child : children)
-        if (child.evaluate())
+        if (child.evaluate(character))
           return true;
       return false;
     }

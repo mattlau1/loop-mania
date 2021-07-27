@@ -73,7 +73,7 @@ public class Goal {
     updateExperienceStatus(character.getExp());
     updateCycleStatus(character.getCycleCount());
     updateGoldStatus(character.getGold());
-    return isGoalCompleted();
+    return isGoalCompleted(character);
   }
 
   /**
@@ -118,10 +118,10 @@ public class Goal {
   /**
    * Checks if all the goal has been completed and will determine if game is won
    */
-  public boolean isGoalCompleted() {
+  public boolean isGoalCompleted(Character character) {
 
-    // check simple goal
-    if (getSimpleGoals().size() == 0) {
+    // check if the simple goal has been completed
+    if (getSimpleGoals().size() != 0) {
       int count = 0;
       int numGoals = getSimpleGoals().size();
   
@@ -131,11 +131,22 @@ public class Goal {
       }
   
       // game won
-      if (count == numGoals)
+      if (count == numGoals) {
+        System.out.println("ZAP");
         return true;
+      }
+        
+    } 
+
+    // check if the complex goal has been completed
+    for (ComplexGoal g : getComplexGoals()) {
+      if (g.evaluate(character)) {
+        System.out.println("ZAP");
+        return true;
+      }
     }
 
-    // not yet
+    // hasn't been completed  yet
     return false;
   }
 

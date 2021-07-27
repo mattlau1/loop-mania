@@ -1,5 +1,7 @@
 package unsw.loopmania.Goals;
 
+import unsw.loopmania.Character;
+
 public class SimpleGoal implements ComplexNode {
   private int quantity;
   private boolean value;
@@ -88,7 +90,19 @@ public class SimpleGoal implements ComplexNode {
     return this;
   }
 
-  public boolean evaluate() {
+  public boolean evaluate(Character character) {
+    if (goalType.equals("Experience") && (character.getExp() >= quantity)) {
+      return true;
+    } else if (goalType.equals("Cycle") && (character.getCycleCount() >= quantity)) {
+      return true;
+    } else if (goalType.equals("Gold") && (character.getGold() >= quantity)) {
+      return true;
+    }
+    System.out.println(goalType);
+    System.out.println(character.getExp());
+    System.out.println(character.getCycleCount());
+    System.out.println(character.getGold());
+    System.out.println(value);
     return value;
   }
 
