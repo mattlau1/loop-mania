@@ -478,19 +478,18 @@ public class LoopManiaWorld {
   }
 
   /**
-   * Changes enemy direction if they are a vampire and they are within range of a
+   * Changes vampire direction if they are within range of a
    * campfire
    *
-   * @param enemy    enemy whose direction to change
+   * @param vampire  vampire whose direction to change
    * @param building building to check if campfire
    */
-  private void changeVampireDirection(Enemy enemy, Building building) {
+  private void changeVampireDirection(VampireEnemy vampire, Building building) {
     // vampire has special interaction with the campfire
-    if (isInRange(building, enemy) && (building.getStrategy() instanceof CampfireStrategy)) {
-      if (enemy instanceof VampireEnemy)
-        enemy.changeDirection();
+    if (isInRange(building, vampire) && (building.getStrategy() instanceof CampfireStrategy)) {
+      vampire.changeDirection();
     } else {
-      enemy.resetHasChangedDirection();
+      vampire.resetHasChangedDirection();
     }
   }
 
@@ -516,7 +515,8 @@ public class LoopManiaWorld {
   private void useBuildingsOnEnemiesOutsideCombat(List<Building> buildingsToDestroy, List<Enemy> defeatedEnemies) {
     for (Building b : buildingEntities) {
       for (Enemy e : enemies) {
-        changeVampireDirection(e, b);
+        if (e instanceof VampireEnemy)
+          changeVampireDirection((VampireEnemy) e, b);
         if (isInRange(b, e) && b.usableOutsideCombat()) {
           b.useBuilding(e);
           if (e.isDead())
@@ -777,7 +777,6 @@ public class LoopManiaWorld {
     destroyBuildings(buildingsToDestroy);
     useItemsOnCharacterOutsideCombat();
 
-    // building for enemies and character inside of combat
     for (Enemy enemy : battlingEnemies) {
       while (enemy.isAlive()) {
         useBuildingsOnEntitiesInCombat(enemy);
@@ -793,6 +792,7 @@ public class LoopManiaWorld {
       defeatedEnemies.add(enemy);
       character.addEXP(enemy.getExpDrop());
       character.addGold(enemy.getGoldDrop());
+      character.addDoggieCoins(enemy.getDoggieCoinDrop());
     }
 
     trancedSoldiers.clear();
