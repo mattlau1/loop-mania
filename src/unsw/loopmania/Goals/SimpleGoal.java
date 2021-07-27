@@ -93,7 +93,6 @@ public class SimpleGoal implements ComplexNode {
   }
 
   public String getValue() {
-    // return Boolean.toString(value);
     if (goalType.equals("Experience")) {
       return ("obtaining " + quantity + " experience points");
     } else if (goalType.equals("Cycle")) {
@@ -104,5 +103,4 @@ public class SimpleGoal implements ComplexNode {
     
     return ("no goal");
   }
-
 }
