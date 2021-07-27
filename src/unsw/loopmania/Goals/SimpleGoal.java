@@ -90,6 +90,7 @@ public class SimpleGoal implements ComplexNode {
     return this;
   }
 
+  // use observer pattern to change the value instead of doing it here
   public boolean evaluate(Character character) {
     if (goalType.equals("Experience") && (character.getExp() >= quantity)) {
       return true;
@@ -98,11 +99,6 @@ public class SimpleGoal implements ComplexNode {
     } else if (goalType.equals("Gold") && (character.getGold() >= quantity)) {
       return true;
     }
-    System.out.println(goalType);
-    System.out.println(character.getExp());
-    System.out.println(character.getCycleCount());
-    System.out.println(character.getGold());
-    System.out.println(value);
     return value;
   }
 
