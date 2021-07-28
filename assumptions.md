@@ -41,3 +41,7 @@
 - Stakes cost 20 gold
 - Swords cost 120 gold
 - Items sell for 20% of their buying price
+- Doggie does not spawn randomly
+- Doggie spawns from a building, which is created when the map is loaded
+- Elan Muske does not spawn randomly
+- Elan Muske spawns from a building, which is created when the map is loaded
