@@ -3,8 +3,6 @@ package unsw.loopmania.Goals;
 import java.util.ArrayList;
 import java.util.List;
 
-import unsw.loopmania.Character;
-
 public class Goal {
   private List<SimpleGoal> simpleGoals;
   private List<ComplexGoal> complexGoals;
@@ -66,14 +64,13 @@ public class Goal {
   /**
    * A method which checks each goal whether it has meet the requirement
    *
-   * @param character to get the character's status to check the goal
-   * @return the boolean if the character has meet all the requirement
+   * @return the boolean if the character has meet all the requirements
    */
-  public boolean isGameWon(Character character) {
-    updateExperienceStatus(character.getExp());
-    updateCycleStatus(character.getCycleCount());
-    updateGoldStatus(character.getGold());
-    return isGoalCompleted(character);
+  public boolean isGameWon() {
+      if (isSimpleCompleted() || isComplexCompleted())
+        return true;
+  
+      return false;
   }
 
   /**
@@ -88,6 +85,7 @@ public class Goal {
         g.setGoalCheck(true);
       }
     }
+    // update goal for complex goals
     updateComplexGoals(exp, "Experience");
   }
 
@@ -102,6 +100,7 @@ public class Goal {
         g.setGoalCheck(true);
       }
     }
+    // update goal for complex goals
     updateComplexGoals(gold, "Gold");
   }
 
@@ -116,19 +115,20 @@ public class Goal {
         g.setGoalCheck(true);
       }
     }
+    // update goal for complex goals
     updateComplexGoals(cycle, "Cycle");
   }
 
   /**
-   * Checks if all the goal has been completed and will determine if game is won
+   * A helper function for isGameWon()
+   * Check if the simple goal is completed
+   * 
+   * @return the boolean to indicate if the simple goal is completed
    */
-  public boolean isGoalCompleted(Character character) {
-
-    // check if the simple goal has been completed
+  public boolean isSimpleCompleted() {
     if (getSimpleGoals().size() != 0) {
       int count = 0;
       int numGoals = getSimpleGoals().size();
-  
       for (SimpleGoal g : getSimpleGoals()) {
         if (g.isValue())
           count++;
@@ -138,20 +138,40 @@ public class Goal {
       if (count == numGoals) {
         return true;
       }
-        
     } 
-
-    // check if the complex goal has been completed
-    for (ComplexGoal g : getComplexGoals()) {
-      if (g.evaluate()) {
-        return true;
-      }
-    }
-
-    // hasn't been completed  yet
     return false;
   }
 
+  /**
+   * A helper function for isGameWon()
+   * Check if the complex goal is completed
+   * 
+   * @return the boolean to indicate if the complex goal is completed
+   */
+  public boolean isComplexCompleted() {
+    for (ComplexGoal g : getComplexGoals()) {
+      if (g.evaluate()) {
+        // all the requiremetn has b
+        return true;
+      }
+    }
+    // hasn't been completed yet
+    return false;
+  }
+
+  /**
+   * Update the complex goal status as the observer detects the changes
+   * 
+   * @param value the quantity that the character holds for either exp, cycle or gold
+   * @param goalType the type that distinguish individial simple goal
+   */
+  public void updateComplexGoals(int value, String goalType) {
+    for (ComplexGoal g: getComplexGoals()) {
+      g.updateValue(value, goalType);
+    }
+  }
+
+  // ~~~~~~~~~~~~~~~~~~ DELETE BELOW AT THE END ~~~~~~~~~~~~~~~~~~~~~
   // TESTING PURPOSES
   public static String prettyPrintComplex(ComplexNode expression) {
     // Pretty print the expression
@@ -174,12 +194,6 @@ public class Goal {
   public void printSimpleGoal() {
     for (SimpleGoal s:  simpleGoals) {
       System.out.println(prettyPrintComplex(s));
-    }
-  }
-
-  public void updateComplexGoals(int value, String goalType) {
-    for (ComplexGoal g: getComplexGoals()) {
-      g.updateValue(value, goalType);
     }
   }
 

@@ -34,7 +34,10 @@ import unsw.loopmania.Cards.ZombiePitCardStrategy;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SlugEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
+import unsw.loopmania.Goals.CycleObserver;
+import unsw.loopmania.Goals.EXPObserver;
 import unsw.loopmania.Goals.Goal;
+import unsw.loopmania.Goals.GoldObserver;
 
 /**
  * A backend world.
@@ -237,6 +240,9 @@ public class LoopManiaWorld {
    */
   public void setCharacter(Character character) {
     this.character = character;
+    new EXPObserver(character, goal);
+    new GoldObserver(character, goal);
+    new CycleObserver(character, goal);
   }
 
   /**
@@ -1042,7 +1048,7 @@ public class LoopManiaWorld {
     character.moveDownPath();
     useIfAtHerosCastle();
     moveBasicEnemies();
-    if (goal.isGameWon(character))
+    if (goal.isGameWon())
       System.exit(0);
   }
 
