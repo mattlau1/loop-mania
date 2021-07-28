@@ -35,58 +35,123 @@ public class Character extends MovingEntity {
     this.cycleProperty = new SimpleIntegerProperty(this, "cycle", 0);
   }
 
+  /**
+   * Gets the list of soliders
+   * 
+   * @return the list of soliders
+   */
   public List<Soldier> getSoldiers() {
     return soldiers;
   }
 
+  /**
+   * Gets a particular soldier with the given index
+   * 
+   * @param index the index of the solider
+   * @return the soldier at the index
+   */
   public Soldier getSoldiersFromIndex(int index) {
     return soldiers.get(index);
   }
 
+  /**
+   * Gets a particular soldier with the given index
+   * 
+   * @param index the index of the solider
+   */
   public Soldier removeSoldiersFromIndex(int index) {
     return soldiers.remove(index);
   }
 
+  /**
+   * Sets the list of soldiers with the list
+   * 
+   * @param soliders the new list of soldiers
+   */
   public void setSoldiers(List<Soldier> soldiers) {
     this.soldiers = soldiers;
   }
 
+  /**
+   * Add a new solider into the list
+   */
   public void addSoldier() {
     this.soldiers.add(new Soldier());
   }
 
+  /**
+   * Add a new solider into the list
+   */
   public int soldiersSize() {
     return this.soldiers.size();
   }
 
+  /**
+   * Gets the initial health of the character
+   * 
+   * @return the initial health
+   */
   public double getInitialHealth() {
     return initialHealth;
   }
 
+  /**
+   * Gets the max health of the character
+   * 
+   * @return the max health
+   */
   public double getMaxHealth() {
     return initialHealth;
   }
 
+  /**
+   * Gets the current health of the character
+   * 
+   * @return the current health
+   */
   public double getHealth() {
     return healthProperty.get();
   }
 
+  /**
+   * Sets the health of the character with the new value
+   */
   public void setHealth(double health) {
     healthProperty.set(health);
   }
 
+  /**
+   * Gets the current gold the character is holding
+   * 
+   * @return the gold amount
+   */
   public int getGold() {
     return goldProperty.get();
   }
 
+  /**
+   * Sets a new gold value for character to hold
+   * 
+   * @param gold the new gold amount
+   */
   public void setGold(int gold) {
     goldProperty.set(gold);
   }
 
+  /**
+   * Gets the current experience the character is holding
+   * 
+   * @return the experience amount
+   */
   public int getExp() {
     return expProperty.get();
   }
 
+  /**
+   * Sets a new experience value for character to hold
+   * 
+   * @param exp the new experience amount
+   */
   public void setExp(int exp) {
     expProperty.set(exp);
   }
@@ -109,39 +174,82 @@ public class Character extends MovingEntity {
     return damage * damageMultiplier;
   }
 
+  /**
+   * Sets character's damage
+   *
+   * @param damage character's new damage
+   */
   public void setDamage(double damage) {
     this.damage = damage;
   }
 
+  /**
+   * Gets character's damage multiplier
+   *
+   * @return character's damage multiplier
+   */
   public double getDamageMultiplier() {
     return damageMultiplier;
   }
 
+  /**
+   * Sets character's damage multiplier
+   *
+   * @param damageMultiplier character's new damage multiplier
+   */
   public void setDamageMultiplier(double damageMultiplier) {
     this.damageMultiplier = damageMultiplier;
   }
 
+  /**
+   * Reset the damage multiplier to the default value
+   */
   public void resetDamageMultiplier() {
     this.damageMultiplier = 1;
   }
 
+  /**
+   * Checks if the character is still alive
+   * 
+   * @return the boolean if the character is still alive
+   */
   public boolean isAlive() {
     return healthProperty.get() > 0;
   }
 
+  /**
+   * Checks if the character is dead
+   * 
+   * @return the boolean if the character is dead
+   */
   public boolean isDead() {
     return healthProperty.get() <= 0;
   }
 
+  /**
+   * Increases character's gold by given amount, holding more gold
+   * 
+   * @param gold the amount of gold to add
+   */  
   public void addGold(int gold) {
     goldProperty.set(goldProperty.get() + gold);
     notifyAllObservers();
   }
 
+  /**
+   * Reduces character's gold by given amount, holding less gold
+   * 
+   * @param gold the amount of gold to reduce
+   */  
   public void deductGold(int gold) {
     goldProperty.set(goldProperty.get() - gold);
   }
 
+  /**
+   * Increases character's experience by given amount, holding more expeirence
+   * 
+   * @param gold the amount of experience to add
+   */  
   public void addEXP(int exp) {
     expProperty.set(expProperty.get() + exp);
     notifyAllObservers();
@@ -182,26 +290,56 @@ public class Character extends MovingEntity {
     return cycleProperty.get();
   }
 
+  /**
+   * Gets the list of buffs on the character
+   *
+   * @return the list of buffs
+   */
   public List<Buff> getBuffs() {
     return buffs;
   }
 
+  /**
+   * Add a new buff into the list of buffs
+   *
+   * @return the new buff to be added
+   */
   public void addBuffs(Buff buff) {
     this.buffs.add(buff);
   }
 
+  /**
+   * Gets the current health of the character
+   * 
+   * @return the current health
+   */
   public SimpleDoubleProperty getHealthProperty() {
     return healthProperty;
   }
 
+  /**
+   * Gets the current experience the character is holding
+   * 
+   * @return the experience amount
+   */
   public SimpleIntegerProperty getExpProperty() {
     return expProperty;
   }
 
+  /**
+   * Gets the current gold the character is holding
+   * 
+   * @return the gold amount
+   */
   public SimpleIntegerProperty getGoldProperty() {
     return goldProperty;
   }
 
+  /**
+   * Gets the cycle that the character is currently on
+   *
+   * @return current cycle number
+   */
   public SimpleIntegerProperty getCycleProperty() {
     return cycleProperty;
   }
@@ -216,7 +354,7 @@ public class Character extends MovingEntity {
   }
 
   /**
-   * Update all the observers
+   * Update all the observers when the stats are updated on the character
    */
   public void notifyAllObservers(){
     for (Observer observer : observers) {
