@@ -133,7 +133,7 @@ public class Goal {
         if (g.isValue())
           count++;
       }
-  
+
       // game won
       if (count == numGoals) {
         return true;
