@@ -310,7 +310,7 @@ public class LoopManiaWorldController {
     isPaused = false;
     // trigger adding code to process main game logic to queue. JavaFX will target
     // framerate of 0.3 seconds
-    timeline = new Timeline(new KeyFrame(Duration.seconds(0.1), event -> {
+    timeline = new Timeline(new KeyFrame(Duration.seconds(0.05), event -> {
       world.runTickMoves();
       List<Enemy> defeatedEnemies = world.runBattles();
       for (Enemy e : defeatedEnemies) {
@@ -325,7 +325,7 @@ public class LoopManiaWorldController {
       for (Item item : newItems) {
         onLoadPath(item);
       }
-      printThreadingNotes("HANDLED TIMER");
+      // printThreadingNotes("HANDLED TIMER");
     }));
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();

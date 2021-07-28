@@ -4,7 +4,8 @@
   "rare_items": [],
   "goal-condition": {"goal": "experience", "quantity": 123456 },
   "entities": [
-    {"x": 0, "y": 0, "type": "hero_castle"}
+    {"x": 0, "y": 0, "type": "hero_castle"},
+    {"x": 2, "y": 7, "type": "doggie_house"}
   ],
   "path": {
     "type": "path_tile",

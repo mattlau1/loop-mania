@@ -13,11 +13,13 @@ import unsw.loopmania.Buffs.Buff;
 public class Character extends MovingEntity {
   private final double initialHealth = 100;
   private final int initialGold = 0;
+  private final int initialDoggieCoin = 0;
   private final int initialExp = 0;
   private double damage = 15;
   private double damageMultiplier = 1;
   private SimpleDoubleProperty healthProperty;
   private SimpleIntegerProperty goldProperty;
+  private SimpleIntegerProperty doggieCoinProperty;
   private SimpleIntegerProperty expProperty;
   private SimpleIntegerProperty cycleProperty;
   private List<Buff> buffs;
@@ -29,6 +31,7 @@ public class Character extends MovingEntity {
     buffs = new ArrayList<>();
     this.healthProperty = new SimpleDoubleProperty(this, "health", initialHealth);
     this.goldProperty = new SimpleIntegerProperty(this, "gold", initialGold);
+    this.doggieCoinProperty = new SimpleIntegerProperty(this, "doggieCoin", initialDoggieCoin);
     this.expProperty = new SimpleIntegerProperty(this, "exp", initialExp);
     this.cycleProperty = new SimpleIntegerProperty(this, "cycle", 0);
   }
@@ -79,6 +82,14 @@ public class Character extends MovingEntity {
 
   public void setGold(int gold) {
     goldProperty.set(gold);
+  }
+
+  public int getDoggieCoins() {
+    return doggieCoinProperty.get();
+  }
+
+  public void setDoggieCoins(int doggieCoins) {
+    doggieCoinProperty.set(doggieCoins);
   }
 
   public int getExp() {
@@ -137,6 +148,14 @@ public class Character extends MovingEntity {
 
   public void deductGold(int gold) {
     goldProperty.set(goldProperty.get() - gold);
+  }
+
+  public void addDoggieCoins(int doggieCoins) {
+    doggieCoinProperty.set(doggieCoinProperty.get() + doggieCoins);
+  }
+
+  public void deductDoggieCoins(int doggieCoins) {
+    doggieCoinProperty.set(doggieCoinProperty.get() - doggieCoins);
   }
 
   public void addEXP(int exp) {
@@ -200,5 +219,11 @@ public class Character extends MovingEntity {
   public SimpleIntegerProperty getCycleProperty() {
     return cycleProperty;
   }
+
+  public SimpleIntegerProperty getDoggieCoinProperty() {
+    return doggieCoinProperty;
+  }
+
+
 
 }
