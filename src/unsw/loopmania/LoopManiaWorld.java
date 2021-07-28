@@ -31,6 +31,7 @@ import unsw.loopmania.Cards.TrapCardStrategy;
 import unsw.loopmania.Cards.VampireCastleCardStrategy;
 import unsw.loopmania.Cards.VillageCardStrategy;
 import unsw.loopmania.Cards.ZombiePitCardStrategy;
+import unsw.loopmania.Enemies.DoggieEnemy;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SlugEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
@@ -284,6 +285,10 @@ public class LoopManiaWorld {
     character.setHealth(character.getMaxHealth());
   }
 
+  public void spawnEnemy(Enemy enemy, List<Enemy> spawningEnemies) {
+    enemies.add(enemy);
+    spawningEnemies.add(enemy);
+  }
   /**
    * spawns enemies if the conditions warrant it, adds to world
    *
@@ -291,25 +296,26 @@ public class LoopManiaWorld {
    */
 
   public List<Enemy> possiblySpawnEnemies() {
-
-    Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
     List<Enemy> spawningEnemies = new ArrayList<>();
-    if (pos != null) {
-      int indexInPath = orderedPath.indexOf(pos);
+    Pair<Integer, Integer> randomPos = possiblyGetBasicEnemySpawnPosition();
+    int indexInPath = orderedPath.indexOf(randomPos);
 
+    // spawn randomly spawning enemies
+    if (randomPos != null) {
       // spawns a slug
       Enemy slug = new SlugEnemy(new PathPosition(indexInPath, orderedPath));
       enemies.add(slug);
       spawningEnemies.add(slug);
     }
+
     // go through every building in the world
     // if the building can spawn enemies, check cycle count
     // and spawn an enemy on the closest path tile to that building
     for (Building building : buildingEntities) {
       if (isAtHerosCastle()) {
-        if (building.canSpawnEnemy(character.getCycleCount())) {
-          Pair<Integer, Integer> buildingLocation = neighbourPath(building.getX(), building.getY());
-          int buildingIndexInPath = orderedPath.indexOf(buildingLocation);
+        if (building.canSpawnEnemy(character)) {
+          Pair<Integer, Integer> spawnLocation = neighbourPath(building.getX(), building.getY());
+          int buildingIndexInPath = orderedPath.indexOf(spawnLocation);
           Enemy enemy = building.spawnEnemy(new PathPosition(buildingIndexInPath, orderedPath));
 
           if (enemy != null) {
