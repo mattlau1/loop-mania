@@ -82,11 +82,13 @@ public class Goal {
    * @param exp the exp will be compared to the goal's quantity
    */
   public void updateExperienceStatus(int exp) {
+    // update goal for simple goals
     for (SimpleGoal g : simpleGoals) {
       if (g.getGoalType().equals("Experience") && g.goalMeetsRequirement(exp)) {
         g.setGoalCheck(true);
       }
     }
+    updateComplexGoals(exp, "Experience");
   }
 
   /**
@@ -100,6 +102,7 @@ public class Goal {
         g.setGoalCheck(true);
       }
     }
+    updateComplexGoals(gold, "Gold");
   }
 
   /**
@@ -113,6 +116,7 @@ public class Goal {
         g.setGoalCheck(true);
       }
     }
+    updateComplexGoals(cycle, "Cycle");
   }
 
   /**
@@ -132,7 +136,6 @@ public class Goal {
   
       // game won
       if (count == numGoals) {
-        System.out.println("ZAP");
         return true;
       }
         
@@ -140,8 +143,7 @@ public class Goal {
 
     // check if the complex goal has been completed
     for (ComplexGoal g : getComplexGoals()) {
-      if (g.evaluate(character)) {
-        System.out.println("ZAP");
+      if (g.evaluate()) {
         return true;
       }
     }
@@ -150,28 +152,34 @@ public class Goal {
     return false;
   }
 
-  /**
-   * Pretty prints the complex goals
-   */
+  // TESTING PURPOSES
   public static String prettyPrintComplex(ComplexNode expression) {
     // Pretty print the expression
     return expression.getValue();
   }
 
+  // TESTING PURPOSES
   public void printComplexGoals() {
     for (ComplexGoal g: complexGoals) {
       System.out.println(prettyPrintComplex(g));
     }
   }
 
+  // TESTING PURPOSES
   public String prettyPrintSimple(SimpleGoal simpleGoal) {
     return simpleGoal.getValue();
   }
   
-
+  // TESTING PURPOSES
   public void printSimpleGoal() {
     for (SimpleGoal s:  simpleGoals) {
       System.out.println(prettyPrintComplex(s));
+    }
+  }
+
+  public void updateComplexGoals(int value, String goalType) {
+    for (ComplexGoal g: getComplexGoals()) {
+      g.updateValue(value, goalType);
     }
   }
 

@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Buffs.Buff;
+import unsw.loopmania.Goals.Observer;
 
 /**
  * represents the main character in the backend of the game world
@@ -22,6 +23,7 @@ public class Character extends MovingEntity {
   private SimpleIntegerProperty cycleProperty;
   private List<Buff> buffs;
   private List<Soldier> soldiers;
+  private List<Observer> observers = new ArrayList<Observer>();
 
   public Character(PathPosition position) {
     super(position);
@@ -133,6 +135,7 @@ public class Character extends MovingEntity {
 
   public void addGold(int gold) {
     goldProperty.set(goldProperty.get() + gold);
+    notifyAllObservers();
   }
 
   public void deductGold(int gold) {
@@ -141,6 +144,7 @@ public class Character extends MovingEntity {
 
   public void addEXP(int exp) {
     expProperty.set(expProperty.get() + exp);
+    notifyAllObservers();
   }
 
   /**
@@ -166,6 +170,7 @@ public class Character extends MovingEntity {
    */
   public void incrementCycleCount() {
     cycleProperty.set(cycleProperty.get() + 1);
+    notifyAllObservers();
   }
 
   /**
@@ -200,5 +205,23 @@ public class Character extends MovingEntity {
   public SimpleIntegerProperty getCycleProperty() {
     return cycleProperty;
   }
+
+  /**
+   * Add the observer into the observer list
+   * 
+   * @param observer the observer which tracks the quantity for goals
+   */
+  public void addObservers(Observer observer) {
+    observers.add(observer);
+  }
+
+  /**
+   * Update all the observers
+   */
+  public void notifyAllObservers(){
+    for (Observer observer : observers) {
+       observer.update();
+    }
+ }
 
 }

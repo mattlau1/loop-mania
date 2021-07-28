@@ -11,11 +11,15 @@ public abstract class ComplexGoal implements ComplexNode {
     }
 
     public boolean hasChildren() {
-    return !children.isEmpty();
+        return !children.isEmpty();
     }
 
     public ComplexNode add(ComplexNode e) {
     children.add(e);
     return this;
+    }
+
+    public List<ComplexNode> getChildren() {
+        return this.children;
     }
 }

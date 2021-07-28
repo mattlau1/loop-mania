@@ -1,15 +1,19 @@
 package unsw.loopmania.Goals;
 
-import unsw.loopmania.Character;
-
 public class OrComplex extends ComplexGoal {
     @Override
-    public boolean evaluate(Character character) {
+    public boolean evaluate() {
       for (ComplexNode child : children)
-        if (child.evaluate(character))
+        if (child.evaluate())
           return true;
       return false;
     }
+
+    @Override
+    public void updateValue(int quantitiy, String goalType) {
+      for (ComplexNode child : children)
+        child.updateValue(quantitiy, goalType);
+    } 
   
     public String getValue() {
       StringBuilder result = new StringBuilder();
