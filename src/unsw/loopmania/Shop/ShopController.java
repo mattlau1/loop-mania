@@ -113,7 +113,7 @@ public class ShopController {
     worldController.exitShop();
   }
 
-  public void getWorldController(LoopManiaWorldController worldController) {
+  public void setWorldController(LoopManiaWorldController worldController) {
     this.worldController = worldController;
   }
 
