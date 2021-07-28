@@ -160,6 +160,20 @@
                   </Label>
                </children>
             </HBox>
+            <HBox layoutX="10.0" layoutY="175.0" prefHeight="33.0" prefWidth="113.0">
+               <children>
+                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/doggie_coin.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="doggieCoin" ellipsisString="" prefHeight="35.0" prefWidth="77.0" style="-fx-padding: 5px;" text="DoggieCoin" textFill="#c9b95a" textOverrun="CLIP">
+                     <font>
+                        <Font name="Segoe UI" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </HBox>
