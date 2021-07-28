@@ -256,7 +256,7 @@ public class LoopManiaWorldController {
     try {
       shopPane = loader.load();
       shopController = loader.getController();
-      shopController.getWorldController(this);
+      shopController.setWorldController(this);
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
