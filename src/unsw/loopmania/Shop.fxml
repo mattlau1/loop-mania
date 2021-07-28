@@ -36,7 +36,7 @@
          <children>
             <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER">
                <image>
-                  <Image url="@../../../images/basic_sword.png" />
+                  <Image url="@../../images/basic_sword.png" />
                </image>
             </ImageView>
             <Button fx:id="buySwordButton" alignment="CENTER" mnemonicParsing="false" onAction="#buySword" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -51,12 +51,12 @@
             </Button>
             <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <image>
-                  <Image url="@../../../images/stake.png" />
+                  <Image url="@../../images/stake.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                <image>
-                  <Image url="@../../../images/staff.png" />
+                  <Image url="@../../images/staff.png" />
                </image>
             </ImageView>
             <Button fx:id="buyStaffButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyStaff" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -66,7 +66,7 @@
             </Button>
             <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <image>
-                  <Image url="@../../../images/helmet.png" />
+                  <Image url="@../../images/helmet.png" />
                </image>
             </ImageView>
             <Button fx:id="buyHelmetButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyHelmet" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="3">
@@ -76,7 +76,7 @@
             </Button>
             <ImageView fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <image>
-                  <Image url="@../../../images/armour.png" />
+                  <Image url="@../../images/armour.png" />
                </image>
             </ImageView>
             <Button fx:id="buyArmourButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyArmour" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
@@ -86,7 +86,7 @@
             </Button>
             <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <image>
-                  <Image url="@../../../images/shield.png" />
+                  <Image url="@../../images/shield.png" />
                </image>
             </ImageView>
             <Button fx:id="buyShieldButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyShield" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
@@ -96,7 +96,7 @@
             </Button>
             <ImageView fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                <image>
-                  <Image url="@../../../images/brilliant_blue_new.png" />
+                  <Image url="@../../images/brilliant_blue_new.png" />
                </image>
             </ImageView>
             <Button fx:id="buyPotionButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyPotion" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="5">
