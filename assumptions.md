@@ -16,3 +16,11 @@
 - Vampire enemies initially move in an anti-clockwise direction and will change direction everytime they are in the range of the campfire
 - Vampires have a 30% chance to perform a critical bite
 - A critical bite from a vampire causes the next 1-3 attacks to deal an additional 5-10 damage
+- Armour costs 130 gold
+- Health potions cost 200 gold
+- Helmets cost 100 gold
+- Shields cost 80 gold
+- Staffs cost 60 gold
+- Stakes cost 20 gold
+- Swords cost 120 gold
+- Items sell for 20% of their buying price
