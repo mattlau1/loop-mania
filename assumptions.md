@@ -15,6 +15,23 @@
 - Zombie enemies only move in an anti-clockwise direction
 - Vampire enemies initially move in an anti-clockwise direction and will change direction everytime they are in the range of the campfire
 - Vampires have a 30% chance to perform a critical bite
+- A critical bite from a vampire causes the next 1-3 attacks to deal an additional 5-10 damage# Assumptions
+- The character dies and the game is lost if the character is at 0 health unless they have The One Ring
+- The user cannot have negative money (i.e they can't go into debt to buy items)
+- The character starts at full health
+- After the game is lost, the game will show the user a loss screen
+- The game is paused when the user is shopping at the hero's castle (i.e they can't get attacked while shopping)
+- Multiple enemies cannot be on the same tile
+- A building cannot be placed ontop of another building
+- The user cannot equip more than 1 equipment of each type (i.e they can't equip 3 helmets)
+- All items and cards have different tiers of rarity, depending on how powerful they are
+- Zombie pits and vampire castles spawn 2 enemies
+- Health potions are immediately used on obtaining it
+- In one combat turn cycle, every entity attacks once, (if there are two zombies, the character is attacked twice whereas the character attacks once)
+- Character/Allied soldiers always attacks first, this means the character is able to kill an enemy before it attacks
+- Zombie enemies only move in an anti-clockwise direction
+- Vampire enemies initially move in an anti-clockwise direction and will change direction everytime they are in the range of the campfire
+- Vampires have a 30% chance to perform a critical bite
 - A critical bite from a vampire causes the next 1-3 attacks to deal an additional 5-10 damage
 - Armour costs 130 gold
 - Health potions cost 200 gold
@@ -24,3 +41,7 @@
 - Stakes cost 20 gold
 - Swords cost 120 gold
 - Items sell for 20% of their buying price
+- Doggie does not spawn randomly
+- Doggie spawns from a building, which is created when the map is loaded
+- Elan Muske does not spawn randomly
+- Elan Muske spawns from a building, which is created when the map is loaded

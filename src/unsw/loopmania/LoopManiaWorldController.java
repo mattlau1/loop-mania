@@ -17,6 +17,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -31,6 +32,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import unsw.loopmania.Items.ArmourStrategy;
 import unsw.loopmania.Items.HealthPotionStrategy;
@@ -41,6 +43,7 @@ import unsw.loopmania.Items.ShieldStrategy;
 import unsw.loopmania.Items.StaffStrategy;
 import unsw.loopmania.Items.StakeStrategy;
 import unsw.loopmania.Items.SwordStrategy;
+import unsw.loopmania.Shop.ShopController;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Enemies.Enemy;
@@ -49,6 +52,8 @@ import java.util.EnumMap;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * the draggable types. If you add more draggable types, add an enum value here.
@@ -141,6 +146,9 @@ public class LoopManiaWorldController {
   private GridPane equippedItems;
 
   @FXML
+  private Pane shop;
+
+  @FXML
   private GridPane unequippedInventory;
 
   // all image views including tiles, character, enemies, cards... even though
@@ -155,7 +163,8 @@ public class LoopManiaWorldController {
 
   private boolean isPaused;
   private LoopManiaWorld world;
-
+  private Pane shopPane;
+  private ShopController shopController;
   /**
    * runs the periodic game logic - second-by-second moving of character through
    * maze, as well as enemies, and running of battles
@@ -206,6 +215,7 @@ public class LoopManiaWorldController {
    * object handling switching to the main menu
    */
   private MenuSwitcher mainMenuSwitcher;
+  private MenuSwitcher gameSwitcher;
 
   /**
    * @param world           world object loaded from file
@@ -242,12 +252,20 @@ public class LoopManiaWorldController {
         squares.add(groundView, x, y);
       }
     }
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("Shop.fxml"));
+    try {
+      shopPane = loader.load();
+      shopController = loader.getController();
+      shopController.setWorldController(this);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
 
     // load entities loaded from the file in the loader into the squares gridpane
     for (ImageView entity : entityImages) {
       squares.getChildren().add(entity);
     }
-
     // add the ground underneath the cards
     for (int x = 0; x < world.getWidth(); x++) {
       ImageView groundView = new ImageView(pathTilesImage);
@@ -278,44 +296,10 @@ public class LoopManiaWorldController {
     cycle.textProperty().bind(Bindings.convert(worldCharacter.getCycleProperty()));
   }
 
-  @FXML
-  void buyArmour(ActionEvent event) {
-    buyItem(new ArmourStrategy());
-  }
-
-  @FXML
-  void buyHelmet(ActionEvent event) {
-    buyItem(new HelmetStrategy());
-  }
-
-  @FXML
-  void buyPotion(ActionEvent event) {
-    buyItem(new HealthPotionStrategy());
-  }
-
-  @FXML
-  void buyShield(ActionEvent event) {
-    buyItem(new ShieldStrategy());
-  }
-
-  @FXML
-  void buyStaff(ActionEvent event) {
-    buyItem(new StaffStrategy());
-  }
-
-  @FXML
-  void buyStake(ActionEvent event) {
-    buyItem(new StakeStrategy());
-  }
-
-  @FXML
-  void buySword(ActionEvent event) {
-    buyItem(new SwordStrategy());
-  }
-
-  @FXML
-  void exitShop(ActionEvent event) {
-
+  public void exitShop() throws IOException {
+    shopController.setErrorMessage("");
+    shop.getChildren().remove(shopPane);
+    switchToGame();
   }
 
   /**
@@ -352,6 +336,10 @@ public class LoopManiaWorldController {
       pause();
       world.addHeroCastleCycles(1);
       world.addNextHeroCastleCycle(world.getHeroCastleCycles());
+
+      shop = anchorPaneRoot;
+      shop.getChildren().remove(shopPane);
+      shop.getChildren().add(shopPane);
     }
   }
 
@@ -402,10 +390,13 @@ public class LoopManiaWorldController {
   /**
    * load a sword from the world, and pair it with an image in the GUI
    */
-  private void buyItem(ItemStrategy strat) {
+  public void buyItem(ItemStrategy strat) {
     Item item = world.buyItem(strat);
     if (item != null)
       onLoad(item);
+    else {
+      shopController.setErrorMessage("Cannot afford item");
+    }
   }
 
   /**
@@ -806,6 +797,23 @@ public class LoopManiaWorldController {
   }
 
   /**
+   * facilitates switching to main game
+   */
+  public void setGameSwitcher(MenuSwitcher gameSwitcher) {
+    this.gameSwitcher = gameSwitcher;
+  }
+
+  /**
+   * facilitates switching to main game upon button click
+   *
+   * @throws IOException
+   */
+  @FXML
+  private void switchToGame() throws IOException {
+    gameSwitcher.switchMenu();
+  }
+
+  /**
    * this method is triggered when click button to go to main menu in FXML
    *
    * @throws IOException
@@ -897,9 +905,9 @@ public class LoopManiaWorldController {
    * EventHandlers will run on the application thread.
    */
   private void printThreadingNotes(String currentMethodLabel) {
-    System.out.println("\n###########################################");
-    System.out.println("current method = " + currentMethodLabel);
-    System.out.println("In application thread? =" + Platform.isFxApplicationThread());
-    System.out.println("Current system time =" + java.time.LocalDateTime.now().toString().replace('T', ' '));
+    // System.out.println("\n###########################################");
+    // System.out.println("current method = " + currentMethodLabel);
+    // System.out.println("In application thread? =" + Platform.isFxApplicationThread());
+    // System.out.println("Current system time =" + java.time.LocalDateTime.now().toString().replace('T', ' '));
   }
 }
