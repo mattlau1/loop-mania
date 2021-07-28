@@ -6,10 +6,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import unsw.loopmania.LoopManiaWorldController;
 import unsw.loopmania.MenuSwitcher;
+import unsw.loopmania.Items.ArmourStrategy;
+import unsw.loopmania.Items.HealthPotionStrategy;
+import unsw.loopmania.Items.HelmetStrategy;
+import unsw.loopmania.Items.ShieldStrategy;
+import unsw.loopmania.Items.StaffStrategy;
+import unsw.loopmania.Items.StakeStrategy;
+import unsw.loopmania.Items.SwordStrategy;
 
 public class ShopController {
   private MenuSwitcher gameSwitcher;
+  private LoopManiaWorldController worldController;
 
   @FXML
   private Button buySwordButton;
@@ -40,7 +49,7 @@ public class ShopController {
 
   @FXML
   private void initialize() {
-
+    errorMessage.setText("");
   }
 
   /**
@@ -60,43 +69,52 @@ public class ShopController {
     gameSwitcher.switchMenu();
   }
 
-  @FXML
-  void buyArmour(ActionEvent event) {
-
+  public void setErrorMessage(String text) {
+    errorMessage.setText(text);
   }
 
   @FXML
-  void buyHelmet(ActionEvent event) {
-
+  private void buyArmour(ActionEvent event) {
+    worldController.buyItem(new ArmourStrategy());
   }
 
   @FXML
-  void buyPotion(ActionEvent event) {
-
+  private void buyHelmet(ActionEvent event) {
+    worldController.buyItem(new HelmetStrategy());
   }
 
   @FXML
-  void buyShield(ActionEvent event) {
-
+  private void buyPotion(ActionEvent event) {
+    worldController.buyItem(new HealthPotionStrategy());
   }
 
   @FXML
-  void buyStaff(ActionEvent event) {
-
+  private void buyShield(ActionEvent event) {
+    worldController.buyItem(new ShieldStrategy());
   }
 
   @FXML
-  void buyStake(ActionEvent event) {
-
+  private void buyStaff(ActionEvent event) {
+    worldController.buyItem(new StaffStrategy());
   }
 
   @FXML
-  void buySword(ActionEvent event) {
-
+  private void buyStake(ActionEvent event) {
+    worldController.buyItem(new StakeStrategy());
   }
 
   @FXML
-  void exitShop(ActionEvent event) {
-
+  private void buySword(ActionEvent event) {
+    worldController.buyItem(new SwordStrategy());
   }
+
+  @FXML
+  private void exitShop(ActionEvent event) throws IOException {
+    worldController.exitShop();
+  }
+
+  public void getWorldController(LoopManiaWorldController worldController) {
+    this.worldController = worldController;
+  }
+
 }
