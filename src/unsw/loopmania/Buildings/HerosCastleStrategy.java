@@ -18,7 +18,7 @@ public class HerosCastleStrategy implements BuildingStrategy {
 
   @Override
   public void useBuilding(Character character) {
-    // TODO: Open Shop if cycle count permits it
+    return;
   }
 
   @Override
