@@ -16,12 +16,12 @@ public class VampireEnemy extends Enemy {
   private final double damage = 20;
   private final int expDrop = 100;
   private final int goldDrop = 100;
-  private int critRate = 30;
+  private final int critRate = 30;
   private int direction;
   private boolean hasChangedDirection;
 
   /**
-   * spawn the vampire constructor
+   * Vampire constructor, sets vampire stats
    *
    * @param position the position where the enemy will spawn in the map
    */
@@ -50,7 +50,9 @@ public class VampireEnemy extends Enemy {
     }
   }
 
-  @Override
+  /**
+   * Changes direction of enemy
+   */
   public void changeDirection() {
     // direction = 1 -> moveUp
     // direction = 0 -> moveDown
@@ -62,12 +64,17 @@ public class VampireEnemy extends Enemy {
     this.hasChangedDirection = true;
   }
 
-  @Override
+
+  /**
+   * Changes enemy direction
+   */
   public int getDirection() {
     return this.direction;
   }
 
-  @Override
+  /**
+   * Resets enemy has changed direction flag
+   */
   public void resetHasChangedDirection() {
     this.hasChangedDirection = false;
   }

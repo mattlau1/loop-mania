@@ -44,8 +44,8 @@ public class VampireCastleStrategy implements BuildingStrategy {
   }
 
   @Override
-  public boolean canSpawnEnemy(int currentCycle) {
-    return currentCycle != 0 && currentCycle % cycleNumberToSpawnAt == 0;
+  public boolean canSpawnEnemy(Character character) {
+    return character.getCycleCount() != 0 && character.getCycleCount() % cycleNumberToSpawnAt == 0;
   }
 
   @Override

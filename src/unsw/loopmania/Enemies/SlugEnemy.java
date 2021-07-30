@@ -18,7 +18,7 @@ public class SlugEnemy extends Enemy {
   private final int critRate = 0;
 
   /**
-   * spawn the slug constructor
+   * Slug constructor, sets slug stats
    *
    * @param position the position where the enemy will spawn in the map
    */

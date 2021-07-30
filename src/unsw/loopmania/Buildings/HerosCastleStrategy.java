@@ -39,7 +39,7 @@ public class HerosCastleStrategy implements BuildingStrategy {
   }
 
   @Override
-  public boolean canSpawnEnemy(int currentCycle) {
+  public boolean canSpawnEnemy(Character character) {
     return false;
   }
 

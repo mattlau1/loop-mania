@@ -31,6 +31,7 @@ import unsw.loopmania.Cards.TrapCardStrategy;
 import unsw.loopmania.Cards.VampireCastleCardStrategy;
 import unsw.loopmania.Cards.VillageCardStrategy;
 import unsw.loopmania.Cards.ZombiePitCardStrategy;
+import unsw.loopmania.Enemies.DoggieEnemy;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SlugEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
@@ -284,6 +285,10 @@ public class LoopManiaWorld {
     character.setHealth(character.getMaxHealth());
   }
 
+  public void spawnEnemy(Enemy enemy, List<Enemy> spawningEnemies) {
+    enemies.add(enemy);
+    spawningEnemies.add(enemy);
+  }
   /**
    * spawns enemies if the conditions warrant it, adds to world
    *
@@ -291,25 +296,26 @@ public class LoopManiaWorld {
    */
 
   public List<Enemy> possiblySpawnEnemies() {
-
-    Pair<Integer, Integer> pos = possiblyGetBasicEnemySpawnPosition();
     List<Enemy> spawningEnemies = new ArrayList<>();
-    if (pos != null) {
-      int indexInPath = orderedPath.indexOf(pos);
+    Pair<Integer, Integer> randomPos = possiblyGetBasicEnemySpawnPosition();
+    int indexInPath = orderedPath.indexOf(randomPos);
 
+    // spawn randomly spawning enemies
+    if (randomPos != null) {
       // spawns a slug
       Enemy slug = new SlugEnemy(new PathPosition(indexInPath, orderedPath));
       enemies.add(slug);
       spawningEnemies.add(slug);
     }
+
     // go through every building in the world
     // if the building can spawn enemies, check cycle count
     // and spawn an enemy on the closest path tile to that building
     for (Building building : buildingEntities) {
       if (isAtHerosCastle()) {
-        if (building.canSpawnEnemy(character.getCycleCount())) {
-          Pair<Integer, Integer> buildingLocation = neighbourPath(building.getX(), building.getY());
-          int buildingIndexInPath = orderedPath.indexOf(buildingLocation);
+        if (building.canSpawnEnemy(character)) {
+          Pair<Integer, Integer> spawnLocation = neighbourPath(building.getX(), building.getY());
+          int buildingIndexInPath = orderedPath.indexOf(spawnLocation);
           Enemy enemy = building.spawnEnemy(new PathPosition(buildingIndexInPath, orderedPath));
 
           if (enemy != null) {
@@ -478,19 +484,18 @@ public class LoopManiaWorld {
   }
 
   /**
-   * Changes enemy direction if they are a vampire and they are within range of a
+   * Changes vampire direction if they are within range of a
    * campfire
    *
-   * @param enemy    enemy whose direction to change
+   * @param vampire  vampire whose direction to change
    * @param building building to check if campfire
    */
-  private void changeVampireDirection(Enemy enemy, Building building) {
+  private void changeVampireDirection(VampireEnemy vampire, Building building) {
     // vampire has special interaction with the campfire
-    if (isInRange(building, enemy) && (building.getStrategy() instanceof CampfireStrategy)) {
-      if (enemy instanceof VampireEnemy)
-        enemy.changeDirection();
+    if (isInRange(building, vampire) && (building.getStrategy() instanceof CampfireStrategy)) {
+      vampire.changeDirection();
     } else {
-      enemy.resetHasChangedDirection();
+      vampire.resetHasChangedDirection();
     }
   }
 
@@ -516,7 +521,8 @@ public class LoopManiaWorld {
   private void useBuildingsOnEnemiesOutsideCombat(List<Building> buildingsToDestroy, List<Enemy> defeatedEnemies) {
     for (Building b : buildingEntities) {
       for (Enemy e : enemies) {
-        changeVampireDirection(e, b);
+        if (e instanceof VampireEnemy)
+          changeVampireDirection((VampireEnemy) e, b);
         if (isInRange(b, e) && b.usableOutsideCombat()) {
           b.useBuilding(e);
           if (e.isDead())
@@ -777,7 +783,6 @@ public class LoopManiaWorld {
     destroyBuildings(buildingsToDestroy);
     useItemsOnCharacterOutsideCombat();
 
-    // building for enemies and character inside of combat
     for (Enemy enemy : battlingEnemies) {
       while (enemy.isAlive()) {
         useBuildingsOnEntitiesInCombat(enemy);
@@ -793,6 +798,7 @@ public class LoopManiaWorld {
       defeatedEnemies.add(enemy);
       character.addEXP(enemy.getExpDrop());
       character.addGold(enemy.getGoldDrop());
+      character.addDoggieCoins(enemy.getDoggieCoinDrop());
     }
 
     trancedSoldiers.clear();

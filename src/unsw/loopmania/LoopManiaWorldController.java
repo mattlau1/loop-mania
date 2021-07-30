@@ -118,6 +118,9 @@ public class LoopManiaWorldController {
   @FXML
   private Label cycle;
 
+  @FXML
+  private Label doggieCoin;
+
   /**
    * squares gridpane includes path images, enemies, character, empty grass,
    * buildings
@@ -294,6 +297,7 @@ public class LoopManiaWorldController {
     experience.textProperty().bind(Bindings.convert(worldCharacter.getExpProperty()));
     gold.textProperty().bind(Bindings.convert(worldCharacter.getGoldProperty()));
     cycle.textProperty().bind(Bindings.convert(worldCharacter.getCycleProperty()));
+    doggieCoin.textProperty().bind(Bindings.convert(worldCharacter.getDoggieCoinProperty()));
   }
 
   public void exitShop() throws IOException {
@@ -310,7 +314,7 @@ public class LoopManiaWorldController {
     isPaused = false;
     // trigger adding code to process main game logic to queue. JavaFX will target
     // framerate of 0.3 seconds
-    timeline = new Timeline(new KeyFrame(Duration.seconds(0.1), event -> {
+    timeline = new Timeline(new KeyFrame(Duration.seconds(0.05), event -> {
       world.runTickMoves();
       List<Enemy> defeatedEnemies = world.runBattles();
       for (Enemy e : defeatedEnemies) {
@@ -325,7 +329,7 @@ public class LoopManiaWorldController {
       for (Item item : newItems) {
         onLoadPath(item);
       }
-      printThreadingNotes("HANDLED TIMER");
+      // printThreadingNotes("HANDLED TIMER");
     }));
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
