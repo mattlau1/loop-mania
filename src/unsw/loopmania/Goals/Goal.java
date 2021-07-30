@@ -70,10 +70,7 @@ public class Goal {
    * @return the boolean if the character has meet all the requirements
    */
   public boolean isGameWon() {
-    if (isSimpleCompleted() || isComplexCompleted())
-      return true;
-
-    return false;
+    return isSimpleCompleted() || isComplexCompleted();
   }
 
   /**
