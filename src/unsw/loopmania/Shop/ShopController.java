@@ -39,7 +39,35 @@ public class ShopController {
   private Button buyShieldButton;
 
   @FXML
-  private Button buyPotionButton;
+  private Button sellDoggieCoinButton;
+
+  @FXML
+  private Button sellTheOneRingButton;
+
+  @FXML
+  private Button sellAndurilButton;
+
+  @FXML
+  private Button sellTreeStumpButton;
+
+  @FXML
+  private Button sellSwordButton;
+
+  @FXML
+  private Button sellStakeButton;
+
+  @FXML
+  private Button sellStaffButton;
+
+  @FXML
+  private Button sellHelmetButton;
+
+  @FXML
+  private Button sellArmourButton;
+
+  @FXML
+  private Button sellShieldButton;
+
 
   @FXML
   private Label errorMessage;
@@ -105,6 +133,57 @@ public class ShopController {
 
   @FXML
   private void buySword(ActionEvent event) {
+    worldController.buyItem(new SwordStrategy());
+  }
+
+
+  @FXML
+  private void sellArmour(ActionEvent event) {
+    worldController.buyItem(new ArmourStrategy());
+  }
+
+  @FXML
+  private void sellHelmet(ActionEvent event) {
+    worldController.buyItem(new HelmetStrategy());
+  }
+
+  @FXML
+  private void sellDoggieCoin(ActionEvent event) {
+    worldController.buyItem(new ArmourStrategy());
+  }
+
+  @FXML
+  private void sellAnduril(ActionEvent event) {
+    worldController.buyItem(new ArmourStrategy());
+  }
+
+  @FXML
+  private void sellTheOneRing(ActionEvent event) {
+    worldController.buyItem(new ArmourStrategy());
+  }
+
+  @FXML
+  private void sellTreeStump(ActionEvent event) {
+    worldController.buyItem(new ArmourStrategy());
+  }
+
+  @FXML
+  private void sellShield(ActionEvent event) {
+    worldController.buyItem(new ShieldStrategy());
+  }
+
+  @FXML
+  private void sellStaff(ActionEvent event) {
+    worldController.buyItem(new StaffStrategy());
+  }
+
+  @FXML
+  private void sellStake(ActionEvent event) {
+    worldController.buyItem(new StakeStrategy());
+  }
+
+  @FXML
+  private void sellSword(ActionEvent event) {
     worldController.buyItem(new SwordStrategy());
   }
 
