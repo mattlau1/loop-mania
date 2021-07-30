@@ -23,6 +23,10 @@ import unsw.loopmania.Buildings.ZombiePitStrategy;
 import unsw.loopmania.Goals.Goal;
 import unsw.loopmania.Goals.GoldGoal;
 import unsw.loopmania.Goals.ExperienceGoal;
+import unsw.loopmania.Goals.AndComplex;
+import unsw.loopmania.Goals.BossGoal;
+import unsw.loopmania.Goals.OrComplex;
+import unsw.loopmania.Goals.ComplexGoal;
 import unsw.loopmania.Goals.CycleGoal;
 
 import java.util.List;
@@ -40,6 +44,7 @@ import java.util.List;
 public abstract class LoopManiaWorldLoader {
   private JSONObject json;
   private Goal goal;
+  private int bossCount = 2;
 
   public LoopManiaWorldLoader(String filename) throws FileNotFoundException {
     json = new JSONObject(new JSONTokener(new FileReader("worlds/" + filename)));
@@ -57,7 +62,10 @@ public abstract class LoopManiaWorldLoader {
     List<Pair<Integer, Integer>> orderedPath = loadPathTiles(json.getJSONObject("path"), width, height);
     // extract goals from JSON
     JSONObject goalList = json.getJSONObject("goal-condition");
-    loadGoals(goalList);
+    // load complex goals
+    loadComplexGoals(goalList);
+    // or load a single simple goal
+    loadSimpleGoal(goalList);
 
     LoopManiaWorld world = new LoopManiaWorld(width, height, orderedPath, goal);
     world.generateItemDrops();
@@ -70,25 +78,89 @@ public abstract class LoopManiaWorldLoader {
       loadEntity(world, jsonEntities.getJSONObject(i), orderedPath);
     }
 
+    // add pretty print
+    goal.printComplexGoals();
+    goal.printSimpleGoal();
+
     return world;
   }
 
-  private void loadGoals(JSONObject goals) {
-    if (goals.getString("goal").equals("AND")) {
-      JSONArray g = goals.getJSONArray("subgoals");
-      loadArrayOfGoals(g);
-    } else if (goals.getString("goal").equals("experience")) {
-      goal.addGoal(new ExperienceGoal(goals.getInt("quantity")));
+  /**
+   * Load a simple goal into the game
+   * 
+   * @param goals object of a simple gaol from json
+   */
+  private void loadSimpleGoal(JSONObject goals) {
+    if (goals.getString("goal").equals("experience")) {
+      goal.addSimpleGoal(new ExperienceGoal(goals.getInt("quantity")));
     } else if (goals.getString("goal").equals("gold")) {
-      goal.addGoal(new GoldGoal(goals.getInt("quantity")));
+      goal.addSimpleGoal(new GoldGoal(goals.getInt("quantity")));
     } else if (goals.getString("goal").equals("cycle")) {
-      goal.addGoal(new CycleGoal(goals.getInt("quantity")));
+      goal.addSimpleGoal(new CycleGoal(goals.getInt("quantity")));
+    } else if (goals.getString("goal").equals("bosses")) {
+      goal.addSimpleGoal(new BossGoal(bossCount));
     }
   }
 
-  private void loadArrayOfGoals(JSONArray g) {
-    for (int i = 0; i < g.length(); i++) {
-      loadGoals(g.getJSONObject(i));
+  /**
+   * Create a composite bool based on the boolean logic (AND/OR)
+   * 
+   * @param goals object of goals loaded from JSON
+   */
+  private void loadComplexGoals(JSONObject goals) {
+    if (goals.getString("goal").equals("AND")) {
+      // COMPLEX GOAL FOUND
+      ComplexGoal andComplexGoal = new AndComplex();
+      JSONArray g = goals.getJSONArray("subgoals");
+      loadComplexGoalsList(g, andComplexGoal);
+      goal.addComplexGoal(andComplexGoal);
+    } else if (goals.getString("goal").equals("OR")) {
+      // COMPLEX GOAL FOUND
+      ComplexGoal orComplexGoal = new OrComplex();
+      JSONArray g = goals.getJSONArray("subgoals");
+      loadComplexGoalsList(g, orComplexGoal);
+      goal.addComplexGoal(orComplexGoal);
+    } 
+  }
+
+  /**
+   * Add the simple goal as a leaf into the complex goal root
+   * 
+   * @param goals the list of goals from JSON
+   * @param root the complex node root where the simple goals will be added
+   */
+  private void addComplexGoals(JSONObject goals, ComplexGoal root) {
+    if (goals.getString("goal").equals("experience")) {
+      root.add(new ExperienceGoal(goals.getInt("quantity")));
+    } else if (goals.getString("goal").equals("gold")) {
+      root.add(new GoldGoal(goals.getInt("quantity")));
+    } else if (goals.getString("goal").equals("cycles")) {
+      root.add(new CycleGoal(goals.getInt("quantity")));
+    } else if (goals.getString("goal").equals("bosses")) {
+      root.add(new BossGoal(bossCount));
+    } else if (goals.getString("goal").equals("AND")) {
+      ComplexGoal andComplexGoal = new AndComplex();
+      JSONArray g = goals.getJSONArray("subgoals");
+      loadComplexGoalsList(g, andComplexGoal);
+      root.add(andComplexGoal);
+    } else if (goals.getString("goal").equals("OR")) {
+      ComplexGoal orComplexGoal = new OrComplex();
+      JSONArray g = goals.getJSONArray("subgoals");
+      loadComplexGoalsList(g, orComplexGoal);
+      root.add(orComplexGoal);
+    }
+    return;
+  }
+
+  /**
+   * Load each individual goals from the list and add it into the root node
+   * 
+   * @param goals the list of goals from JSON
+   * @param root the complex node root where the simple goals will be added
+   */
+  private void loadComplexGoalsList(JSONArray goal, ComplexGoal root) {
+    for (int i = 0; i < goal.length(); i++) {
+      addComplexGoals(goal.getJSONObject(i), root);
     }
   }
 

@@ -21,7 +21,7 @@ public class MovementTest {
         CampfireStrategy strat = new CampfireStrategy();
         TestSetup setup = new TestSetup();
         Goal goal = new Goal();
-        goal.addGoal(new CycleGoal(20));
+        goal.addSimpleGoal(new CycleGoal(20));
         LoopManiaWorld world = setup.makeTestWorld();
         // vampire and campfire gets the same position
         PathPosition vampirePos = new PathPosition(6, world.getOrderedPath());

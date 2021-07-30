@@ -31,7 +31,7 @@ public class TestSetup {
         path.put("path", pathString);
 
         Goal gg = new Goal();
-        gg.addGoal(new CycleGoal(200));
+        gg.addSimpleGoal(new CycleGoal(200));
 
         List<Pair<Integer, Integer>> orderedPath = loadPathTiles(path, 3, 3);
         return new LoopManiaWorld(3, 3, orderedPath, gg);
