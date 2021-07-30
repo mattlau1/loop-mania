@@ -161,7 +161,7 @@ public class ShopController {
 
   @FXML
   private void sellDoggieCoin(ActionEvent event) {
-    worldController.sellItem(DoggieCoinStrategy.class);
+    worldController.sellDoggieCoin();
   }
 
   @FXML

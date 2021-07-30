@@ -2,6 +2,7 @@ package unsw.loopmania.Items;
 
 import java.io.File;
 import java.util.List;
+import java.util.Random;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,7 +16,9 @@ public class DoggieCoinStrategy implements ItemStrategy {
   private final double critMultiplier = 1;
   private final int range = 1;
   private final int goldAmt = 10;
-  private final int price = 100;
+  private final int price = 200;
+  private final int fluctuationRange = 50;
+
 
   @Override
   public double getAtkMultiplier(Enemy enemy) {
@@ -66,7 +69,9 @@ public class DoggieCoinStrategy implements ItemStrategy {
 
   @Override
   public int getPrice() {
-    return price;
+    Random random = new Random();
+    int randInt = random.nextInt(fluctuationRange) + 1;
+    return price + randInt;
   }
 
 }

@@ -111,7 +111,10 @@ public class LoopManiaWorld {
   private List<Building> buildingEntities;
 
   private boolean cardDestroyed;
-
+  private boolean isElanAlive;
+  private boolean isElanDead;
+  private final double postElanPriceMultiplier;
+  private final int midElanPriceMultiplier;
   /**
    * list of x,y coordinate pairs in the order by which moving entities traverse
    * them
@@ -154,9 +157,13 @@ public class LoopManiaWorld {
     trancedSoldiers = new ArrayList<>();
     this.goal = goal;
     cardDestroyed = false;
+    isElanAlive = false;
+    isElanDead = false;
     pathItems = new ArrayList<>();
     heroCastleCycles = 1;
     nextHeroCastleCycle = 1;
+    postElanPriceMultiplier = 0.8;
+    midElanPriceMultiplier = 5;
   }
 
   public int getHeroCastleCycles() {
@@ -198,6 +205,8 @@ public class LoopManiaWorld {
     highRarityItems.add(new HealthPotionStrategy());
 
     superRarityItems.add(new TheOneRingStrategy());
+    superRarityItems.add(new AndurilStrategy());
+    superRarityItems.add(new TreeStumpStrategy());
   }
 
   /**
@@ -1364,7 +1373,7 @@ public class LoopManiaWorld {
   }
 
   /**
-   * sells an item from the shop, adds gold to the charcter, if character
+   * sells an item from the inventory, adds gold to the charcter, if character
    * does not have the item, nothing happens
    *
    * @param strat item strategy of the item to be sold
@@ -1379,4 +1388,22 @@ public class LoopManiaWorld {
     }
     return null;
   }
+
+  /**
+   * sells a DoggieCoin, adds gold to the charcter, if character
+   * does not have the item, nothing happens
+   *
+   */
+  public Item sellDoggieCoin() {
+    Item doggieCoin = new Item(new SimpleIntegerProperty(0), new SimpleIntegerProperty(0), new DoggieCoinStrategy());
+    if (character.getDoggieCoins() > 0) {
+      if (isElanAlive) character.addGold(doggieCoin.getPrice() * midElanPriceMultiplier);
+      else if (isElanDead) character.addGold((int)(doggieCoin.getPrice() * postElanPriceMultiplier));
+      else character.addGold(doggieCoin.getPrice());
+      character.deductDoggieCoins(1);
+      return doggieCoin;
+    }
+    return null;
+  }
+
 }

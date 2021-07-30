@@ -421,6 +421,21 @@ public class LoopManiaWorldController {
       shopController.setSellErrorMessage("");
     }
   }
+
+  /**
+   * sells an item from the shop, adds gold to the charcter, if character
+   * does not have the item, nothing happens
+   *
+   * @param strat item strategy of the item to be sold
+   */
+  public void sellDoggieCoin() {
+    if (world.sellDoggieCoin() == null) {
+      shopController.setSellErrorMessage("You do not have any DoggieCoin");
+    } else {
+      shopController.setSellErrorMessage("");
+    }
+  }
+
   /**
    * run GUI events after an enemy is defeated, such as spawning
    * items/experience/gold
