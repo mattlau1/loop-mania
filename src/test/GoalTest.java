@@ -73,31 +73,6 @@ public class GoalTest {
         assertEquals(true, goal.isGameWon());
     }
 
-    // @Test
-    // public void testComplexGoal() {
-    //     // creates world with complex goal consisting of all other goals and tests each
-    //     // one before testing them all
-    //     TestSetupNoGoals s = new TestSetupNoGoals();
-    //     Goal goal = new Goal();
-    //     // set all the goals
-    //     goal.addSimpleGoal(new GoldGoal(200));
-    //     goal.addSimpleGoal(new CycleGoal(20));
-    //     goal.addSimpleGoal(new ExperienceGoal(200));
-    //     LoopManiaWorld d = s.makeTestWorld(goal);
-    //     Character testChar = new Character(new PathPosition(1, d.getOrderedPath()));
-    //     d.setCharacter(testChar);
-    //     // checks that the game is not won until ALL goals are completed
-    //     assertEquals(false, goal.isGameWon());
-    //     testChar.addGold(200);
-    //     assertEquals(false, goal.isGameWon());
-    //     while (testChar.getCycleCount() < 20) {
-    //         testChar.incrementCycleCount();
-    //     }
-    //     assertEquals(false, goal.isGameWon());
-    //     testChar.addEXP(200);
-    //     assertEquals(true, goal.isGameWon());
-    // }
-
     @Test
     public void testAndComplexGoal() {
         // creates the world with the AND complex goal and test each of the

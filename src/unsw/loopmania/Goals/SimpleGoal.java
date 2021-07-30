@@ -93,6 +93,20 @@ public class SimpleGoal implements ComplexNode {
     return value;
   }
 
+  /**
+   * Update the goal status as completed once the requirement has been met
+   *
+   * @param amount the quantity needed to complete a particualr goal
+   * @param goalType to compare the quantity with its matching goal type
+   */
+  public void updateValue(int amount, String goalType) {
+    if (goalType.equals(this.goalType) && (amount >= quantity) && !isValue()) {
+      setGoalCheck(true);
+    }
+
+  }
+
+  // TESTING PURPOSES REMOVE THIS SOON
   public String getValue() {
     if (goalType.equals("Experience")) {
       return ("obtaining " + quantity + " experience points");
@@ -103,12 +117,5 @@ public class SimpleGoal implements ComplexNode {
     }
     
     return ("no goal");
-  }
-
-  public void updateValue(int amount, String goalType) {
-    if (goalType.equals(this.goalType) && (amount >= quantity) && !isValue()) {
-      setGoalCheck(true);
-    }
-
   }
 }
