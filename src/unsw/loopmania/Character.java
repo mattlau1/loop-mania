@@ -24,6 +24,7 @@ public class Character extends MovingEntity {
   private List<Buff> buffs;
   private List<Soldier> soldiers;
   private List<Observer> observers = new ArrayList<Observer>();
+  private int bossKillCount = 0;
 
   public Character(PathPosition position) {
     super(position);
@@ -361,5 +362,31 @@ public class Character extends MovingEntity {
        observer.update();
     }
  }
+
+  /**
+   * Gets the boss kill count number
+   * 
+   * @return the number of boss killed
+   */
+  public int getBossKillCount() {
+    return bossKillCount;
+  }
+
+  /**
+   * Gets the boss kill count number
+   * 
+   * @return the number of boss killed
+   */
+  public void setBossKillCount(int bossKillCount) {
+    this.bossKillCount = bossKillCount;
+  }
+
+  /**
+   * Add a count to the boss kill count
+   */
+  public void addBossKillCount() {
+    setBossKillCount(getBossKillCount() + 1);
+    notifyAllObservers();
+  }
 
 }

@@ -34,6 +34,7 @@ import unsw.loopmania.Cards.ZombiePitCardStrategy;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SlugEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
+import unsw.loopmania.Goals.BossObserver;
 import unsw.loopmania.Goals.CycleObserver;
 import unsw.loopmania.Goals.EXPObserver;
 import unsw.loopmania.Goals.Goal;
@@ -243,6 +244,7 @@ public class LoopManiaWorld {
     new EXPObserver(character, goal);
     new GoldObserver(character, goal);
     new CycleObserver(character, goal);
+    new BossObserver(character, goal);
   }
 
   /**

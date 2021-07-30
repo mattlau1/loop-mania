@@ -23,6 +23,7 @@ import unsw.loopmania.Goals.Goal;
 import unsw.loopmania.Goals.GoldGoal;
 import unsw.loopmania.Goals.ExperienceGoal;
 import unsw.loopmania.Goals.AndComplex;
+import unsw.loopmania.Goals.BossGoal;
 import unsw.loopmania.Goals.OrComplex;
 import unsw.loopmania.Goals.ComplexGoal;
 import unsw.loopmania.Goals.CycleGoal;
@@ -42,6 +43,7 @@ import java.util.List;
 public abstract class LoopManiaWorldLoader {
   private JSONObject json;
   private Goal goal;
+  private int bossCount = 2;
 
   public LoopManiaWorldLoader(String filename) throws FileNotFoundException {
     json = new JSONObject(new JSONTokener(new FileReader("worlds/" + filename)));
@@ -94,6 +96,8 @@ public abstract class LoopManiaWorldLoader {
       goal.addSimpleGoal(new GoldGoal(goals.getInt("quantity")));
     } else if (goals.getString("goal").equals("cycle")) {
       goal.addSimpleGoal(new CycleGoal(goals.getInt("quantity")));
+    } else if (goals.getString("goal").equals("bosses")) {
+      goal.addSimpleGoal(new BossGoal(bossCount));
     }
   }
 
@@ -131,6 +135,8 @@ public abstract class LoopManiaWorldLoader {
       root.add(new GoldGoal(goals.getInt("quantity")));
     } else if (goals.getString("goal").equals("cycles")) {
       root.add(new CycleGoal(goals.getInt("quantity")));
+    } else if (goals.getString("goal").equals("bosses")) {
+      root.add(new BossGoal(bossCount));
     } else if (goals.getString("goal").equals("AND")) {
       ComplexGoal andComplexGoal = new AndComplex();
       JSONArray g = goals.getJSONArray("subgoals");

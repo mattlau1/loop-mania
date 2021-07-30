@@ -22,7 +22,7 @@ public class SimpleGoal implements ComplexNode {
    *
    * @return the quantitiy for the goal
    */
-  public int getGoalValue() {
+  public int getQuantity() {
     return quantity;
   }
 

@@ -120,6 +120,21 @@ public class Goal {
   }
 
   /**
+   * Check if the user has meet the requirement for the boss goal
+   *
+   * @param bossCount the kill count will be compared to the goal's quantity
+   */
+  public void updateBossStatus(int bossCount) {
+    for (SimpleGoal g : simpleGoals) {
+      if (g.getGoalType().equals("Boss") && g.goalMeetsRequirement(bossCount)) {
+        g.setGoalCheck(true);
+      }
+    }
+    // update goal for complex goals
+    updateComplexGoals(bossCount, "Boss");
+  }
+
+  /**
    * A helper function for isGameWon()
    * Check if the simple goal is completed
    * 
@@ -151,7 +166,7 @@ public class Goal {
   public boolean isComplexCompleted() {
     for (ComplexGoal g : getComplexGoals()) {
       if (g.evaluate()) {
-        // all the requiremetn has b
+        // all the requirement has met
         return true;
       }
     }

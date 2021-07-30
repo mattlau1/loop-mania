@@ -8,6 +8,7 @@ import unsw.loopmania.Character;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Goals.AndComplex;
+import unsw.loopmania.Goals.BossGoal;
 import unsw.loopmania.Goals.ComplexGoal;
 import unsw.loopmania.Goals.CycleGoal;
 import unsw.loopmania.Goals.ExperienceGoal;
@@ -74,6 +75,24 @@ public class GoalTest {
     }
 
     @Test
+    public void testBossGoal() {
+        // creates world with boss goal
+        TestSetupNoGoals setup = new TestSetupNoGoals();
+        Goal goal = new Goal();
+        // set the goal to kill 1 boss
+        goal.addSimpleGoal(new BossGoal(1));
+        LoopManiaWorld world = setup.makeTestWorld(goal);
+        Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+        world.setCharacter(testChar);
+        // checks the game is not yet one as goal isnt complete
+        assertEquals(false, goal.isGameWon());
+        // kill a single boss
+        testChar.addBossKillCount();
+        // game won
+        assertEquals(true, goal.isGameWon());
+    }
+
+    @Test
     public void testAndComplexGoal() {
         // creates the world with the AND complex goal and test each of the
         // goals before the completion
@@ -91,7 +110,7 @@ public class GoalTest {
         LoopManiaWorld world = setup.makeTestWorld(goal);
         Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
         world.setCharacter(testChar);
-        
+
         // checks that the game is not won until ALL goals are completed
         assertEquals(false, goal.isGameWon());
         // the character has met the requirement for gold 
@@ -111,11 +130,12 @@ public class GoalTest {
         TestSetupNoGoals setup = new TestSetupNoGoals();
         Goal goal = new Goal();
 
-        // create (5 cycle OR 200 gold)
+        // create (5 cycle OR 200 gold OR kill all bosses)
         ComplexGoal orComplexGoal = new OrComplex();
-        // add 2 simple goal into the OR composite
+        // add 3 simple goal into the OR composite
         orComplexGoal.add(new CycleGoal(5));
         orComplexGoal.add(new GoldGoal(200));
+        orComplexGoal.add(new BossGoal(2));
 
         // add the complex goal into the world goal
         goal.addComplexGoal(orComplexGoal);
@@ -140,9 +160,10 @@ public class GoalTest {
         TestSetupNoGoals setup = new TestSetupNoGoals();
         Goal goal = new Goal();
 
-        // create (50 experience AND (5 cycle OR 400 gold))
+        // create (50 experience AND kill all boss AND (5 cycle OR 400 gold))
         ComplexGoal andComplexGoal = new AndComplex();
         andComplexGoal.add(new ExperienceGoal(50));
+        andComplexGoal.add(new BossGoal(1));
         ComplexGoal orComplexGoal = new OrComplex();
 
         // add 2 simple goal into the OR composite
@@ -158,11 +179,15 @@ public class GoalTest {
 
         // checks that the game is not won until ALL goals are completed
         assertEquals(false, goal.isGameWon());
-        // the experience goal is completed but game hasn't won yet
+        // the experience goal is completed and but game hasn't won yet
         testChar.addEXP(200);
         assertEquals(false, goal.isGameWon());
-        // complete either cycle or gold goal and the game will win
+        // complete either cycle or gold goal and but game hasn't won yet
         testChar.addGold(400);
+        assertEquals(false, goal.isGameWon());
+        // kill all boss to win the game
+        testChar.addBossKillCount();
         assertEquals(true, goal.isGameWon());
+
     }
 }
