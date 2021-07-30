@@ -10,14 +10,16 @@ import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Soldier;
 
 public class AndurilStrategy implements ItemStrategy {
-  private final double atkMultiplier = 2;
+  private final double atkMultiplier = 5;
+  private final double bossAtkMultiplier = 3;
   private final double defMultiplier = 1;
   private final double critMultiplier = 1;
   private final int range = 0;
   private final int price = 100;
 
   /**
-   * Sword item incresaes damage dealth by Character by a factor of two
+   * Anduril item incresaes damage dealth by Character by a factor of five, against
+   * bosses it does 3x damage
    *
    * @param enemy The enemy that the Character is in combat with
    * @return The attack multiplier against the enemy, may vary depending on the
@@ -25,6 +27,7 @@ public class AndurilStrategy implements ItemStrategy {
    */
   @Override
   public double getAtkMultiplier(Enemy enemy) {
+    if (enemy.isBoss()) return bossAtkMultiplier;
     return atkMultiplier;
   }
 

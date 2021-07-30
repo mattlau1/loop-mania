@@ -36,6 +36,11 @@ public class DoggieEnemy extends Enemy {
   }
 
   @Override
+  public boolean isBoss() {
+    return true;
+  }
+
+  @Override
   public ImageView getImage() {
     Image image = new Image((new File("src/images/doggie.png")).toURI().toString());
     ImageView view = new ImageView(image);

@@ -37,6 +37,13 @@ public abstract class Enemy extends MovingEntity {
     this.critRate = 0;
     this.doggieCoinDrop = 0;
   }
+  /**
+   * Determines whether an enemy is a boss type enemy
+   * @return a boolean, true if the enemy is a boss, false if not
+   */
+  public boolean isBoss() {
+    return false;
+  }
 
   /**
    * Gets amount of doggie coins that the enemy drops
