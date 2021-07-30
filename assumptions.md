@@ -28,5 +28,3 @@
 - Doggie spawns from a building, which is created when the map is loaded
 - Elan Muske does not spawn randomly
 - Elan Muske spawns from a building, which is created when the map is loaded
-- While Elan Muske is alive, the base price of DoggieCoin increases by 75 gold
-- After Elan Muske is defeated, the base price of DoggieCoin decreases by 75 gold
