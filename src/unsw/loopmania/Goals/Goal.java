@@ -6,6 +6,10 @@ import java.util.List;
 public class Goal {
   private List<SimpleGoal> simpleGoals;
   private List<ComplexGoal> complexGoals;
+  public static final String EXPERIENCE_GOAL = "Experience";
+  public static final String GOLD_GOAL = "Gold";
+  public static final String CYCLE_GOAL = "Cycle";
+  public static final String BOSS_GOAL = "Boss";
 
   /**
    * A goal constructur which will hold lists of simple goals
@@ -80,12 +84,12 @@ public class Goal {
   public void updateExperienceStatus(int exp) {
     // update goal for simple goals
     for (SimpleGoal g : simpleGoals) {
-      if (g.getGoalType().equals("Experience") && g.goalMeetsRequirement(exp)) {
+      if (g.isExperienceGoal() && g.goalMeetsRequirement(exp)) {
         g.setGoalCheck(true);
       }
     }
     // update goal for complex goals
-    updateComplexGoals(exp, "Experience");
+    updateComplexGoals(exp, Goal.EXPERIENCE_GOAL);
   }
 
   /**
@@ -95,12 +99,12 @@ public class Goal {
    */
   public void updateGoldStatus(int gold) {
     for (SimpleGoal g : simpleGoals) {
-      if (g.getGoalType().equals("Gold") && g.goalMeetsRequirement(gold)) {
+      if (g.isGoldGoal() && g.goalMeetsRequirement(gold)) {
         g.setGoalCheck(true);
       }
     }
     // update goal for complex goals
-    updateComplexGoals(gold, "Gold");
+    updateComplexGoals(gold, Goal.GOLD_GOAL);
   }
 
   /**
@@ -110,12 +114,12 @@ public class Goal {
    */
   public void updateCycleStatus(int cycle) {
     for (SimpleGoal g : simpleGoals) {
-      if (g.getGoalType().equals("Cycle") && g.goalMeetsRequirement(cycle)) {
+      if (g.isCycleGoal() && g.goalMeetsRequirement(cycle)) {
         g.setGoalCheck(true);
       }
     }
     // update goal for complex goals
-    updateComplexGoals(cycle, "Cycle");
+    updateComplexGoals(cycle, Goal.CYCLE_GOAL);
   }
 
   /**
@@ -125,12 +129,12 @@ public class Goal {
    */
   public void updateBossStatus(int bossCount) {
     for (SimpleGoal g : simpleGoals) {
-      if (g.getGoalType().equals("Boss") && g.goalMeetsRequirement(bossCount)) {
+      if (g.isBossGoal() && g.goalMeetsRequirement(bossCount)) {
         g.setGoalCheck(true);
       }
     }
     // update goal for complex goals
-    updateComplexGoals(bossCount, "Boss");
+    updateComplexGoals(bossCount, Goal.BOSS_GOAL);
   }
 
   /**

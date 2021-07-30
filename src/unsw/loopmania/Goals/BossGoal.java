@@ -7,8 +7,9 @@ public class BossGoal extends SimpleGoal {
    * @param goalValue the amount of boss kills needed to win the game
    */
   public BossGoal(int goalValue) {
-    super(goalValue, "Boss");
+    super(goalValue, Goal.BOSS_GOAL);
     super.setGoalValue(goalValue);
     super.setGoalCheck(false);
   }
+
 }

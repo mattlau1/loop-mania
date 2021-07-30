@@ -9,7 +9,7 @@ public class ExperienceGoal extends SimpleGoal {
    *                  goal
    */
   public ExperienceGoal(int goalValue) {
-    super(goalValue, "Experience");
+    super(goalValue, Goal.EXPERIENCE_GOAL);
     super.setGoalValue(goalValue);
     super.setGoalCheck(false);
   }

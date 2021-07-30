@@ -8,8 +8,9 @@ public class GoldGoal extends SimpleGoal {
    * @param goalValue the amount of gold needed to complete the gold goal
    */
   public GoldGoal(int goalValue) {
-    super(goalValue, "Gold");
+    super(goalValue, Goal.GOLD_GOAL);
     super.setGoalValue(goalValue);
     super.setGoalCheck(false);
   }
+
 }

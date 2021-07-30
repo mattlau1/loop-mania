@@ -88,9 +88,24 @@ public class SimpleGoal implements ComplexNode {
     return this;
   }
 
-  // use observer pattern to change the value instead of doing it here
   public boolean evaluate() {
     return value;
+  }
+
+  public boolean isGoldGoal() {
+    return getGoalType().equals(Goal.GOLD_GOAL);
+  }
+
+  public boolean isExperienceGoal() {
+    return getGoalType().equals(Goal.EXPERIENCE_GOAL);
+  }
+
+  public boolean isCycleGoal() {
+    return getGoalType().equals(Goal.CYCLE_GOAL);
+  }
+
+  public boolean isBossGoal() {
+    return getGoalType().equals(Goal.BOSS_GOAL);
   }
 
   /**
@@ -108,11 +123,11 @@ public class SimpleGoal implements ComplexNode {
 
   // TESTING PURPOSES REMOVE THIS SOON
   public String getValue() {
-    if (goalType.equals("Experience")) {
+    if (goalType.equals(Goal.EXPERIENCE_GOAL)) {
       return ("obtaining " + quantity + " experience points");
-    } else if (goalType.equals("Cycle")) {
+    } else if (goalType.equals(Goal.CYCLE_GOAL)) {
       return ("completing " + quantity + " cycles");
-    } else if (goalType.equals("Gold")) {
+    } else if (goalType.equals(Goal.GOLD_GOAL)) {
       return ("amassing " + quantity + " gold");
     }
 

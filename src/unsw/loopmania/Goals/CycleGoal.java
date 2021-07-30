@@ -8,9 +8,8 @@ public class CycleGoal extends SimpleGoal {
    * @param goalValue the amount of cycle needed to complete the cycle goal
    */
   public CycleGoal(int goalValue) {
-    super(goalValue, "Cycle");
+    super(goalValue, Goal.CYCLE_GOAL);
     super.setGoalValue(goalValue);
     super.setGoalCheck(false);
   }
-
 }
