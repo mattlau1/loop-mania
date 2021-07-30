@@ -48,8 +48,29 @@ In this meeting, the team discussed how to implement feedback given from our tut
 -	Steven Long Nguyen
 ### Points discussed: 
 -	Final Things to Implement
-    - Discussed final methods and classes to implement
-    - Checked progress on project with other group members
-    - Allocated different tasks
+- Discussed final methods and classes to implement
+- Checked progress on project with other group members
+- Allocated different tasks
 
 Team discussed what final adjustments needed to be done before the due date and how to implement different features that the team had questions about. The team scheduled a few meetings before the due date to work on the project together, merge branches together and to check if everything works together. The team also discussed what adjustments needed to be made on the UML diagram to represent new classes.
+
+## Tuesday 27th of July
+### Attendees: 
+-	Michael Chidiac
+-	Raymond Chung
+-	Matthew Lau
+-	Steven Long Nguyen
+### Points discussed: 
+- Allocation of different tasks to team members
+- How to implement tutor feedback for milestone 2
+- When to fix missing parts in milestone 2
+- Extension ideas for milestone 3
+    - Improved UI
+    - Music and sound effects for buttons, battles, etc.
+    - Map selection with different themes
+    - Special events in specific cycles
+    - New enemies with new mechanics
+    - Special item drops
+    - Crafting material drops
+
+The team allocated different tasks for milestone 3 to each member, including missing parts from milestone 2. The team also discussed briefly what needs to be done for milestone 3 and when missing parts from milestone 2 would be completed. The team also discussed all new features and planned extension ideas for milestone 3. 

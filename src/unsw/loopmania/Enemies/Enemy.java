@@ -3,6 +3,7 @@ package unsw.loopmania.Enemies;
 import java.util.Random;
 
 import javafx.scene.image.ImageView;
+import unsw.loopmania.Character;
 import unsw.loopmania.MovingEntity;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Buffs.Buff;
@@ -17,15 +18,49 @@ public abstract class Enemy extends MovingEntity {
   private double damage;
   private int expDrop;
   private int goldDrop;
+  private int doggieCoinDrop;
   private int critRate;
 
   /**
-   * backbone of the enemy constructor
+   * Enemy constructor. Default enemy will have 1 hp and 0 for all other stats.
    *
    * @param position the position where the enemy will spawn in the map
    */
   public Enemy(PathPosition position) {
     super(position);
+    this.health = 1;
+    this.battleRange = 0;
+    this.supportRange = 0;
+    this.damage = 0;
+    this.expDrop = 0;
+    this.goldDrop = 0;
+    this.critRate = 0;
+    this.doggieCoinDrop = 0;
+  }
+  /**
+   * Determines whether an enemy is a boss type enemy
+   * @return a boolean, true if the enemy is a boss, false if not
+   */
+  public boolean isBoss() {
+    return false;
+  }
+
+  /**
+   * Gets amount of doggie coins that the enemy drops
+   *
+   * @return amount of doggie coins dropped by enemy
+   */
+  public int getDoggieCoinDrop() {
+    return doggieCoinDrop;
+  }
+
+  /**
+   * Sets the amount of doggie coins that the enemy drops
+   *
+   * @param doggieCoinDrop amount of doggie coins dropped by enemy
+   */
+  public void setDoggieCoinDrop(int doggieCoinDrop) {
+    this.doggieCoinDrop = doggieCoinDrop;
   }
 
   /**
@@ -204,31 +239,7 @@ public abstract class Enemy extends MovingEntity {
   }
 
   /**
-   * Enemy changes direction
-   */
-  public void changeDirection() {
-    return;
-  }
-
-  /**
-   * a flag that confirms if the enemy has changed direction
-   */
-  public void resetHasChangedDirection() {
-    return;
-  }
-
-  /**
-   * get the direction of the moving enemy
-   * 
-   * @return the direction of the enemy
-   */
-  public int getDirection() {
-    return 0;
-  }
-
-/**
    * load an image for the respective enemy
    */
-
   public abstract ImageView getImage();
 }

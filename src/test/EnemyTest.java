@@ -27,10 +27,10 @@ public class EnemyTest {
     @Test
     public void testIsAlive() {
         // test if returns false when enemy recieves dmg greater than their hp
-        TestSetup s = new TestSetup();
-        LoopManiaWorld d = s.makeTestWorld();
+        TestSetup setup = new TestSetup();
+        LoopManiaWorld world = setup.makeTestWorld();
 
-        SlugEnemy slug = new SlugEnemy(new PathPosition(1, d.getOrderedPath()));
+        SlugEnemy slug = new SlugEnemy(new PathPosition(1, world.getOrderedPath()));
         assertEquals(true, slug.isAlive());
         // slug spawns with 20 hp reduceHealth called with value 10 should leave slug
         // with 10hp
@@ -41,16 +41,16 @@ public class EnemyTest {
     @Test
     public void testEnemyDrops() {
         // tests that enemies drop gold and exp
-        TestSetup s = new TestSetup();
-        LoopManiaWorld d = s.makeTestWorld();
-        Character testChar = new Character(new PathPosition(1, d.getOrderedPath()));
-        d.setCharacter(testChar);
-        SlugEnemy slug = new SlugEnemy(new PathPosition(1, d.getOrderedPath()));
-        d.addEnemy(slug);
+        TestSetup setup = new TestSetup();
+        LoopManiaWorld world = setup.makeTestWorld();
+        Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+        world.setCharacter(testChar);
+        SlugEnemy slug = new SlugEnemy(new PathPosition(1, world.getOrderedPath()));
+        world.addEnemy(slug);
         // check that character initially has 0 gold and exp
         assertEquals(0, testChar.getGold());
         assertEquals(0, testChar.getExp());
-        d.runBattles();
+        world.runBattles();
         // check that after killing the slug, the character gained 10 gold and exp
         assertEquals(10, testChar.getGold());
         assertEquals(10, testChar.getExp());

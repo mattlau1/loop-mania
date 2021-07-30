@@ -36,7 +36,7 @@
             </GridPane>
 
             <!-- this BorderPane contains the ground under the cards and the cards -->
-            <BorderPane>
+            <BorderPane fx:id="borderPane">
                <bottom>
                      <!-- cards GridPane holds the cards which can be used on the map -->
                      <GridPane fx:id="cards" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
@@ -69,19 +69,19 @@
                </rowConstraints>
                <children>
                   <!-- swordCell is the cell where a sword intended to be equipped will be dragged by the human player -->
-                  <ImageView id="swordCell" GridPane.columnIndex="0" GridPane.rowIndex="0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">    
+                  <ImageView id="swordCell" GridPane.columnIndex="0" GridPane.rowIndex="0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
                      <image>
                         <Image url="@../../images/sword_unequipped.png" />
                      </image>
                   </ImageView>
                   <!-- blankCell is an empty cell -->
-                  <ImageView id="blankCell" GridPane.columnIndex="1" GridPane.rowIndex="0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">    
+                  <ImageView id="blankCell" GridPane.columnIndex="1" GridPane.rowIndex="0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
                      <image>
                         <Image url="@../../images/image_just_black_tiny.png" />
                      </image>
                   </ImageView>
                   <!-- shieldCell is the cell where a shield intended to be equipped will be dragged by the human player -->
-                  <ImageView id="shieldCell" GridPane.columnIndex="2" GridPane.rowIndex="0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">    
+                  <ImageView id="shieldCell" GridPane.columnIndex="2" GridPane.rowIndex="0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
                      <image>
                         <Image url="@../../images/shield_unequipped.png" />
                      </image>
@@ -98,7 +98,7 @@
                   <RowConstraints />
                </rowConstraints>
                <children>
-                  
+
                </children>
             </GridPane>
 
@@ -154,6 +154,20 @@
                      </image>
                   </ImageView>
                   <Label fx:id="cycle" ellipsisString="" prefHeight="35.0" prefWidth="77.0" style="-fx-padding: 5px;" text="Cycle" textFill="#727272" textOverrun="CLIP">
+                     <font>
+                        <Font name="Segoe UI" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="175.0" prefHeight="33.0" prefWidth="113.0">
+               <children>
+                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/doggie_coin.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="doggieCoin" ellipsisString="" prefHeight="35.0" prefWidth="77.0" style="-fx-padding: 5px;" text="DoggieCoin" textFill="#c9b95a" textOverrun="CLIP">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>

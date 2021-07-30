@@ -17,10 +17,10 @@ public class ZombieEnemy extends Enemy {
   private final double damage = 10;
   private final int expDrop = 25;
   private final int goldDrop = 25;
-  private int critRate = 20;
+  private final int critRate = 20;
 
   /**
-   * spawn the zombie constructor
+   * Zombie constructor, sets Zombie stats
    *
    * @param position the position where the enemy will spawn in the map
    */

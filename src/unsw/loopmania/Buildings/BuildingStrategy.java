@@ -45,10 +45,10 @@ public interface BuildingStrategy {
   /**
    * Checks if building can spawn enemies, given the current cycle number
    *
-   * @param currentCycle current cycle count of character
-   * @return true if building can spawn enemies else false
+   * @param character current world character
+   * @return true if conditions allow building to spawn enemies else false
    */
-  public boolean canSpawnEnemy(int currentCycle);
+  public boolean canSpawnEnemy(Character character);
 
   /**
    * Checks if building is at the character's spawn location (is the hero's

@@ -40,8 +40,8 @@ public class ZombiePitStrategy implements BuildingStrategy {
   }
 
   @Override
-  public boolean canSpawnEnemy(int currentCycle) {
-    return currentCycle != 0;
+  public boolean canSpawnEnemy(Character character) {
+    return character.getCycleCount() != 0;
   }
 
   @Override

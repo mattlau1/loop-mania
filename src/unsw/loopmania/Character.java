@@ -14,11 +14,13 @@ import unsw.loopmania.Goals.Observer;
 public class Character extends MovingEntity {
   private final double initialHealth = 100;
   private final int initialGold = 0;
+  private final int initialDoggieCoin = 0;
   private final int initialExp = 0;
   private double damage = 15;
   private double damageMultiplier = 1;
   private SimpleDoubleProperty healthProperty;
   private SimpleIntegerProperty goldProperty;
+  private SimpleIntegerProperty doggieCoinProperty;
   private SimpleIntegerProperty expProperty;
   private SimpleIntegerProperty cycleProperty;
   private List<Buff> buffs;
@@ -32,6 +34,7 @@ public class Character extends MovingEntity {
     buffs = new ArrayList<>();
     this.healthProperty = new SimpleDoubleProperty(this, "health", initialHealth);
     this.goldProperty = new SimpleIntegerProperty(this, "gold", initialGold);
+    this.doggieCoinProperty = new SimpleIntegerProperty(this, "doggieCoin", initialDoggieCoin);
     this.expProperty = new SimpleIntegerProperty(this, "exp", initialExp);
     this.cycleProperty = new SimpleIntegerProperty(this, "cycle", 0);
   }
@@ -144,6 +147,14 @@ public class Character extends MovingEntity {
    * 
    * @return the experience amount
    */
+  public int getDoggieCoins() {
+    return doggieCoinProperty.get();
+  }
+
+  public void setDoggieCoins(int doggieCoins) {
+    doggieCoinProperty.set(doggieCoins);
+  }
+
   public int getExp() {
     return expProperty.get();
   }
@@ -251,6 +262,14 @@ public class Character extends MovingEntity {
    * 
    * @param gold the amount of experience to add
    */  
+  public void addDoggieCoins(int doggieCoins) {
+    doggieCoinProperty.set(doggieCoinProperty.get() + doggieCoins);
+  }
+
+  public void deductDoggieCoins(int doggieCoins) {
+    doggieCoinProperty.set(doggieCoinProperty.get() - doggieCoins);
+  }
+
   public void addEXP(int exp) {
     expProperty.set(expProperty.get() + exp);
     notifyAllObservers();
@@ -388,5 +407,10 @@ public class Character extends MovingEntity {
     setBossKillCount(getBossKillCount() + 1);
     notifyAllObservers();
   }
+  
+  public SimpleIntegerProperty getDoggieCoinProperty() {
+    return doggieCoinProperty;
+  }
+
 
 }

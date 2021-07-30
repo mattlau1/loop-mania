@@ -13,6 +13,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Buildings.BarracksStrategy;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.CampfireStrategy;
+import unsw.loopmania.Buildings.DoggieHouseStrategy;
 import unsw.loopmania.Buildings.HerosCastleStrategy;
 import unsw.loopmania.Buildings.TowerStrategy;
 import unsw.loopmania.Buildings.TrapStrategy;
@@ -231,6 +232,12 @@ public abstract class LoopManiaWorldLoader {
             new CampfireStrategy());
         onLoad(campfire);
         world.addBuildingToWorld(campfire);
+        break;
+      case "doggie_house":
+        Building doggiehouse = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y),
+            new DoggieHouseStrategy());
+        onLoad(doggiehouse);
+        world.addBuildingToWorld(doggiehouse);
         break;
       case "path_tile":
         throw new RuntimeException("path_tile's aren't valid entities, define the path externally.");
