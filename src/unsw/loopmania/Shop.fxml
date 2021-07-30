@@ -22,7 +22,7 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="321.0" prefWidth="218.0">
                      <children>
                         <Rectangle fill="#3d3d3d" height="321.0" stroke="BLACK" strokeType="INSIDE" width="218.0" />
-                        <Label layoutX="59.0" prefHeight="53.0" prefWidth="87.0" text="Store" textAlignment="CENTER" textFill="#fffffffc">
+                        <Label alignment="CENTER" prefHeight="53.0" prefWidth="218.0" text="Buy" textAlignment="CENTER" textFill="#fffffffc">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -114,7 +114,7 @@
                               </Button>
                            </children>
                         </GridPane>
-                        <Label fx:id="errorMessage" alignment="CENTER" layoutX="34.0" layoutY="45.0" prefHeight="17.0" prefWidth="138.0" text="Sample Error Message" textAlignment="CENTER" textFill="#fffd00" />
+                        <Label fx:id="buyErrorMessage" alignment="CENTER" layoutX="41.0" layoutY="45.0" prefHeight="17.0" prefWidth="138.0" text="Sample Error Message" textAlignment="CENTER" textFill="#fffd00" />
                         <Button fx:id="exitShopButton" layoutX="39.0" layoutY="273.0" mnemonicParsing="false" onAction="#exitShop" prefHeight="25.0" prefWidth="141.0" text="Exit Shop" />
                      </children>
                   </AnchorPane>
@@ -217,12 +217,12 @@
                               </Button>
                            </children>
                         </GridPane>
-                        <Label fx:id="errorMessage1" alignment="CENTER" layoutX="33.0" layoutY="45.0" prefHeight="17.0" prefWidth="138.0" text="Sample Error Message" textAlignment="CENTER" textFill="#fffd00" />
+                        <Label fx:id="sellErrorMessage" alignment="CENTER" layoutX="33.0" layoutY="45.0" prefHeight="17.0" prefWidth="138.0" text="Sample Error Message" textAlignment="CENTER" textFill="#fffd00" />
                         <Button fx:id="exitShopButton1" layoutX="39.0" layoutY="273.0" mnemonicParsing="false" onAction="#exitShop" prefHeight="25.0" prefWidth="141.0" text="Exit Shop" />
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="321.0" prefWidth="218.0">
                            <children>
                               <Rectangle fill="#3d3d3d" height="321.0" stroke="BLACK" strokeType="INSIDE" width="218.0" />
-                              <Label layoutX="59.0" prefHeight="53.0" prefWidth="87.0" text="Store" textAlignment="CENTER" textFill="#fffffffc">
+                              <Label alignment="CENTER" prefHeight="53.0" prefWidth="218.0" text="Sell" textFill="#fffffffc">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -335,7 +335,7 @@
                                     </Button>
                                     <ImageView fitHeight="30.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                                        <image>
-                                          <Image url="@../../images/src_images_doggie_coin.png" />
+                                          <Image url="@../../images/doggie_coin.png" />
                                        </image>
                                     </ImageView>
                                     <Button fx:id="sellDoggieCoinButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellDoggieCoin" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
@@ -345,7 +345,7 @@
                                     </Button>
                                  </children>
                               </GridPane>
-                              <Label fx:id="errorMessage2" alignment="CENTER" layoutX="41.0" layoutY="45.0" prefHeight="17.0" prefWidth="138.0" text="Sample Error Message" textAlignment="CENTER" textFill="#fffd00" />
+                              <Label fx:id="sellErrorMessage" alignment="CENTER" layoutX="40.0" layoutY="45.0" prefHeight="17.0" prefWidth="138.0" text="Sample Error Message" textAlignment="CENTER" textFill="#fffd00" />
                               <Button fx:id="exitShopButton2" layoutX="39.0" layoutY="273.0" mnemonicParsing="false" onAction="#exitShop" prefHeight="25.0" prefWidth="141.0" text="Exit Shop" />
                            </children>
                         </AnchorPane>

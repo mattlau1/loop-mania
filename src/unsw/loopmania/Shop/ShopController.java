@@ -8,13 +8,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import unsw.loopmania.LoopManiaWorldController;
 import unsw.loopmania.MenuSwitcher;
+import unsw.loopmania.Items.AndurilStrategy;
 import unsw.loopmania.Items.ArmourStrategy;
+import unsw.loopmania.Items.DoggieCoinStrategy;
 import unsw.loopmania.Items.HealthPotionStrategy;
 import unsw.loopmania.Items.HelmetStrategy;
 import unsw.loopmania.Items.ShieldStrategy;
 import unsw.loopmania.Items.StaffStrategy;
 import unsw.loopmania.Items.StakeStrategy;
 import unsw.loopmania.Items.SwordStrategy;
+import unsw.loopmania.Items.TheOneRingStrategy;
+import unsw.loopmania.Items.TreeStumpStrategy;
 
 public class ShopController {
   private MenuSwitcher gameSwitcher;
@@ -70,14 +74,18 @@ public class ShopController {
 
 
   @FXML
-  private Label errorMessage;
+  private Label buyErrorMessage;
+
+  @FXML
+  private Label sellErrorMessage;
 
   @FXML
   private Button exitShopButton;
 
   @FXML
   private void initialize() {
-    errorMessage.setText("");
+    buyErrorMessage.setText("");
+    sellErrorMessage.setText("");
   }
 
   /**
@@ -97,8 +105,12 @@ public class ShopController {
     gameSwitcher.switchMenu();
   }
 
-  public void setErrorMessage(String text) {
-    errorMessage.setText(text);
+  public void setBuyErrorMessage(String text) {
+    buyErrorMessage.setText(text);
+  }
+
+  public void setSellErrorMessage(String text) {
+    sellErrorMessage.setText(text);
   }
 
   @FXML
@@ -139,52 +151,52 @@ public class ShopController {
 
   @FXML
   private void sellArmour(ActionEvent event) {
-    worldController.buyItem(new ArmourStrategy());
+    worldController.sellItem(ArmourStrategy.class);
   }
 
   @FXML
   private void sellHelmet(ActionEvent event) {
-    worldController.buyItem(new HelmetStrategy());
+    worldController.sellItem(HelmetStrategy.class);
   }
 
   @FXML
   private void sellDoggieCoin(ActionEvent event) {
-    worldController.buyItem(new ArmourStrategy());
+    worldController.sellItem(DoggieCoinStrategy.class);
   }
 
   @FXML
   private void sellAnduril(ActionEvent event) {
-    worldController.buyItem(new ArmourStrategy());
+    worldController.sellItem(AndurilStrategy.class);
   }
 
   @FXML
   private void sellTheOneRing(ActionEvent event) {
-    worldController.buyItem(new ArmourStrategy());
+    worldController.sellItem(TheOneRingStrategy.class);
   }
 
   @FXML
   private void sellTreeStump(ActionEvent event) {
-    worldController.buyItem(new ArmourStrategy());
+    worldController.sellItem(TreeStumpStrategy.class);
   }
 
   @FXML
   private void sellShield(ActionEvent event) {
-    worldController.buyItem(new ShieldStrategy());
+    worldController.sellItem(ShieldStrategy.class);
   }
 
   @FXML
   private void sellStaff(ActionEvent event) {
-    worldController.buyItem(new StaffStrategy());
+    worldController.sellItem(StaffStrategy.class);
   }
 
   @FXML
   private void sellStake(ActionEvent event) {
-    worldController.buyItem(new StakeStrategy());
+    worldController.sellItem(StakeStrategy.class);
   }
 
   @FXML
   private void sellSword(ActionEvent event) {
-    worldController.buyItem(new SwordStrategy());
+    worldController.sellItem(SwordStrategy.class);
   }
 
   @FXML
