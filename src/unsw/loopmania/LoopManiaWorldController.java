@@ -301,7 +301,8 @@ public class LoopManiaWorldController {
   }
 
   public void exitShop() throws IOException {
-    shopController.setErrorMessage("");
+    shopController.setBuyErrorMessage("");
+    shopController.setSellErrorMessage("");
     shop.getChildren().remove(shopPane);
     switchToGame();
   }
@@ -392,14 +393,46 @@ public class LoopManiaWorldController {
   }
 
   /**
-   * load a sword from the world, and pair it with an image in the GUI
+   * buys an item from the shop, deducts gold from the charcter, if character
+   * does not have enuough gold, item is set to null
+   *
+   * @param strat item strategy of the item to be bought
    */
   public void buyItem(ItemStrategy strat) {
     Item item = world.buyItem(strat);
-    if (item != null)
+    if (item != null) {
       onLoad(item);
-    else {
-      shopController.setErrorMessage("Cannot afford item");
+      shopController.setBuyErrorMessage("");
+    } else {
+      shopController.setBuyErrorMessage("Cannot afford item");
+    }
+  }
+
+  /**
+   * sells an item from the shop, adds gold to the charcter, if character
+   * does not have the item, nothing happens
+   *
+   * @param strat item strategy of the item to be sold
+   */
+  public void sellItem(Class<?> strategy) {
+    if (world.sellItem(strategy) == null) {
+      shopController.setSellErrorMessage("You do not have this item");
+    } else {
+      shopController.setSellErrorMessage("");
+    }
+  }
+
+  /**
+   * sells an item from the shop, adds gold to the charcter, if character
+   * does not have the item, nothing happens
+   *
+   * @param strat item strategy of the item to be sold
+   */
+  public void sellDoggieCoin() {
+    if (world.sellDoggieCoin() == null) {
+      shopController.setSellErrorMessage("You do not have any DoggieCoin");
+    } else {
+      shopController.setSellErrorMessage("");
     }
   }
 

@@ -7,7 +7,9 @@ import java.util.Random;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.Items.AndurilStrategy;
 import unsw.loopmania.Items.ArmourStrategy;
+import unsw.loopmania.Items.DoggieCoinStrategy;
 import unsw.loopmania.Items.GoldStrategy;
 import unsw.loopmania.Items.HealthPotionStrategy;
 import unsw.loopmania.Items.HelmetStrategy;
@@ -18,6 +20,7 @@ import unsw.loopmania.Items.StaffStrategy;
 import unsw.loopmania.Items.StakeStrategy;
 import unsw.loopmania.Items.SwordStrategy;
 import unsw.loopmania.Items.TheOneRingStrategy;
+import unsw.loopmania.Items.TreeStumpStrategy;
 import unsw.loopmania.Buffs.Buff;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.CampfireStrategy;
@@ -35,7 +38,11 @@ import unsw.loopmania.Enemies.DoggieEnemy;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SlugEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
+import unsw.loopmania.Goals.BossObserver;
+import unsw.loopmania.Goals.CycleObserver;
+import unsw.loopmania.Goals.EXPObserver;
 import unsw.loopmania.Goals.Goal;
+import unsw.loopmania.Goals.GoldObserver;
 
 /**
  * A backend world.
@@ -108,7 +115,10 @@ public class LoopManiaWorld {
   private List<Building> buildingEntities;
 
   private boolean cardDestroyed;
-
+  private boolean isElanAlive;
+  private boolean isElanDead;
+  private final double postElanPriceMultiplier;
+  private final int midElanPriceMultiplier;
   /**
    * list of x,y coordinate pairs in the order by which moving entities traverse
    * them
@@ -151,9 +161,13 @@ public class LoopManiaWorld {
     trancedSoldiers = new ArrayList<>();
     this.goal = goal;
     cardDestroyed = false;
+    isElanAlive = false;
+    isElanDead = false;
     pathItems = new ArrayList<>();
     heroCastleCycles = 1;
     nextHeroCastleCycle = 1;
+    postElanPriceMultiplier = 0.8;
+    midElanPriceMultiplier = 5;
   }
 
   public int getHeroCastleCycles() {
@@ -195,6 +209,8 @@ public class LoopManiaWorld {
     highRarityItems.add(new HealthPotionStrategy());
 
     superRarityItems.add(new TheOneRingStrategy());
+    superRarityItems.add(new AndurilStrategy());
+    superRarityItems.add(new TreeStumpStrategy());
   }
 
   /**
@@ -238,6 +254,10 @@ public class LoopManiaWorld {
    */
   public void setCharacter(Character character) {
     this.character = character;
+    new EXPObserver(character, goal);
+    new GoldObserver(character, goal);
+    new CycleObserver(character, goal);
+    new BossObserver(character, goal);
   }
 
   /**
@@ -1066,7 +1086,7 @@ public class LoopManiaWorld {
     character.moveDownPath();
     useIfAtHerosCastle();
     moveBasicEnemies();
-    if (goal.isGameWon(character))
+    if (goal.isGameWon())
       System.exit(0);
   }
 
@@ -1361,6 +1381,13 @@ public class LoopManiaWorld {
     return equippedInventoryItems;
   }
 
+  /**
+   * buys an item from the shop, deducts gold from the charcter, if character
+   * does not have enuough gold, item is set to null
+   *
+   * @param strat item strategy of the item to be bought
+   * @return the item to be bought, null if character has insufficient gold
+   */
   public Item buyItem(ItemStrategy strat) {
     Item newItem = null;
     int balance = character.getGold();
@@ -1369,6 +1396,40 @@ public class LoopManiaWorld {
       newItem = addSpecificUnequippedItem(strat);
     }
     return newItem;
+  }
+
+  /**
+   * sells an item from the inventory, adds gold to the charcter, if character
+   * does not have the item, nothing happens
+   *
+   * @param strat item strategy of the item to be sold
+   */
+  public Item sellItem(Class<?> strategy) {
+    for (Item item : unequippedInventoryItems) {
+      if (item.getStrategy().getClass().equals(strategy)) {
+        removeUnequippedInventoryItem(item);
+        character.addGold(item.getPrice()/2);
+        return item;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * sells a DoggieCoin, adds gold to the charcter, if character
+   * does not have the item, nothing happens
+   *
+   */
+  public Item sellDoggieCoin() {
+    Item doggieCoin = new Item(new SimpleIntegerProperty(0), new SimpleIntegerProperty(0), new DoggieCoinStrategy());
+    if (character.getDoggieCoins() > 0) {
+      if (isElanAlive) character.addGold(doggieCoin.getPrice() * midElanPriceMultiplier);
+      else if (isElanDead) character.addGold((int)(doggieCoin.getPrice() * postElanPriceMultiplier));
+      else character.addGold(doggieCoin.getPrice());
+      character.deductDoggieCoins(1);
+      return doggieCoin;
+    }
+    return null;
   }
 
 }
