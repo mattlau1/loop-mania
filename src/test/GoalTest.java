@@ -79,16 +79,19 @@ public class GoalTest {
         // goals before the completion
         TestSetupNoGoals setup = new TestSetupNoGoals();
         Goal goal = new Goal();
+
         // create (200 experience AND 200 gold)
         ComplexGoal andComplexGoal = new AndComplex();
         // add 2 simple goal into the AND composite
         andComplexGoal.add(new ExperienceGoal(200));
         andComplexGoal.add(new GoldGoal(200));
+
         // add the complex goal into the world goal
         goal.addComplexGoal(andComplexGoal);
         LoopManiaWorld world = setup.makeTestWorld(goal);
         Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
         world.setCharacter(testChar);
+        
         // checks that the game is not won until ALL goals are completed
         assertEquals(false, goal.isGameWon());
         // the character has met the requirement for gold 
@@ -107,22 +110,59 @@ public class GoalTest {
         // goals before the completion
         TestSetupNoGoals setup = new TestSetupNoGoals();
         Goal goal = new Goal();
+
         // create (5 cycle OR 200 gold)
         ComplexGoal orComplexGoal = new OrComplex();
         // add 2 simple goal into the OR composite
         orComplexGoal.add(new CycleGoal(5));
         orComplexGoal.add(new GoldGoal(200));
+
         // add the complex goal into the world goal
         goal.addComplexGoal(orComplexGoal);
         LoopManiaWorld world = setup.makeTestWorld(goal);
         Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
         world.setCharacter(testChar);
+
         // checks that the game is not won until ALL goals are completed
         assertEquals(false, goal.isGameWon());
+
         // by completing one of the goal, the game should win
         while (testChar.getCycleCount() < 5) {
             testChar.incrementCycleCount();
         }
+        assertEquals(true, goal.isGameWon());
+    }
+
+    @Test
+    public void testAndOrComplexGoal() {
+        // creates the world with both OR and AND complex goals
+        // goals before the completion
+        TestSetupNoGoals setup = new TestSetupNoGoals();
+        Goal goal = new Goal();
+
+        // create (50 experience AND (5 cycle OR 400 gold))
+        ComplexGoal andComplexGoal = new AndComplex();
+        andComplexGoal.add(new ExperienceGoal(50));
+        ComplexGoal orComplexGoal = new OrComplex();
+
+        // add 2 simple goal into the OR composite
+        orComplexGoal.add(new CycleGoal(5));
+        orComplexGoal.add(new GoldGoal(400));
+        andComplexGoal.add(orComplexGoal);
+
+        // add the complex goal into the world goal
+        goal.addComplexGoal(andComplexGoal);
+        LoopManiaWorld world = setup.makeTestWorld(goal);
+        Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+        world.setCharacter(testChar);
+
+        // checks that the game is not won until ALL goals are completed
+        assertEquals(false, goal.isGameWon());
+        // the experience goal is completed but game hasn't won yet
+        testChar.addEXP(200);
+        assertEquals(false, goal.isGameWon());
+        // complete either cycle or gold goal and the game will win
+        testChar.addGold(400);
         assertEquals(true, goal.isGameWon());
     }
 }
