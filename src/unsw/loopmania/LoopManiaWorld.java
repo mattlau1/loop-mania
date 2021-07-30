@@ -309,6 +309,7 @@ public class LoopManiaWorld {
     enemies.add(enemy);
     spawningEnemies.add(enemy);
   }
+
   /**
    * spawns enemies if the conditions warrant it, adds to world
    *
@@ -504,8 +505,7 @@ public class LoopManiaWorld {
   }
 
   /**
-   * Changes vampire direction if they are within range of a
-   * campfire
+   * Changes vampire direction if they are within range of a campfire
    *
    * @param vampire  vampire whose direction to change
    * @param building building to check if campfire
@@ -842,6 +842,9 @@ public class LoopManiaWorld {
 
     trancedSoldiers.clear();
     for (Enemy e : defeatedEnemies) {
+      if (e instanceof DoggieEnemy) {
+        character.incrementBossKillCount();
+      }
       killEnemy(e);
     }
 
@@ -1383,8 +1386,8 @@ public class LoopManiaWorld {
   }
 
   /**
-   * buys an item from the shop, deducts gold from the charcter, if character
-   * does not have enuough gold, item is set to null
+   * buys an item from the shop, deducts gold from the charcter, if character does
+   * not have enuough gold, item is set to null
    *
    * @param strat item strategy of the item to be bought
    * @return the item to be bought, null if character has insufficient gold
@@ -1409,7 +1412,7 @@ public class LoopManiaWorld {
     for (Item item : unequippedInventoryItems) {
       if (item.getStrategy().getClass().equals(strategy)) {
         removeUnequippedInventoryItem(item);
-        character.addGold(item.getPrice()/2);
+        character.addGold(item.getPrice() / 2);
         return item;
       }
     }
@@ -1417,16 +1420,19 @@ public class LoopManiaWorld {
   }
 
   /**
-   * sells a DoggieCoin, adds gold to the charcter, if character
-   * does not have the item, nothing happens
+   * sells a DoggieCoin, adds gold to the charcter, if character does not have the
+   * item, nothing happens
    *
    */
   public Item sellDoggieCoin() {
     Item doggieCoin = new Item(new SimpleIntegerProperty(0), new SimpleIntegerProperty(0), new DoggieCoinStrategy());
     if (character.getDoggieCoins() > 0) {
-      if (isElanAlive) character.addGold(doggieCoin.getPrice() * midElanPriceMultiplier);
-      else if (isElanDead) character.addGold((int)(doggieCoin.getPrice() * postElanPriceMultiplier));
-      else character.addGold(doggieCoin.getPrice());
+      if (isElanAlive)
+        character.addGold(doggieCoin.getPrice() * midElanPriceMultiplier);
+      else if (isElanDead)
+        character.addGold((int) (doggieCoin.getPrice() * postElanPriceMultiplier));
+      else
+        character.addGold(doggieCoin.getPrice());
       character.deductDoggieCoins(1);
       return doggieCoin;
     }

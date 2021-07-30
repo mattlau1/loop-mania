@@ -414,8 +414,8 @@ public class Character extends MovingEntity {
   /**
    * Add a count to the boss kill count
    */
-  public void addBossKillCount() {
-    setBossKillCount(getBossKillCount() + 1);
+  public void incrementBossKillCount() {
+    setBossKillCount(bossKillCount + 1);
     notifyAllObservers();
   }
 

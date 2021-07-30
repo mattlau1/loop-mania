@@ -4,7 +4,7 @@ public class BossGoal extends SimpleGoal {
   /**
    * Create a simple goal for killing boss
    *
-   * @param goalValue the amount of boss kill needed to win the game
+   * @param goalValue the amount of boss kills needed to win the game
    */
   public BossGoal(int goalValue) {
     super(goalValue, "Boss");

@@ -98,7 +98,7 @@ public abstract class LoopManiaWorldLoader {
     } else if (goals.getString("goal").equals("cycle")) {
       goal.addSimpleGoal(new CycleGoal(goals.getInt("quantity")));
     } else if (goals.getString("goal").equals("bosses")) {
-      goal.addSimpleGoal(new BossGoal(bossCount));
+      goal.addSimpleGoal(new BossGoal(goals.getInt("quantity")));
     }
   }
 
@@ -137,7 +137,7 @@ public abstract class LoopManiaWorldLoader {
     } else if (goals.getString("goal").equals("cycles")) {
       root.add(new CycleGoal(goals.getInt("quantity")));
     } else if (goals.getString("goal").equals("bosses")) {
-      root.add(new BossGoal(bossCount));
+      root.add(new BossGoal(goals.getInt("quantity")));
     } else if (goals.getString("goal").equals("AND")) {
       ComplexGoal andComplexGoal = new AndComplex();
       JSONArray g = goals.getJSONArray("subgoals");

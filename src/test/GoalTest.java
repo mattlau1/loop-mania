@@ -87,7 +87,7 @@ public class GoalTest {
     // checks the game is not yet one as goal isnt complete
     assertEquals(false, goal.isGameWon());
     // kill a single boss
-    testChar.addBossKillCount();
+    testChar.incrementBossKillCount();
     // game won
     assertEquals(true, goal.isGameWon());
   }
@@ -200,7 +200,7 @@ public class GoalTest {
     testChar.addGold(400);
     assertEquals(false, goal.isGameWon());
     // kill all boss to win the game
-    testChar.addBossKillCount();
+    testChar.incrementBossKillCount();
     assertEquals(true, goal.isGameWon());
   }
 }
