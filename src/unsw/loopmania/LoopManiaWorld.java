@@ -760,6 +760,14 @@ public class LoopManiaWorld {
     }
   }
 
+  public void possiblyStunCharacter() {
+    Random random = new Random();
+    int randInt = random.nextInt(100);
+    int stunChance = 50;
+
+    if (randInt <= stunChance)
+      character.setStun(true);
+  }
   /**
    * run the expected battles in the world, based on current world state
    *
@@ -789,10 +797,20 @@ public class LoopManiaWorld {
         triggerOnHitEffects(enemy);
 
         double characterDamage = getCharacterDamageAgainstEnemy(enemy);
-        enemy.reduceHealth(characterDamage);
+        if (enemy.canStunCharacter())
+          possiblyStunCharacter();
+
+        if (!character.isStunned()) {
+          enemy.reduceHealth(characterDamage);
+        }
+
+        if (character.isStunned()) {
+          System.out.println("Character is stunned");
+        }
 
         attackSoldiers(battlingEnemies, enemy);
         processZombieSoldierAttacks(enemy);
+        character.setStun(false);
       }
 
       defeatedEnemies.add(enemy);

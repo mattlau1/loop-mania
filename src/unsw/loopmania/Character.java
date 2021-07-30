@@ -15,6 +15,7 @@ public class Character extends MovingEntity {
   private final int initialGold = 0;
   private final int initialDoggieCoin = 0;
   private final int initialExp = 0;
+  private final int initialCycles = 0;
   private double damage = 15;
   private double damageMultiplier = 1;
   private SimpleDoubleProperty healthProperty;
@@ -24,6 +25,7 @@ public class Character extends MovingEntity {
   private SimpleIntegerProperty cycleProperty;
   private List<Buff> buffs;
   private List<Soldier> soldiers;
+  private boolean isStunned;
 
   public Character(PathPosition position) {
     super(position);
@@ -33,7 +35,16 @@ public class Character extends MovingEntity {
     this.goldProperty = new SimpleIntegerProperty(this, "gold", initialGold);
     this.doggieCoinProperty = new SimpleIntegerProperty(this, "doggieCoin", initialDoggieCoin);
     this.expProperty = new SimpleIntegerProperty(this, "exp", initialExp);
-    this.cycleProperty = new SimpleIntegerProperty(this, "cycle", 0);
+    this.cycleProperty = new SimpleIntegerProperty(this, "cycle", initialCycles);
+    this.isStunned = false;
+  }
+
+  public void setStun(boolean isStunned) {
+    this.isStunned = isStunned;
+  }
+
+  public boolean isStunned() {
+    return isStunned;
   }
 
   public List<Soldier> getSoldiers() {
