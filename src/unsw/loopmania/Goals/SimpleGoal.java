@@ -9,7 +9,7 @@ public class SimpleGoal implements ComplexNode {
    * Create a simple goal varying on the goal type
    *
    * @param goalValue the amount needed to complete its respective goal
-   * @param goalType a string which classify the simple goal (gold, exp, cycle)
+   * @param goalType  a string which classify the simple goal (gold, exp, cycle)
    */
   public SimpleGoal(int goalValue, String goalType) {
     this.quantity = goalValue;
@@ -96,7 +96,7 @@ public class SimpleGoal implements ComplexNode {
   /**
    * Update the goal status as completed once the requirement has been met
    *
-   * @param amount the quantity needed to complete a particualr goal
+   * @param amount   the quantity needed to complete a particualr goal
    * @param goalType to compare the quantity with its matching goal type
    */
   public void updateValue(int amount, String goalType) {
@@ -115,7 +115,7 @@ public class SimpleGoal implements ComplexNode {
     } else if (goalType.equals("Gold")) {
       return ("amassing " + quantity + " gold");
     }
-    
+
     return ("no goal");
   }
 }

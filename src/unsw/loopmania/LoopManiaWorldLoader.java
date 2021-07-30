@@ -87,7 +87,7 @@ public abstract class LoopManiaWorldLoader {
 
   /**
    * Load a simple goal into the game
-   * 
+   *
    * @param goals object of a simple gaol from json
    */
   private void loadSimpleGoal(JSONObject goals) {
@@ -104,7 +104,7 @@ public abstract class LoopManiaWorldLoader {
 
   /**
    * Create a composite bool based on the boolean logic (AND/OR)
-   * 
+   *
    * @param goals object of goals loaded from JSON
    */
   private void loadComplexGoals(JSONObject goals) {
@@ -120,14 +120,14 @@ public abstract class LoopManiaWorldLoader {
       JSONArray g = goals.getJSONArray("subgoals");
       loadComplexGoalsList(g, orComplexGoal);
       goal.addComplexGoal(orComplexGoal);
-    } 
+    }
   }
 
   /**
    * Add the simple goal as a leaf into the complex goal root
-   * 
+   *
    * @param goals the list of goals from JSON
-   * @param root the complex node root where the simple goals will be added
+   * @param root  the complex node root where the simple goals will be added
    */
   private void addComplexGoals(JSONObject goals, ComplexGoal root) {
     if (goals.getString("goal").equals("experience")) {
@@ -154,9 +154,9 @@ public abstract class LoopManiaWorldLoader {
 
   /**
    * Load each individual goals from the list and add it into the root node
-   * 
+   *
    * @param goals the list of goals from JSON
-   * @param root the complex node root where the simple goals will be added
+   * @param root  the complex node root where the simple goals will be added
    */
   private void loadComplexGoalsList(JSONArray goal, ComplexGoal root) {
     for (int i = 0; i < goal.length(); i++) {

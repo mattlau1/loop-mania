@@ -15,8 +15,8 @@ public abstract class ComplexGoal implements ComplexNode {
     }
 
     public ComplexNode add(ComplexNode e) {
-    children.add(e);
-    return this;
+        children.add(e);
+        return this;
     }
 
     public List<ComplexNode> getChildren() {

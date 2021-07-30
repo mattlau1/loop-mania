@@ -33,7 +33,6 @@ public class Goal {
     complexGoals.add(goal);
   }
 
-
   /**
    * Get the list of simple goals
    *
@@ -43,7 +42,7 @@ public class Goal {
     return simpleGoals;
   }
 
-    /**
+  /**
    * Get the list of goals
    *
    * @return the list of complex goals
@@ -67,10 +66,10 @@ public class Goal {
    * @return the boolean if the character has meet all the requirements
    */
   public boolean isGameWon() {
-      if (isSimpleCompleted() || isComplexCompleted())
-        return true;
-  
-      return false;
+    if (isSimpleCompleted() || isComplexCompleted())
+      return true;
+
+    return false;
   }
 
   /**
@@ -135,9 +134,8 @@ public class Goal {
   }
 
   /**
-   * A helper function for isGameWon()
-   * Check if the simple goal is completed
-   * 
+   * A helper function for isGameWon() Check if the simple goal is completed
+   *
    * @return the boolean to indicate if the simple goal is completed
    */
   public boolean isSimpleCompleted() {
@@ -153,14 +151,13 @@ public class Goal {
       if (count == numGoals) {
         return true;
       }
-    } 
+    }
     return false;
   }
 
   /**
-   * A helper function for isGameWon()
-   * Check if the complex goal is completed
-   * 
+   * A helper function for isGameWon() Check if the complex goal is completed
+   *
    * @return the boolean to indicate if the complex goal is completed
    */
   public boolean isComplexCompleted() {
@@ -176,12 +173,13 @@ public class Goal {
 
   /**
    * Update the complex goal status as the observer detects the changes
-   * 
-   * @param value the quantity that the character holds for either exp, cycle or gold
+   *
+   * @param value    the quantity that the character holds for either exp, cycle
+   *                 or gold
    * @param goalType the type that distinguish individial simple goal
    */
   public void updateComplexGoals(int value, String goalType) {
-    for (ComplexGoal g: getComplexGoals()) {
+    for (ComplexGoal g : getComplexGoals()) {
       g.updateValue(value, goalType);
     }
   }
@@ -195,7 +193,7 @@ public class Goal {
 
   // TESTING PURPOSES
   public void printComplexGoals() {
-    for (ComplexGoal g: complexGoals) {
+    for (ComplexGoal g : complexGoals) {
       System.out.println(prettyPrintComplex(g));
     }
   }
@@ -204,10 +202,10 @@ public class Goal {
   public String prettyPrintSimple(SimpleGoal simpleGoal) {
     return simpleGoal.getValue();
   }
-  
+
   // TESTING PURPOSES
   public void printSimpleGoal() {
-    for (SimpleGoal s:  simpleGoals) {
+    for (SimpleGoal s : simpleGoals) {
       System.out.println(prettyPrintComplex(s));
     }
   }

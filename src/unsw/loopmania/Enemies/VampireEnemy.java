@@ -64,7 +64,6 @@ public class VampireEnemy extends Enemy {
     this.hasChangedDirection = true;
   }
 
-
   /**
    * Changes enemy direction
    */

@@ -52,7 +52,7 @@ public class Character extends MovingEntity {
 
   /**
    * Gets the list of soliders
-   * 
+   *
    * @return the list of soliders
    */
   public List<Soldier> getSoldiers() {
@@ -61,7 +61,7 @@ public class Character extends MovingEntity {
 
   /**
    * Gets a particular soldier with the given index
-   * 
+   *
    * @param index the index of the solider
    * @return the soldier at the index
    */
@@ -71,7 +71,7 @@ public class Character extends MovingEntity {
 
   /**
    * Gets a particular soldier with the given index
-   * 
+   *
    * @param index the index of the solider
    */
   public Soldier removeSoldiersFromIndex(int index) {
@@ -80,7 +80,7 @@ public class Character extends MovingEntity {
 
   /**
    * Sets the list of soldiers with the list
-   * 
+   *
    * @param soliders the new list of soldiers
    */
   public void setSoldiers(List<Soldier> soldiers) {
@@ -103,7 +103,7 @@ public class Character extends MovingEntity {
 
   /**
    * Gets the initial health of the character
-   * 
+   *
    * @return the initial health
    */
   public double getInitialHealth() {
@@ -112,7 +112,7 @@ public class Character extends MovingEntity {
 
   /**
    * Gets the max health of the character
-   * 
+   *
    * @return the max health
    */
   public double getMaxHealth() {
@@ -121,7 +121,7 @@ public class Character extends MovingEntity {
 
   /**
    * Gets the current health of the character
-   * 
+   *
    * @return the current health
    */
   public double getHealth() {
@@ -137,7 +137,7 @@ public class Character extends MovingEntity {
 
   /**
    * Gets the current gold the character is holding
-   * 
+   *
    * @return the gold amount
    */
   public int getGold() {
@@ -146,7 +146,7 @@ public class Character extends MovingEntity {
 
   /**
    * Sets a new gold value for character to hold
-   * 
+   *
    * @param gold the new gold amount
    */
   public void setGold(int gold) {
@@ -155,7 +155,7 @@ public class Character extends MovingEntity {
 
   /**
    * Gets the current experience the character is holding
-   * 
+   *
    * @return the experience amount
    */
   public int getDoggieCoins() {
@@ -172,7 +172,7 @@ public class Character extends MovingEntity {
 
   /**
    * Sets a new experience value for character to hold
-   * 
+   *
    * @param exp the new experience amount
    */
   public void setExp(int exp) {
@@ -233,7 +233,7 @@ public class Character extends MovingEntity {
 
   /**
    * Checks if the character is still alive
-   * 
+   *
    * @return the boolean if the character is still alive
    */
   public boolean isAlive() {
@@ -242,7 +242,7 @@ public class Character extends MovingEntity {
 
   /**
    * Checks if the character is dead
-   * 
+   *
    * @return the boolean if the character is dead
    */
   public boolean isDead() {
@@ -251,9 +251,9 @@ public class Character extends MovingEntity {
 
   /**
    * Increases character's gold by given amount, holding more gold
-   * 
+   *
    * @param gold the amount of gold to add
-   */  
+   */
   public void addGold(int gold) {
     goldProperty.set(goldProperty.get() + gold);
     notifyAllObservers();
@@ -261,18 +261,18 @@ public class Character extends MovingEntity {
 
   /**
    * Reduces character's gold by given amount, holding less gold
-   * 
+   *
    * @param gold the amount of gold to reduce
-   */  
+   */
   public void deductGold(int gold) {
     goldProperty.set(goldProperty.get() - gold);
   }
 
   /**
    * Increases character's experience by given amount, holding more expeirence
-   * 
+   *
    * @param gold the amount of experience to add
-   */  
+   */
   public void addDoggieCoins(int doggieCoins) {
     doggieCoinProperty.set(doggieCoinProperty.get() + doggieCoins);
   }
@@ -341,7 +341,7 @@ public class Character extends MovingEntity {
 
   /**
    * Gets the current health of the character
-   * 
+   *
    * @return the current health
    */
   public SimpleDoubleProperty getHealthProperty() {
@@ -350,7 +350,7 @@ public class Character extends MovingEntity {
 
   /**
    * Gets the current experience the character is holding
-   * 
+   *
    * @return the experience amount
    */
   public SimpleIntegerProperty getExpProperty() {
@@ -359,7 +359,7 @@ public class Character extends MovingEntity {
 
   /**
    * Gets the current gold the character is holding
-   * 
+   *
    * @return the gold amount
    */
   public SimpleIntegerProperty getGoldProperty() {
@@ -377,7 +377,7 @@ public class Character extends MovingEntity {
 
   /**
    * Add the observer into the observer list
-   * 
+   *
    * @param observer the observer which tracks the quantity for goals
    */
   public void addObservers(Observer observer) {
@@ -387,15 +387,15 @@ public class Character extends MovingEntity {
   /**
    * Update all the observers when the stats are updated on the character
    */
-  public void notifyAllObservers(){
+  public void notifyAllObservers() {
     for (Observer observer : observers) {
-       observer.update();
+      observer.update();
     }
- }
+  }
 
   /**
    * Gets the boss kill count number
-   * 
+   *
    * @return the number of boss killed
    */
   public int getBossKillCount() {
@@ -404,7 +404,7 @@ public class Character extends MovingEntity {
 
   /**
    * Gets the boss kill count number
-   * 
+   *
    * @return the number of boss killed
    */
   public void setBossKillCount(int bossKillCount) {
@@ -418,10 +418,9 @@ public class Character extends MovingEntity {
     setBossKillCount(getBossKillCount() + 1);
     notifyAllObservers();
   }
-  
+
   public SimpleIntegerProperty getDoggieCoinProperty() {
     return doggieCoinProperty;
   }
-
 
 }

@@ -788,6 +788,7 @@ public class LoopManiaWorld {
     if (randInt <= stunChance)
       character.setStun(true);
   }
+
   /**
    * run the expected battles in the world, based on current world state
    *

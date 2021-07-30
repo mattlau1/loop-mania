@@ -15,14 +15,14 @@ import unsw.loopmania.LoopManiaWorld;
  * installed the Java Extension Pack properly.
  */
 public class TrivialTest {
-    @Test
-    public void blahTest() {
-        assertEquals("a", "a");
-    }
+  @Test
+  public void blahTest() {
+    assertEquals("a", "a");
+  }
 
-    @Test
-    public void blahTest2() {
-        LoopManiaWorld d = new LoopManiaWorld(1, 2, new ArrayList<>(), null);
-        assertEquals(d.getWidth(), 1);
-    }
+  @Test
+  public void blahTest2() {
+    LoopManiaWorld d = new LoopManiaWorld(1, 2, new ArrayList<>(), null);
+    assertEquals(d.getWidth(), 1);
+  }
 }
