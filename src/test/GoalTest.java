@@ -110,6 +110,7 @@ public class GoalTest {
         LoopManiaWorld world = setup.makeTestWorld(goal);
         Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
         world.setCharacter(testChar);
+    }
 
     public void testComplexGoal() {
         // creates world with complex goal consisting of all other goals and tests each
@@ -117,16 +118,16 @@ public class GoalTest {
         TestSetupNoGoals setup = new TestSetupNoGoals();
         Goal goal = new Goal();
         // set all the goals
-        goal.addGoal(new GoldGoal(200));
-        goal.addGoal(new CycleGoal(20));
-        goal.addGoal(new ExperienceGoal(200));
+        goal.addSimpleGoal(new GoldGoal(200));
+        goal.addSimpleGoal(new CycleGoal(20));
+        goal.addSimpleGoal(new ExperienceGoal(200));
         LoopManiaWorld world = setup.makeTestWorld(goal);
         Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
         world.setCharacter(testChar);
-        
+
         // checks that the game is not won until ALL goals are completed
         assertEquals(false, goal.isGameWon());
-        // the character has met the requirement for gold 
+        // the character has met the requirement for gold
         // but still hasnt completed the game
         testChar.addGold(200);
         assertEquals(false, goal.isGameWon());
@@ -201,6 +202,5 @@ public class GoalTest {
         // kill all boss to win the game
         testChar.addBossKillCount();
         assertEquals(true, goal.isGameWon());
-
     }
 }
