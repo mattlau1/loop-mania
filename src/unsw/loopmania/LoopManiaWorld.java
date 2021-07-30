@@ -7,7 +7,9 @@ import java.util.Random;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import unsw.loopmania.Items.AndurilStrategy;
 import unsw.loopmania.Items.ArmourStrategy;
+import unsw.loopmania.Items.DoggieCoinStrategy;
 import unsw.loopmania.Items.GoldStrategy;
 import unsw.loopmania.Items.HealthPotionStrategy;
 import unsw.loopmania.Items.HelmetStrategy;
@@ -18,6 +20,7 @@ import unsw.loopmania.Items.StaffStrategy;
 import unsw.loopmania.Items.StakeStrategy;
 import unsw.loopmania.Items.SwordStrategy;
 import unsw.loopmania.Items.TheOneRingStrategy;
+import unsw.loopmania.Items.TreeStumpStrategy;
 import unsw.loopmania.Buffs.Buff;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.CampfireStrategy;
@@ -1343,6 +1346,13 @@ public class LoopManiaWorld {
     return equippedInventoryItems;
   }
 
+  /**
+   * buys an item from the shop, deducts gold from the charcter, if character
+   * does not have enuough gold, item is set to null
+   *
+   * @param strat item strategy of the item to be bought
+   * @return the item to be bought, null if character has insufficient gold
+   */
   public Item buyItem(ItemStrategy strat) {
     Item newItem = null;
     int balance = character.getGold();
@@ -1353,4 +1363,20 @@ public class LoopManiaWorld {
     return newItem;
   }
 
+  /**
+   * sells an item from the shop, adds gold to the charcter, if character
+   * does not have the item, nothing happens
+   *
+   * @param strat item strategy of the item to be sold
+   */
+  public Item sellItem(Class<?> strategy) {
+    for (Item item : unequippedInventoryItems) {
+      if (item.getStrategy().getClass().equals(strategy)) {
+        removeUnequippedInventoryItem(item);
+        character.addGold(item.getPrice()/2);
+        return item;
+      }
+    }
+    return null;
+  }
 }
