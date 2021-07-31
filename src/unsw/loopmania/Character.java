@@ -6,7 +6,6 @@ import java.util.List;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Buffs.Buff;
-import unsw.loopmania.Goals.EXPObserver;
 import unsw.loopmania.Goals.Observer;
 
 /**
@@ -28,13 +27,14 @@ public class Character extends MovingEntity {
   private List<Buff> buffs;
   private List<Soldier> soldiers;
   private boolean isStunned;
-  private List<Observer> observers = new ArrayList<Observer>();
+  private List<Observer> observers;
   private int bossKillCount = 0;
 
   public Character(PathPosition position) {
     super(position);
     soldiers = new ArrayList<>();
     buffs = new ArrayList<>();
+    this.observers = new ArrayList<Observer>();
     this.healthProperty = new SimpleDoubleProperty(this, "health", initialHealth);
     this.goldProperty = new SimpleIntegerProperty(this, "gold", initialGold);
     this.doggieCoinProperty = new SimpleIntegerProperty(this, "doggieCoin", initialDoggieCoin);
