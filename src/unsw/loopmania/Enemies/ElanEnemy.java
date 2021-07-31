@@ -15,11 +15,12 @@ public class ElanEnemy extends Enemy {
   private final int goldDrop = 250;
   private final int critRate = 0;
   private final int doggieCoinDrop = 20;
-  public static final int HEAL_AMOUNT = 2;
+  public static final double HEAL_AMOUNT = 2;
 
   public ElanEnemy(PathPosition position) {
     super(position);
     setHealth(health);
+    setMaxHealth(health);
     setBattleRange(battleRange);
     setSupportRange(supportRange);
     setDamage(damage);

@@ -24,6 +24,7 @@ public class DoggieEnemy extends Enemy {
   public DoggieEnemy(PathPosition position) {
     super(position);
     setHealth(health);
+    setMaxHealth(health);
     setBattleRange(battleRange);
     setSupportRange(supportRange);
     setDamage(damage);

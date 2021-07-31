@@ -22,21 +22,12 @@ public abstract class Enemy extends MovingEntity {
   private double maxHealth;
 
   /**
-   * Enemy constructor. Default enemy will have 1 hp and 0 for all other stats.
+   * Enemy constructor.
    *
    * @param position the position where the enemy will spawn in the map
    */
   public Enemy(PathPosition position) {
     super(position);
-    this.health = 1;
-    this.battleRange = 0;
-    this.supportRange = 0;
-    this.damage = 0;
-    this.expDrop = 0;
-    this.goldDrop = 0;
-    this.critRate = 0;
-    this.doggieCoinDrop = 0;
-    this.maxHealth = 1;
   }
 
   /**
@@ -210,6 +201,24 @@ public abstract class Enemy extends MovingEntity {
   public void addHealth(double health) {
     double newHealth = this.health + health;
     this.health = newHealth <= maxHealth ? newHealth : maxHealth;
+  }
+
+  /**
+   * Gets the maximum health of the enemy
+   *
+   * @return enemy max health
+   */
+  public double getMaxHealth() {
+    return maxHealth;
+  }
+
+  /**
+   * Sets the enemy's max health to a given value
+   *
+   * @param maxHealth new enemy max health
+   */
+  public void setMaxHealth(double maxHealth) {
+    this.maxHealth = maxHealth;
   }
 
   /**

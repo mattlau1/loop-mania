@@ -795,6 +795,9 @@ public class LoopManiaWorld {
     }
   }
 
+  /**
+   * Possibly randomly stuns the character
+   */
   public void possiblyStunCharacter() {
     Random random = new Random();
     int randInt = random.nextInt(100);
@@ -852,20 +855,18 @@ public class LoopManiaWorld {
         useBuildingsOnEntitiesInCombat(enemy);
         triggerOnHitEffects(enemy);
 
-        double characterDamage = getCharacterDamageAgainstEnemy(enemy);
+        // if enemy is able to stun, randomly stun character if unlucky
         if (enemy.canStunCharacter())
           possiblyStunCharacter();
 
-        if (!character.isStunned()) {
-          enemy.reduceHealth(characterDamage);
-        }
-
-        // if (character.isStunned()) {
-        // System.out.println("Character is stunned");
-        // }
+        // attack enemy is character is not stunned
+        if (!character.isStunned())
+          enemy.reduceHealth(getCharacterDamageAgainstEnemy(enemy));
 
         attackSoldiers(battlingEnemies, enemy);
         processZombieSoldierAttacks(enemy);
+
+        // unstun character after the attack has ended
         character.setStunned(false);
       }
 

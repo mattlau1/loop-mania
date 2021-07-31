@@ -27,6 +27,7 @@ public class ZombieEnemy extends Enemy {
   public ZombieEnemy(PathPosition position) {
     super(position);
     setHealth(health);
+    setMaxHealth(health);
     setBattleRange(battleRange);
     setSupportRange(supportRange);
     setDamage(damage);
