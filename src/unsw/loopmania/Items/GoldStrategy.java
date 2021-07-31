@@ -52,11 +52,6 @@ public class GoldStrategy implements ItemStrategy {
     character.addGold(goldAmt);
   }
 
-  /**
-   * returns the image of the item to be displayed
-   *
-   * @return the imageview of the item
-   */
   @Override
   public ImageView getImage() {
     Image image = new Image((new File("src/images/gold_pile.png")).toURI().toString());
