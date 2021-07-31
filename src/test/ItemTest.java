@@ -15,10 +15,16 @@ import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.SlugEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
 import unsw.loopmania.Enemies.ZombieEnemy;
+import unsw.loopmania.Items.AndurilStrategy;
+import unsw.loopmania.Items.ArmourStrategy;
 import unsw.loopmania.Items.HealthPotionStrategy;
+import unsw.loopmania.Items.HelmetStrategy;
 import unsw.loopmania.Items.Item;
+import unsw.loopmania.Items.ItemStrategy;
+import unsw.loopmania.Items.ShieldStrategy;
 import unsw.loopmania.Items.StaffStrategy;
 import unsw.loopmania.Items.StakeStrategy;
+import unsw.loopmania.Items.SwordStrategy;
 import unsw.loopmania.Items.TheOneRingStrategy;
 
 public class ItemTest {
@@ -109,7 +115,7 @@ public class ItemTest {
 
   @Test
   public void testNoItemSpawned() {
-    // test that no items are spawned with the specific seed
+    // test that no items are spawned in the world with the specific seed
     TestSetupWithSeed setup = new TestSetupWithSeed();
     LoopManiaWorld world = setup.makeTestWorld(5);
     Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
@@ -119,6 +125,8 @@ public class ItemTest {
     // no items were spawned
     List<Item> newItems = world.possiblySpawnItems();
     assertEquals(0, newItems.size());
+
+
     Random rand = new Random(-1);
     System.out.println(rand.nextInt(2));
     
@@ -126,7 +134,7 @@ public class ItemTest {
 
   @Test
   public void testItemSpawned() {
-    // test that no items are spawned with the specific seed
+    // test that items are spawned in the world with the specific seed
     TestSetupWithSeed setup = new TestSetupWithSeed();
     LoopManiaWorld world = setup.makeTestWorld(-1);
     Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
@@ -136,6 +144,70 @@ public class ItemTest {
     // items are spawned on the map
     List<Item> newItems = world.possiblySpawnItems();
     assertEquals(1, newItems.size());
+  }
+
+  @Test
+  public void testSuperRaritySpawn() {
+    // test that specific item will spawn from certain rarity categories.
+    
+    // set up that will spawn super rarity item
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(76);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // generate item
+    world.generateItemDrops();
+    // spawn super rare item
+    ItemStrategy superRareItem = world.randomItemStrategy();
+    assertEquals(true, superRareItem instanceof AndurilStrategy);
+  }
+
+  @Test
+  public void testHighRaritySpawn() {
+    // test that specific item will spawn from certain rarity categories.
+    
+    // set up that will spawn super rarity item
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(37);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // generate item
+    world.generateItemDrops();
+    // spawn high rare item
+    ItemStrategy highRareItem = world.randomItemStrategy();
+    assertEquals(true, highRareItem instanceof HealthPotionStrategy);
+  }
+
+  @Test
+  public void testMediumRaritySpawn() {
+    // test that specific item will spawn from certain rarity categories.
+    
+    // set up that will spawn medium rarity item
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(19);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // generate item
+    world.generateItemDrops();
+    // spawn medium rare item
+    ItemStrategy mediumRareItem = world.randomItemStrategy();
+    assertEquals(true, mediumRareItem instanceof HelmetStrategy);
+  }
+
+  @Test
+  public void testLowRaritySpawn() {
+    // test that specific item will spawn from certain rarity categories.
+    
+    // set up that will spawn low rarity item
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(78);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // generate item
+    world.generateItemDrops();
+    // spawn low rare item
+    ItemStrategy lowRareItem = world.randomItemStrategy();
+    assertEquals(true, lowRareItem instanceof StakeStrategy);
   }
 
 }
