@@ -13,6 +13,8 @@ import javafx.scene.input.MouseEvent;
  */
 public class MainMenuController {
   private MenuSwitcher gameSwitcher;
+  private MenuSwitcher howToPlaySwitcher;
+  private MenuSwitcher mapSelectionSwitcher;
 
   @FXML
   Button exitButton;
@@ -36,6 +38,30 @@ public class MainMenuController {
   }
 
   /**
+   * facilitates switching to how to play
+   */
+  public void setHowToPlaySwitcher(MenuSwitcher gameSwitcher) {
+    this.howToPlaySwitcher = gameSwitcher;
+  }
+
+  /**
+   * facilitates switching to map selection
+   */
+  public void setMapSelectionSwitcher(MenuSwitcher gameSwitcher) {
+    this.mapSelectionSwitcher = gameSwitcher;
+  }
+
+  /**
+   * facilitates switching to map selection upon button click
+   *
+   * @throws IOException
+   */
+  @FXML
+  private void switchToMapSelection() throws IOException {
+    mapSelectionSwitcher.switchMenu();
+  }
+
+  /**
    * facilitates switching to main game upon button click
    *
    * @throws IOException
@@ -43,6 +69,16 @@ public class MainMenuController {
   @FXML
   private void switchToGame() throws IOException {
     gameSwitcher.switchMenu();
+  }
+
+  /**
+   * facilitates switching to how to play screen upon button click
+   *
+   * @throws IOException
+   */
+  @FXML
+  private void switchToHowToPlay() throws IOException {
+    howToPlaySwitcher.switchMenu();
   }
 
   private void setButtonHoverEffects() {
