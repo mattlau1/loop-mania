@@ -13,7 +13,6 @@ public class GoldObserver extends Observer {
   public GoldObserver(Character character, Goal goal) {
     this.character = character;
     this.goal = goal;
-    this.character.addObservers(this);
   }
 
   @Override

@@ -6,22 +6,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.PathPosition;
 
-public class DoggieEnemy extends Enemy {
-  private final double health = 400;
+public class ElanEnemy extends Enemy {
+  private final double health = 1000;
   private final int battleRange = 2;
   private final int supportRange = 5;
-  private final double damage = 1;
+  private final double damage = 2;
   private final int expDrop = 400;
   private final int goldDrop = 250;
   private final int critRate = 0;
-  private final int doggieCoinDrop = 1;
+  private final int doggieCoinDrop = 20;
+  public static final double HEAL_AMOUNT = 2;
 
-  /**
-   * Doggie constructor, sets doggie stats
-   *
-   * @param position the position where the enemy will spawn in the map
-   */
-  public DoggieEnemy(PathPosition position) {
+  public ElanEnemy(PathPosition position) {
     super(position);
     setHealth(health);
     setMaxHealth(health);
@@ -41,13 +37,9 @@ public class DoggieEnemy extends Enemy {
 
   @Override
   public ImageView getImage() {
-    Image image = new Image((new File("src/images/doggie.png")).toURI().toString());
+    Image image = new Image((new File("src/images/elan.png")).toURI().toString());
     ImageView view = new ImageView(image);
     return view;
   }
 
-  @Override
-  public boolean canStunCharacter() {
-    return true;
-  }
 }
