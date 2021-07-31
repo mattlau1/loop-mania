@@ -219,17 +219,19 @@ public class LoopManiaWorldController {
    */
   private MenuSwitcher mainMenuSwitcher;
   private MenuSwitcher gameSwitcher;
+  private String imgLoc;
 
   /**
    * @param world           world object loaded from file
    * @param initialEntities the initial JavaFX nodes (ImageViews) which should be
    *                        loaded into the GUI
    */
-  public LoopManiaWorldController(LoopManiaWorld world, List<ImageView> initialEntities) {
+  public LoopManiaWorldController(LoopManiaWorld world, List<ImageView> initialEntities, String imgLoc) {
     this.world = world;
     entityImages = new ArrayList<>(initialEntities);
     currentlyDraggedImage = null;
     currentlyDraggedType = null;
+    this.imgLoc = imgLoc;
 
     // initialize them all...
     gridPaneSetOnDragDropped = new EnumMap<DRAGGABLE_TYPE, EventHandler<DragEvent>>(DRAGGABLE_TYPE.class);
@@ -245,7 +247,7 @@ public class LoopManiaWorldController {
     Image pathTilesImage = new Image((new File("src/images/32x32GrassAndDirtPath.png")).toURI().toString());
     Image inventorySlotImage = new Image((new File("src/images/empty_slot.png")).toURI().toString());
     Rectangle2D imagePart = new Rectangle2D(0, 0, 32, 32);
-
+    shop = new Pane();
     // Add the ground first so it is below all other entities (inculding all the
     // twists and turns)
     for (int x = 0; x < world.getWidth(); x++) {
@@ -303,8 +305,9 @@ public class LoopManiaWorldController {
   public void exitShop() throws IOException {
     shopController.setBuyErrorMessage("");
     shopController.setSellErrorMessage("");
-    shop.getChildren().remove(shopPane);
-    switchToGame();
+    anchorPaneRoot.getChildren().remove(shopPane);
+    anchorPaneRoot.requestFocus();
+    startTimer();
   }
 
   public LoopManiaWorld getWorld() {
@@ -346,9 +349,9 @@ public class LoopManiaWorldController {
       world.addHeroCastleCycles(1);
       world.addNextHeroCastleCycle(world.getHeroCastleCycles());
 
-      shop = anchorPaneRoot;
-      shop.getChildren().remove(shopPane);
-      shop.getChildren().add(shopPane);
+      // shop = anchorPaneRoot;
+      anchorPaneRoot.getChildren().remove(shopPane);
+      anchorPaneRoot.getChildren().add(shopPane);
     }
   }
 
@@ -460,7 +463,7 @@ public class LoopManiaWorldController {
    * @param card
    */
   private void onLoad(Card card) {
-    ImageView view = card.getImage();
+    ImageView view = card.getImage(imgLoc);
 
     // FROM
     // https://stackoverflow.com/questions/41088095/javafx-drag-and-drop-to-gridpane
@@ -479,7 +482,7 @@ public class LoopManiaWorldController {
    * @param sword
    */
   private void onLoad(Item item) {
-    ImageView view = item.getImage();
+    ImageView view = item.getImage(imgLoc);
     addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, unequippedInventory, equippedItems);
     addEntity(item, view);
     unequippedInventory.getChildren().add(view);
@@ -492,7 +495,7 @@ public class LoopManiaWorldController {
    * @param item item to be loaded
    */
   private void onLoadEquipped(Item item) {
-    ImageView view = item.getImage();
+    ImageView view = item.getImage(imgLoc);
     addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, equippedItems, equippedItems);
     addEntity(item, view);
     equippedItems.getChildren().add(view);
@@ -504,7 +507,7 @@ public class LoopManiaWorldController {
    * @param enemy
    */
   private void onLoadPath(Item item) {
-    ImageView view = item.getImage();
+    ImageView view = item.getImage(imgLoc);
     addEntity(item, view);
     squares.getChildren().add(view);
   }
@@ -515,7 +518,7 @@ public class LoopManiaWorldController {
    * @param enemy
    */
   private void onLoad(Enemy enemy) {
-    ImageView view = enemy.getImage();
+    ImageView view = enemy.getImage(imgLoc);
     addEntity(enemy, view);
     squares.getChildren().add(view);
   }
@@ -526,7 +529,7 @@ public class LoopManiaWorldController {
    * @param building
    */
   private void onLoad(Building building) {
-    ImageView view = building.getImage();
+    ImageView view = building.getImage(imgLoc);
     addEntity(building, view);
 
     world.addBuildingToWorld(building);

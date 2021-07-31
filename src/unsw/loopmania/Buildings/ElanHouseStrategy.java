@@ -35,8 +35,8 @@ public class ElanHouseStrategy implements BuildingStrategy {
   }
 
   @Override
-  public ImageView getImage() {
-    Image image = new Image((new File("src/images/elan_house.png")).toURI().toString());
+  public ImageView getImage(String imgLoc) {
+    Image image = new Image((new File("src/" + imgLoc + "/elan_house.png")).toURI().toString());
     ImageView view = new ImageView(image);
     return view;
   }

@@ -13,7 +13,9 @@ import javafx.scene.input.MouseEvent;
  */
 public class MapSelectionController {
   private MenuSwitcher gameModeSwitcher;
-  private MenuSwitcher gameSwitcher;
+  private MenuSwitcher gameGrassSwitcher;
+  private MenuSwitcher gameJPSwitcher;
+  private MenuSwitcher gameWasteSwitcher;
 
 
   @FXML
@@ -34,20 +36,54 @@ public class MapSelectionController {
   }
 
   /**
-   * facilitates switching to main menu
+   * facilitates switching to main game
    */
-  public void setGameSwitcher(MenuSwitcher gameSwitcher) {
-    this.gameSwitcher = gameSwitcher;
+  public void setGameGrassSwitcher(MenuSwitcher gameSwitcher) {
+    this.gameGrassSwitcher = gameSwitcher;
   }
 
   /**
-   * facilitates switching to main menu upon button click
+   * facilitates switching to main game
+   */
+  public void setGameJPSwitcher(MenuSwitcher gameSwitcher) {
+    this.gameJPSwitcher = gameSwitcher;
+  }
+
+  /**
+   * facilitates switching to main game
+   */
+  public void setGameWasteSwitcher(MenuSwitcher gameSwitcher) {
+    this.gameWasteSwitcher = gameSwitcher;
+  }
+
+  /**
+   * facilitates switching to main game upon button click
    *
    * @throws IOException
    */
   @FXML
-  private void switchToGame() throws IOException {
-    gameSwitcher.switchMenu();
+  private void switchToGameGrass() throws IOException {
+    gameGrassSwitcher.switchMenu();
+  }
+
+  /**
+   * facilitates switching to main game upon button click
+   *
+   * @throws IOException
+   */
+  @FXML
+  private void switchToGameJP() throws IOException {
+    gameJPSwitcher.switchMenu();
+  }
+
+  /**
+   * facilitates switching to main game upon button click
+   *
+   * @throws IOException
+   */
+  @FXML
+  private void switchToGameWaste() throws IOException {
+    gameWasteSwitcher.switchMenu();
   }
 
   /**

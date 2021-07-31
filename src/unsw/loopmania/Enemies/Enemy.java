@@ -268,5 +268,5 @@ public abstract class Enemy extends MovingEntity {
   /**
    * load an image for the respective enemy
    */
-  public abstract ImageView getImage();
+  public abstract ImageView getImage(String imgLoc);
 }

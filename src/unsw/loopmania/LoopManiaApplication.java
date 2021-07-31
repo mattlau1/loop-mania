@@ -18,7 +18,9 @@ public class LoopManiaApplication extends Application {
    * the controller for the game. Stored as a field so can terminate it when click
    * exit button
    */
-  private LoopManiaWorldController mainController;
+  private LoopManiaWorldController mainControllerGrass;
+  private LoopManiaWorldController mainControllerJP;
+  private LoopManiaWorldController mainControllerWaste;
 
   @Override
   public void start(Stage primaryStage) throws IOException {
@@ -31,12 +33,26 @@ public class LoopManiaApplication extends Application {
     // resizing of the JavaFX nodes)
     primaryStage.setResizable(false);
 
-    // load the main game
-    LoopManiaWorldControllerLoader loopManiaLoader = new LoopManiaWorldControllerLoader("world_with_twists_and_turns.json");
-    mainController = loopManiaLoader.loadController();
-    FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
-    gameLoader.setController(mainController);
-    Parent gameRoot = gameLoader.load();
+    // load the main game (grass world)
+    LoopManiaWorldControllerLoader loopManiaLoaderGrass = new LoopManiaWorldControllerLoader("world_with_twists_and_turns.json", "images");
+    mainControllerGrass = loopManiaLoaderGrass.loadController();
+    FXMLLoader gameLoaderGrass = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
+    gameLoaderGrass.setController(mainControllerGrass);
+    Parent gameRootGrass = gameLoaderGrass.load();
+
+    // load the main game (japanese world)
+    LoopManiaWorldControllerLoader loopManiaLoaderJP = new LoopManiaWorldControllerLoader("world_with_twists_and_turns.json", "images2");
+    mainControllerJP = loopManiaLoaderJP.loadController();
+    FXMLLoader gameLoaderJP = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
+    gameLoaderJP.setController(mainControllerJP);
+    Parent gameRootJP = gameLoaderJP.load();
+
+    // load the main game (wasteland world)
+    LoopManiaWorldControllerLoader loopManiaLoaderWaste = new LoopManiaWorldControllerLoader("world_with_twists_and_turns.json", "images2");
+    mainControllerWaste = loopManiaLoaderWaste.loadController();
+    FXMLLoader gameLoaderWaste = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
+    gameLoaderWaste.setController(mainControllerWaste);
+    Parent gameRootWaste = gameLoaderWaste.load();
 
     // load the main menu
     MainMenuController mainMenuController = new MainMenuController();
@@ -68,13 +84,30 @@ public class LoopManiaApplication extends Application {
     // set functions which are activated when button click to switch menu is pressed
     // e.g. from main menu to start the game, or from the game to return to main
     // menu
-    mainController.setMainMenuSwitcher(() -> {
+    mainControllerGrass.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
     });
-    mainController.setGameSwitcher(() -> {
-      switchToRoot(scene, gameRoot, primaryStage);
-      mainController.startTimer();
+    mainControllerGrass.setGameSwitcher(() -> {
+      switchToRoot(scene, gameRootGrass, primaryStage);
+      mainControllerGrass.startTimer();
     });
+
+    mainControllerJP.setMainMenuSwitcher(() -> {
+      switchToRoot(scene, mainMenuRoot, primaryStage);
+    });
+    mainControllerJP.setGameSwitcher(() -> {
+      switchToRoot(scene, gameRootGrass, primaryStage);
+      mainControllerJP.startTimer();
+    });
+
+    mainControllerWaste.setMainMenuSwitcher(() -> {
+      switchToRoot(scene, mainMenuRoot, primaryStage);
+    });
+    mainControllerWaste.setGameSwitcher(() -> {
+      switchToRoot(scene, gameRootWaste, primaryStage);
+      mainControllerWaste.startTimer();
+    });
+
     mainMenuController.setHowToPlaySwitcher(() -> {
       switchToRoot(scene, howToPlayRoot, primaryStage);
     });
@@ -89,9 +122,17 @@ public class LoopManiaApplication extends Application {
     mapSelectionController.setGameModeSwitcher(() -> {
       switchToRoot(scene, gameModeRoot, primaryStage);
     });
-    mapSelectionController.setGameSwitcher(() -> {
-      switchToRoot(scene, gameRoot, primaryStage);
-      mainController.startTimer();
+    mapSelectionController.setGameGrassSwitcher(() -> {
+      switchToRoot(scene, gameRootGrass, primaryStage);
+      mainControllerGrass.startTimer();
+    });
+    mapSelectionController.setGameWasteSwitcher(() -> {
+      switchToRoot(scene, gameRootWaste, primaryStage);
+      mainControllerWaste.startTimer();
+    });
+    mapSelectionController.setGameJPSwitcher(() -> {
+      switchToRoot(scene, gameRootJP, primaryStage);
+      mainControllerJP.startTimer();
     });
 
     gameModeController.setMapSelectionSwitcher(() -> {
@@ -103,7 +144,7 @@ public class LoopManiaApplication extends Application {
 
 
     // deploy the main onto the stage
-    gameRoot.requestFocus();
+    // gameRoot.requestFocus();
     primaryStage.setScene(scene);
     primaryStage.show();
   }
@@ -111,7 +152,9 @@ public class LoopManiaApplication extends Application {
   @Override
   public void stop() {
     // wrap up activities when exit program
-    mainController.terminate();
+    mainControllerGrass.terminate();
+    mainControllerJP.terminate();
+    mainControllerWaste.terminate();
   }
 
   /**
