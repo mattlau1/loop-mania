@@ -105,4 +105,16 @@ public class ItemTest {
 
   }
 
+  @Test
+  public void testGenerateItem() {
+    // test time drops
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(5);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    world.generateItemDrops();
+    world.possiblySpawnItems();
+    
+  }
+
 }

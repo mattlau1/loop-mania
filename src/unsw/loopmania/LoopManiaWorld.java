@@ -137,6 +137,9 @@ public class LoopManiaWorld {
   // the goal which contains simple goals
   private Goal goal;
 
+  // random seed for testing purposes
+  private long seed;
+
   /**
    * create the world (constructor)
    *
@@ -146,7 +149,7 @@ public class LoopManiaWorld {
    *                    position of path cells in world
    * @param goal        the goal contains multiple simple goals
    */
-  public LoopManiaWorld(int width, int height, List<Pair<Integer, Integer>> orderedPath, Goal goal) {
+  public LoopManiaWorld(int width, int height, List<Pair<Integer, Integer>> orderedPath, Goal goal, long seed) {
     this.width = width;
     this.height = height;
     this.nonSpecifiedEntities = new ArrayList<>();
@@ -176,7 +179,14 @@ public class LoopManiaWorld {
     this.nextHeroCastleCycle = 1;
     this.postElanPriceMultiplier = 0.2;
     this.midElanPriceMultiplier = 5;
+    this.seed = seed;
   }
+
+  public LoopManiaWorld(int width, int height, List<Pair<Integer, Integer>> orderedPath, Goal goal) {
+    this(width, height, orderedPath, goal, System.currentTimeMillis());
+  }
+
+
 
   public int getHeroCastleCycles() {
     return heroCastleCycles;
@@ -412,7 +422,8 @@ public class LoopManiaWorld {
       PathPosition pathPos = new PathPosition(indexInPath, orderedPath);
       // spawns a slug
       // Enemy slug = new SlugEnemy(new PathPosition(indexInPath, orderedPath));
-      Random random = new Random();
+      Random random = new Random(seed);
+      
       int randInt = random.nextInt(2);
       Item potion = new Item(pathPos.getX(), pathPos.getY(), commonItems.get(randInt));
       pathItems.add(potion);
@@ -643,7 +654,7 @@ public class LoopManiaWorld {
    * @param enemy enemy to trigger on-hit effect on
    */
   private void triggerOnHitEffects(Enemy enemy) {
-    Random random = new Random();
+    Random random = new Random(seed);
     int randInt = random.nextInt(2);
     if (randInt == 1) {
       for (Item equippedItems : equippedInventoryItems) {
@@ -660,7 +671,7 @@ public class LoopManiaWorld {
    */
   private boolean doesEnemyCrit(Enemy enemy) {
     boolean isCriticalHit = false;
-    Random random = new Random();
+    Random random = new Random(seed);
     int randInt = random.nextInt(100) + 1;
 
     double enemyCriR = enemy.getCritRate();
@@ -799,7 +810,7 @@ public class LoopManiaWorld {
    * Possibly randomly stuns the character
    */
   public void possiblyStunCharacter() {
-    Random random = new Random();
+    Random random = new Random(seed);
     int randInt = random.nextInt(100);
     int stunChance = 50;
 
@@ -1002,7 +1013,7 @@ public class LoopManiaWorld {
    * @return the item strategy of the item to be spawned
    */
   public ItemStrategy randomItemStrategy() {
-    Random random = new Random();
+    Random random = new Random(seed);
     int randInt = random.nextInt(100);
     int superRarityDropRate = 1;
     int highRarityDropRate = 6;
@@ -1042,7 +1053,7 @@ public class LoopManiaWorld {
    * @return the card strategy of the card to be spawned
    */
   public CardStrategy randomCardStrategy() {
-    Random random = new Random();
+    Random random = new Random(seed);
     int randInt = random.nextInt(100);
     int highRarityDropRate = 6;
     int mediumRarityDropRate = 29;
@@ -1264,7 +1275,7 @@ public class LoopManiaWorld {
 
     // has a chance spawning a basic enemy on a tile the character isn't on or
     // immediately before or after (currently space required = 2)...
-    Random rand = new Random();
+    Random rand = new Random(seed);
     int choice = rand.nextInt(2);
     if ((choice == 0) && (enemies.size() < 2)) {
       List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
@@ -1310,7 +1321,7 @@ public class LoopManiaWorld {
 
     // has a chance spawning a basic enemy on a tile the character isn't on or
     // immediately before or after (currently space required = 2)...
-    Random rand = new Random();
+    Random rand = new Random(seed);
     int choice = rand.nextInt(2);
     if ((choice == 0) && (pathItems.size() < 2)) {
       List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
