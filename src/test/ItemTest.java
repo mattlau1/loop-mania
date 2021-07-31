@@ -225,7 +225,8 @@ public class ItemTest {
     // ItemStrategy item = world.randomItemStrategy();
     // assertEquals(true, item instanceof HealthPotionStrategy);
     Item item = world.addUnequippedItem();
-    
+    System.out.println(item);
+
   }
 
 }
