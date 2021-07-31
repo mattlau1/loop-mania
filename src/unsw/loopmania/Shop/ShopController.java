@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.LoopManiaWorldController;
 import unsw.loopmania.MenuSwitcher;
 import unsw.loopmania.Items.AndurilStrategy;
@@ -125,7 +126,9 @@ public class ShopController {
 
   @FXML
   private void buyPotion(ActionEvent event) {
-    worldController.buyItem(new HealthPotionStrategy());
+    LoopManiaWorld world = worldController.getWorld();
+    world.buyItem(new HealthPotionStrategy());
+    world.consumePotion();
   }
 
   @FXML
