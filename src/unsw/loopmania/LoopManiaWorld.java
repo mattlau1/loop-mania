@@ -24,6 +24,7 @@ import unsw.loopmania.Items.TreeStumpStrategy;
 import unsw.loopmania.Buffs.Buff;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.CampfireStrategy;
+import unsw.loopmania.Buildings.ElanHouseStrategy;
 import unsw.loopmania.Buildings.TrapStrategy;
 import unsw.loopmania.Cards.BarracksCardStrategy;
 import unsw.loopmania.Cards.CampfireCardStrategy;
@@ -35,6 +36,7 @@ import unsw.loopmania.Cards.VampireCastleCardStrategy;
 import unsw.loopmania.Cards.VillageCardStrategy;
 import unsw.loopmania.Cards.ZombiePitCardStrategy;
 import unsw.loopmania.Enemies.DoggieEnemy;
+import unsw.loopmania.Enemies.ElanEnemy;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SlugEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
@@ -91,21 +93,25 @@ public class LoopManiaWorld {
   private final int destroyedCardGold = 100;
   private final int destroyedCardExp = 100;
 
+  // list of enemies
   private List<Enemy> enemies;
 
   // list of items on on the path
   private List<Item> pathItems;
 
-  // list of enemies
+  // list of zombie soldiers
   private List<Enemy> zombieSoldiers;
 
-  // list of soliders
+  // list of tranced soldiers
   private List<Soldier> trancedSoldiers;
 
   // list of cards
   private List<Card> cardEntities;
 
+  // cycle counter for shop opening
   private int heroCastleCycles;
+
+  // next cycle that shop will open on
   private int nextHeroCastleCycle;
 
   // list of unequipped inventory
@@ -114,11 +120,14 @@ public class LoopManiaWorld {
   // list of buildings
   private List<Building> buildingEntities;
 
+  // boolean for checking if card was destroyed
   private boolean cardDestroyed;
+
   private boolean isElanAlive;
   private boolean isElanDead;
   private final double postElanPriceMultiplier;
   private final int midElanPriceMultiplier;
+
   /**
    * list of x,y coordinate pairs in the order by which moving entities traverse
    * them
@@ -137,37 +146,36 @@ public class LoopManiaWorld {
    *                    position of path cells in world
    * @param goal        the goal contains multiple simple goals
    */
-
   public LoopManiaWorld(int width, int height, List<Pair<Integer, Integer>> orderedPath, Goal goal) {
     this.width = width;
     this.height = height;
-    nonSpecifiedEntities = new ArrayList<>();
-    character = null;
-    enemies = new ArrayList<>();
-    zombieSoldiers = new ArrayList<>();
-    cardEntities = new ArrayList<>();
-    unequippedInventoryItems = new ArrayList<>();
-    equippedInventoryItems = new ArrayList<>();
-    commonItems = new ArrayList<>();
-    lowRarityItems = new ArrayList<>();
-    midRarityItems = new ArrayList<>();
-    highRarityItems = new ArrayList<>();
-    superRarityItems = new ArrayList<>();
-    lowRarityCards = new ArrayList<>();
-    midRarityCards = new ArrayList<>();
-    highRarityCards = new ArrayList<>();
+    this.nonSpecifiedEntities = new ArrayList<>();
+    this.character = null;
+    this.enemies = new ArrayList<>();
+    this.zombieSoldiers = new ArrayList<>();
+    this.cardEntities = new ArrayList<>();
+    this.unequippedInventoryItems = new ArrayList<>();
+    this.equippedInventoryItems = new ArrayList<>();
+    this.commonItems = new ArrayList<>();
+    this.lowRarityItems = new ArrayList<>();
+    this.midRarityItems = new ArrayList<>();
+    this.highRarityItems = new ArrayList<>();
+    this.superRarityItems = new ArrayList<>();
+    this.lowRarityCards = new ArrayList<>();
+    this.midRarityCards = new ArrayList<>();
+    this.highRarityCards = new ArrayList<>();
     this.orderedPath = orderedPath;
-    buildingEntities = new ArrayList<>();
-    trancedSoldiers = new ArrayList<>();
+    this.buildingEntities = new ArrayList<>();
+    this.trancedSoldiers = new ArrayList<>();
     this.goal = goal;
-    cardDestroyed = false;
-    isElanAlive = false;
-    isElanDead = false;
-    pathItems = new ArrayList<>();
-    heroCastleCycles = 1;
-    nextHeroCastleCycle = 1;
-    postElanPriceMultiplier = 0.8;
-    midElanPriceMultiplier = 5;
+    this.cardDestroyed = false;
+    this.isElanAlive = false;
+    this.isElanDead = false;
+    this.pathItems = new ArrayList<>();
+    this.heroCastleCycles = 1;
+    this.nextHeroCastleCycle = 1;
+    this.postElanPriceMultiplier = 0.8;
+    this.midElanPriceMultiplier = 5;
   }
 
   public int getHeroCastleCycles() {
@@ -821,6 +829,10 @@ public class LoopManiaWorld {
 
     for (Enemy enemy : battlingEnemies) {
       while (enemy.isAlive()) {
+        if (enemy instanceof ElanEnemy) {
+          isElanAlive = true;
+        }
+
         useBuildingsOnEntitiesInCombat(enemy);
         triggerOnHitEffects(enemy);
 
@@ -832,9 +844,9 @@ public class LoopManiaWorld {
           enemy.reduceHealth(characterDamage);
         }
 
-        if (character.isStunned()) {
-          System.out.println("Character is stunned");
-        }
+        // if (character.isStunned()) {
+        // System.out.println("Character is stunned");
+        // }
 
         attackSoldiers(battlingEnemies, enemy);
         processZombieSoldierAttacks(enemy);
@@ -849,9 +861,14 @@ public class LoopManiaWorld {
 
     trancedSoldiers.clear();
     for (Enemy e : defeatedEnemies) {
-      if (e instanceof DoggieEnemy) {
-        character.incrementBossKillCount();
+      if (e instanceof ElanEnemy) {
+        isElanAlive = false;
+        isElanDead = true;
       }
+
+      if (e instanceof DoggieEnemy || e instanceof ElanEnemy)
+        character.incrementBossKillCount();
+
       killEnemy(e);
     }
 
