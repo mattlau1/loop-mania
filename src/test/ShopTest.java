@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import unsw.loopmania.Character;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
+import unsw.loopmania.Enemies.ElanEnemy;
 import unsw.loopmania.Items.Item;
 import unsw.loopmania.Items.ShieldStrategy;
 import unsw.loopmania.Items.SwordStrategy;
@@ -112,10 +113,34 @@ public class ShopTest {
     LoopManiaWorld world = setup.makeTestWorld();
     Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
     world.setCharacter(testChar);
+    ElanEnemy elan = new ElanEnemy(new PathPosition(4, world.getOrderedPath()));
+    world.addEnemy(elan);
+    world.runBattles();
     testChar.addDoggieCoins(1);
     world.sellDoggieCoin();
     // checks that the players gold has been increased by a value between 1000 and
     // 1250
     assertTrue(testChar.getGold() >= 1000 && testChar.getGold() <= 1250);
+  }
+
+  @Test
+  public void testSellDoggieCoinElanDead() {
+    // tests selling Doggie coin when elan is dead
+    TestSetup setup = new TestSetup();
+    LoopManiaWorld world = setup.makeTestWorld();
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    ElanEnemy elan = new ElanEnemy(new PathPosition(1, world.getOrderedPath()));
+    // have elan die to player
+    elan.reduceHealth(990);
+    world.addEnemy(elan);
+    world.runBattles();
+    // remove gold earnt from defeating elan so player has 0 gold
+    testChar.deductGold(250);
+    testChar.addDoggieCoins(1);
+    world.sellDoggieCoin();
+    // checks that the players gold has been increased by a value between 40 and
+    // 50
+    assertTrue(testChar.getGold() >= 40 && testChar.getGold() <= 50);
   }
 }

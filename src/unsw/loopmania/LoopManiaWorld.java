@@ -174,7 +174,7 @@ public class LoopManiaWorld {
     this.pathItems = new ArrayList<>();
     this.heroCastleCycles = 1;
     this.nextHeroCastleCycle = 1;
-    this.postElanPriceMultiplier = 0.8;
+    this.postElanPriceMultiplier = 0.2;
     this.midElanPriceMultiplier = 5;
   }
 
