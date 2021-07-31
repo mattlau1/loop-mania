@@ -265,6 +265,10 @@ public class LoopManiaWorld {
     addCharacterObservers();
   }
 
+  public void addCard(Card card) {
+    cardEntities.add(card);
+  }
+
   /**
    * Adds EXP, Gold, Cycle and Boss Count observers to character
    */
