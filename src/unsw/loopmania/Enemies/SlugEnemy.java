@@ -25,6 +25,7 @@ public class SlugEnemy extends Enemy {
   public SlugEnemy(PathPosition position) {
     super(position);
     setHealth(health);
+    setMaxHealth(health);
     setBattleRange(battleRange);
     setSupportRange(supportRange);
     setDamage(damage);
