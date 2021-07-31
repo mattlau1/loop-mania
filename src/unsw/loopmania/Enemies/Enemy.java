@@ -19,6 +19,7 @@ public abstract class Enemy extends MovingEntity {
   private int goldDrop;
   private int doggieCoinDrop;
   private int critRate;
+  private double maxHealth;
 
   /**
    * Enemy constructor. Default enemy will have 1 hp and 0 for all other stats.
@@ -35,11 +36,12 @@ public abstract class Enemy extends MovingEntity {
     this.goldDrop = 0;
     this.critRate = 0;
     this.doggieCoinDrop = 0;
+    this.maxHealth = 1;
   }
 
   /**
    * Determines whether an enemy is a boss type enemy
-   * 
+   *
    * @return a boolean, true if the enemy is a boss, false if not
    */
   public boolean isBoss() {
@@ -191,12 +193,23 @@ public abstract class Enemy extends MovingEntity {
   }
 
   /**
-   * Reduces enemy's health by given amount, causing enemy to "take damage"
+   * Reduces enemy's health by given amount, causing enemy to take damage
    *
    * @param health amount of damage to take
    */
   public void reduceHealth(double health) {
     this.health -= health;
+  }
+
+  /**
+   * Adds enemy's health by given amount, causing enemy to heal, up until their
+   * maximum hp
+   *
+   * @param health amount of damage to take
+   */
+  public void addHealth(double health) {
+    double newHealth = this.health + health;
+    this.health = newHealth <= maxHealth ? newHealth : maxHealth;
   }
 
   /**

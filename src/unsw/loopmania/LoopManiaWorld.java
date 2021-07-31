@@ -447,14 +447,14 @@ public class LoopManiaWorld {
    * @return the boolean when the character and enemy in range
    */
   private boolean isInRange(Enemy e, Character c) {
-    // Pythagoras: a^2+b^2 < radius^2 to see if within radius
-    // influence radii and battle radii
     return Math.pow((c.getX() - e.getX()), 2) + Math.pow((c.getY() - e.getY()), 2) < e.getBattleRange();
   }
 
+  private boolean isInRange(Enemy e1, Enemy e2) {
+    return Math.pow((e2.getX() - e1.getX()), 2) + Math.pow((e2.getY() - e1.getY()), 2) < e1.getBattleRange();
+  }
+
   private boolean isInSuppRange(Enemy e, Character c) {
-    // Pythagoras: a^2+b^2 < radius^2 to see if within radius
-    // influence radii and battle radii
     return Math.pow((c.getX() - e.getX()), 2) + Math.pow((c.getY() - e.getY()), 2) < e.getSupportRange();
   }
 
@@ -805,6 +805,21 @@ public class LoopManiaWorld {
   }
 
   /**
+   * Heals all enemies in Elan's range
+   */
+  public void healEnemiesAroundElan() {
+    for (Enemy e1 : enemies) {
+      if (e1 instanceof ElanEnemy) {
+        for (Enemy e2 : enemies) {
+          if (isInRange(e1, e2) && !(e2 instanceof ElanEnemy)) {
+            e2.addHealth(ElanEnemy.HEAL_AMOUNT);
+          }
+        }
+      }
+    }
+  }
+
+  /**
    * run the expected battles in the world, based on current world state
    *
    * @return list of enemies which have been killed
@@ -826,6 +841,7 @@ public class LoopManiaWorld {
     useBuildingsOnEnemiesOutsideCombat(buildingsToDestroy, defeatedEnemies);
     destroyBuildings(buildingsToDestroy);
     useItemsOnCharacterOutsideCombat();
+    healEnemiesAroundElan();
 
     for (Enemy enemy : battlingEnemies) {
       while (enemy.isAlive()) {
