@@ -1123,6 +1123,10 @@ public class LoopManiaWorld {
     equippedInventoryItems.add(item);
   }
 
+  public List<Building> getBuildings() {
+    return buildingEntities;
+  }
+
   /**
    * return an unequipped inventory item by x and y coordinates assumes that no 2
    * unequipped inventory items share x and y coordinates
