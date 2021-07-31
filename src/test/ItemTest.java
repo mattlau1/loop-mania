@@ -210,4 +210,22 @@ public class ItemTest {
     assertEquals(true, lowRareItem instanceof StakeStrategy);
   }
 
+  @Test
+  public void testAddingUnequippedItem() {
+        // test that specific item will spawn from certain rarity categories.
+    
+    // set up that will spawn super rarity item
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(37);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // generate item
+    world.generateItemDrops();
+    // spawn high rare item
+    // ItemStrategy item = world.randomItemStrategy();
+    // assertEquals(true, item instanceof HealthPotionStrategy);
+    Item item = world.addUnequippedItem();
+    
+  }
+
 }
