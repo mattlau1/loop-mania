@@ -13,13 +13,13 @@
 <!-- TODO = modify and expand the range of menus available from the menu menu, and develop game modes you can select when starting a new game -->
 <!-- vertically stacked label and button -->
 
-<VBox alignment="CENTER" prefHeight="410.0" prefWidth="785.0" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="410.0" prefWidth="785.0" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="388.0" prefWidth="782.0">
          <children>
             <ImageView fitHeight="442.0" fitWidth="843.0" layoutX="-24.0" layoutY="-23.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../images/forest.jpg" />
+                  <Image url="@../../images/forest_contrast.jpg" />
                </image>
                <effect>
                   <InnerShadow choke="0.14" height="255.0" radius="127.0" width="255.0" />
