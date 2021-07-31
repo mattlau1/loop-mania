@@ -114,8 +114,8 @@ public class ShopTest {
     world.setCharacter(testChar);
     testChar.addDoggieCoins(1);
     world.sellDoggieCoin();
-    // checks that the players gold has been increased by a value between 200 and
-    // 250
-    assertTrue(testChar.getGold() >= 200 && testChar.getGold() <= 250);
+    // checks that the players gold has been increased by a value between 1000 and
+    // 1250
+    assertTrue(testChar.getGold() >= 1000 && testChar.getGold() <= 1250);
   }
 }
