@@ -1,5 +1,6 @@
 package unsw.loopmania;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -21,6 +22,10 @@ public class LoopManiaApplication extends Application {
   private LoopManiaWorldController mainControllerGrass;
   private LoopManiaWorldController mainControllerJP;
   private LoopManiaWorldController mainControllerWaste;
+  private static final String SURVIVAL_MODE = "Survival";
+  private static final String BERSERKER_MODE = "Berserker";
+  private static final String STANDARD_MODE = "Standard";
+  private static final String CONFUSING_MODE = "Confusing";
 
   @Override
   public void start(Stage primaryStage) throws IOException {
@@ -84,6 +89,32 @@ public class LoopManiaApplication extends Application {
     // set functions which are activated when button click to switch menu is pressed
     // e.g. from main menu to start the game, or from the game to return to main
     // menu
+
+    gameModeController.setMapSelectionStandardSwitcher(() -> {
+      switchToRoot(scene, mapSelectionRoot, primaryStage);
+      mainControllerGrass.setDifficulty(STANDARD_MODE);
+      mainControllerJP.setDifficulty(STANDARD_MODE);
+      mainControllerWaste.setDifficulty(STANDARD_MODE);
+    });
+    gameModeController.setMapSelectionBerserkerSwitcher(() -> {
+      switchToRoot(scene, mapSelectionRoot, primaryStage);
+      mainControllerGrass.setDifficulty(BERSERKER_MODE );
+      mainControllerJP.setDifficulty(BERSERKER_MODE );
+      mainControllerWaste.setDifficulty(BERSERKER_MODE );
+    });
+    gameModeController.setMapSelectionSurvivalSwitcher(() -> {
+      switchToRoot(scene, mapSelectionRoot, primaryStage);
+      mainControllerGrass.setDifficulty(SURVIVAL_MODE);
+      mainControllerJP.setDifficulty(SURVIVAL_MODE);
+      mainControllerWaste.setDifficulty(SURVIVAL_MODE);
+    });
+    gameModeController.setMapSelectionConfusingSwitcher(() -> {
+      switchToRoot(scene, mapSelectionRoot, primaryStage);
+      mainControllerGrass.setDifficulty(CONFUSING_MODE);
+      mainControllerJP.setDifficulty(CONFUSING_MODE);
+      mainControllerWaste.setDifficulty(CONFUSING_MODE);
+    });
+
     mainControllerGrass.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
     });
@@ -135,13 +166,9 @@ public class LoopManiaApplication extends Application {
       mainControllerJP.startTimer();
     });
 
-    gameModeController.setMapSelectionSwitcher(() -> {
-      switchToRoot(scene, mapSelectionRoot, primaryStage);
-    });
     gameModeController.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
     });
-
 
     // deploy the main onto the stage
     // gameRoot.requestFocus();

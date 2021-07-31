@@ -127,7 +127,7 @@ public class LoopManiaWorld {
   private boolean isElanDead;
   private final double postElanPriceMultiplier;
   private final int midElanPriceMultiplier;
-
+  private String difficulty;
   /**
    * list of x,y coordinate pairs in the order by which moving entities traverse
    * them
@@ -176,6 +176,11 @@ public class LoopManiaWorld {
     this.nextHeroCastleCycle = 1;
     this.postElanPriceMultiplier = 0.8;
     this.midElanPriceMultiplier = 5;
+    this.difficulty = null;
+  }
+
+  public void setDifficulty (String difficulty) {
+    this.difficulty = difficulty;
   }
 
   public int getHeroCastleCycles() {
