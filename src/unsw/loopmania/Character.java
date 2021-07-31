@@ -17,6 +17,7 @@ public class Character extends MovingEntity {
   private final int initialDoggieCoin = 0;
   private final int initialExp = 0;
   private final int initialCycles = 0;
+  private final int initialBossKills = 0;
   private double damage = 15;
   private double damageMultiplier = 1;
   private SimpleDoubleProperty healthProperty;
@@ -24,25 +25,27 @@ public class Character extends MovingEntity {
   private SimpleIntegerProperty doggieCoinProperty;
   private SimpleIntegerProperty expProperty;
   private SimpleIntegerProperty cycleProperty;
+  private SimpleIntegerProperty bossProperty;
   private List<Buff> buffs;
   private List<Soldier> soldiers;
   private boolean isStunned;
-  private List<Observer> observers = new ArrayList<Observer>();
-  private int bossKillCount = 0;
+  private List<Observer> observers;
 
   public Character(PathPosition position) {
     super(position);
-    soldiers = new ArrayList<>();
-    buffs = new ArrayList<>();
+    this.soldiers = new ArrayList<>();
+    this.buffs = new ArrayList<>();
+    this.observers = new ArrayList<>();
     this.healthProperty = new SimpleDoubleProperty(this, "health", initialHealth);
     this.goldProperty = new SimpleIntegerProperty(this, "gold", initialGold);
     this.doggieCoinProperty = new SimpleIntegerProperty(this, "doggieCoin", initialDoggieCoin);
     this.expProperty = new SimpleIntegerProperty(this, "exp", initialExp);
     this.cycleProperty = new SimpleIntegerProperty(this, "cycle", initialCycles);
+    this.bossProperty = new SimpleIntegerProperty(this, "boss", initialBossKills);
     this.isStunned = false;
   }
 
-  public void setStun(boolean isStunned) {
+  public void setStunned(boolean isStunned) {
     this.isStunned = isStunned;
   }
 
@@ -399,7 +402,16 @@ public class Character extends MovingEntity {
    * @return the number of boss killed
    */
   public int getBossKillCount() {
-    return bossKillCount;
+    return bossProperty.get();
+  }
+
+  /**
+   * Gets the boss kill count number property
+   *
+   * @return boss kill count property
+   */
+  public SimpleIntegerProperty getBossKillCountProperty() {
+    return bossProperty;
   }
 
   /**
@@ -408,14 +420,14 @@ public class Character extends MovingEntity {
    * @return the number of boss killed
    */
   public void setBossKillCount(int bossKillCount) {
-    this.bossKillCount = bossKillCount;
+    this.bossProperty.set(bossKillCount);
   }
 
   /**
    * Add a count to the boss kill count
    */
   public void incrementBossKillCount() {
-    setBossKillCount(bossKillCount + 1);
+    setBossKillCount(bossProperty.get() + 1);
     notifyAllObservers();
   }
 

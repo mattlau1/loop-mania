@@ -30,7 +30,7 @@
                   <Font name="System Bold" size="61.0" />
                </font>
             </Text>
-            <Button fx:id="startGameButton" layoutX="320.0" layoutY="172.0" mnemonicParsing="false" onAction="#switchToGame" prefHeight="44.0" prefWidth="177.0" style="-fx-background-color: none;" text="Start Game" textFill="WHITE">
+            <Button fx:id="startGameButton" layoutX="320.0" layoutY="172.0" mnemonicParsing="false" onAction="#switchToMapSelection" prefHeight="44.0" prefWidth="177.0" style="-fx-background-color: none;" text="Start Game" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -38,7 +38,7 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <Button fx:id="howToPlayButton" layoutX="320.0" layoutY="226.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="177.0" style="-fx-background-color: transparent;" text="How to Play" textFill="WHITE">
+            <Button fx:id="howToPlayButton" layoutX="320.0" layoutY="226.0" mnemonicParsing="false" onAction="#switchToHowToPlay" prefHeight="44.0" prefWidth="177.0" style="-fx-background-color: transparent;" text="How to Play" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

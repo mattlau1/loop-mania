@@ -28,6 +28,7 @@ public class VampireEnemy extends Enemy {
   public VampireEnemy(PathPosition position) {
     super(position);
     setHealth(health);
+    setMaxHealth(health);
     setBattleRange(battleRange);
     setSupportRange(supportRange);
     setDamage(damage);

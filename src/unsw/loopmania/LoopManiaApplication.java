@@ -44,6 +44,24 @@ public class LoopManiaApplication extends Application {
     menuLoader.setController(mainMenuController);
     Parent mainMenuRoot = menuLoader.load();
 
+    // load the how to play menu
+    HowToPlayController howToPlayController = new HowToPlayController();
+    FXMLLoader howToPlayLoader = new FXMLLoader(getClass().getResource("Controls.fxml"));
+    howToPlayLoader.setController(howToPlayController);
+    Parent howToPlayRoot = howToPlayLoader.load();
+
+    // load the map selection menu
+    MapSelectionController mapSelectionController = new MapSelectionController();
+    FXMLLoader mapSelectionLoader = new FXMLLoader(getClass().getResource("MapSelection.fxml"));
+    mapSelectionLoader.setController(mapSelectionController);
+    Parent mapSelectionRoot = mapSelectionLoader.load();
+
+    // load the game mode menu
+    GameModeController gameModeController = new GameModeController();
+    FXMLLoader gameModeLoader = new FXMLLoader(getClass().getResource("GameModes.fxml"));
+    gameModeLoader.setController(gameModeController);
+    Parent gameModeRoot = gameModeLoader.load();
+
     // create new scene with the main menu (so we start with the main menu)
     Scene scene = new Scene(mainMenuRoot);
 
@@ -62,6 +80,33 @@ public class LoopManiaApplication extends Application {
       switchToRoot(scene, gameRoot, primaryStage);
       mainController.startTimer();
     });
+
+    mainMenuController.setHowToPlaySwitcher(() -> {
+      switchToRoot(scene, howToPlayRoot, primaryStage);
+    });
+    mainMenuController.setMapSelectionSwitcher(() -> {
+      switchToRoot(scene, mapSelectionRoot, primaryStage);
+    });
+
+    howToPlayController.setMainMenuSwitcher(() -> {
+      switchToRoot(scene, mainMenuRoot, primaryStage);
+    });
+
+    mapSelectionController.setMainMenuSwitcher(() -> {
+      switchToRoot(scene, mainMenuRoot, primaryStage);
+    });
+    mapSelectionController.setGameModeSwitcher(() -> {
+      switchToRoot(scene, gameModeRoot, primaryStage);
+    });
+
+    gameModeController.setMapSelectionSwitcher(() -> {
+      switchToRoot(scene, mapSelectionRoot, primaryStage);
+    });
+    gameModeController.setGameSwitcher(() -> {
+      switchToRoot(scene, gameRoot, primaryStage);
+      mainController.startTimer();
+    });
+
 
     // deploy the main onto the stage
     gameRoot.requestFocus();

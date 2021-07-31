@@ -307,6 +307,10 @@ public class LoopManiaWorldController {
     switchToGame();
   }
 
+  public LoopManiaWorld getWorld() {
+    return world;
+  }
+
   /**
    * create and run the timer
    */
