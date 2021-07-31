@@ -990,7 +990,7 @@ public class LoopManiaWorld {
   /**
    * spawn a specific item in the world and return the sword entity
    *
-   * @param item strategy of the item to be spawned
+   * @param itemStrategy strategy of the item to be spawned
    * @return an item to be spawned in the controller as a JavaFX node
    */
   public Item addSpecificUnequippedItem(ItemStrategy itemStrategy) {
