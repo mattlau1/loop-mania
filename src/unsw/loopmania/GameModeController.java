@@ -12,8 +12,8 @@ import javafx.scene.input.MouseEvent;
  * a settings menu, or a menu to load particular maps.
  */
 public class GameModeController {
+  private MenuSwitcher menuSwitcher;
   private MenuSwitcher mapSelectionSwitcher;
-  private MenuSwitcher gameSwitcher;
 
   @FXML
   Button backButton;
@@ -32,8 +32,8 @@ public class GameModeController {
   /**
    * facilitates switching to main game
    */
-  public void setGameSwitcher(MenuSwitcher gameSwitcher) {
-    this.gameSwitcher = gameSwitcher;
+  public void setMapSelectionSwitcher(MenuSwitcher gameSwitcher) {
+    this.mapSelectionSwitcher = gameSwitcher;
   }
 
   /**
@@ -42,15 +42,15 @@ public class GameModeController {
    * @throws IOException
    */
   @FXML
-  private void switchToGame() throws IOException {
-    gameSwitcher.switchMenu();
+  private void switchToMapSelection() throws IOException {
+    mapSelectionSwitcher.switchMenu();
   }
 
   /**
    * facilitates switching to main menu
    */
-  public void setMapSelectionSwitcher(MenuSwitcher gameSwitcher) {
-    this.mapSelectionSwitcher = gameSwitcher;
+  public void setMainMenuSwitcher(MenuSwitcher gameSwitcher) {
+    this.menuSwitcher = gameSwitcher;
   }
 
   /**
@@ -59,8 +59,8 @@ public class GameModeController {
    * @throws IOException
    */
   @FXML
-  private void switchToMapSelection() throws IOException {
-    mapSelectionSwitcher.switchMenu();
+  private void switchToMainMenu() throws IOException {
+    menuSwitcher.switchMenu();
   }
 
   private void setButtonHoverEffects() {

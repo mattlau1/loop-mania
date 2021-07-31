@@ -71,40 +71,34 @@ public class LoopManiaApplication extends Application {
     mainController.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
     });
-    mainMenuController.setGameSwitcher(() -> {
-      switchToRoot(scene, gameRoot, primaryStage);
-      mainController.startTimer();
-    });
-
     mainController.setGameSwitcher(() -> {
       switchToRoot(scene, gameRoot, primaryStage);
       mainController.startTimer();
     });
-
     mainMenuController.setHowToPlaySwitcher(() -> {
       switchToRoot(scene, howToPlayRoot, primaryStage);
     });
-    mainMenuController.setMapSelectionSwitcher(() -> {
-      switchToRoot(scene, mapSelectionRoot, primaryStage);
+    mainMenuController.setGameModeSwitcher(() -> {
+      switchToRoot(scene, gameModeRoot, primaryStage);
     });
 
     howToPlayController.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
     });
 
-    mapSelectionController.setMainMenuSwitcher(() -> {
-      switchToRoot(scene, mainMenuRoot, primaryStage);
-    });
     mapSelectionController.setGameModeSwitcher(() -> {
       switchToRoot(scene, gameModeRoot, primaryStage);
+    });
+    mapSelectionController.setGameSwitcher(() -> {
+      switchToRoot(scene, gameRoot, primaryStage);
+      mainController.startTimer();
     });
 
     gameModeController.setMapSelectionSwitcher(() -> {
       switchToRoot(scene, mapSelectionRoot, primaryStage);
     });
-    gameModeController.setGameSwitcher(() -> {
-      switchToRoot(scene, gameRoot, primaryStage);
-      mainController.startTimer();
+    gameModeController.setMainMenuSwitcher(() -> {
+      switchToRoot(scene, mainMenuRoot, primaryStage);
     });
 
 

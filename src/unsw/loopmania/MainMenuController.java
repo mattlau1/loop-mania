@@ -14,7 +14,7 @@ import javafx.scene.input.MouseEvent;
 public class MainMenuController {
   private MenuSwitcher gameSwitcher;
   private MenuSwitcher howToPlaySwitcher;
-  private MenuSwitcher mapSelectionSwitcher;
+  private MenuSwitcher gameModeSwitcher;
 
   @FXML
   Button exitButton;
@@ -47,8 +47,8 @@ public class MainMenuController {
   /**
    * facilitates switching to map selection
    */
-  public void setMapSelectionSwitcher(MenuSwitcher gameSwitcher) {
-    this.mapSelectionSwitcher = gameSwitcher;
+  public void setGameModeSwitcher(MenuSwitcher gameSwitcher) {
+    this.gameModeSwitcher = gameSwitcher;
   }
 
   /**
@@ -57,8 +57,8 @@ public class MainMenuController {
    * @throws IOException
    */
   @FXML
-  private void switchToMapSelection() throws IOException {
-    mapSelectionSwitcher.switchMenu();
+  private void switchToGameMode() throws IOException {
+    gameModeSwitcher.switchMenu();
   }
 
   /**
