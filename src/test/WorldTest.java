@@ -67,6 +67,9 @@ public class WorldTest {
         Card testCard = new Card(new SimpleIntegerProperty(0), new SimpleIntegerProperty(0),
                 new CampfireCardStrategy());
         world.addCard(testCard);
+        // test that isNeighbourPath returns the expected values for 1,1 and 2,2
+        assertEquals(false, world.isNeighbourPath(1, 1));
+        assertEquals(false, world.isNeighbourPath(2, 2));
         // convert card to building
         Building testBuilding = world.convertCardToBuildingByCoordinates(testCard.getX(), testCard.getY(), 1, 1);
         if (testBuilding == null) {
