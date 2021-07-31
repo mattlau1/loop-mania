@@ -247,17 +247,24 @@ public class LoopManiaWorld {
   }
 
   /**
-   * set the character. This is necessary because it is loaded as a special entity
-   * out of the file
+   * Set the characters. This is necessary because it is loaded as a special
+   * entity out of the file
    *
    * @param character the character
    */
   public void setCharacter(Character character) {
     this.character = character;
-    new EXPObserver(character, goal);
-    new GoldObserver(character, goal);
-    new CycleObserver(character, goal);
-    new BossObserver(character, goal);
+    addCharacterObservers();
+  }
+
+  /**
+   * Adds EXP, Gold, Cycle and Boss Count observers to character
+   */
+  public void addCharacterObservers() {
+    character.addObservers(new EXPObserver(character, goal));
+    character.addObservers(new GoldObserver(character, goal));
+    character.addObservers(new CycleObserver(character, goal));
+    character.addObservers(new BossObserver(character, goal));
   }
 
   /**
@@ -786,7 +793,7 @@ public class LoopManiaWorld {
     int stunChance = 50;
 
     if (randInt <= stunChance)
-      character.setStun(true);
+      character.setStunned(true);
   }
 
   /**
@@ -831,7 +838,7 @@ public class LoopManiaWorld {
 
         attackSoldiers(battlingEnemies, enemy);
         processZombieSoldierAttacks(enemy);
-        character.setStun(false);
+        character.setStunned(false);
       }
 
       defeatedEnemies.add(enemy);

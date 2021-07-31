@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Buffs.Buff;
+import unsw.loopmania.Goals.EXPObserver;
 import unsw.loopmania.Goals.Observer;
 
 /**
@@ -42,7 +43,7 @@ public class Character extends MovingEntity {
     this.isStunned = false;
   }
 
-  public void setStun(boolean isStunned) {
+  public void setStunned(boolean isStunned) {
     this.isStunned = isStunned;
   }
 
