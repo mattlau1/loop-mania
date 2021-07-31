@@ -14,11 +14,11 @@
 
 <VBox alignment="CENTER" prefHeight="410.0" prefWidth="785.0" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="388.0" prefWidth="782.0" style="-fx-background-color: black;">
+      <AnchorPane blendMode="SRC_ATOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="388.0" prefWidth="782.0" style="-fx-background-color: black;">
          <children>
-            <ImageView fitHeight="442.0" fitWidth="843.0" layoutX="-24.0" layoutY="-23.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="442.0" fitWidth="843.0" layoutX="-24.0" layoutY="-23.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../images/forest.jpg" />
+                  <Image url="@../../images/forest_dark.jpg" />
                </image>
             </ImageView>
             <Text fill="WHITE" layoutX="95.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select your Difficulty" textAlignment="CENTER" wrappingWidth="605.13671875">

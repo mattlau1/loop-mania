@@ -813,6 +813,7 @@ public class LoopManiaWorld {
   public void healEnemiesAroundElan() {
     for (Enemy e1 : enemies) {
       if (e1 instanceof ElanEnemy) {
+        isElanAlive = true;
         for (Enemy e2 : enemies) {
           if (isInRange(e1, e2) && !(e2 instanceof ElanEnemy)) {
             e2.addHealth(ElanEnemy.HEAL_AMOUNT);
@@ -848,9 +849,6 @@ public class LoopManiaWorld {
 
     for (Enemy enemy : battlingEnemies) {
       while (enemy.isAlive()) {
-        if (enemy instanceof ElanEnemy) {
-          isElanAlive = true;
-        }
 
         useBuildingsOnEntitiesInCombat(enemy);
         triggerOnHitEffects(enemy);
