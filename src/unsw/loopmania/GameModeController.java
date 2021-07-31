@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
  */
 public class GameModeController {
   private MenuSwitcher mapSelectionSwitcher;
+  private MenuSwitcher gameSwitcher;
 
   @FXML
   Button backButton;
@@ -26,6 +27,23 @@ public class GameModeController {
   @FXML
   private void initialize() {
     setButtonHoverEffects();
+  }
+
+  /**
+   * facilitates switching to main game
+   */
+  public void setGameSwitcher(MenuSwitcher gameSwitcher) {
+    this.gameSwitcher = gameSwitcher;
+  }
+
+  /**
+   * facilitates switching to main game upon button click
+   *
+   * @throws IOException
+   */
+  @FXML
+  private void switchToGame() throws IOException {
+    gameSwitcher.switchMenu();
   }
 
   /**

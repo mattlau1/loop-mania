@@ -102,6 +102,11 @@ public class LoopManiaApplication extends Application {
     gameModeController.setMapSelectionSwitcher(() -> {
       switchToRoot(scene, mapSelectionRoot, primaryStage);
     });
+    gameModeController.setGameSwitcher(() -> {
+      switchToRoot(scene, gameRoot, primaryStage);
+      mainController.startTimer();
+    });
+
 
     // deploy the main onto the stage
     gameRoot.requestFocus();
