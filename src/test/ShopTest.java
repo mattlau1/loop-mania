@@ -143,4 +143,16 @@ public class ShopTest {
     // 50
     assertTrue(testChar.getGold() >= 40 && testChar.getGold() <= 50);
   }
+
+  @Test
+  public void testSellDoggieCoinNoCoin() {
+    // cannot sell coins player does not have
+    TestSetup setup = new TestSetup();
+    LoopManiaWorld world = setup.makeTestWorld();
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    world.sellDoggieCoin();
+    // check that player has not recieved gold
+    assertEquals(0, testChar.getGold());
+  }
 }
