@@ -3,6 +3,8 @@ package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.Random;
 
 import org.junit.jupiter.api.Test;
 
@@ -106,15 +108,34 @@ public class ItemTest {
   }
 
   @Test
-  public void testGenerateItem() {
-    // test time drops
+  public void testNoItemSpawned() {
+    // test that no items are spawned with the specific seed
     TestSetupWithSeed setup = new TestSetupWithSeed();
     LoopManiaWorld world = setup.makeTestWorld(5);
     Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
     world.setCharacter(testChar);
+    // spawning item is impossible
     world.generateItemDrops();
-    world.possiblySpawnItems();
+    // no items were spawned
+    List<Item> newItems = world.possiblySpawnItems();
+    assertEquals(0, newItems.size());
+    Random rand = new Random(-1);
+    System.out.println(rand.nextInt(2));
     
+  }
+
+  @Test
+  public void testItemSpawned() {
+    // test that no items are spawned with the specific seed
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(-1);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // spawning item is possible
+    world.generateItemDrops();
+    // items are spawned on the map
+    List<Item> newItems = world.possiblySpawnItems();
+    assertEquals(1, newItems.size());
   }
 
 }
