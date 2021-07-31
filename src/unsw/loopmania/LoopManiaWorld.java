@@ -247,7 +247,7 @@ public class LoopManiaWorld {
   }
 
   /**
-   * Set the characters. This is necessary because it is loaded as a special
+   * Sets the character. This is necessary because it is loaded as a special
    * entity out of the file
    *
    * @param character the character
