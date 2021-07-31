@@ -1,11 +1,14 @@
 package unsw.loopmania.Shop;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import unsw.loopmania.LoopManiaWorldController;
 import unsw.loopmania.MenuSwitcher;
 import unsw.loopmania.Items.AndurilStrategy;
@@ -23,6 +26,7 @@ import unsw.loopmania.Items.TreeStumpStrategy;
 public class ShopController {
   private MenuSwitcher gameSwitcher;
   private LoopManiaWorldController worldController;
+  MediaPlayer buttonClick;
 
   @FXML
   private Button buySwordButton;
@@ -202,10 +206,21 @@ public class ShopController {
   @FXML
   private void exitShop(ActionEvent event) throws IOException {
     worldController.exitShop();
+    buttonClickSound();
   }
 
   public void setWorldController(LoopManiaWorldController worldController) {
     this.worldController = worldController;
+  }
+
+  /**
+   * sound effect for the button clicking
+   */
+  public void buttonClickSound() {
+    String path = "src/audio/buttonClick.wav";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    buttonClick = new MediaPlayer(music);
+    buttonClick.play();
   }
 
 }

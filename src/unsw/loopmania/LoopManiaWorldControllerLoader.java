@@ -16,6 +16,7 @@ import javafx.geometry.Rectangle2D;
 
 import java.io.File;
 
+
 /**
  * A LoopManiaLoader that also creates the necessary ImageViews for the UI,
  * connects them via listeners to the model, and creates a controller.

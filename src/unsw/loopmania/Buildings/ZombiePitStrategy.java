@@ -1,9 +1,12 @@
 package unsw.loopmania.Buildings;
 
 import java.io.File;
+import java.nio.file.Paths;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import unsw.loopmania.Character;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.Enemy;
@@ -11,6 +14,7 @@ import unsw.loopmania.Enemies.ZombieEnemy;
 
 public class ZombiePitStrategy implements BuildingStrategy {
   private final int range = 0;
+  MediaPlayer zombieSound;
 
   @Override
   public int getRange() {
@@ -46,6 +50,7 @@ public class ZombiePitStrategy implements BuildingStrategy {
 
   @Override
   public Enemy spawnEnemy(PathPosition position) {
+    zombieSound();
     return new ZombieEnemy(position);
   }
 
@@ -62,6 +67,17 @@ public class ZombiePitStrategy implements BuildingStrategy {
   @Override
   public boolean canOnlySpawnOnPath() {
     return false;
+  }
+
+  /**
+   * sound effect for zombie spawn
+   */
+  public void zombieSound() {
+    String path = "src/audio/zombie.mp3";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    zombieSound = new MediaPlayer(music);
+    zombieSound.setVolume(0.3);
+    zombieSound.play();
   }
 
 }
