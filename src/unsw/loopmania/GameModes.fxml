@@ -14,7 +14,7 @@
 
 <VBox alignment="CENTER" prefHeight="410.0" prefWidth="785.0" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="388.0" prefWidth="782.0" style="-fx-background-color: black;">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="388.0" prefWidth="785.0" style="-fx-background-color: black;">
          <children>
             <ImageView fitHeight="442.0" fitWidth="843.0" layoutX="-24.0" layoutY="-23.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -26,7 +26,7 @@
                   <Font name="System Bold" size="61.0" />
                </font>
             </Text>
-            <Button fx:id="standardModeButton" layoutX="82.0" layoutY="129.0" mnemonicParsing="false" onAction="#switchToGame" prefHeight="52.0" prefWidth="224.0" style="-fx-background-color: none;" text="Standard Mode" textFill="WHITE">
+            <Button fx:id="standardModeButton" layoutX="82.0" layoutY="129.0" mnemonicParsing="false" onAction="#switchToMapSelection" prefHeight="52.0" prefWidth="224.0" style="-fx-background-color: none;" text="Standard Mode" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -34,22 +34,22 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <Button fx:id="berserkerModeButton" layoutX="82.0" layoutY="187.0" mnemonicParsing="false" onAction="#switchToGame" prefHeight="52.0" prefWidth="224.0" style="-fx-background-color: transparent;" text="Berserker Mode" textFill="WHITE">
+            <Button fx:id="berserkerModeButton" layoutX="82.0" layoutY="187.0" mnemonicParsing="false" onAction="#switchToMapSelection" prefHeight="52.0" prefWidth="224.0" style="-fx-background-color: transparent;" text="Berserker Mode" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <Button fx:id="survivorModeButton" layoutX="82.0" layoutY="241.0" mnemonicParsing="false" onAction="#switchToGame" prefHeight="52.0" prefWidth="224.0" style="-fx-background-color: transparent;" text="Survivor Mode" textFill="WHITE">
+            <Button fx:id="survivorModeButton" layoutX="82.0" layoutY="240.0" mnemonicParsing="false" onAction="#switchToMapSelection" prefHeight="52.0" prefWidth="224.0" style="-fx-background-color: transparent;" text="Survivor Mode" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <Button fx:id="backButton" layoutY="352.0" mnemonicParsing="false" onAction="#switchToMapSelection" prefHeight="44.0" prefWidth="82.0" style="-fx-background-color: transparent;" text="Back" textFill="WHITE">
+            <Button fx:id="backButton" layoutY="352.0" mnemonicParsing="false" onAction="#switchToMainMenu" prefHeight="44.0" prefWidth="82.0" style="-fx-background-color: transparent;" text="Back" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="confusingModeButton" layoutX="72.0" layoutY="293.0" mnemonicParsing="false" onAction="#switchToGame" prefHeight="52.0" prefWidth="244.0" style="-fx-background-color: transparent;" text="Confusing Mode" textFill="WHITE">
+            <Button fx:id="confusingModeButton" layoutX="72.0" layoutY="293.0" mnemonicParsing="false" onAction="#switchToMapSelection" prefHeight="52.0" prefWidth="244.0" style="-fx-background-color: transparent;" text="Confusing Mode" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
