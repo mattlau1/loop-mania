@@ -241,9 +241,12 @@ public class LoopManiaWorldController {
     gridPaneNodeSetOnDragExited = new EnumMap<DRAGGABLE_TYPE, EventHandler<DragEvent>>(DRAGGABLE_TYPE.class);
   }
 
+  public void setDifficulty(String difficulty) {
+    world.setDifficulty(difficulty);
+  }
+
   @FXML
   public void initialize() {
-
     Image pathTilesImage = new Image((new File("src/images/32x32GrassAndDirtPath.png")).toURI().toString());
     Image inventorySlotImage = new Image((new File("src/images/empty_slot.png")).toURI().toString());
     Rectangle2D imagePart = new Rectangle2D(0, 0, 32, 32);
