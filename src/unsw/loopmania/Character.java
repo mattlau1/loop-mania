@@ -32,9 +32,9 @@ public class Character extends MovingEntity {
 
   public Character(PathPosition position) {
     super(position);
-    soldiers = new ArrayList<>();
-    buffs = new ArrayList<>();
-    this.observers = new ArrayList<Observer>();
+    this.soldiers = new ArrayList<>();
+    this.buffs = new ArrayList<>();
+    this.observers = new ArrayList<>();
     this.healthProperty = new SimpleDoubleProperty(this, "health", initialHealth);
     this.goldProperty = new SimpleIntegerProperty(this, "gold", initialGold);
     this.doggieCoinProperty = new SimpleIntegerProperty(this, "doggieCoin", initialDoggieCoin);
