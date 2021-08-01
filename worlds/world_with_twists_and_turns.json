@@ -2,7 +2,19 @@
   "width": 8,
   "height": 14,
   "rare_items": [],
-  "goal-condition": {"goal": "experience", "quantity": 123456 },
+  "goal-condition": {
+    "goal": "AND",
+    "subgoals": [
+      {
+        "goal": "bosses",
+        "quantity": 2
+      },
+      {
+        "goal": "gold",
+        "quantity": 5000
+      }
+    ]
+  },
   "decorations": [],
   "entities": [
     {"x": 0, "y": 0, "type": "hero_castle"},

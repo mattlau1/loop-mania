@@ -42,3 +42,7 @@
 - Thief has 45 health, deals 5 damage, drops 20 gold and 50 experience
 - On hit the Thief deducts 10 gold from the player and one item from their unequiped inventory.
 - Thief spawns at a village at start of every cycle
+- Sniper has 15hp, deals 1 damage, drops 100 gold and 100 exp
+- Sniper spawns at a pre set sniper tower every 5 cycles
+- Sniper does not move from the tower
+- Whilst Sniper is alive the player takes an additional 5 damage during combat
