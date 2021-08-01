@@ -41,12 +41,18 @@ public class LoopManiaWorldControllerLoader extends LoopManiaWorldLoader {
     imageLocation = imgLoc;
   }
 
+  /**
+   * load character into the game
+   */
   @Override
   public void onLoad(Character character) {
     ImageView view = new ImageView(characterImage);
     addEntity(character, view);
   }
 
+  /**
+   * load starting buildings into the game
+   */
   @Override
   public void onLoad(Building building) {
     ImageView view = building.getImage(imageLocation);

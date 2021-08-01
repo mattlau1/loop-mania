@@ -30,6 +30,9 @@ public class MainMenuController {
   @FXML
   Button startGameButton;
 
+  /**
+   * called when controller is initialised, sets the button hover effects
+   */
   @FXML
   private void initialize() {
     setButtonHoverEffects();
@@ -43,21 +46,21 @@ public class MainMenuController {
   }
 
   /**
-   * facilitates switching to how to play
+   * facilitates switching to how to play screen
    */
   public void setHowToPlaySwitcher(MenuSwitcher gameSwitcher) {
     this.howToPlaySwitcher = gameSwitcher;
   }
 
   /**
-   * facilitates switching to map selection
+   * facilitates switching to game mode
    */
   public void setGameModeSwitcher(MenuSwitcher gameSwitcher) {
     this.gameModeSwitcher = gameSwitcher;
   }
 
   /**
-   * facilitates switching to map selection upon button click
+   * facilitates switching to game mode screen upon button click
    *
    * @throws IOException
    */
@@ -87,6 +90,9 @@ public class MainMenuController {
     howToPlaySwitcher.switchMenu();
   }
 
+  /**
+   * Sets the button hover effects
+   */
   private void setButtonHoverEffects() {
     exitButton.setStyle("-fx-background-color:transparent;");
 
@@ -139,6 +145,9 @@ public class MainMenuController {
     });
   }
 
+  /**
+   * exits the game
+   */
   @FXML
   private void exitGame() {
     System.exit(0);

@@ -52,14 +52,28 @@ public class Soldier {
     this.health -= health;
   }
 
+  /**
+   * Gets the list of buffer the soldier is affect by
+   *
+   * @return
+   */
   public List<Buff> getBuffs() {
     return buffs;
   }
 
+  /**
+   * Add a buff/status effect to the soldier
+   * @param buff status effect to the soldier
+   */
   public void addBuffs(Buff buff) {
     this.buffs.add(buff);
   }
 
+  /**
+   * Gets the ImageView for the soldier
+   * @param imgLoc image location for the image file
+   * @return ImageView for the soldier
+   */
   public ImageView getImage(String imgLoc) {
     Image image = new Image((new File("src/" + imgLoc + "/deep_elf_master_archer.png")).toURI().toString());
     ImageView view = new ImageView(image);
