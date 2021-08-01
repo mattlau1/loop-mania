@@ -16,15 +16,12 @@ import unsw.loopmania.Enemies.SlugEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
 import unsw.loopmania.Enemies.ZombieEnemy;
 import unsw.loopmania.Items.AndurilStrategy;
-import unsw.loopmania.Items.ArmourStrategy;
 import unsw.loopmania.Items.HealthPotionStrategy;
 import unsw.loopmania.Items.HelmetStrategy;
 import unsw.loopmania.Items.Item;
 import unsw.loopmania.Items.ItemStrategy;
-import unsw.loopmania.Items.ShieldStrategy;
 import unsw.loopmania.Items.StaffStrategy;
 import unsw.loopmania.Items.StakeStrategy;
-import unsw.loopmania.Items.SwordStrategy;
 import unsw.loopmania.Items.TheOneRingStrategy;
 
 public class ItemTest {
@@ -290,8 +287,20 @@ public class ItemTest {
     // the stake is situated in the inventory grid at 0, 0
     // and move it into equip inventory at 0, 0
     world.equipItembyCoordinates(0,0,0,0);
-  }
 
-  
+    // add a staff into invenotry by using alternative method
+    SimpleIntegerProperty x = new SimpleIntegerProperty(1);
+    SimpleIntegerProperty y = new SimpleIntegerProperty(2);
+    StaffStrategy strat = new StaffStrategy();
+    Item testStaff = new Item(x, y, strat);
+    world.addEquippedInventoryItem(testStaff);
+    world.getEquippedInventoryItemEntityByCoordinates(1, 2);
+
+    // remove item after equipping the staff
+    world.removeEquippedInventoryItem(testStaff);
+    assertEquals(0, world.getEquip().size());
+
+
+  }  
 
 }
