@@ -31,3 +31,14 @@
 - Doggie spawns from a building, which is created when the map is loaded
 - Elan Muske does not spawn randomly
 - Elan Muske spawns from a building, which is created when the map is loaded
+- Elan Muske has 225 Health, deals 10 damage, drops 400 exp, 250 Gold and 20 Doggie Coins
+- Elan Muske heals other enemies in combat for 2 health per tick
+- Doggie has 135 Health, Deals 5 damage, drops 400 exp, 250 gold and 1 doggie coins
+- Doggie has a 50% chance to stun the player on hit
+- Slug has 20 health, deals 5 damage, drops 10 gold and 10 exp
+- Zombie has 30 health, deals 10 damage, drops 25 gold and 25 experience
+- Zombie has a 20% chance to convert an allied soldier into a zombie on hit
+- Vampire has 60 health, deals 20 damage, drops 100 exp and 100 gold
+- Thief has 45 health, deals 5 damage, drops 20 gold and 50 experience
+- On hit the Thief deducts 10 gold from the player and one item from their unequiped inventory.
+- Thief spawns at a village at start of every cycle

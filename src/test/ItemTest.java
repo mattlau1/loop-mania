@@ -3,6 +3,8 @@ package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.Random;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,10 +15,14 @@ import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.SlugEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
 import unsw.loopmania.Enemies.ZombieEnemy;
+import unsw.loopmania.Items.AndurilStrategy;
 import unsw.loopmania.Items.HealthPotionStrategy;
+import unsw.loopmania.Items.HelmetStrategy;
 import unsw.loopmania.Items.Item;
+import unsw.loopmania.Items.ItemStrategy;
 import unsw.loopmania.Items.StaffStrategy;
 import unsw.loopmania.Items.StakeStrategy;
+import unsw.loopmania.Items.SwordStrategy;
 import unsw.loopmania.Items.TheOneRingStrategy;
 
 public class ItemTest {
@@ -56,7 +62,6 @@ public class ItemTest {
     assertEquals(1, world.trancedSoldiersSize());
     // checks that the former zombie no longer exists
     assertEquals(false, zombie.isAlive());
-
   }
 
   @Test
@@ -102,6 +107,200 @@ public class ItemTest {
     // checks that the character does not revive and the game is lost
     assertEquals(false, testChar.isAlive());
     assertEquals(true, world.isGameLost());
+
+  }
+
+  @Test
+  public void testNoItemSpawned() {
+    // test that no items are spawned in the world with the specific seed
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(5);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // spawning item is impossible
+    world.generateItemDrops();
+    // no items were spawned
+    List<Item> newItems = world.possiblySpawnItems();
+    assertEquals(0, newItems.size());
+
+    Random rand = new Random(-1);
+    System.out.println(rand.nextInt(2));
+
+  }
+
+  @Test
+  public void testItemSpawned() {
+    // test that items are spawned in the world with the specific seed
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(-1);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // spawning item is possible
+    world.generateItemDrops();
+    // items are spawned on the map
+    List<Item> newItems = world.possiblySpawnItems();
+    assertEquals(1, newItems.size());
+  }
+
+  @Test
+  public void testSuperRaritySpawn() {
+    // test that specific item will spawn from certain rarity categories.
+
+    // set up that will spawn super rarity item
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(76);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // generate item
+    world.generateItemDrops();
+    // spawn super rare item
+    ItemStrategy superRareItem = world.randomItemStrategy();
+    assertEquals(true, superRareItem instanceof AndurilStrategy);
+  }
+
+  @Test
+  public void testHighRaritySpawn() {
+    // test that specific item will spawn from certain rarity categories.
+
+    // set up that will spawn super rarity item
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(37);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // generate item
+    world.generateItemDrops();
+    // spawn high rare item
+    ItemStrategy highRareItem = world.randomItemStrategy();
+    assertEquals(true, highRareItem instanceof HealthPotionStrategy);
+  }
+
+  @Test
+  public void testMediumRaritySpawn() {
+    // test that specific item will spawn from certain rarity categories.
+
+    // set up that will spawn medium rarity item
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(19);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // generate item
+    world.generateItemDrops();
+    // spawn medium rare item
+    ItemStrategy mediumRareItem = world.randomItemStrategy();
+    assertEquals(true, mediumRareItem instanceof HelmetStrategy);
+  }
+
+  @Test
+  public void testLowRaritySpawn() {
+    // test that specific item will spawn from certain rarity categories.
+
+    // set up that will spawn low rarity item
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(78);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // generate item
+    world.generateItemDrops();
+    // spawn low rare item
+    ItemStrategy lowRareItem = world.randomItemStrategy();
+    assertEquals(true, lowRareItem instanceof StakeStrategy);
+  }
+
+  @Test
+  public void testAddingUnequippedItem() {
+    // testing by adding another unequip item after it is full
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(78);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // generate item
+    world.generateItemDrops();
+    // no items has been added into unequip yet
+    assertEquals(0, world.getUnequip().size());
+    // populate the inventory
+    for (int i = 0; i < 16; i++) {
+      world.addUnequippedItem();
+    }
+    // check the unequip is filled
+    assertEquals(16, world.getUnequip().size());
+    // adding equip item even though its already full
+    world.addUnequippedItem();
+    // no overflow after adding item to full inventory
+    assertEquals(16, world.getUnequip().size());
+    // add specific item into the unequipped
+    world.addSpecificUnequippedItem(new SwordStrategy());
+  }
+
+  @Test
+  public void testRemovingUnequippedItem() {
+    // testing by removing unequipped item by coordinates
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(78);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // generate item
+    world.generateItemDrops();
+    // no items has been added into unequip yet
+    assertEquals(0, world.getUnequip().size());
+    // add few items into the unequip inventory
+    for (int i = 0; i < 5; i++) {
+      world.addUnequippedItem();
+    }
+    // checks that 5 items are added
+    assertEquals(5, world.getUnequip().size());
+    // remove the item at 0, 0
+    world.removeUnequippedInventoryItemByCoordinates(0, 0);
+    // check that 4 items remain
+    assertEquals(4, world.getUnequip().size());
+  }
+
+  @Test
+  public void testEquippedItem() {
+    // testing by adding equip item
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(78);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // generate item
+    world.generateItemDrops();
+    // no item in equip
+    assertEquals(0, world.getEquip().size());
+    // add stake into unequipped
+    world.addUnequippedItem();
+    // the stake is situated in the inventory grid at 0, 0
+    world.addEquippedInventoryItemByCoordinates(0, 0);
+    // there should be 1 item in equipped inventory
+    assertEquals(1, world.getEquip().size());
+  }
+
+  @Test
+  public void testEquippedItemByCoordinate() {
+    // testing by adding equip item
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(78);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // generate item
+    world.generateItemDrops();
+    // no item in equip
+    assertEquals(0, world.getEquip().size());
+    // add stake into unequipped
+    world.addUnequippedItem();
+    // the stake is situated in the inventory grid at 0, 0
+    // and move it into equip inventory at 0, 0
+    world.equipItembyCoordinates(0, 0, 0, 0);
+
+    // add a staff into invenotry by using alternative method
+    SimpleIntegerProperty x = new SimpleIntegerProperty(1);
+    SimpleIntegerProperty y = new SimpleIntegerProperty(2);
+    StaffStrategy strat = new StaffStrategy();
+    Item testStaff = new Item(x, y, strat);
+    world.addEquippedInventoryItem(testStaff);
+    world.getEquippedInventoryItemEntityByCoordinates(1, 2);
+
+    // remove item after equipping the staff
+    world.removeEquippedInventoryItem(testStaff);
+    assertEquals(0, world.getEquip().size());
 
   }
 

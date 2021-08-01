@@ -54,7 +54,8 @@ public class VampireCastleStrategy implements BuildingStrategy {
 
   @Override
   public Enemy spawnEnemy(PathPosition position) {
-    vampireSound();
+    try {vampireSound();}
+    catch(Exception exception) {}
     return new VampireEnemy(position);
   }
 

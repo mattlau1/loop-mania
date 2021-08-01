@@ -74,3 +74,13 @@ Team discussed what final adjustments needed to be done before the due date and 
     - Crafting material drops
 
 The team allocated different tasks for milestone 3 to each member, including missing parts from milestone 2. The team also discussed briefly what needs to be done for milestone 3 and when missing parts from milestone 2 would be completed. The team also discussed all new features and planned extension ideas for milestone 3. 
+
+## Friday 30th of July
+### Attendees:
+-   Michael Chidiac
+-   Raymond Chung
+-   Matthew Lau
+-   Steven Long Nguyen
+### Points Discussed
+- Finalisation of the project
+The team met close to the due date to ensure that all aspects of the project were close to being finalised and to review each other’s work to find aspects that each member may have overlooked or could be improved.

@@ -104,6 +104,15 @@
 
             <!-- clicking this button returns the human player to the main menu -->
             <Button onAction="#switchToMainMenu" prefHeight="25.0" prefWidth="249.0" text="Exit to Main Menu" />
+            <HBox layoutX="10.0" layoutY="67.0" prefHeight="33.0" prefWidth="113.0">
+               <children>
+                  <Label fx:id="goalLabel" ellipsisString="" minWidth="250.0" prefHeight="33.0" prefWidth="112.0" style="-fx-padding: 5px;" textFill="RED" textOverrun="CLIP">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <HBox prefHeight="33.0" prefWidth="113.0">
                <children>
                   <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
@@ -193,6 +202,15 @@
                   <ImageView fx:id="ally1" fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="ally2" fitHeight="36.0" fitWidth="36.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="ally3" fitHeight="36.0" fitWidth="36.0" layoutX="46.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+            <HBox prefHeight="33.0" prefWidth="113.0">
+               <children>
+                  <Label fx:id="pauseLabel" alignment="CENTER" ellipsisString="" prefHeight="33.0" prefWidth="114.0" style="-fx-padding: 5px;" textAlignment="CENTER" textOverrun="CLIP">
+                     <font>
+                        <Font name="Segoe UI Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
          </children>
