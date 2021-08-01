@@ -27,6 +27,8 @@ public class LoopManiaApplication extends Application {
   public void start(Stage primaryStage) throws IOException {
     // set title on top of window bar
     primaryStage.setTitle("Loop Mania");
+    primaryStage.setX(10);
+    primaryStage.setY(10);
 
     // prevent human player resizing game window (since otherwise would see white
     // space)
@@ -43,8 +45,7 @@ public class LoopManiaApplication extends Application {
     Parent gameRootGrass = gameLoaderGrass.load();
 
     // load the main game (japanese world)
-    LoopManiaWorldControllerLoader loopManiaLoaderJP = new LoopManiaWorldControllerLoader(
-        "world_with_twists_and_turns.json", "images2");
+    LoopManiaWorldControllerLoader loopManiaLoaderJP = new LoopManiaWorldControllerLoader("map2.json", "images2");
     mainControllerJP = loopManiaLoaderJP.loadController();
     FXMLLoader gameLoaderJP = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
     gameLoaderJP.setController(mainControllerJP);
