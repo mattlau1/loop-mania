@@ -10,12 +10,12 @@ import unsw.loopmania.Buildings.TrapStrategy;
 public class TrapCardStrategy implements CardStrategy {
   /**
    * returns the image of the item to be displayed
-   * 
+   *
    * @return the imageview of the item
    */
   @Override
-  public ImageView getImage() {
-    Image trapImage = new Image((new File("src/images/trap_card.png")).toURI().toString());
+  public ImageView getImage(String imgLoc) {
+    Image trapImage = new Image((new File("src/" + imgLoc + "/trap_card.png")).toURI().toString());
     ImageView view = new ImageView(trapImage);
     return view;
   }

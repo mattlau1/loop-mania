@@ -62,8 +62,8 @@ public class TreeStumpStrategy implements ItemStrategy {
   }
 
   @Override
-  public ImageView getImage() {
-    Image image = new Image((new File("src/images/tree_stump.png")).toURI().toString());
+  public ImageView getImage(String imgLoc) {
+    Image image = new Image((new File("src/" + imgLoc + "/tree_stump.png")).toURI().toString());
     ImageView view = new ImageView(image);
     return view;
   }

@@ -1,5 +1,6 @@
 package unsw.loopmania;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -18,12 +19,16 @@ public class LoopManiaApplication extends Application {
    * the controller for the game. Stored as a field so can terminate it when click
    * exit button
    */
-  private LoopManiaWorldController mainController;
+  private LoopManiaWorldController mainControllerGrass;
+  private LoopManiaWorldController mainControllerJP;
+  private LoopManiaWorldController mainControllerWaste;
 
   @Override
   public void start(Stage primaryStage) throws IOException {
     // set title on top of window bar
     primaryStage.setTitle("Loop Mania");
+    primaryStage.setX(10);
+    primaryStage.setY(10);
 
     // prevent human player resizing game window (since otherwise would see white
     // space)
@@ -31,12 +36,28 @@ public class LoopManiaApplication extends Application {
     // resizing of the JavaFX nodes)
     primaryStage.setResizable(false);
 
-    // load the main game
-    LoopManiaWorldControllerLoader loopManiaLoader = new LoopManiaWorldControllerLoader("world_with_twists_and_turns.json");
-    mainController = loopManiaLoader.loadController();
-    FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
-    gameLoader.setController(mainController);
-    Parent gameRoot = gameLoader.load();
+    // load the main game (grass world)
+    LoopManiaWorldControllerLoader loopManiaLoaderGrass = new LoopManiaWorldControllerLoader(
+        "world_with_twists_and_turns.json", "images");
+    mainControllerGrass = loopManiaLoaderGrass.loadController();
+    FXMLLoader gameLoaderGrass = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
+    gameLoaderGrass.setController(mainControllerGrass);
+    Parent gameRootGrass = gameLoaderGrass.load();
+
+    // load the main game (japanese world)
+    LoopManiaWorldControllerLoader loopManiaLoaderJP = new LoopManiaWorldControllerLoader("map2.json", "images2");
+    mainControllerJP = loopManiaLoaderJP.loadController();
+    FXMLLoader gameLoaderJP = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
+    gameLoaderJP.setController(mainControllerJP);
+    Parent gameRootJP = gameLoaderJP.load();
+
+    // load the main game (wasteland world)
+    LoopManiaWorldControllerLoader loopManiaLoaderWaste = new LoopManiaWorldControllerLoader(
+        "world_with_twists_and_turns.json", "images2");
+    mainControllerWaste = loopManiaLoaderWaste.loadController();
+    FXMLLoader gameLoaderWaste = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
+    gameLoaderWaste.setController(mainControllerWaste);
+    Parent gameRootWaste = gameLoaderWaste.load();
 
     // load the main menu
     MainMenuController mainMenuController = new MainMenuController();
@@ -62,54 +83,172 @@ public class LoopManiaApplication extends Application {
     gameModeLoader.setController(gameModeController);
     Parent gameModeRoot = gameModeLoader.load();
 
+    // load the win menu
+    WinController winController = new WinController();
+    FXMLLoader winLoader = new FXMLLoader(getClass().getResource("Win.fxml"));
+    winLoader.setController(winController);
+    Parent winRoot = winLoader.load();
+
+    // load the lose menu
+    LoseController loseController = new LoseController();
+    FXMLLoader loseLoader = new FXMLLoader(getClass().getResource("Lose.fxml"));
+    loseLoader.setController(loseController);
+    Parent loseRoot = loseLoader.load();
+
     // create new scene with the main menu (so we start with the main menu)
     Scene scene = new Scene(mainMenuRoot);
 
     // set functions which are activated when button click to switch menu is pressed
     // e.g. from main menu to start the game, or from the game to return to main
     // menu
-    mainController.setMainMenuSwitcher(() -> {
+
+    gameModeController.setMapSelectionStandardSwitcher(() -> {
+      switchToRoot(scene, mapSelectionRoot, primaryStage);
+      mainControllerGrass.setDifficulty(LoopManiaWorld.STANDARD_MODE);
+      mainControllerJP.setDifficulty(LoopManiaWorld.STANDARD_MODE);
+      mainControllerWaste.setDifficulty(LoopManiaWorld.STANDARD_MODE);
+    });
+    gameModeController.setMapSelectionBerserkerSwitcher(() -> {
+      switchToRoot(scene, mapSelectionRoot, primaryStage);
+      mainControllerGrass.setDifficulty(LoopManiaWorld.BERSERKER_MODE);
+      mainControllerJP.setDifficulty(LoopManiaWorld.BERSERKER_MODE);
+      mainControllerWaste.setDifficulty(LoopManiaWorld.BERSERKER_MODE);
+    });
+    gameModeController.setMapSelectionSurvivalSwitcher(() -> {
+      switchToRoot(scene, mapSelectionRoot, primaryStage);
+      mainControllerGrass.setDifficulty(LoopManiaWorld.SURVIVAL_MODE);
+      mainControllerJP.setDifficulty(LoopManiaWorld.SURVIVAL_MODE);
+      mainControllerWaste.setDifficulty(LoopManiaWorld.SURVIVAL_MODE);
+    });
+    gameModeController.setMapSelectionConfusingSwitcher(() -> {
+      switchToRoot(scene, mapSelectionRoot, primaryStage);
+      mainControllerGrass.setDifficulty(LoopManiaWorld.CONFUSING_MODE);
+      mainControllerJP.setDifficulty(LoopManiaWorld.CONFUSING_MODE);
+      mainControllerWaste.setDifficulty(LoopManiaWorld.CONFUSING_MODE);
+    });
+
+    mainControllerGrass.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
+      try {
+        start(primaryStage);
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
     });
-    mainMenuController.setGameSwitcher(() -> {
-      switchToRoot(scene, gameRoot, primaryStage);
-      mainController.startTimer();
+    mainControllerGrass.setGameSwitcher(() -> {
+      switchToRoot(scene, gameRootGrass, primaryStage);
+      mainControllerGrass.startTimer();
     });
-
-    mainController.setGameSwitcher(() -> {
-      switchToRoot(scene, gameRoot, primaryStage);
-      mainController.startTimer();
+    mainControllerGrass.setWinSwitcher(() -> {
+      switchToRoot(scene, winRoot, primaryStage);
     });
-
+    mainControllerGrass.setLoseSwitcher(() -> {
+      switchToRoot(scene, loseRoot, primaryStage);
+    });
+    mainControllerJP.setMainMenuSwitcher(() -> {
+      switchToRoot(scene, mainMenuRoot, primaryStage);
+      try {
+        start(primaryStage);
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    });
+    mainControllerJP.setGameSwitcher(() -> {
+      switchToRoot(scene, gameRootGrass, primaryStage);
+      mainControllerJP.startTimer();
+    });
+    mainControllerJP.setWinSwitcher(() -> {
+      switchToRoot(scene, winRoot, primaryStage);
+    });
+    mainControllerJP.setLoseSwitcher(() -> {
+      switchToRoot(scene, loseRoot, primaryStage);
+    });
+    mainControllerWaste.setMainMenuSwitcher(() -> {
+      switchToRoot(scene, mainMenuRoot, primaryStage);
+      try {
+        start(primaryStage);
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    });
+    mainControllerWaste.setGameSwitcher(() -> {
+      switchToRoot(scene, gameRootWaste, primaryStage);
+      mainControllerWaste.startTimer();
+    });
+    mainControllerWaste.setWinSwitcher(() -> {
+      switchToRoot(scene, winRoot, primaryStage);
+    });
+    mainControllerWaste.setLoseSwitcher(() -> {
+      switchToRoot(scene, loseRoot, primaryStage);
+    });
     mainMenuController.setHowToPlaySwitcher(() -> {
       switchToRoot(scene, howToPlayRoot, primaryStage);
     });
-    mainMenuController.setMapSelectionSwitcher(() -> {
-      switchToRoot(scene, mapSelectionRoot, primaryStage);
+    mainMenuController.setGameModeSwitcher(() -> {
+      switchToRoot(scene, gameModeRoot, primaryStage);
     });
 
     howToPlayController.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
+      // try {
+      //   start(primaryStage);
+      // } catch (IOException e) {
+      //   // TODO Auto-generated catch block
+      //   e.printStackTrace();
+      // }
     });
 
-    mapSelectionController.setMainMenuSwitcher(() -> {
+    winController.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
+      try {
+        start(primaryStage);
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
     });
+
+    loseController.setMainMenuSwitcher(() -> {
+      switchToRoot(scene, mainMenuRoot, primaryStage);
+      try {
+        start(primaryStage);
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    });
+
     mapSelectionController.setGameModeSwitcher(() -> {
       switchToRoot(scene, gameModeRoot, primaryStage);
     });
-
-    gameModeController.setMapSelectionSwitcher(() -> {
-      switchToRoot(scene, mapSelectionRoot, primaryStage);
+    mapSelectionController.setGameGrassSwitcher(() -> {
+      switchToRoot(scene, gameRootGrass, primaryStage);
+      mainControllerGrass.startTimer();
     });
-    gameModeController.setGameSwitcher(() -> {
-      switchToRoot(scene, gameRoot, primaryStage);
-      mainController.startTimer();
+    mapSelectionController.setGameWasteSwitcher(() -> {
+      switchToRoot(scene, gameRootWaste, primaryStage);
+      mainControllerWaste.startTimer();
+    });
+    mapSelectionController.setGameJPSwitcher(() -> {
+      switchToRoot(scene, gameRootJP, primaryStage);
+      mainControllerJP.startTimer();
     });
 
+    gameModeController.setMainMenuSwitcher(() -> {
+      switchToRoot(scene, mainMenuRoot, primaryStage);
+      // try {
+      //   start(primaryStage);
+      // } catch (IOException e) {
+      //   // TODO Auto-generated catch block
+      //   e.printStackTrace();
+      // }
+    });
 
     // deploy the main onto the stage
-    gameRoot.requestFocus();
+    // gameRoot.requestFocus();
     primaryStage.setScene(scene);
     primaryStage.show();
   }
@@ -117,7 +256,9 @@ public class LoopManiaApplication extends Application {
   @Override
   public void stop() {
     // wrap up activities when exit program
-    mainController.terminate();
+    mainControllerGrass.terminate();
+    mainControllerJP.terminate();
+    mainControllerWaste.terminate();
   }
 
   /**

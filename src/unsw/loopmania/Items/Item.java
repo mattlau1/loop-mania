@@ -33,8 +33,8 @@ public class Item extends StaticEntity implements ItemStrategy {
     strategy.onHitEffects(enemy, allyList);
   }
 
-  public ImageView getImage() {
-    return strategy.getImage();
+  public ImageView getImage(String imgLoc) {
+    return strategy.getImage(imgLoc);
   }
 
   public ItemStrategy getStrategy() {

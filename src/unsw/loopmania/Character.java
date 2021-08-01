@@ -15,6 +15,7 @@ public class Character extends MovingEntity {
   private final double initialHealth = 100;
   private final int initialGold = 0;
   private final int initialDoggieCoin = 0;
+  private final int initialScrapMetal = 0;
   private final int initialExp = 0;
   private final int initialCycles = 0;
   private final int initialBossKills = 0;
@@ -23,6 +24,7 @@ public class Character extends MovingEntity {
   private SimpleDoubleProperty healthProperty;
   private SimpleIntegerProperty goldProperty;
   private SimpleIntegerProperty doggieCoinProperty;
+  private SimpleIntegerProperty scrapMetalProperty;
   private SimpleIntegerProperty expProperty;
   private SimpleIntegerProperty cycleProperty;
   private SimpleIntegerProperty bossProperty;
@@ -39,6 +41,7 @@ public class Character extends MovingEntity {
     this.healthProperty = new SimpleDoubleProperty(this, "health", initialHealth);
     this.goldProperty = new SimpleIntegerProperty(this, "gold", initialGold);
     this.doggieCoinProperty = new SimpleIntegerProperty(this, "doggieCoin", initialDoggieCoin);
+    this.scrapMetalProperty = new SimpleIntegerProperty(this, "scrapMetal", initialScrapMetal);
     this.expProperty = new SimpleIntegerProperty(this, "exp", initialExp);
     this.cycleProperty = new SimpleIntegerProperty(this, "cycle", initialCycles);
     this.bossProperty = new SimpleIntegerProperty(this, "boss", initialBossKills);
@@ -157,9 +160,9 @@ public class Character extends MovingEntity {
   }
 
   /**
-   * Gets the current experience the character is holding
+   * Gets the current doggieCoin the character is holding
    *
-   * @return the experience amount
+   * @return the doggieCoin amount
    */
   public int getDoggieCoins() {
     return doggieCoinProperty.get();
@@ -167,6 +170,19 @@ public class Character extends MovingEntity {
 
   public void setDoggieCoins(int doggieCoins) {
     doggieCoinProperty.set(doggieCoins);
+  }
+
+  /**
+   * Gets the current scrapMetal the character is holding
+   *
+   * @return the scrapMetal amount
+   */
+  public int getScrapMetal() {
+    return scrapMetalProperty.get();
+  }
+
+  public void setScrapMetal(int scrapMetal) {
+    scrapMetalProperty.set(scrapMetal);
   }
 
   public int getExp() {
@@ -272,9 +288,9 @@ public class Character extends MovingEntity {
   }
 
   /**
-   * Increases character's experience by given amount, holding more expeirence
+   * Increases character's DoggieCoin by given amount, holding more expeirence
    *
-   * @param gold the amount of experience to add
+   * @param gold the amount of DoggieCoin to add
    */
   public void addDoggieCoins(int doggieCoins) {
     doggieCoinProperty.set(doggieCoinProperty.get() + doggieCoins);
@@ -282,6 +298,19 @@ public class Character extends MovingEntity {
 
   public void deductDoggieCoins(int doggieCoins) {
     doggieCoinProperty.set(doggieCoinProperty.get() - doggieCoins);
+  }
+
+  /**
+   * Increases character's experience by given amount, holding more expeirence
+   *
+   * @param gold the amount of experience to add
+   */
+  public void addScrapMetal(int scrapMetal) {
+    scrapMetalProperty.set(scrapMetalProperty.get() + scrapMetal);
+  }
+
+  public void deductScrapMetal(int scrapMetal) {
+    scrapMetalProperty.set(scrapMetalProperty.get() - scrapMetal);
   }
 
   public void addEXP(int exp) {
@@ -433,6 +462,10 @@ public class Character extends MovingEntity {
 
   public SimpleIntegerProperty getDoggieCoinProperty() {
     return doggieCoinProperty;
+  }
+
+  public SimpleIntegerProperty getScrapMetalProperty() {
+    return scrapMetalProperty;
   }
 
 }

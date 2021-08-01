@@ -1,5 +1,6 @@
 package unsw.loopmania;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -7,6 +8,8 @@ import java.util.Random;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import unsw.loopmania.Items.AndurilStrategy;
 import unsw.loopmania.Items.ArmourStrategy;
 import unsw.loopmania.Items.DoggieCoinStrategy;
@@ -127,7 +130,8 @@ public class LoopManiaWorld {
   private boolean isElanDead;
   private final double postElanPriceMultiplier;
   private final int midElanPriceMultiplier;
-
+  private boolean isGameWon;
+  private boolean isGameLost;
   /**
    * list of x,y coordinate pairs in the order by which moving entities traverse
    * them
@@ -138,6 +142,16 @@ public class LoopManiaWorld {
   private Goal goal;
   private long seed;
   private boolean isSeedPresent = false;
+
+  private String difficulty;
+  public static final String SURVIVAL_MODE = "Survival";
+  public static final String BERSERKER_MODE = "Berserker";
+  public static final String STANDARD_MODE = "Standard";
+  public static final String CONFUSING_MODE = "Confusing";
+
+  // music
+  MediaPlayer swingSound;
+  MediaPlayer equippedSound;
 
   /**
    * create the world (constructor)
@@ -178,6 +192,22 @@ public class LoopManiaWorld {
     this.nextHeroCastleCycle = 1;
     this.postElanPriceMultiplier = 0.2;
     this.midElanPriceMultiplier = 5;
+    this.difficulty = BERSERKER_MODE;
+    this.isGameLost = false;
+    this.isGameWon = false;
+  }
+
+  public boolean difficultyEquals(String difficulty) {
+    System.out.println(difficulty);
+    return this.difficulty.equals(difficulty);
+  }
+
+  public String getDifficulty() {
+    return this.difficulty;
+  }
+
+  public void setDifficulty(String difficulty) {
+    this.difficulty = difficulty;
   }
 
   public LoopManiaWorld(int width, int height, List<Pair<Integer, Integer>> orderedPath, Goal goal, long seed) {
@@ -469,6 +499,7 @@ public class LoopManiaWorld {
    * @param enemy enemy to be killed
    */
   private void killEnemy(Enemy enemy) {
+    swingSound();
     enemy.destroy();
     enemies.remove(enemy);
   }
@@ -532,6 +563,7 @@ public class LoopManiaWorld {
       // check if user had The One Ring
       if (usedItems.isEmpty()) {
         // character does not have one ring, game is lost
+        isGameLost = true;
         return true;
       } else {
         // character has the one ring, remove from inventory
@@ -544,6 +576,13 @@ public class LoopManiaWorld {
     return false;
   }
 
+  public String getGameStatus() {
+    if (isGameWon) return "Won";
+    if (isGameLost) return "Lost";
+    return "Playing";
+  }
+
+
   /**
    * Use the item on the character outside the combat
    */
@@ -554,7 +593,6 @@ public class LoopManiaWorld {
         i.useItem(character);
         pathItemsToDestroy.add(i);
       }
-
     }
     for (Item item : pathItemsToDestroy) {
       killItem(item);
@@ -879,10 +917,10 @@ public class LoopManiaWorld {
     List<Enemy> defeatedEnemies = new ArrayList<Enemy>();
     List<Building> buildingsToDestroy = new ArrayList<>();
     List<Enemy> battlingEnemies = getBattlingEnemies();
-
-    if (isGameLost()) {
-      System.exit(0);
-    }
+    isGameLost();
+    // if (isGameLost()) {
+    //   System.exit(0);
+    // }
 
     // we have three types of buildings:
     // character outside of combat (i.e village)
@@ -918,6 +956,7 @@ public class LoopManiaWorld {
       defeatedEnemies.add(enemy);
       character.addEXP(enemy.getExpDrop());
       character.addGold(enemy.getGoldDrop());
+      character.addScrapMetal(1);
       character.addDoggieCoins(enemy.getDoggieCoinDrop());
     }
 
@@ -1182,7 +1221,7 @@ public class LoopManiaWorld {
     useIfAtHerosCastle();
     moveBasicEnemies();
     if (goal.isGameWon())
-      System.exit(0);
+      isGameWon = true;
   }
 
   /**
@@ -1211,6 +1250,7 @@ public class LoopManiaWorld {
    * @param item item to be added
    */
   public void addEquippedInventoryItem(Item item) {
+    equippedSound();
     equippedInventoryItems.add(item);
   }
 
@@ -1496,6 +1536,23 @@ public class LoopManiaWorld {
     int balance = character.getGold();
     if (balance - strat.getPrice() >= 0) {
       character.deductGold(strat.getPrice());
+      if (!(strat instanceof HealthPotionStrategy)) newItem = addSpecificUnequippedItem(strat);
+    }
+    return newItem;
+  }
+
+  /**
+   * craft an item from the shop, deducts scrap metal from the charcter, if character does
+   * not have enuough scrap metal, item is set to null
+   *
+   * @param strat item strategy of the item to be crafted
+   * @return the item to be crafted, null if character has insufficient scrap metal
+   */
+  public Item craftItem(ItemStrategy strat) {
+    Item newItem = null;
+    int balance = character.getScrapMetal();
+    if (balance - (strat.getPrice()/10) >= 0) {
+      character.deductScrapMetal(strat.getPrice()/10);
       newItem = addSpecificUnequippedItem(strat);
     }
     return newItem;
@@ -1536,6 +1593,29 @@ public class LoopManiaWorld {
       return doggieCoin;
     }
     return null;
+  }
+
+  /**
+   * sound effect for battle
+   */
+  public void swingSound() {
+    String path = "src/audio/swing.wav";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    swingSound = new MediaPlayer(music);
+    swingSound.setVolume(0.2);
+    swingSound.play();
+  }
+
+  /**
+   * sound effect for equipping the item on the inventory
+   */
+  public void equippedSound() {
+    String path = "src/audio/equip.wav";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    equippedSound = new MediaPlayer(music);
+    equippedSound.setVolume(0.3);
+    equippedSound.play();
+
   }
 
 }

@@ -21,13 +21,13 @@ public class Card extends StaticEntity implements CardStrategy {
    *
    * @return card image
    */
-  public ImageView getImage() {
-    return strategy.getImage();
+  public ImageView getImage(String imgLoc) {
+    return strategy.getImage(imgLoc);
   }
 
   /**
    * Returns the corresponding building strategy for the card
-   * 
+   *
    * @return corresponding building strategy
    */
   public BuildingStrategy getBuildingStrategy() {

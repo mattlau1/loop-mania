@@ -61,8 +61,8 @@ public class DoggieCoinStrategy implements ItemStrategy {
    * @return the imageview of the item
    */
   @Override
-  public ImageView getImage() {
-    Image image = new Image((new File("src/images/doggie_coin.png")).toURI().toString());
+  public ImageView getImage(String imgLoc) {
+    Image image = new Image((new File("src/" + imgLoc + "/doggie_coin.png")).toURI().toString());
     ImageView view = new ImageView(image);
     return view;
   }

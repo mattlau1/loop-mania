@@ -14,7 +14,7 @@ public class ArmourStrategy implements ItemStrategy {
   private final double defMultiplier = 0.5;
   private final double critMultiplier = 1;
   private final int range = 0;
-  private final int price = 100;
+  private final int price = 130;
 
   @Override
   public double getAtkMultiplier(Enemy enemy) {
@@ -58,8 +58,8 @@ public class ArmourStrategy implements ItemStrategy {
   }
 
   @Override
-  public ImageView getImage() {
-    Image image = new Image((new File("src/images/armour.png")).toURI().toString());
+  public ImageView getImage(String imgLoc) {
+    Image image = new Image((new File("src/" + imgLoc + "/armour.png")).toURI().toString());
     ImageView view = new ImageView(image);
     return view;
   }

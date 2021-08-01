@@ -17,9 +17,9 @@
    <children>
       <TabPane prefHeight="341.0" prefWidth="218.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Buy">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="321.0" prefWidth="218.0">
+            <Tab text="Buy">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="321.0" prefWidth="218.0">
                      <children>
                         <Rectangle fill="#3d3d3d" height="321.0" stroke="BLACK" strokeType="INSIDE" width="218.0" />
                         <Label alignment="CENTER" prefHeight="53.0" prefWidth="218.0" text="Buy" textAlignment="CENTER" textFill="#fffffffc">
@@ -28,21 +28,21 @@
                            </font>
                         </Label>
                         <GridPane layoutX="19.0" layoutY="71.0" prefHeight="180.0" prefWidth="182.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="97.5" minWidth="10.0" prefWidth="37.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.5" minWidth="10.0" prefWidth="37.0" />
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="97.5" minWidth="10.0" prefWidth="37.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.5" minWidth="10.0" prefWidth="37.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.5" minWidth="10.0" prefWidth="41.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </columnConstraints>
+                           <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
                            <children>
-                              <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER">
+                              <ImageView fx:id="swordBuyShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER">
                                  <image>
                                     <Image url="@../../images/basic_sword.png" />
                                  </image>
@@ -57,12 +57,12 @@
                                     <Font size="8.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                              <ImageView fx:id="stakeBuyShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                  <image>
                                     <Image url="@../../images/stake.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                              <ImageView fx:id="staffBuyShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                                  <image>
                                     <Image url="@../../images/staff.png" />
                                  </image>
@@ -72,7 +72,7 @@
                                     <Font size="8.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                              <ImageView fx:id="helmetBuyShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                  <image>
                                     <Image url="@../../images/helmet.png" />
                                  </image>
@@ -82,7 +82,7 @@
                                     <Font size="8.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                              <ImageView fx:id="armourBuyShopImage" fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                  <image>
                                     <Image url="@../../images/armour.png" />
                                  </image>
@@ -92,7 +92,7 @@
                                     <Font size="8.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                              <ImageView fx:id="shieldBuyShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                  <image>
                                     <Image url="@../../images/shield.png" />
                                  </image>
@@ -102,7 +102,7 @@
                                     <Font size="8.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                              <ImageView fx:id="potionBuyShopImage" fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                                  <image>
                                     <Image url="@../../images/brilliant_blue_new.png" />
                                  </image>
@@ -118,8 +118,8 @@
                         <Button fx:id="exitShopButton" layoutX="39.0" layoutY="273.0" mnemonicParsing="false" onAction="#exitShop" prefHeight="25.0" prefWidth="141.0" text="Exit Shop" />
                      </children>
                   </AnchorPane>
-            </content>
-          </Tab>
+               </content>
+            </Tab>
           <Tab text="Sell">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="321.0" prefWidth="218.0">
@@ -243,7 +243,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER">
+                                    <ImageView fx:id="swordSellShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER">
                                        <image>
                                           <Image url="@../../images/basic_sword.png" />
                                        </image>
@@ -258,12 +258,12 @@
                                           <Font size="8.0" />
                                        </font>
                                     </Button>
-                                    <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                                    <ImageView fx:id="stakeSellShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                                        <image>
                                           <Image url="@../../images/stake.png" />
                                        </image>
                                     </ImageView>
-                                    <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                                    <ImageView fx:id="staffSellShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                                        <image>
                                           <Image url="@../../images/staff.png" />
                                        </image>
@@ -273,7 +273,7 @@
                                           <Font size="8.0" />
                                        </font>
                                     </Button>
-                                    <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                    <ImageView fx:id="helmetSellShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                        <image>
                                           <Image url="@../../images/helmet.png" />
                                        </image>
@@ -283,7 +283,7 @@
                                           <Font size="8.0" />
                                        </font>
                                     </Button>
-                                    <ImageView fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                    <ImageView fx:id="armourSellShopImage" fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                        <image>
                                           <Image url="@../../images/armour.png" />
                                        </image>
@@ -293,7 +293,7 @@
                                           <Font size="8.0" />
                                        </font>
                                     </Button>
-                                    <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                    <ImageView fx:id="shieldSellShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                        <image>
                                           <Image url="@../../images/shield.png" />
                                        </image>
@@ -303,7 +303,7 @@
                                           <Font size="8.0" />
                                        </font>
                                     </Button>
-                                    <ImageView fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                                    <ImageView fx:id="treeStumpSellShopImage" fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                                        <image>
                                           <Image url="@../../images/tree_stump.png" />
                                        </image>
@@ -313,12 +313,12 @@
                                           <Font size="8.0" />
                                        </font>
                                     </Button>
-                                    <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                    <ImageView fx:id="theOneRingSellShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                        <image>
                                           <Image url="@../../images/the_one_ring.png" />
                                        </image>
                                     </ImageView>
-                                    <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                    <ImageView fx:id="andurilSellShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                        <image>
                                           <Image url="@../../images/anduril_flame_of_the_west.png" />
                                        </image>
@@ -333,7 +333,7 @@
                                           <Font size="8.0" />
                                        </font>
                                     </Button>
-                                    <ImageView fitHeight="30.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                                    <ImageView fx:id="doggieCoinSellShopImage" fitHeight="30.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                                        <image>
                                           <Image url="@../../images/doggie_coin.png" />
                                        </image>
@@ -346,12 +346,105 @@
                                  </children>
                               </GridPane>
                               <Label fx:id="sellErrorMessage" alignment="CENTER" layoutX="40.0" layoutY="45.0" prefHeight="17.0" prefWidth="138.0" text="Sample Error Message" textAlignment="CENTER" textFill="#fffd00" />
-                              <Button fx:id="exitShopButton2" layoutX="39.0" layoutY="273.0" mnemonicParsing="false" onAction="#exitShop" prefHeight="25.0" prefWidth="141.0" text="Exit Shop" />
+                              <Button fx:id="exitShopButton" layoutX="39.0" layoutY="273.0" mnemonicParsing="false" onAction="#exitShop" prefHeight="25.0" prefWidth="141.0" text="Exit Shop" />
                            </children>
                         </AnchorPane>
                      </children>
                   </AnchorPane>
                </content>
+          </Tab>
+          <Tab text="Craft">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="321.0" prefWidth="218.0">
+                     <children>
+                        <Rectangle fill="#3d3d3d" height="321.0" stroke="BLACK" strokeType="INSIDE" width="218.0" />
+                        <Label alignment="CENTER" prefHeight="53.0" prefWidth="218.0" text="Craft" textAlignment="CENTER" textFill="#fffffffc">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                        <GridPane layoutX="19.0" layoutY="71.0" prefHeight="180.0" prefWidth="182.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="97.5" minWidth="10.0" prefWidth="37.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.5" minWidth="10.0" prefWidth="37.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.5" minWidth="10.0" prefWidth="41.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <ImageView fx:id="swordCraftShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER">
+                                 <image>
+                                    <Image url="@../../images/basic_sword.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="craftSwordButton" alignment="CENTER" mnemonicParsing="false" onAction="#craftSword" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="12 Scrap" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="9.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="craftStakeButton" alignment="CENTER" mnemonicParsing="false" onAction="#craftStake" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="2 Scrap" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="9.0" />
+                                 </font>
+                              </Button>
+                              <ImageView fx:id="stakeCraftShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                 <image>
+                                    <Image url="@../../images/stake.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="staffCraftShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                                 <image>
+                                    <Image url="@../../images/staff.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="craftStaffButton" alignment="CENTER" mnemonicParsing="false" onAction="#craftStaff" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="6 Scrap" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="9.0" />
+                                 </font>
+                              </Button>
+                              <ImageView fx:id="helmetCraftShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                 <image>
+                                    <Image url="@../../images/helmet.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="craftHelmetButton" alignment="CENTER" mnemonicParsing="false" onAction="#craftHelmet" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="10 Scrap" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font size="9.0" />
+                                 </font>
+                              </Button>
+                              <ImageView fx:id="armourCraftShopImage" fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                 <image>
+                                    <Image url="@../../images/armour.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="craftArmourButton" alignment="CENTER" mnemonicParsing="false" onAction="#craftArmour" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="13 Scrap" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font size="9.0" />
+                                 </font>
+                              </Button>
+                              <ImageView fx:id="shieldCraftShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                 <image>
+                                    <Image url="@../../images/shield.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="craftShieldButton" alignment="CENTER" mnemonicParsing="false" onAction="#craftShield" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="8 Scrap" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font size="9.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </GridPane>
+                        <Label fx:id="craftErrorMessage" alignment="CENTER" layoutX="4.0" layoutY="45.0" prefHeight="17.0" prefWidth="213.0" text="Sample Error Message" textAlignment="CENTER" textFill="#fffd00" />
+                        <Button fx:id="exitShopButton" layoutX="39.0" layoutY="273.0" mnemonicParsing="false" onAction="#exitShop" prefHeight="25.0" prefWidth="141.0" text="Exit Shop" />
+                     </children>
+                  </AnchorPane>
+            </content>
           </Tab>
         </tabs>
       </TabPane>
