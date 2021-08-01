@@ -29,7 +29,7 @@ public class ShopTest {
     // checks to see if the item bought is a sword
     assertTrue(unequipedItems.get(0).getStrategy() instanceof SwordStrategy);
     // checks to see if gold has been deducted from character
-    assertEquals(900, testChar.getGold());
+    assertEquals(880, testChar.getGold());
   }
 
   @Test
@@ -61,13 +61,13 @@ public class ShopTest {
     // checks to see if the item bought is a sword
     assertTrue(unequipedItems.get(0).getStrategy() instanceof SwordStrategy);
     // checks to see if gold has been deducted from character
-    assertEquals(900, testChar.getGold());
+    assertEquals(880, testChar.getGold());
     // sell item and test againn
     world.sellItem(SwordStrategy.class);
     // check that there are no items in inventory
     assertTrue(unequipedItems.size() == 0);
     // check that player has recieved gold equal to half the items price
-    assertEquals(950, testChar.getGold());
+    assertEquals(940, testChar.getGold());
   }
 
   @Test
@@ -83,13 +83,13 @@ public class ShopTest {
     // checks to see if the item bought is a sword
     assertTrue(unequipedItems.get(0).getStrategy() instanceof SwordStrategy);
     // checks to see if gold has been deducted from character
-    assertEquals(900, testChar.getGold());
+    assertEquals(880, testChar.getGold());
     // sell item and test againn
     world.sellItem(ShieldStrategy.class);
     // check that there are no changes to inventory size
     assertTrue(unequipedItems.size() == 1);
     // check that player has not recieved gold
-    assertEquals(900, testChar.getGold());
+    assertEquals(880, testChar.getGold());
   }
 
   @Test

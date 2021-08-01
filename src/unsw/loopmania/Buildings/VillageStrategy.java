@@ -24,7 +24,8 @@ public class VillageStrategy implements BuildingStrategy {
   @Override
   public void useBuilding(Character character) {
     character.addHealth(healAmount);
-    healSound();
+    try{healSound();}
+    catch(Exception exception) {}
   }
 
   @Override

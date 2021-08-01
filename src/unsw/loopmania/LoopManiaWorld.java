@@ -499,7 +499,8 @@ public class LoopManiaWorld {
    * @param enemy enemy to be killed
    */
   private void killEnemy(Enemy enemy) {
-    swingSound();
+    try {swingSound();}
+    catch(Exception exception) {};
     enemy.destroy();
     enemies.remove(enemy);
   }
@@ -1250,7 +1251,8 @@ public class LoopManiaWorld {
    * @param item item to be added
    */
   public void addEquippedInventoryItem(Item item) {
-    equippedSound();
+    try{equippedSound();}
+    catch (Exception exception) {}
     equippedInventoryItems.add(item);
   }
 
