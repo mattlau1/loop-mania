@@ -2,7 +2,9 @@
   "width": 50,
   "height": 28,
   "rare_items": [],
-  "goal-condition": {"goal": "experience", "quantity": 20 },
+  "goal-condition": {
+    "goal": "bosses",  "quantity": 2
+  },
   "decorations": [
     {"x": 9, "y": 3, "type": "tree"},
     {"x": 0, "y": 9, "type": "tree"},
