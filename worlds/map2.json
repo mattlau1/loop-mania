@@ -44,7 +44,8 @@
   "entities": [
     {"x": 25, "y": 19, "type": "hero_castle"},
     {"x": 38, "y": 17, "type": "elan_house"},
-    {"x": 11, "y": 15, "type": "doggie_house"}
+    {"x": 11, "y": 15, "type": "doggie_house"},
+    {"x": 48, "y": 1, "type": "sniper_tower"}
   ],
   "path": {
     "type": "path_tile",

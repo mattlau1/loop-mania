@@ -42,6 +42,7 @@ import unsw.loopmania.Enemies.DoggieEnemy;
 import unsw.loopmania.Enemies.ElanEnemy;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SlugEnemy;
+import unsw.loopmania.Enemies.SniperEnemy;
 import unsw.loopmania.Enemies.ThiefEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
 import unsw.loopmania.Goals.BossObserver;
@@ -553,7 +554,7 @@ public class LoopManiaWorld {
    *
    * @return true if game is lost else false
    */
-  public boolean isGameLost() {
+  public boolean checkGameLost() {
     // if character hp is at 0
     if (character.isDead()) {
       // check if user has one ring and add to usedItems list
@@ -915,6 +916,17 @@ public class LoopManiaWorld {
   }
 
   /**
+   * Deals all sniper damage to character for every sniper on the map
+   */
+  public void dealSniperDamage() {
+    for (Enemy e : enemies) {
+      if (e instanceof SniperEnemy) {
+        character.reduceHealth(e.getDamage());
+      }
+    }
+  }
+
+  /**
    * run the expected battles in the world, based on current world state
    *
    * @return list of enemies which have been killed
@@ -923,10 +935,7 @@ public class LoopManiaWorld {
     List<Enemy> defeatedEnemies = new ArrayList<Enemy>();
     List<Building> buildingsToDestroy = new ArrayList<>();
     List<Enemy> battlingEnemies = getBattlingEnemies();
-    isGameLost();
-    // if (isGameLost()) {
-    // System.exit(0);
-    // }
+    checkGameLost();
 
     // we have three types of buildings:
     // character outside of combat (i.e village)
@@ -940,7 +949,7 @@ public class LoopManiaWorld {
 
     for (Enemy enemy : battlingEnemies) {
       while (enemy.isAlive()) {
-
+        dealSniperDamage();
         useBuildingsOnEntitiesInCombat(enemy);
         triggerOnHitEffects(enemy);
 
@@ -1219,7 +1228,7 @@ public class LoopManiaWorld {
    *
    * @return the boolean if the character is at the hero castle
    */
-  private boolean isAtHerosCastle() {
+  public boolean isAtHerosCastle() {
     for (Building building : buildingEntities) {
       if (building.isSpawnLocation() && isInRange(building, character)) {
         return true;

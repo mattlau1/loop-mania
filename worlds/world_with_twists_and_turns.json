@@ -18,8 +18,9 @@
   "decorations": [],
   "entities": [
     {"x": 0, "y": 0, "type": "hero_castle"},
-    {"x": 2, "y": 7, "type": "doggie_house"},
-    {"x": 2, "y": 8, "type": "elan_house"}
+    {"x": 2, "y": 3, "type": "doggie_house"},
+    {"x": 2, "y": 11, "type": "elan_house"},
+    {"x": 7, "y": 13, "type": "sniper_tower"}
   ],
   "path": {
     "type": "path_tile",
