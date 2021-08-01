@@ -83,6 +83,18 @@ public class LoopManiaApplication extends Application {
     gameModeLoader.setController(gameModeController);
     Parent gameModeRoot = gameModeLoader.load();
 
+    // load the win menu
+    WinController winController = new WinController();
+    FXMLLoader winLoader = new FXMLLoader(getClass().getResource("Win.fxml"));
+    winLoader.setController(winController);
+    Parent winRoot = winLoader.load();
+
+    // load the lose menu
+    LoseController loseController = new LoseController();
+    FXMLLoader loseLoader = new FXMLLoader(getClass().getResource("Lose.fxml"));
+    loseLoader.setController(loseController);
+    Parent loseRoot = loseLoader.load();
+
     // create new scene with the main menu (so we start with the main menu)
     Scene scene = new Scene(mainMenuRoot);
 
@@ -117,28 +129,61 @@ public class LoopManiaApplication extends Application {
 
     mainControllerGrass.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
+      try {
+        start(primaryStage);
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
     });
     mainControllerGrass.setGameSwitcher(() -> {
       switchToRoot(scene, gameRootGrass, primaryStage);
       mainControllerGrass.startTimer();
     });
-
+    mainControllerGrass.setWinSwitcher(() -> {
+      switchToRoot(scene, winRoot, primaryStage);
+    });
+    mainControllerGrass.setLoseSwitcher(() -> {
+      switchToRoot(scene, loseRoot, primaryStage);
+    });
     mainControllerJP.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
+      try {
+        start(primaryStage);
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
     });
     mainControllerJP.setGameSwitcher(() -> {
       switchToRoot(scene, gameRootGrass, primaryStage);
       mainControllerJP.startTimer();
     });
-
+    mainControllerJP.setWinSwitcher(() -> {
+      switchToRoot(scene, winRoot, primaryStage);
+    });
+    mainControllerJP.setLoseSwitcher(() -> {
+      switchToRoot(scene, loseRoot, primaryStage);
+    });
     mainControllerWaste.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
+      try {
+        start(primaryStage);
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
     });
     mainControllerWaste.setGameSwitcher(() -> {
       switchToRoot(scene, gameRootWaste, primaryStage);
       mainControllerWaste.startTimer();
     });
-
+    mainControllerWaste.setWinSwitcher(() -> {
+      switchToRoot(scene, winRoot, primaryStage);
+    });
+    mainControllerWaste.setLoseSwitcher(() -> {
+      switchToRoot(scene, loseRoot, primaryStage);
+    });
     mainMenuController.setHowToPlaySwitcher(() -> {
       switchToRoot(scene, howToPlayRoot, primaryStage);
     });
@@ -148,6 +193,32 @@ public class LoopManiaApplication extends Application {
 
     howToPlayController.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
+      // try {
+      //   start(primaryStage);
+      // } catch (IOException e) {
+      //   // TODO Auto-generated catch block
+      //   e.printStackTrace();
+      // }
+    });
+
+    winController.setMainMenuSwitcher(() -> {
+      switchToRoot(scene, mainMenuRoot, primaryStage);
+      try {
+        start(primaryStage);
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    });
+
+    loseController.setMainMenuSwitcher(() -> {
+      switchToRoot(scene, mainMenuRoot, primaryStage);
+      try {
+        start(primaryStage);
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
     });
 
     mapSelectionController.setGameModeSwitcher(() -> {
@@ -168,6 +239,12 @@ public class LoopManiaApplication extends Application {
 
     gameModeController.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
+      // try {
+      //   start(primaryStage);
+      // } catch (IOException e) {
+      //   // TODO Auto-generated catch block
+      //   e.printStackTrace();
+      // }
     });
 
     // deploy the main onto the stage
