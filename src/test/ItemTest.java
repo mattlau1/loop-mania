@@ -256,6 +256,32 @@ public class ItemTest {
     assertEquals(4, world.getUnequip().size());
   }
 
+  @Test
+  public void testEquippedItem() {
+    // testing by adding equip item and then removing it
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(78);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // generate item
+    world.generateItemDrops();
+    // no item in equip
+    assertEquals(0, world.getEquip().size());
+    // add stake into unequipped
+    world.addUnequippedItem();
+    // the stake is situated in the inventory grid at 0, 0
+    world.addEquippedInventoryItemByCoordinates(0, 0);
+    // there should be 1 item in equipped inventory
+    assertEquals(1, world.getEquip().size());
+
+
+    // remove the item from the equip inventory
+    // world.removeEquippedInventoryItemByCoordinates(-1, 0);
+    // assertEquals(0, world.getEquip().size());
+
+
+  }
+
 
 
 }
