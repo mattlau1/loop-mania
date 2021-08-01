@@ -338,7 +338,7 @@
                                           <Image url="@../../images/doggie_coin.png" />
                                        </image>
                                     </ImageView>
-                                    <Button fx:id="sellDoggieCoinButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellDoggieCoin" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+                                    <Button fx:id="sellDoggieCoinButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellDoggieCoin" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="??? Gold" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                                        <font>
                                           <Font size="9.0" />
                                        </font>
