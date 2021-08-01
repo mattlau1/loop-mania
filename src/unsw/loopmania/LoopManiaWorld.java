@@ -920,10 +920,13 @@ public class LoopManiaWorld {
    * Deals all sniper damage to character for every sniper on the map
    */
   public void dealSniperDamage() {
-    for (Enemy e : enemies) {
-      if (e instanceof SniperEnemy) {
-        sniperSound();
-        character.reduceHealth(e.getDamage());
+    for (Enemy enemy : enemies) {
+      if (enemy instanceof SniperEnemy) {
+        try {
+          sniperSound();
+        } catch (Exception e) {
+        }
+        character.reduceHealth(enemy.getDamage());
       }
     }
   }
