@@ -130,7 +130,6 @@ public class LoopManiaWorld {
   private boolean isElanDead;
   private final double postElanPriceMultiplier;
   private final int midElanPriceMultiplier;
-  private String difficulty;
   /**
    * list of x,y coordinate pairs in the order by which moving entities traverse
    * them
@@ -193,6 +192,7 @@ public class LoopManiaWorld {
   }
 
   public boolean difficultyEquals(String difficulty) {
+    System.out.println(difficulty);
     return this.difficulty.equals(difficulty);
   }
 

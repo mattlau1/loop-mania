@@ -1054,7 +1054,7 @@ public class LoopManiaWorldController {
     String path = "src/audio/coin.wav";
     Media music = new Media(Paths.get(path).toUri().toString());
     sellSound = new MediaPlayer(music);
-    sellSound.setVolume(0.1);
+    sellSound.setVolume(0.04);
     sellSound.play();
   }
 

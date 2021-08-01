@@ -22,10 +22,6 @@ public class LoopManiaApplication extends Application {
   private LoopManiaWorldController mainControllerGrass;
   private LoopManiaWorldController mainControllerJP;
   private LoopManiaWorldController mainControllerWaste;
-  private static final String SURVIVAL_MODE = "Survival";
-  private static final String BERSERKER_MODE = "Berserker";
-  private static final String STANDARD_MODE = "Standard";
-  private static final String CONFUSING_MODE = "Confusing";
 
   @Override
   public void start(Stage primaryStage) throws IOException {
@@ -39,21 +35,24 @@ public class LoopManiaApplication extends Application {
     primaryStage.setResizable(false);
 
     // load the main game (grass world)
-    LoopManiaWorldControllerLoader loopManiaLoaderGrass = new LoopManiaWorldControllerLoader("world_with_twists_and_turns.json", "images");
+    LoopManiaWorldControllerLoader loopManiaLoaderGrass = new LoopManiaWorldControllerLoader(
+        "world_with_twists_and_turns.json", "images");
     mainControllerGrass = loopManiaLoaderGrass.loadController();
     FXMLLoader gameLoaderGrass = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
     gameLoaderGrass.setController(mainControllerGrass);
     Parent gameRootGrass = gameLoaderGrass.load();
 
     // load the main game (japanese world)
-    LoopManiaWorldControllerLoader loopManiaLoaderJP = new LoopManiaWorldControllerLoader("world_with_twists_and_turns.json", "images2");
+    LoopManiaWorldControllerLoader loopManiaLoaderJP = new LoopManiaWorldControllerLoader(
+        "world_with_twists_and_turns.json", "images2");
     mainControllerJP = loopManiaLoaderJP.loadController();
     FXMLLoader gameLoaderJP = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
     gameLoaderJP.setController(mainControllerJP);
     Parent gameRootJP = gameLoaderJP.load();
 
     // load the main game (wasteland world)
-    LoopManiaWorldControllerLoader loopManiaLoaderWaste = new LoopManiaWorldControllerLoader("world_with_twists_and_turns.json", "images2");
+    LoopManiaWorldControllerLoader loopManiaLoaderWaste = new LoopManiaWorldControllerLoader(
+        "world_with_twists_and_turns.json", "images2");
     mainControllerWaste = loopManiaLoaderWaste.loadController();
     FXMLLoader gameLoaderWaste = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
     gameLoaderWaste.setController(mainControllerWaste);
@@ -92,27 +91,27 @@ public class LoopManiaApplication extends Application {
 
     gameModeController.setMapSelectionStandardSwitcher(() -> {
       switchToRoot(scene, mapSelectionRoot, primaryStage);
-      mainControllerGrass.setDifficulty(STANDARD_MODE);
-      mainControllerJP.setDifficulty(STANDARD_MODE);
-      mainControllerWaste.setDifficulty(STANDARD_MODE);
+      mainControllerGrass.setDifficulty(LoopManiaWorld.STANDARD_MODE);
+      mainControllerJP.setDifficulty(LoopManiaWorld.STANDARD_MODE);
+      mainControllerWaste.setDifficulty(LoopManiaWorld.STANDARD_MODE);
     });
     gameModeController.setMapSelectionBerserkerSwitcher(() -> {
       switchToRoot(scene, mapSelectionRoot, primaryStage);
-      mainControllerGrass.setDifficulty(BERSERKER_MODE );
-      mainControllerJP.setDifficulty(BERSERKER_MODE );
-      mainControllerWaste.setDifficulty(BERSERKER_MODE );
+      mainControllerGrass.setDifficulty(LoopManiaWorld.BERSERKER_MODE);
+      mainControllerJP.setDifficulty(LoopManiaWorld.BERSERKER_MODE);
+      mainControllerWaste.setDifficulty(LoopManiaWorld.BERSERKER_MODE);
     });
     gameModeController.setMapSelectionSurvivalSwitcher(() -> {
       switchToRoot(scene, mapSelectionRoot, primaryStage);
-      mainControllerGrass.setDifficulty(SURVIVAL_MODE);
-      mainControllerJP.setDifficulty(SURVIVAL_MODE);
-      mainControllerWaste.setDifficulty(SURVIVAL_MODE);
+      mainControllerGrass.setDifficulty(LoopManiaWorld.SURVIVAL_MODE);
+      mainControllerJP.setDifficulty(LoopManiaWorld.SURVIVAL_MODE);
+      mainControllerWaste.setDifficulty(LoopManiaWorld.SURVIVAL_MODE);
     });
     gameModeController.setMapSelectionConfusingSwitcher(() -> {
       switchToRoot(scene, mapSelectionRoot, primaryStage);
-      mainControllerGrass.setDifficulty(CONFUSING_MODE);
-      mainControllerJP.setDifficulty(CONFUSING_MODE);
-      mainControllerWaste.setDifficulty(CONFUSING_MODE);
+      mainControllerGrass.setDifficulty(LoopManiaWorld.CONFUSING_MODE);
+      mainControllerJP.setDifficulty(LoopManiaWorld.CONFUSING_MODE);
+      mainControllerWaste.setDifficulty(LoopManiaWorld.CONFUSING_MODE);
     });
 
     mainControllerGrass.setMainMenuSwitcher(() -> {
