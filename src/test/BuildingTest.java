@@ -232,7 +232,7 @@ public class BuildingTest {
     world.runBattles();
 
     // check that village has restored hp to character
-    assertEquals(70, testChar.getHealth());
+    assertEquals(100, testChar.getHealth());
   }
 
   @Test

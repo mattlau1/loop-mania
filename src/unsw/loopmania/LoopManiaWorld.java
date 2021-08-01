@@ -1002,7 +1002,7 @@ public class LoopManiaWorld {
           int randomItemIndex = random.nextInt(unequippedInventoryItems.size()) - 1;
           if (randomItemIndex != -1)
             removeItemByPositionInUnequippedInventoryItems(randomItemIndex);
-          character.reduceGold(ThiefEnemy.STEAL_AMOUNT);
+          character.deductGold(ThiefEnemy.STEAL_AMOUNT);
         }
         // if enemy is able to stun, randomly stun character if unlucky
         if (enemy.canStunCharacter())

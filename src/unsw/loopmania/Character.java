@@ -48,16 +48,11 @@ public class Character extends MovingEntity {
     this.isStunned = false;
   }
 
-  public void reduceGold(int gold) {
-    int newGold = getGold() - gold;
-    setGold(newGold >= 0 ? newGold : 0);
-  }
-
   /**
    * sets the stunned status of the character
    *
    * @param isStunned the boolean stunned status of the character, true if
-   * stunned, false if not
+   *                  stunned, false if not
    */
   public void setStunned(boolean isStunned) {
     this.isStunned = isStunned;
@@ -295,12 +290,14 @@ public class Character extends MovingEntity {
   }
 
   /**
-   * Reduces character's gold by given amount, holding less gold
+   * Reduces character's gold by given amount. Sets to zero if reduction amount
+   * makes gold negative
    *
    * @param gold the amount of gold to reduce
    */
   public void deductGold(int gold) {
-    goldProperty.set(goldProperty.get() - gold);
+    int newGold = getGold() - gold;
+    setGold(newGold >= 0 ? newGold : 0);
   }
 
   /**

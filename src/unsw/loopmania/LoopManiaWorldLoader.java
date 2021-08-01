@@ -85,10 +85,6 @@ public abstract class LoopManiaWorldLoader {
       loadEntityOffPath(world, jsonEntitiesOffPath.getJSONObject(i));
     }
 
-    // add pretty print
-    goal.printComplexGoals();
-    goal.printSimpleGoal();
-
     return world;
   }
 

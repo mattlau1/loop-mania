@@ -266,10 +266,20 @@ public abstract class Enemy extends MovingEntity {
     }
   }
 
+  /**
+   * Checks if enemy has the ability can stun character
+   *
+   * @return true if can stun character else false
+   */
   public boolean canStunCharacter() {
     return false;
   }
 
+  /**
+   * Checks if enemy has the ability to steal from character
+   *
+   * @return true if enemy can steal from character else false
+   */
   public boolean canStealFromCharacter() {
     return false;
   }
