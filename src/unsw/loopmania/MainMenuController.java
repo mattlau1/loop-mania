@@ -16,7 +16,6 @@ import javafx.scene.media.MediaPlayer;
  */
 public class MainMenuController {
   private MenuSwitcher gameSwitcher;
-  MediaPlayer mainMenuMusic;
   MediaPlayer buttonClick;
   MediaPlayer buttonHover;
   private MenuSwitcher howToPlaySwitcher;
@@ -75,7 +74,6 @@ public class MainMenuController {
   @FXML
   private void switchToGame() throws IOException {
     buttonClickSound();
-    mainMenuMusic.stop();
     gameSwitcher.switchMenu();
   }
 

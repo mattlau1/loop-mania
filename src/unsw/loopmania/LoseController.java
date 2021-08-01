@@ -16,7 +16,6 @@ import javafx.scene.media.MediaPlayer;
  */
 public class LoseController {
   private MenuSwitcher mainMenuSwitcher;
-  MediaPlayer mainMenuMusic;
   MediaPlayer buttonClick;
   MediaPlayer buttonHover;
 

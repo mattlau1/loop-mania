@@ -1037,7 +1037,6 @@ public class LoopManiaWorldController {
     isPlayingGameMusic = false;
     isPlayingMenuMusic = true;
     buttonClickSound();
-    menuMusic();
   }
 
   /**
@@ -1142,23 +1141,7 @@ public class LoopManiaWorldController {
       }
     });
     gameplayMusic.play();
-    gameplayMusic.setVolume(0.05);
-  }
-
-  /**
-   * music for the main menu
-   */
-  public void menuMusic() {
-    String path = "src/audio/MainMenuMusic.mp3";
-    Media music = new Media(Paths.get(path).toUri().toString());
-    menuMusic = new MediaPlayer(music);
-    menuMusic.setOnEndOfMedia(new Runnable() {
-      public void run() {
-        menuMusic.seek(Duration.ZERO);
-      }
-    });
-    menuMusic.play();
-    menuMusic.setVolume(0.1);
+    gameplayMusic.setVolume(0.03);
   }
 
   /**
