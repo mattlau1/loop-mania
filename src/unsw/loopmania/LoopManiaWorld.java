@@ -1318,6 +1318,8 @@ public class LoopManiaWorld {
     // has a chance spawning a basic enemy on a tile the character isn't on or
     // immediately before or after (currently space required = 2)...
     Random rand = new Random();
+    if (isSeedPresent)
+      rand.setSeed(seed);
     int choice = rand.nextInt(2);
     if ((choice == 0) && (enemies.size() < 2)) {
       List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
@@ -1364,6 +1366,8 @@ public class LoopManiaWorld {
     // has a chance spawning a basic enemy on a tile the character isn't on or
     // immediately before or after (currently space required = 2)...
     Random rand = new Random();
+    if (isSeedPresent)
+      rand.setSeed(seed);
     int choice = rand.nextInt(2);
     if ((choice == 0) && (pathItems.size() < 2)) {
       List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
