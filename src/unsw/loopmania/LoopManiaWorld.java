@@ -130,6 +130,8 @@ public class LoopManiaWorld {
   private boolean isElanDead;
   private final double postElanPriceMultiplier;
   private final int midElanPriceMultiplier;
+  private boolean isGameWon;
+  private boolean isGameLost;
   /**
    * list of x,y coordinate pairs in the order by which moving entities traverse
    * them
@@ -189,6 +191,8 @@ public class LoopManiaWorld {
     this.postElanPriceMultiplier = 0.8;
     this.midElanPriceMultiplier = 5;
     this.difficulty = BERSERKER_MODE;
+    this.isGameLost = false;
+    this.isGameWon = false;
   }
 
   public boolean difficultyEquals(String difficulty) {
@@ -517,6 +521,7 @@ public class LoopManiaWorld {
       // check if user had The One Ring
       if (usedItems.isEmpty()) {
         // character does not have one ring, game is lost
+        isGameLost = true;
         return true;
       } else {
         // character has the one ring, remove from inventory
@@ -528,6 +533,13 @@ public class LoopManiaWorld {
     }
     return false;
   }
+
+  public String getGameStatus() {
+    if (isGameWon) return "Won";
+    if (isGameLost) return "Lost";
+    return "Playing";
+  }
+
 
   /**
    * Use the item on the character outside the combat
@@ -858,10 +870,10 @@ public class LoopManiaWorld {
     List<Enemy> defeatedEnemies = new ArrayList<Enemy>();
     List<Building> buildingsToDestroy = new ArrayList<>();
     List<Enemy> battlingEnemies = getBattlingEnemies();
-
-    if (isGameLost()) {
-      System.exit(0);
-    }
+    isGameLost();
+    // if (isGameLost()) {
+    //   System.exit(0);
+    // }
 
     // we have three types of buildings:
     // character outside of combat (i.e village)
@@ -1157,7 +1169,7 @@ public class LoopManiaWorld {
     useIfAtHerosCastle();
     moveBasicEnemies();
     if (goal.isGameWon())
-      System.exit(0);
+      isGameWon = true;
   }
 
   /**
