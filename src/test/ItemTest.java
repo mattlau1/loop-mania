@@ -122,10 +122,9 @@ public class ItemTest {
     List<Item> newItems = world.possiblySpawnItems();
     assertEquals(0, newItems.size());
 
-
     Random rand = new Random(-1);
     System.out.println(rand.nextInt(2));
-    
+
   }
 
   @Test
@@ -145,7 +144,7 @@ public class ItemTest {
   @Test
   public void testSuperRaritySpawn() {
     // test that specific item will spawn from certain rarity categories.
-    
+
     // set up that will spawn super rarity item
     TestSetupWithSeed setup = new TestSetupWithSeed();
     LoopManiaWorld world = setup.makeTestWorld(76);
@@ -161,7 +160,7 @@ public class ItemTest {
   @Test
   public void testHighRaritySpawn() {
     // test that specific item will spawn from certain rarity categories.
-    
+
     // set up that will spawn super rarity item
     TestSetupWithSeed setup = new TestSetupWithSeed();
     LoopManiaWorld world = setup.makeTestWorld(37);
@@ -177,7 +176,7 @@ public class ItemTest {
   @Test
   public void testMediumRaritySpawn() {
     // test that specific item will spawn from certain rarity categories.
-    
+
     // set up that will spawn medium rarity item
     TestSetupWithSeed setup = new TestSetupWithSeed();
     LoopManiaWorld world = setup.makeTestWorld(19);
@@ -193,7 +192,7 @@ public class ItemTest {
   @Test
   public void testLowRaritySpawn() {
     // test that specific item will spawn from certain rarity categories.
-    
+
     // set up that will spawn low rarity item
     TestSetupWithSeed setup = new TestSetupWithSeed();
     LoopManiaWorld world = setup.makeTestWorld(78);
@@ -217,7 +216,7 @@ public class ItemTest {
     world.generateItemDrops();
     // no items has been added into unequip yet
     assertEquals(0, world.getUnequip().size());
-    // populate the inventory 
+    // populate the inventory
     for (int i = 0; i < 16; i++) {
       world.addUnequippedItem();
     }
@@ -286,7 +285,7 @@ public class ItemTest {
     world.addUnequippedItem();
     // the stake is situated in the inventory grid at 0, 0
     // and move it into equip inventory at 0, 0
-    world.equipItembyCoordinates(0,0,0,0);
+    world.equipItembyCoordinates(0, 0, 0, 0);
 
     // add a staff into invenotry by using alternative method
     SimpleIntegerProperty x = new SimpleIntegerProperty(1);
@@ -300,7 +299,6 @@ public class ItemTest {
     world.removeEquippedInventoryItem(testStaff);
     assertEquals(0, world.getEquip().size());
 
-
-  }  
+  }
 
 }

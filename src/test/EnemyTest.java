@@ -108,34 +108,34 @@ public class EnemyTest {
     assertEquals(1, vampire.getDirection());
     world.runBattles();
   }
+
   @Test
-  public void testTrancedSolider() {
+  public void testSoldierTakingDamage() {
+    // test that soldiers and tranced soldiers take damage in combat
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(1);
     SimpleIntegerProperty x = new SimpleIntegerProperty(1);
     SimpleIntegerProperty y = new SimpleIntegerProperty(2);
     StaffStrategy strat = new StaffStrategy();
     Item testStaff = new Item(x, y, strat);
-    // test by processing zombie solider attack against the chracter
-    TestSetupWithSeed setup = new TestSetupWithSeed();
-    LoopManiaWorld world = setup.makeTestWorld(1);
-    // add the character and zombie on the same tile so they can interact
+    // add the character and zombies on the same tile so they can interact
     Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
     world.setCharacter(testChar);
-    ZombieEnemy zombie = new ZombieEnemy(new PathPosition(1, world.getOrderedPath()));
+    ZombieEnemy zombie1 = new ZombieEnemy(new PathPosition(1, world.getOrderedPath()));
     ZombieEnemy zombie2 = new ZombieEnemy(new PathPosition(1, world.getOrderedPath()));
-    world.addEnemy(zombie);
-    world.addEnemy(zombie2);
-    // apply the wand affect on zombie
-    assertEquals(0, world.trancedSoldiersSize());
-    testStaff.onHitEffects(zombie, world.getTrancedSoldiers());
-    // trance solider existed
-    assertEquals(1, world.trancedSoldiersSize());
-    world.runBattles();
-    // if character has soliders
-    testChar.addSoldier();
     ZombieEnemy zombie3 = new ZombieEnemy(new PathPosition(1, world.getOrderedPath()));
+    world.addEnemy(zombie1);
+    world.addEnemy(zombie2);
     world.addEnemy(zombie3);
-    // remove the soliders from the index
+    // add a soldier to the player
+    testChar.addSoldier();
+    // turn the zombie into a tranced soldier
+    testStaff.onHitEffects(zombie1, world.getTrancedSoldiers());
+    // run battle so soldiers die
     world.runBattles();
+    // assert that there is no longer any soldiers or tranced soldiers
+    assertEquals(0, world.getTrancedSoldiers().size());
+    assertEquals(0, testChar.getSoldiers().size());
 
   }
 }
