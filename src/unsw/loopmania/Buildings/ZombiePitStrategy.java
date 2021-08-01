@@ -50,8 +50,10 @@ public class ZombiePitStrategy implements BuildingStrategy {
 
   @Override
   public Enemy spawnEnemy(PathPosition position) {
-    try{zombieSound();}
-    catch(Exception exception) {}
+    try {
+      zombieSound();
+    } catch (Exception exception) {
+    }
     return new ZombieEnemy(position);
   }
 
@@ -77,7 +79,7 @@ public class ZombiePitStrategy implements BuildingStrategy {
     String path = "src/audio/zombie.wav";
     Media music = new Media(Paths.get(path).toUri().toString());
     zombieSound = new MediaPlayer(music);
-    zombieSound.setVolume(0.3);
+    zombieSound.setVolume(0.2);
     zombieSound.play();
   }
 

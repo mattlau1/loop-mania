@@ -154,6 +154,7 @@ public class LoopManiaWorld {
   // music
   MediaPlayer swingSound;
   MediaPlayer equippedSound;
+  MediaPlayer sniperSound;
 
   /**
    * create the world (constructor)
@@ -921,6 +922,7 @@ public class LoopManiaWorld {
   public void dealSniperDamage() {
     for (Enemy e : enemies) {
       if (e instanceof SniperEnemy) {
+        sniperSound();
         character.reduceHealth(e.getDamage());
       }
     }
@@ -1649,7 +1651,17 @@ public class LoopManiaWorld {
     equippedSound = new MediaPlayer(music);
     equippedSound.setVolume(0.3);
     equippedSound.play();
+  }
 
+  /**
+   * sound effect for sniper shot
+   */
+  public void sniperSound() {
+    String path = "src/audio/sniper.mp3";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    sniperSound = new MediaPlayer(music);
+    sniperSound.setVolume(0.25);
+    sniperSound.play();
   }
 
 }

@@ -11,8 +11,8 @@ import unsw.loopmania.Enemies.Enemy;
 
 public class ElanHouseStrategy implements BuildingStrategy {
   private final int range = 1;
-  private final int cycleNumberToSpawnAt = 4;
-  private final int experiencePointsToSpawnAt = 10;
+  private final int cycleNumberToSpawnAt = 40;
+  private final int experiencePointsToSpawnAt = 10000;
 
   @Override
   public int getRange() {

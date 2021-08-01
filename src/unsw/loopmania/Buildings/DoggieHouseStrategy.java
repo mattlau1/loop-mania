@@ -14,7 +14,7 @@ import unsw.loopmania.Enemies.Enemy;
 
 public class DoggieHouseStrategy implements BuildingStrategy {
   private final int range = 1;
-  private final int cycleNumberToSpawnAt = 2;
+  private final int cycleNumberToSpawnAt = 20;
   MediaPlayer doggieSound;
 
   @Override
