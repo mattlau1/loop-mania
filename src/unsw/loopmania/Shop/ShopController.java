@@ -45,6 +45,9 @@ public class ShopController {
   private Button buyArmourButton;
 
   @FXML
+  private Button buyPotionButton;
+
+  @FXML
   private Button buyShieldButton;
 
   @FXML
@@ -78,7 +81,28 @@ public class ShopController {
   private Button sellShieldButton;
 
   @FXML
+  private Button craftSwordButton;
+
+  @FXML
+  private Button craftStakeButton;
+
+  @FXML
+  private Button craftStaffButton;
+
+  @FXML
+  private Button craftHelmetButton;
+
+  @FXML
+  private Button craftArmourButton;
+
+  @FXML
+  private Button craftShieldButton;
+
+  @FXML
   private Label buyErrorMessage;
+
+  @FXML
+  private Label craftErrorMessage;
 
   @FXML
   private Label sellErrorMessage;
@@ -93,6 +117,7 @@ public class ShopController {
   private void initialize() {
     buyErrorMessage.setText("");
     sellErrorMessage.setText("");
+    craftErrorMessage.setText("");
     this.potionPurchaseCount = 0;
     this.protectiveGearPurchaseCount = 0;
   }
@@ -116,6 +141,10 @@ public class ShopController {
 
   public void setBuyErrorMessage(String text) {
     buyErrorMessage.setText(text);
+  }
+
+  public void setCraftErrorMessage(String text) {
+    craftErrorMessage.setText(text);
   }
 
   public void setSellErrorMessage(String text) {
@@ -233,6 +262,36 @@ public class ShopController {
   @FXML
   private void sellSword(ActionEvent event) {
     worldController.sellItem(SwordStrategy.class);
+  }
+
+  @FXML
+  private void craftArmour(ActionEvent event) {
+    worldController.craftItem(new ArmourStrategy());
+  }
+
+  @FXML
+  private void craftHelmet(ActionEvent event) {
+    worldController.craftItem(new HelmetStrategy());
+  }
+
+  @FXML
+  private void craftShield(ActionEvent event) {
+    worldController.craftItem(new ShieldStrategy());
+  }
+
+  @FXML
+  private void craftStaff(ActionEvent event) {
+    worldController.craftItem(new StaffStrategy());
+  }
+
+  @FXML
+  private void craftStake(ActionEvent event) {
+    worldController.craftItem(new StakeStrategy());
+  }
+
+  @FXML
+  private void craftSword(ActionEvent event) {
+    worldController.craftItem(new SwordStrategy());
   }
 
   @FXML
