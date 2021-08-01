@@ -90,8 +90,8 @@ public class LoopManiaWorld {
   private List<CardStrategy> highRarityCards;
 
   // drop for destroyed cards
-  private final int destroyedCardGold = 100;
-  private final int destroyedCardExp = 100;
+  private final int destroyedCardGold = 50;
+  private final int destroyedCardExp = 50;
 
   // list of enemies
   private List<Enemy> enemies;
@@ -984,6 +984,7 @@ public class LoopManiaWorld {
     Card c = cardEntities.get(index);
     int x = c.getX();
     c.destroy();
+    destroyCard();
     cardEntities.remove(index);
     shiftCardsDownFromXCoordinate(x);
   }

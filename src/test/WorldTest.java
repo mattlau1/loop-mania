@@ -123,7 +123,7 @@ public class WorldTest {
         world.setCharacter(testChar);
         // create cards until max ammount (width of world) is reached
         world.generateCardDrops();
-        for (int i = 0; i <= world.getWidth(); i++) {
+        for (int i = 0; i < world.getWidth(); i++) {
             world.loadCard();
         }
         List<Card> cardListBefore = world.getCards();
@@ -132,6 +132,9 @@ public class WorldTest {
         List<Card> cardListAfter = world.getCards();
         // assert that the ammount of cards hasn't changed
         assertEquals(cardListBefore, cardListAfter);
+        // assert that player gains exp and gold from card
+        assertEquals(50, testChar.getExp());
+        assertEquals(50, testChar.getGold());
     }
 
     @Test
