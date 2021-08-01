@@ -49,7 +49,6 @@ public class WorldTest {
         // Test that load card creates a card in the world
         TestSetup setup = new TestSetup();
         LoopManiaWorld world = setup.makeTestWorld();
-        // get list of buildings before card is used
         // create card
         world.generateCardDrops();
         world.loadCard();
@@ -112,5 +111,25 @@ public class WorldTest {
         assertEquals(1, buildingList.size());
         // assert there are no cards left
         assertEquals(0, world.getCards().size());
+    }
+
+    @Test
+    public void testLoadCardMax() {
+        // Test that load card destorys a card when player has max cards
+        TestSetup setup = new TestSetup();
+        LoopManiaWorld world = setup.makeTestWorld();
+        Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+        world.setCharacter(testChar);
+        // create cards until max ammount (width of world) is reached
+        world.generateCardDrops();
+        for (int i = 0; i <= world.getWidth(); i++) {
+            world.loadCard();
+        }
+        List<Card> cardListBefore = world.getCards();
+        // load another card after max has been reached
+        world.loadCard();
+        List<Card> cardListAfter = world.getCards();
+        // assert that the ammount of cards hasn't changed
+        assertEquals(cardListBefore, cardListAfter);
     }
 }

@@ -183,10 +183,38 @@ public class LoopManiaWorld {
   }
 
   public LoopManiaWorld(int width, int height, List<Pair<Integer, Integer>> orderedPath, Goal goal) {
-    this(width, height, orderedPath, goal, System.currentTimeMillis());
+    // this(width, height, orderedPath, goal, System.currentTimeMillis());
+    this.width = width;
+    this.height = height;
+    this.nonSpecifiedEntities = new ArrayList<>();
+    this.character = null;
+    this.enemies = new ArrayList<>();
+    this.zombieSoldiers = new ArrayList<>();
+    this.cardEntities = new ArrayList<>();
+    this.unequippedInventoryItems = new ArrayList<>();
+    this.equippedInventoryItems = new ArrayList<>();
+    this.commonItems = new ArrayList<>();
+    this.lowRarityItems = new ArrayList<>();
+    this.midRarityItems = new ArrayList<>();
+    this.highRarityItems = new ArrayList<>();
+    this.superRarityItems = new ArrayList<>();
+    this.lowRarityCards = new ArrayList<>();
+    this.midRarityCards = new ArrayList<>();
+    this.highRarityCards = new ArrayList<>();
+    this.orderedPath = orderedPath;
+    this.buildingEntities = new ArrayList<>();
+    this.trancedSoldiers = new ArrayList<>();
+    this.goal = goal;
+    this.cardDestroyed = false;
+    this.isElanAlive = false;
+    this.isElanDead = false;
+    this.pathItems = new ArrayList<>();
+    this.heroCastleCycles = 1;
+    this.nextHeroCastleCycle = 1;
+    this.postElanPriceMultiplier = 0.2;
+    this.midElanPriceMultiplier = 5;
+    this.seed = new Random(System.currentTimeMillis()).nextInt();
   }
-
-
 
   public int getHeroCastleCycles() {
     return heroCastleCycles;
@@ -427,7 +455,7 @@ public class LoopManiaWorld {
       // spawns a slug
       // Enemy slug = new SlugEnemy(new PathPosition(indexInPath, orderedPath));
       Random random = new Random(seed);
-      
+
       int randInt = random.nextInt(2);
       Item potion = new Item(pathPos.getX(), pathPos.getY(), commonItems.get(randInt));
       pathItems.add(potion);
