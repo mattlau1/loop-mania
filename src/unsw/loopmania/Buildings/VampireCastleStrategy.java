@@ -1,9 +1,12 @@
 package unsw.loopmania.Buildings;
 
 import java.io.File;
+import java.nio.file.Paths;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import unsw.loopmania.Character;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.Enemy;
@@ -15,6 +18,7 @@ import unsw.loopmania.Enemies.VampireEnemy;
 public class VampireCastleStrategy implements BuildingStrategy {
   private final int range = 0;
   private final int cycleNumberToSpawnAt = 5;
+  MediaPlayer vampireSound;
 
   @Override
   public int getRange() {
@@ -50,6 +54,7 @@ public class VampireCastleStrategy implements BuildingStrategy {
 
   @Override
   public Enemy spawnEnemy(PathPosition position) {
+    vampireSound();
     return new VampireEnemy(position);
   }
 
@@ -66,6 +71,17 @@ public class VampireCastleStrategy implements BuildingStrategy {
   @Override
   public boolean canOnlySpawnOnPath() {
     return false;
+  }
+
+  /**
+   * sound effect for vampire spawn
+   */
+  public void vampireSound() {
+    String path = "src/audio/vampire.wav";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    vampireSound = new MediaPlayer(music);
+    vampireSound.setVolume(0.3);
+    vampireSound.play();
   }
 
 }

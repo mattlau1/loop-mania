@@ -54,6 +54,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Paths;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * the draggable types. If you add more draggable types, add an enum value here.
@@ -222,6 +226,18 @@ public class LoopManiaWorldController {
   private String imgLoc;
 
   /**
+   * Music & sound effects 
+   */
+  MediaPlayer gameplayMusic;
+  MediaPlayer menuMusic;
+  MediaPlayer buttonClick;
+  MediaPlayer sellSound;
+  MediaPlayer buySound;
+  MediaPlayer pauseSound;
+  private boolean isPlayingGameMusic = false;
+  private boolean isPlayingMenuMusic = false;
+
+  /**
    * @param world           world object loaded from file
    * @param initialEntities the initial JavaFX nodes (ImageViews) which should be
    *                        loaded into the GUI
@@ -266,7 +282,7 @@ public class LoopManiaWorldController {
       shopController = loader.getController();
       shopController.setWorldController(this);
     } catch (IOException e) {
-      // TODO Auto-generated catch block
+      // TODO Auto-generated catch block 
       e.printStackTrace();
     }
 
@@ -321,6 +337,17 @@ public class LoopManiaWorldController {
    * create and run the timer
    */
   public void startTimer() {
+    
+    if (!isPlayingGameMusic) {
+      // if the game music is not playing after switching scene
+      gameMusic();
+      isPlayingGameMusic = true;
+    }
+
+    // if the menu music is playing after switching scene
+    if (isPlayingMenuMusic)
+      menuMusic.stop();
+
     System.out.println("starting timer");
     isPaused = false;
     // trigger adding code to process main game logic to queue. JavaFX will target
@@ -351,6 +378,7 @@ public class LoopManiaWorldController {
       pause();
       world.addHeroCastleCycles(1);
       world.addNextHeroCastleCycle(world.getHeroCastleCycles());
+      pauseSound();
 
       // shop = anchorPaneRoot;
       anchorPaneRoot.getChildren().remove(shopPane);
@@ -413,6 +441,7 @@ public class LoopManiaWorldController {
     if (item != null) {
       onLoad(item);
       shopController.setBuyErrorMessage("");
+      buySound();
     } else {
       shopController.setBuyErrorMessage("Cannot afford item");
     }
@@ -429,6 +458,7 @@ public class LoopManiaWorldController {
       shopController.setSellErrorMessage("You do not have this item");
     } else {
       shopController.setSellErrorMessage("");
+      sellSound();
     }
   }
 
@@ -443,6 +473,7 @@ public class LoopManiaWorldController {
       shopController.setSellErrorMessage("You do not have any DoggieCoin");
     } else {
       shopController.setSellErrorMessage("");
+      sellSound();
     }
   }
 
@@ -832,6 +863,7 @@ public class LoopManiaWorldController {
           startTimer();
         } else {
           pause();
+          pauseSound();
         }
         break;
       default:
@@ -868,7 +900,20 @@ public class LoopManiaWorldController {
   @FXML
   private void switchToMainMenu() throws IOException {
     pause();
+    // stop the game music
+    changeMusicState();
     mainMenuSwitcher.switchMenu();
+  }
+
+  /**
+   * Change the condition of the music 
+   */
+  private void changeMusicState() {
+    gameplayMusic.stop();
+    isPlayingGameMusic = false;
+    isPlayingMenuMusic = true;
+    buttonClickSound();
+    menuMusic();
   }
 
   /**
@@ -957,4 +1002,79 @@ public class LoopManiaWorldController {
     // System.out.println("In application thread? =" + Platform.isFxApplicationThread());
     // System.out.println("Current system time =" + java.time.LocalDateTime.now().toString().replace('T', ' '));
   }
+
+  /**
+   * music for the main menu
+   */
+  public void gameMusic() {
+    String path = "src/audio/MainGameMusic.mp3";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    gameplayMusic = new MediaPlayer(music);
+    gameplayMusic.setOnEndOfMedia(new Runnable() {
+      public void run() {
+        gameplayMusic.seek(Duration.ZERO);
+      }
+    });
+    gameplayMusic.play();
+    gameplayMusic.setVolume(0.05);
+  }
+
+  /**
+   * music for the main menu
+   */
+  public void menuMusic() {
+    String path = "src/audio/MainMenuMusic.mp3";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    menuMusic = new MediaPlayer(music);
+    menuMusic.setOnEndOfMedia(new Runnable() {
+      public void run() {
+        menuMusic.seek(Duration.ZERO);
+      }
+    });
+    menuMusic.play();
+    menuMusic.setVolume(0.1);
+  }
+
+  /**
+   * sound effect for the button clicking
+   */
+  public void buttonClickSound() {
+    String path = "src/audio/buttonClick.wav";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    buttonClick = new MediaPlayer(music);
+    buttonClick.play();
+  }
+
+  /**
+   * sound effect for the selling item
+   */
+  public void sellSound() {
+    String path = "src/audio/coin.wav";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    sellSound = new MediaPlayer(music);
+    sellSound.setVolume(0.1);
+    sellSound.play();
+  }
+
+  /**
+   * sound effect for the selling item
+   */
+  public void buySound() {
+    String path = "src/audio/coin2.wav";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    buySound = new MediaPlayer(music);
+    buySound.setVolume(0.1);
+    buySound.play();
+  }
+
+  /**
+   * sound effect for the pausing screen
+   */
+  public void pauseSound() {
+    String path = "src/audio/pause.mp3";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    pauseSound = new MediaPlayer(music);
+    pauseSound.play();
+  }
+
 }
