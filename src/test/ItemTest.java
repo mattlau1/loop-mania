@@ -231,7 +231,31 @@ public class ItemTest {
     world.addUnequippedItem();
     // no overflow after adding item to full inventory
     assertEquals(16, world.getUnequip().size());
-
   }
+
+  @Test
+  public void testRemovingUnequippedItem() {
+    // testing by removing unequipped item by coordinates
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(78);
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // generate item
+    world.generateItemDrops();
+    // no items has been added into unequip yet
+    assertEquals(0, world.getUnequip().size());
+    // add few items into the unequip inventory
+    for (int i = 0; i < 5; i++) {
+      world.addUnequippedItem();
+    }
+    // checks that 5 items are added
+    assertEquals(5, world.getUnequip().size());
+    // remove the item at 0, 0
+    world.removeUnequippedInventoryItemByCoordinates(0, 0);
+    // check that 4 items remain
+    assertEquals(4, world.getUnequip().size());
+  }
+
+
 
 }
