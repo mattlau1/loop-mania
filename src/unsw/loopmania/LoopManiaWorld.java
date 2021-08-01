@@ -128,10 +128,25 @@ public class LoopManiaWorld {
   private boolean cardDestroyed;
 
   private boolean isElanAlive;
+
   private boolean isElanDead;
-  private final double postElanPriceMultiplier;
-  private final int midElanPriceMultiplier;
+
+  private final int superRarityDropRate = 1;
+
+  private final int highRarityDropRate = 6;
+
+  private final int mediumRarityDropRate = 29;
+
+  private final double postElanPriceMultiplier = 0.2;
+
+  private final int midElanPriceMultiplier = 5;
+
+  private final double doggieStunChance = 50;
+
+  private final int scrapMetalDrop = 1;
+
   private boolean isGameWon;
+
   private boolean isGameLost;
   /**
    * list of x,y coordinate pairs in the order by which moving entities traverse
@@ -192,8 +207,6 @@ public class LoopManiaWorld {
     this.pathItems = new ArrayList<>();
     this.heroCastleCycles = 1;
     this.nextHeroCastleCycle = 1;
-    this.postElanPriceMultiplier = 0.2;
-    this.midElanPriceMultiplier = 5;
     this.difficulty = BERSERKER_MODE;
     this.isGameLost = false;
     this.isGameWon = false;
@@ -240,8 +253,6 @@ public class LoopManiaWorld {
     this.pathItems = new ArrayList<>();
     this.heroCastleCycles = 1;
     this.nextHeroCastleCycle = 1;
-    this.postElanPriceMultiplier = 0.2;
-    this.midElanPriceMultiplier = 5;
     this.seed = seed;
     this.isSeedPresent = true;
   }
@@ -893,9 +904,8 @@ public class LoopManiaWorld {
     if (isSeedPresent)
       random.setSeed(seed);
     int randInt = random.nextInt(100);
-    int stunChance = 50;
 
-    if (randInt <= stunChance)
+    if (randInt <= doggieStunChance)
       character.setStunned(true);
   }
 
@@ -985,7 +995,7 @@ public class LoopManiaWorld {
       defeatedEnemies.add(enemy);
       character.addEXP(enemy.getExpDrop());
       character.addGold(enemy.getGoldDrop());
-      character.addScrapMetal(1);
+      character.addScrapMetal(scrapMetalDrop);
       character.addDoggieCoins(enemy.getDoggieCoinDrop());
     }
 
@@ -1122,9 +1132,6 @@ public class LoopManiaWorld {
     if (isSeedPresent)
       random.setSeed(seed);
     int randInt = random.nextInt(100);
-    int superRarityDropRate = 1;
-    int highRarityDropRate = 6;
-    int mediumRarityDropRate = 29;
 
     if (randInt <= superRarityDropRate) {
       // super rarity items
@@ -1164,8 +1171,6 @@ public class LoopManiaWorld {
     if (isSeedPresent)
       random.setSeed(seed);
     int randInt = random.nextInt(100);
-    int highRarityDropRate = 6;
-    int mediumRarityDropRate = 29;
 
     if (randInt <= highRarityDropRate) {
       // high rarity cards
