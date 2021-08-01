@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import unsw.loopmania.LoopManiaWorld;
@@ -97,6 +98,75 @@ public class ShopController {
 
   @FXML
   private Button craftShieldButton;
+
+  @FXML
+  private ImageView swordSellShopImage;
+
+  @FXML
+  private ImageView stakeSellShopImage;
+
+  @FXML
+  private ImageView staffSellShopImage;
+
+  @FXML
+  private ImageView shieldSellShopImage;
+
+  @FXML
+  private ImageView helmetSellShopImage;
+
+  @FXML
+  private ImageView armourSellShopImage;
+
+  @FXML
+  private ImageView theOneRingSellShopImage;
+
+  @FXML
+  private ImageView andurilSellShopImage;
+
+  @FXML
+  private ImageView treeStumpSellShopImage;
+
+  @FXML
+  private ImageView doggieCoinSellShopImage;
+
+  @FXML
+  private ImageView swordBuyShopImage;
+
+  @FXML
+  private ImageView stakeBuyShopImage;
+
+  @FXML
+  private ImageView staffBuyShopImage;
+
+  @FXML
+  private ImageView shieldBuyShopImage;
+
+  @FXML
+  private ImageView helmetBuyShopImage;
+
+  @FXML
+  private ImageView armourBuyShopImage;
+
+  @FXML
+  private ImageView potionBuyShopImage;
+
+  @FXML
+  private ImageView swordCraftShopImage;
+
+  @FXML
+  private ImageView stakeCraftShopImage;
+
+  @FXML
+  private ImageView staffCraftShopImage;
+
+  @FXML
+  private ImageView shieldCraftShopImage;
+
+  @FXML
+  private ImageView helmetCraftShopImage;
+
+  @FXML
+  private ImageView armourCraftShopImage;
 
   @FXML
   private Label buyErrorMessage;
@@ -303,6 +373,35 @@ public class ShopController {
 
   public void setWorldController(LoopManiaWorldController worldController) {
     this.worldController = worldController;
+  }
+
+  public void setImages() {
+    swordSellShopImage.setImage((new SwordStrategy()).getImage(worldController.getImgLoc()).getImage());
+    shieldSellShopImage.setImage((new ShieldStrategy()).getImage(worldController.getImgLoc()).getImage());
+    stakeSellShopImage.setImage((new StakeStrategy()).getImage(worldController.getImgLoc()).getImage());
+    staffSellShopImage.setImage((new StaffStrategy()).getImage(worldController.getImgLoc()).getImage());
+    helmetSellShopImage.setImage((new HelmetStrategy()).getImage(worldController.getImgLoc()).getImage());
+    armourSellShopImage.setImage((new ArmourStrategy()).getImage(worldController.getImgLoc()).getImage());
+    theOneRingSellShopImage.setImage((new TheOneRingStrategy()).getImage(worldController.getImgLoc()).getImage());
+    andurilSellShopImage.setImage((new AndurilStrategy()).getImage(worldController.getImgLoc()).getImage());
+    treeStumpSellShopImage.setImage((new TreeStumpStrategy()).getImage(worldController.getImgLoc()).getImage());
+    doggieCoinSellShopImage.setImage((new DoggieCoinStrategy()).getImage(worldController.getImgLoc()).getImage());
+
+    swordBuyShopImage.setImage((new SwordStrategy()).getImage(worldController.getImgLoc()).getImage());
+    shieldBuyShopImage.setImage((new ShieldStrategy()).getImage(worldController.getImgLoc()).getImage());
+    stakeBuyShopImage.setImage((new StakeStrategy()).getImage(worldController.getImgLoc()).getImage());
+    staffBuyShopImage.setImage((new StaffStrategy()).getImage(worldController.getImgLoc()).getImage());
+    helmetBuyShopImage.setImage((new HelmetStrategy()).getImage(worldController.getImgLoc()).getImage());
+    armourBuyShopImage.setImage((new ArmourStrategy()).getImage(worldController.getImgLoc()).getImage());
+    potionBuyShopImage.setImage((new HealthPotionStrategy()).getImage(worldController.getImgLoc()).getImage());
+
+    swordCraftShopImage.setImage((new SwordStrategy()).getImage(worldController.getImgLoc()).getImage());
+    shieldCraftShopImage.setImage((new ShieldStrategy()).getImage(worldController.getImgLoc()).getImage());
+    stakeCraftShopImage.setImage((new StakeStrategy()).getImage(worldController.getImgLoc()).getImage());
+    staffCraftShopImage.setImage((new StaffStrategy()).getImage(worldController.getImgLoc()).getImage());
+    helmetCraftShopImage.setImage((new HelmetStrategy()).getImage(worldController.getImgLoc()).getImage());
+    armourCraftShopImage.setImage((new ArmourStrategy()).getImage(worldController.getImgLoc()).getImage());
+
   }
 
   /**

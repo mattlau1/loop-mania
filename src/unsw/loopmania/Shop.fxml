@@ -42,7 +42,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER">
+                              <ImageView fx:id="swordBuyShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER">
                                  <image>
                                     <Image url="@../../images/basic_sword.png" />
                                  </image>
@@ -57,12 +57,12 @@
                                     <Font size="8.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                              <ImageView fx:id="stakeBuyShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                  <image>
                                     <Image url="@../../images/stake.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                              <ImageView fx:id="staffBuyShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                                  <image>
                                     <Image url="@../../images/staff.png" />
                                  </image>
@@ -72,7 +72,7 @@
                                     <Font size="8.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                              <ImageView fx:id="helmetBuyShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                  <image>
                                     <Image url="@../../images/helmet.png" />
                                  </image>
@@ -82,7 +82,7 @@
                                     <Font size="8.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                              <ImageView fx:id="armourBuyShopImage" fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                  <image>
                                     <Image url="@../../images/armour.png" />
                                  </image>
@@ -92,7 +92,7 @@
                                     <Font size="8.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                              <ImageView fx:id="shieldBuyShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                  <image>
                                     <Image url="@../../images/shield.png" />
                                  </image>
@@ -102,7 +102,7 @@
                                     <Font size="8.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                              <ImageView fx:id="potionBuyShopImage" fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                                  <image>
                                     <Image url="@../../images/brilliant_blue_new.png" />
                                  </image>
@@ -243,7 +243,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER">
+                                    <ImageView fx:id="swordSellShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER">
                                        <image>
                                           <Image url="@../../images/basic_sword.png" />
                                        </image>
@@ -258,12 +258,12 @@
                                           <Font size="8.0" />
                                        </font>
                                     </Button>
-                                    <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                                    <ImageView fx:id="stakeSellShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                                        <image>
                                           <Image url="@../../images/stake.png" />
                                        </image>
                                     </ImageView>
-                                    <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                                    <ImageView fx:id="staffSellShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                                        <image>
                                           <Image url="@../../images/staff.png" />
                                        </image>
@@ -273,7 +273,7 @@
                                           <Font size="8.0" />
                                        </font>
                                     </Button>
-                                    <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                    <ImageView fx:id="helmetSellShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                        <image>
                                           <Image url="@../../images/helmet.png" />
                                        </image>
@@ -283,7 +283,7 @@
                                           <Font size="8.0" />
                                        </font>
                                     </Button>
-                                    <ImageView fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                    <ImageView fx:id="armourSellShopImage" fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                        <image>
                                           <Image url="@../../images/armour.png" />
                                        </image>
@@ -293,7 +293,7 @@
                                           <Font size="8.0" />
                                        </font>
                                     </Button>
-                                    <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                    <ImageView fx:id="shieldSellShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                        <image>
                                           <Image url="@../../images/shield.png" />
                                        </image>
@@ -303,7 +303,7 @@
                                           <Font size="8.0" />
                                        </font>
                                     </Button>
-                                    <ImageView fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                                    <ImageView fx:id="treeStumpSellShopImage" fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                                        <image>
                                           <Image url="@../../images/tree_stump.png" />
                                        </image>
@@ -313,12 +313,12 @@
                                           <Font size="8.0" />
                                        </font>
                                     </Button>
-                                    <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                    <ImageView fx:id="theOneRingSellShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                        <image>
                                           <Image url="@../../images/the_one_ring.png" />
                                        </image>
                                     </ImageView>
-                                    <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                    <ImageView fx:id="andurilSellShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                        <image>
                                           <Image url="@../../images/anduril_flame_of_the_west.png" />
                                        </image>
@@ -333,7 +333,7 @@
                                           <Font size="8.0" />
                                        </font>
                                     </Button>
-                                    <ImageView fitHeight="30.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                                    <ImageView fx:id="doggieCoinSellShopImage" fitHeight="30.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                                        <image>
                                           <Image url="@../../images/doggie_coin.png" />
                                        </image>
@@ -378,7 +378,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER">
+                              <ImageView fx:id="swordCraftShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER">
                                  <image>
                                     <Image url="@../../images/basic_sword.png" />
                                  </image>
@@ -393,12 +393,12 @@
                                     <Font size="9.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                              <ImageView fx:id="stakeCraftShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                  <image>
                                     <Image url="@../../images/stake.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                              <ImageView fx:id="staffCraftShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                                  <image>
                                     <Image url="@../../images/staff.png" />
                                  </image>
@@ -408,7 +408,7 @@
                                     <Font size="9.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                              <ImageView fx:id="helmetCraftShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                  <image>
                                     <Image url="@../../images/helmet.png" />
                                  </image>
@@ -418,7 +418,7 @@
                                     <Font size="9.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                              <ImageView fx:id="armourCraftShopImage" fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                  <image>
                                     <Image url="@../../images/armour.png" />
                                  </image>
@@ -428,7 +428,7 @@
                                     <Font size="9.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                              <ImageView fx:id="shieldCraftShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                  <image>
                                     <Image url="@../../images/shield.png" />
                                  </image>
