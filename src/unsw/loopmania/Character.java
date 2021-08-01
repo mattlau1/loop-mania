@@ -53,10 +53,21 @@ public class Character extends MovingEntity {
     setGold(newGold >= 0 ? newGold : 0);
   }
 
+  /**
+   * sets the stunned status of the character
+   *
+   * @param isStunned the boolean stunned status of the character, true if
+   * stunned, false if not
+   */
   public void setStunned(boolean isStunned) {
     this.isStunned = isStunned;
   }
 
+  /**
+   * gets whether the character is stunned or not
+   *
+   * @return the stunned status of the character, true if stunned, false if not
+   */
   public boolean isStunned() {
     return isStunned;
   }
@@ -465,10 +476,20 @@ public class Character extends MovingEntity {
     notifyAllObservers();
   }
 
+  /**
+   * Gets the DoggieCoin number property
+   *
+   * @return DoggieCoin property
+   */
   public SimpleIntegerProperty getDoggieCoinProperty() {
     return doggieCoinProperty;
   }
 
+  /**
+   * Gets the ScrapMetal number property
+   *
+   * @return ScrapMetal property
+   */
   public SimpleIntegerProperty getScrapMetalProperty() {
     return scrapMetalProperty;
   }
