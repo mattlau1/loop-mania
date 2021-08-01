@@ -118,17 +118,19 @@ public class EnemyTest {
     SimpleIntegerProperty y = new SimpleIntegerProperty(2);
     StaffStrategy strat = new StaffStrategy();
     Item testStaff = new Item(x, y, strat);
-    // add the character, vampire and zombie on the same tile so they can interact
+    // add the character and zombies on the same tile so they can interact
     Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
     world.setCharacter(testChar);
-    VampireEnemy vampire = new VampireEnemy(new PathPosition(1, world.getOrderedPath()));
-    world.addEnemy(vampire);
-    ZombieEnemy zombie = new ZombieEnemy(new PathPosition(1, world.getOrderedPath()));
-    world.addEnemy(zombie);
+    ZombieEnemy zombie1 = new ZombieEnemy(new PathPosition(1, world.getOrderedPath()));
+    ZombieEnemy zombie2 = new ZombieEnemy(new PathPosition(1, world.getOrderedPath()));
+    ZombieEnemy zombie3 = new ZombieEnemy(new PathPosition(1, world.getOrderedPath()));
+    world.addEnemy(zombie1);
+    world.addEnemy(zombie2);
+    world.addEnemy(zombie3);
     // add a soldier to the player
     testChar.addSoldier();
     // turn the zombie into a tranced soldier
-    testStaff.onHitEffects(zombie, world.getTrancedSoldiers());
+    testStaff.onHitEffects(zombie1, world.getTrancedSoldiers());
     // run battle so soldiers die
     world.runBattles();
     // assert that there is no longer any soldiers or tranced soldiers
