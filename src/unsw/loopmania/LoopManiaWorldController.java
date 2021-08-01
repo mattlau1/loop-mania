@@ -226,7 +226,7 @@ public class LoopManiaWorldController {
   private String imgLoc;
 
   /**
-   * Music & sound effects 
+   * Music & sound effects
    */
   MediaPlayer gameplayMusic;
   MediaPlayer menuMusic;
@@ -282,7 +282,7 @@ public class LoopManiaWorldController {
       shopController = loader.getController();
       shopController.setWorldController(this);
     } catch (IOException e) {
-      // TODO Auto-generated catch block 
+      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 
@@ -337,7 +337,7 @@ public class LoopManiaWorldController {
    * create and run the timer
    */
   public void startTimer() {
-    
+
     if (!isPlayingGameMusic) {
       // if the game music is not playing after switching scene
       gameMusic();
@@ -431,8 +431,8 @@ public class LoopManiaWorldController {
   }
 
   /**
-   * buys an item from the shop, deducts gold from the charcter, if character
-   * does not have enuough gold, item is set to null
+   * buys an item from the shop, deducts gold from the charcter, if character does
+   * not have enuough gold, item is set to null
    *
    * @param strat item strategy of the item to be bought
    */
@@ -448,8 +448,8 @@ public class LoopManiaWorldController {
   }
 
   /**
-   * sells an item from the shop, adds gold to the charcter, if character
-   * does not have the item, nothing happens
+   * sells an item from the shop, adds gold to the charcter, if character does not
+   * have the item, nothing happens
    *
    * @param strat item strategy of the item to be sold
    */
@@ -463,8 +463,8 @@ public class LoopManiaWorldController {
   }
 
   /**
-   * sells an item from the shop, adds gold to the charcter, if character
-   * does not have the item, nothing happens
+   * sells an item from the shop, adds gold to the charcter, if character does not
+   * have the item, nothing happens
    *
    * @param strat item strategy of the item to be sold
    */
@@ -906,7 +906,7 @@ public class LoopManiaWorldController {
   }
 
   /**
-   * Change the condition of the music 
+   * Change the condition of the music
    */
   private void changeMusicState() {
     gameplayMusic.stop();
@@ -999,8 +999,10 @@ public class LoopManiaWorldController {
   private void printThreadingNotes(String currentMethodLabel) {
     // System.out.println("\n###########################################");
     // System.out.println("current method = " + currentMethodLabel);
-    // System.out.println("In application thread? =" + Platform.isFxApplicationThread());
-    // System.out.println("Current system time =" + java.time.LocalDateTime.now().toString().replace('T', ' '));
+    // System.out.println("In application thread? =" +
+    // Platform.isFxApplicationThread());
+    // System.out.println("Current system time =" +
+    // java.time.LocalDateTime.now().toString().replace('T', ' '));
   }
 
   /**
@@ -1074,6 +1076,7 @@ public class LoopManiaWorldController {
     String path = "src/audio/pause.mp3";
     Media music = new Media(Paths.get(path).toUri().toString());
     pauseSound = new MediaPlayer(music);
+    pauseSound.setVolume(0.35);
     pauseSound.play();
   }
 

@@ -140,7 +140,7 @@ public class LoopManiaWorld {
   // the goal which contains simple goals
   private Goal goal;
 
-  // music 
+  // music
   MediaPlayer swingSound;
   MediaPlayer equippedSound;
 
@@ -186,7 +186,7 @@ public class LoopManiaWorld {
     this.difficulty = null;
   }
 
-  public void setDifficulty (String difficulty) {
+  public void setDifficulty(String difficulty) {
     this.difficulty = difficulty;
   }
 
@@ -1498,7 +1498,7 @@ public class LoopManiaWorld {
     String path = "src/audio/swing.wav";
     Media music = new Media(Paths.get(path).toUri().toString());
     swingSound = new MediaPlayer(music);
-    swingSound.setVolume(0.3);
+    swingSound.setVolume(0.2);
     swingSound.play();
   }
 
@@ -1511,7 +1511,7 @@ public class LoopManiaWorld {
     equippedSound = new MediaPlayer(music);
     equippedSound.setVolume(0.3);
     equippedSound.play();
-    
+
   }
 
 }
