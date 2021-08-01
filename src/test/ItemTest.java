@@ -94,19 +94,19 @@ public class ItemTest {
     world.setCharacter(testChar);
     // gives the character the one ring
     world.addSpecificUnequippedItem(strat);
-    assertEquals(false, world.isGameLost());
+    assertEquals(false, world.checkGameLost());
     // kills the character
     testChar.reduceHealth(100);
     // checks that the character is revived
     assertEquals(true, testChar.isDead());
-    assertEquals(false, world.isGameLost());
+    assertEquals(false, world.checkGameLost());
     assertEquals(100, testChar.getHealth());
     assertEquals(true, testChar.isAlive());
     // kills the character
     testChar.reduceHealth(100);
     // checks that the character does not revive and the game is lost
     assertEquals(false, testChar.isAlive());
-    assertEquals(true, world.isGameLost());
+    assertEquals(true, world.checkGameLost());
 
   }
 
