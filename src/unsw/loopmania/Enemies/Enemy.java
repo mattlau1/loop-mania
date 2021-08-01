@@ -3,6 +3,7 @@ package unsw.loopmania.Enemies;
 import java.util.Random;
 
 import javafx.scene.image.ImageView;
+import unsw.loopmania.Character;
 import unsw.loopmania.MovingEntity;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Buffs.Buff;
@@ -37,6 +38,10 @@ public abstract class Enemy extends MovingEntity {
    */
   public boolean isBoss() {
     return false;
+  }
+
+  public void attack(Character character) {
+    character.reduceHealth(this.damage);
   }
 
   /**
@@ -262,6 +267,10 @@ public abstract class Enemy extends MovingEntity {
   }
 
   public boolean canStunCharacter() {
+    return false;
+  }
+
+  public boolean canStealFromCharacter() {
     return false;
   }
 

@@ -42,6 +42,7 @@ import unsw.loopmania.Enemies.DoggieEnemy;
 import unsw.loopmania.Enemies.ElanEnemy;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SlugEnemy;
+import unsw.loopmania.Enemies.ThiefEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
 import unsw.loopmania.Goals.BossObserver;
 import unsw.loopmania.Goals.CycleObserver;
@@ -93,8 +94,8 @@ public class LoopManiaWorld {
   private List<CardStrategy> highRarityCards;
 
   // drop for destroyed cards
-  private final int destroyedCardGold = 100;
-  private final int destroyedCardExp = 100;
+  private final int destroyedCardGold = 50;
+  private final int destroyedCardExp = 50;
 
   // list of enemies
   private List<Enemy> enemies;
@@ -140,6 +141,8 @@ public class LoopManiaWorld {
 
   // the goal which contains simple goals
   private Goal goal;
+  private long seed;
+  private boolean isSeedPresent = false;
 
   private String difficulty;
   public static final String SURVIVAL_MODE = "Survival";
@@ -188,7 +191,7 @@ public class LoopManiaWorld {
     this.pathItems = new ArrayList<>();
     this.heroCastleCycles = 1;
     this.nextHeroCastleCycle = 1;
-    this.postElanPriceMultiplier = 0.8;
+    this.postElanPriceMultiplier = 0.2;
     this.midElanPriceMultiplier = 5;
     this.difficulty = BERSERKER_MODE;
     this.isGameLost = false;
@@ -206,6 +209,40 @@ public class LoopManiaWorld {
 
   public void setDifficulty(String difficulty) {
     this.difficulty = difficulty;
+  }
+
+  public LoopManiaWorld(int width, int height, List<Pair<Integer, Integer>> orderedPath, Goal goal, long seed) {
+    this.width = width;
+    this.height = height;
+    this.nonSpecifiedEntities = new ArrayList<>();
+    this.character = null;
+    this.enemies = new ArrayList<>();
+    this.zombieSoldiers = new ArrayList<>();
+    this.cardEntities = new ArrayList<>();
+    this.unequippedInventoryItems = new ArrayList<>();
+    this.equippedInventoryItems = new ArrayList<>();
+    this.commonItems = new ArrayList<>();
+    this.lowRarityItems = new ArrayList<>();
+    this.midRarityItems = new ArrayList<>();
+    this.highRarityItems = new ArrayList<>();
+    this.superRarityItems = new ArrayList<>();
+    this.lowRarityCards = new ArrayList<>();
+    this.midRarityCards = new ArrayList<>();
+    this.highRarityCards = new ArrayList<>();
+    this.orderedPath = orderedPath;
+    this.buildingEntities = new ArrayList<>();
+    this.trancedSoldiers = new ArrayList<>();
+    this.goal = goal;
+    this.cardDestroyed = false;
+    this.isElanAlive = false;
+    this.isElanDead = false;
+    this.pathItems = new ArrayList<>();
+    this.heroCastleCycles = 1;
+    this.nextHeroCastleCycle = 1;
+    this.postElanPriceMultiplier = 0.2;
+    this.midElanPriceMultiplier = 5;
+    this.seed = seed;
+    this.isSeedPresent = true;
   }
 
   public int getHeroCastleCycles() {
@@ -293,6 +330,10 @@ public class LoopManiaWorld {
   public void setCharacter(Character character) {
     this.character = character;
     addCharacterObservers();
+  }
+
+  public void addCard(Card card) {
+    cardEntities.add(card);
   }
 
   /**
@@ -443,6 +484,8 @@ public class LoopManiaWorld {
       // spawns a slug
       // Enemy slug = new SlugEnemy(new PathPosition(indexInPath, orderedPath));
       Random random = new Random();
+      if (isSeedPresent)
+        random.setSeed(seed);
       int randInt = random.nextInt(2);
       Item potion = new Item(pathPos.getX(), pathPos.getY(), commonItems.get(randInt));
       pathItems.add(potion);
@@ -457,7 +500,11 @@ public class LoopManiaWorld {
    * @param enemy enemy to be killed
    */
   private void killEnemy(Enemy enemy) {
-    swingSound();
+    try {
+      swingSound();
+    } catch (Exception exception) {
+    }
+    ;
     enemy.destroy();
     enemies.remove(enemy);
   }
@@ -535,11 +582,12 @@ public class LoopManiaWorld {
   }
 
   public String getGameStatus() {
-    if (isGameWon) return "Won";
-    if (isGameLost) return "Lost";
+    if (isGameWon)
+      return "Won";
+    if (isGameLost)
+      return "Lost";
     return "Playing";
   }
-
 
   /**
    * Use the item on the character outside the combat
@@ -682,6 +730,8 @@ public class LoopManiaWorld {
    */
   private void triggerOnHitEffects(Enemy enemy) {
     Random random = new Random();
+    if (isSeedPresent)
+      random.setSeed(seed);
     int randInt = random.nextInt(2);
     if (randInt == 1) {
       for (Item equippedItems : equippedInventoryItems) {
@@ -699,6 +749,8 @@ public class LoopManiaWorld {
   private boolean doesEnemyCrit(Enemy enemy) {
     boolean isCriticalHit = false;
     Random random = new Random();
+    if (isSeedPresent)
+      random.setSeed(seed);
     int randInt = random.nextInt(100) + 1;
 
     double enemyCriR = enemy.getCritRate();
@@ -816,7 +868,6 @@ public class LoopManiaWorld {
         continue;
 
       enemyDamage = getEnemyDamageAfterDefense(enemyDamage, currBattlingEnemy);
-
       if (trancedSoldiers.size() > 0) {
         Soldier s = trancedSoldiers.get(0);
         s.reduceHealth(enemyDamage);
@@ -838,6 +889,8 @@ public class LoopManiaWorld {
    */
   public void possiblyStunCharacter() {
     Random random = new Random();
+    if (isSeedPresent)
+      random.setSeed(seed);
     int randInt = random.nextInt(100);
     int stunChance = 50;
 
@@ -872,7 +925,7 @@ public class LoopManiaWorld {
     List<Enemy> battlingEnemies = getBattlingEnemies();
     isGameLost();
     // if (isGameLost()) {
-    //   System.exit(0);
+    // System.exit(0);
     // }
 
     // we have three types of buildings:
@@ -891,6 +944,16 @@ public class LoopManiaWorld {
         useBuildingsOnEntitiesInCombat(enemy);
         triggerOnHitEffects(enemy);
 
+        if (enemy.canStealFromCharacter()) {
+          Random random = new Random();
+          if (isSeedPresent) {
+            random.setSeed(seed);
+          }
+          int randomItemIndex = random.nextInt(unequippedInventoryItems.size()) - 1;
+          if (randomItemIndex != -1)
+            removeItemByPositionInUnequippedInventoryItems(randomItemIndex);
+          character.reduceGold(ThiefEnemy.STEAL_AMOUNT);
+        }
         // if enemy is able to stun, randomly stun character if unlucky
         if (enemy.canStunCharacter())
           possiblyStunCharacter();
@@ -975,6 +1038,7 @@ public class LoopManiaWorld {
     Card c = cardEntities.get(index);
     int x = c.getX();
     c.destroy();
+    destroyCard();
     cardEntities.remove(index);
     shiftCardsDownFromXCoordinate(x);
   }
@@ -1042,6 +1106,8 @@ public class LoopManiaWorld {
    */
   public ItemStrategy randomItemStrategy() {
     Random random = new Random();
+    if (isSeedPresent)
+      random.setSeed(seed);
     int randInt = random.nextInt(100);
     int superRarityDropRate = 1;
     int highRarityDropRate = 6;
@@ -1082,6 +1148,8 @@ public class LoopManiaWorld {
    */
   public CardStrategy randomCardStrategy() {
     Random random = new Random();
+    if (isSeedPresent)
+      random.setSeed(seed);
     int randInt = random.nextInt(100);
     int highRarityDropRate = 6;
     int mediumRarityDropRate = 29;
@@ -1198,8 +1266,15 @@ public class LoopManiaWorld {
    * @param item item to be added
    */
   public void addEquippedInventoryItem(Item item) {
-    equippedSound();
+    try {
+      equippedSound();
+    } catch (Exception exception) {
+    }
     equippedInventoryItems.add(item);
+  }
+
+  public List<Building> getBuildings() {
+    return buildingEntities;
   }
 
   /**
@@ -1243,9 +1318,13 @@ public class LoopManiaWorld {
    * @param index index from 0 to length-1
    */
   private void removeItemByPositionInUnequippedInventoryItems(int index) {
-    Entity item = unequippedInventoryItems.get(index);
-    item.destroy();
-    unequippedInventoryItems.remove(index);
+    try {
+      Entity item = unequippedInventoryItems.get(index);
+      item.destroy();
+      unequippedInventoryItems.remove(index);
+    } catch (Exception e) {
+      return;
+    }
   }
 
   /**
@@ -1301,6 +1380,8 @@ public class LoopManiaWorld {
     // has a chance spawning a basic enemy on a tile the character isn't on or
     // immediately before or after (currently space required = 2)...
     Random rand = new Random();
+    if (isSeedPresent)
+      rand.setSeed(seed);
     int choice = rand.nextInt(2);
     if ((choice == 0) && (enemies.size() < 2)) {
       List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();
@@ -1347,6 +1428,8 @@ public class LoopManiaWorld {
     // has a chance spawning a basic enemy on a tile the character isn't on or
     // immediately before or after (currently space required = 2)...
     Random rand = new Random();
+    if (isSeedPresent)
+      rand.setSeed(seed);
     int choice = rand.nextInt(2);
     if ((choice == 0) && (pathItems.size() < 2)) {
       List<Pair<Integer, Integer>> orderedPathSpawnCandidates = new ArrayList<>();

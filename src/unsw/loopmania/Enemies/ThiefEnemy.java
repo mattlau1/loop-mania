@@ -6,22 +6,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.PathPosition;
 
-public class DoggieEnemy extends Enemy {
-  private final double health = 135;
+public class ThiefEnemy extends Enemy {
+  private final double health = 45;
   private final int battleRange = 2;
   private final int supportRange = 5;
-  private final double damage = 5;
-  private final int expDrop = 400;
-  private final int goldDrop = 250;
+  private final double damage = 2;
+  private final int expDrop = 10;
+  private final int goldDrop = 20;
   private final int critRate = 0;
-  private final int doggieCoinDrop = 1;
+  public final static int STEAL_AMOUNT = 10;
 
-  /**
-   * Doggie constructor, sets doggie stats
-   *
-   * @param position the position where the enemy will spawn in the map
-   */
-  public DoggieEnemy(PathPosition position) {
+  public ThiefEnemy(PathPosition position) {
     super(position);
     setHealth(health);
     setMaxHealth(health);
@@ -31,23 +26,18 @@ public class DoggieEnemy extends Enemy {
     setExpDrop(expDrop);
     setGoldDrop(goldDrop);
     setCritRate(critRate);
-    setDoggieCoinDrop(doggieCoinDrop);
   }
 
   @Override
-  public boolean isBoss() {
+  public boolean canStealFromCharacter() {
     return true;
   }
 
   @Override
   public ImageView getImage(String imgLoc) {
-    Image image = new Image((new File("src/" + imgLoc + "/doggie.png")).toURI().toString());
+    Image image = new Image((new File("src/" + imgLoc + "/thief.png")).toURI().toString());
     ImageView view = new ImageView(image);
     return view;
   }
 
-  @Override
-  public boolean canStunCharacter() {
-    return true;
-  }
 }

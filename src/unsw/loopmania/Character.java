@@ -48,6 +48,12 @@ public class Character extends MovingEntity {
     this.isStunned = false;
   }
 
+  public void reduceGold(int gold) {
+    int newGold = getGold() - gold;
+    setGold(newGold >= 0 ? newGold : 0);
+
+  }
+
   public void setStunned(boolean isStunned) {
     this.isStunned = isStunned;
   }
