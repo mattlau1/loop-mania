@@ -77,7 +77,7 @@
                   <!-- blankCell is an empty cell -->
                   <ImageView id="blankCell" GridPane.columnIndex="1" GridPane.rowIndex="0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
                      <image>
-                        <Image url="@../../images/image_just_black_tiny.png" />
+                        <Image url="@../../images/helmet_slot.png" />
                      </image>
                   </ImageView>
                   <!-- shieldCell is the cell where a shield intended to be equipped will be dragged by the human player -->
@@ -104,6 +104,15 @@
 
             <!-- clicking this button returns the human player to the main menu -->
             <Button onAction="#switchToMainMenu" prefHeight="25.0" prefWidth="249.0" text="Exit to Main Menu" />
+            <HBox layoutX="10.0" layoutY="67.0" prefHeight="33.0" prefWidth="113.0">
+               <children>
+                  <Label fx:id="goalLabel" ellipsisString="" minWidth="250.0" prefHeight="33.0" prefWidth="112.0" style="-fx-padding: 5px;" textFill="RED" textOverrun="CLIP">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <HBox prefHeight="33.0" prefWidth="113.0">
                <children>
                   <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
@@ -184,6 +193,22 @@
                   <Label fx:id="scrapMetal" ellipsisString="" prefHeight="35.0" prefWidth="77.0" style="-fx-padding: 5px;" text="ScrapMetal" textFill="#bfbfbf" textOverrun="CLIP">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="247.0" prefHeight="33.0" prefWidth="113.0">
+               <children>
+                  <ImageView fx:id="ally1" fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="ally2" fitHeight="36.0" fitWidth="36.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="ally3" fitHeight="36.0" fitWidth="36.0" layoutX="46.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+            <HBox prefHeight="33.0" prefWidth="113.0">
+               <children>
+                  <Label fx:id="pauseLabel" alignment="CENTER" ellipsisString="" prefHeight="33.0" prefWidth="114.0" style="-fx-padding: 5px;" textAlignment="CENTER" textOverrun="CLIP">
+                     <font>
+                        <Font name="Segoe UI Bold Italic" size="18.0" />
                      </font>
                   </Label>
                </children>

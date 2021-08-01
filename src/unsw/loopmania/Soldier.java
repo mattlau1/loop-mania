@@ -1,8 +1,11 @@
 package unsw.loopmania;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import unsw.loopmania.Buffs.Buff;
 
 // import javafx.beans.property.SimpleIntegerProperty;
@@ -57,6 +60,12 @@ public class Soldier {
 
   public void addBuffs(Buff buff) {
     this.buffs.add(buff);
+  }
+
+  public ImageView getImage(String imgLoc) {
+    Image image = new Image((new File("src/" + imgLoc + "/deep_elf_master_archer.png")).toURI().toString());
+    ImageView view = new ImageView(image);
+    return view;
   }
 
 }

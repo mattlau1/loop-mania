@@ -13,7 +13,8 @@ public class BarracksStrategy implements BuildingStrategy {
 
   @Override
   public void useBuilding(Character character) {
-    character.addSoldier();
+    if (character.getSoldiers().size() < 3)
+      character.addSoldier();
   }
 
   @Override

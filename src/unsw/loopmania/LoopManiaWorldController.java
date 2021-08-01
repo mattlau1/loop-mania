@@ -128,6 +128,9 @@ public class LoopManiaWorldController {
   @FXML
   private Label scrapMetal;
 
+  @FXML
+  private Label pauseLabel;
+
   /**
    * squares gridpane includes path images, enemies, character, empty grass,
    * buildings
@@ -159,12 +162,24 @@ public class LoopManiaWorldController {
   private Pane shop;
 
   @FXML
+  private Label goalLabel;
+
+  @FXML
+  private ImageView ally1;
+
+  @FXML
+  private ImageView ally2;
+
+  @FXML
+  private ImageView ally3;
+
+  @FXML
   private GridPane unequippedInventory;
 
   // all image views including tiles, character, enemies, cards... even though
   // cards in separate gridpane...
   private List<ImageView> entityImages;
-
+  private String goal;
   /**
    * when we drag a card/item, the picture for whatever we're dragging is set here
    * and we actually drag this node
@@ -276,6 +291,7 @@ public class LoopManiaWorldController {
     Image inventorySlotImage = new Image((new File("src/images/empty_slot.png")).toURI().toString());
     Rectangle2D imagePart = new Rectangle2D(0, 0, 32, 32);
     shop = new Pane();
+    goalLabel.setText(goal);
     // Add the ground first so it is below all other entities (inculding all the
     // twists and turns)
     for (int x = 0; x < world.getWidth(); x++) {
@@ -365,6 +381,7 @@ public class LoopManiaWorldController {
     // framerate of 0.3 seconds
     timeline = new Timeline(new KeyFrame(Duration.seconds(0.05), event -> {
       world.runTickMoves();
+      loadAllySoliders();
       List<Enemy> defeatedEnemies = world.runBattles();
       for (Enemy e : defeatedEnemies) {
         reactToEnemyDefeat(e);
@@ -400,6 +417,31 @@ public class LoopManiaWorldController {
     }));
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
+  }
+
+  public void setGoal(String goal) {
+    this.goal = goal;
+  }
+
+  private void loadAllySoliders() {
+    int numAllies = world.getCharacter().getSoldiers().size();
+    if (numAllies == 0) {
+      ally1.setImage(null);
+      ally2.setImage(null);
+      ally3.setImage(null);
+    } else if (numAllies == 1) {
+      ally1.setImage(new Soldier().getImage(imgLoc).getImage());
+      ally2.setImage(null);
+      ally3.setImage(null);
+    } else if (numAllies == 2) {
+      ally1.setImage(new Soldier().getImage(imgLoc).getImage());
+      ally2.setImage(new Soldier().getImage(imgLoc).getImage());
+      ally3.setImage(null);
+    } else if (numAllies == 3) {
+      ally1.setImage(new Soldier().getImage(imgLoc).getImage());
+      ally2.setImage(new Soldier().getImage(imgLoc).getImage());
+      ally3.setImage(new Soldier().getImage(imgLoc).getImage());
+    }
   }
 
   public void openHerosCastle() {
@@ -906,9 +948,11 @@ public class LoopManiaWorldController {
     switch (event.getCode()) {
       case SPACE:
         if (isPaused) {
+          pauseLabel.setText("");
           startTimer();
         } else {
           pause();
+          pauseLabel.setText("Paused");
           pauseSound();
         }
         break;
