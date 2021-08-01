@@ -40,6 +40,7 @@ public class LoopManiaApplication extends Application {
     LoopManiaWorldControllerLoader loopManiaLoaderGrass = new LoopManiaWorldControllerLoader(
         "world_with_twists_and_turns.json", "images");
     mainControllerGrass = loopManiaLoaderGrass.loadController();
+    mainControllerGrass.setGoal("Defeat all boses and get 5000 gold");
     FXMLLoader gameLoaderGrass = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
     gameLoaderGrass.setController(mainControllerGrass);
     Parent gameRootGrass = gameLoaderGrass.load();
@@ -47,6 +48,7 @@ public class LoopManiaApplication extends Application {
     // load the main game (japanese world)
     LoopManiaWorldControllerLoader loopManiaLoaderJP = new LoopManiaWorldControllerLoader("map2.json", "images2");
     mainControllerJP = loopManiaLoaderJP.loadController();
+    mainControllerJP.setGoal("Defeat Kaki, the Samurai Lord");
     FXMLLoader gameLoaderJP = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
     gameLoaderJP.setController(mainControllerJP);
     Parent gameRootJP = gameLoaderJP.load();
@@ -55,6 +57,7 @@ public class LoopManiaApplication extends Application {
     LoopManiaWorldControllerLoader loopManiaLoaderWaste = new LoopManiaWorldControllerLoader(
         "world_with_twists_and_turns.json", "images2");
     mainControllerWaste = loopManiaLoaderWaste.loadController();
+    mainControllerWaste.setGoal("Defeat Kaki, the Samurai Lord");
     FXMLLoader gameLoaderWaste = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
     gameLoaderWaste.setController(mainControllerWaste);
     Parent gameRootWaste = gameLoaderWaste.load();
