@@ -133,7 +133,6 @@ public class LoopManiaApplication extends Application {
       try {
         start(primaryStage);
       } catch (IOException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
     });
@@ -152,7 +151,6 @@ public class LoopManiaApplication extends Application {
       try {
         start(primaryStage);
       } catch (IOException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
     });
@@ -171,7 +169,6 @@ public class LoopManiaApplication extends Application {
       try {
         start(primaryStage);
       } catch (IOException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
     });
@@ -194,12 +191,6 @@ public class LoopManiaApplication extends Application {
 
     howToPlayController.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
-      // try {
-      // start(primaryStage);
-      // } catch (IOException e) {
-      // // TODO Auto-generated catch block
-      // e.printStackTrace();
-      // }
     });
 
     winController.setMainMenuSwitcher(() -> {
@@ -207,7 +198,6 @@ public class LoopManiaApplication extends Application {
       try {
         start(primaryStage);
       } catch (IOException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
     });
@@ -217,7 +207,6 @@ public class LoopManiaApplication extends Application {
       try {
         start(primaryStage);
       } catch (IOException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
     });
@@ -240,16 +229,9 @@ public class LoopManiaApplication extends Application {
 
     gameModeController.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
-      // try {
-      // start(primaryStage);
-      // } catch (IOException e) {
-      // // TODO Auto-generated catch block
-      // e.printStackTrace();
-      // }
     });
 
     // deploy the main onto the stage
-    // gameRoot.requestFocus();
     primaryStage.setScene(scene);
     primaryStage.show();
   }

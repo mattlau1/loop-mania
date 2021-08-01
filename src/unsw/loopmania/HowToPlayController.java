@@ -18,6 +18,9 @@ public class HowToPlayController {
   @FXML
   Button backButton;
 
+  /**
+   * called when controller is initialised, sets the button hover effects
+   */
   @FXML
   private void initialize() {
     setButtonHoverEffects();
@@ -41,7 +44,7 @@ public class HowToPlayController {
   }
 
   /**
-   * facilitates switching to how to play
+   * facilitates switching to how to play scren
    */
   public void setHowToPlaySwitcher(MenuSwitcher gameSwitcher) {
     this.howToPlaySwitcher = gameSwitcher;
@@ -57,6 +60,9 @@ public class HowToPlayController {
     howToPlaySwitcher.switchMenu();
   }
 
+  /**
+   * Sets the button hover effects
+   */
   private void setButtonHoverEffects() {
     backButton.setStyle("-fx-background-color:transparent;");
 
