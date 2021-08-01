@@ -1,6 +1,9 @@
 package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,14 +13,19 @@ import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.CampfireStrategy;
+import unsw.loopmania.Buildings.HerosCastleStrategy;
+import unsw.loopmania.Buildings.VillageStrategy;
 import unsw.loopmania.Enemies.DoggieEnemy;
+import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SlugEnemy;
+import unsw.loopmania.Enemies.ThiefEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
 import unsw.loopmania.Enemies.ZombieEnemy;
 import unsw.loopmania.Goals.CycleGoal;
 import unsw.loopmania.Goals.Goal;
 import unsw.loopmania.Items.Item;
 import unsw.loopmania.Items.StaffStrategy;
+import unsw.loopmania.Items.TheOneRingStrategy;
 
 public class EnemyTest {
 
@@ -136,6 +144,64 @@ public class EnemyTest {
     // assert that there is no longer any soldiers or tranced soldiers
     assertEquals(0, world.getTrancedSoldiers().size());
     assertEquals(0, testChar.getSoldiers().size());
+  }
 
+  @Test
+  public void testThiefSpawn() {
+    // test that thief spawns at village
+    // world setup
+    VillageStrategy villageStrategy = new VillageStrategy();
+    HerosCastleStrategy herosCastleStrategy = new HerosCastleStrategy();
+    TestSetup setup = new TestSetup();
+    LoopManiaWorld world = setup.makeTestWorld();
+    PathPosition pathPos = new PathPosition(1, world.getOrderedPath());
+    Character testChar = new Character(pathPos);
+    world.setCharacter(testChar);
+    Building castle = new Building(pathPos.getX(), pathPos.getY(), herosCastleStrategy);
+    world.addBuildingToWorld(castle);
+    // create village and add to world
+    Building village = new Building(pathPos.getX(), pathPos.getY(), villageStrategy);
+    world.addBuildingToWorld(village);
+    testChar.incrementCycleCount();
+
+    // spawn enemies and count thieves
+    List<Enemy> enemies = world.possiblySpawnEnemies();
+    int thiefCount = 0;
+    for (Enemy enemy : enemies) {
+      if (enemy instanceof ThiefEnemy) {
+        thiefCount++;
+      }
+    }
+    // assert thieves spawned
+    assertNotEquals(0, thiefCount);
+  }
+
+  @Test
+  public void testThiefSteal() {
+    // test that the thief deducts 10 gold and 1 inventory item on hit
+    TestSetup setup = new TestSetup();
+    LoopManiaWorld world = setup.makeTestWorld();
+    PathPosition pathPos = new PathPosition(1, world.getOrderedPath());
+    Character testChar = new Character(pathPos);
+    world.setCharacter(testChar);
+    ThiefEnemy thief = new ThiefEnemy(pathPos);
+    world.addEnemy(thief);
+    // add 4 items to players inventory
+    TheOneRingStrategy oneRingStrategy = new TheOneRingStrategy();
+    world.addSpecificUnequippedItem(oneRingStrategy);
+    world.addSpecificUnequippedItem(oneRingStrategy);
+    world.addSpecificUnequippedItem(oneRingStrategy);
+    world.addSpecificUnequippedItem(oneRingStrategy);
+
+    // add gold to player
+    testChar.addGold(50);
+    // run battles so the player will fight thief
+    world.runBattles();
+    // assert that player has 40 gold as they would have been hit by the thief 3
+    // times and then recieved 20 gold after killing it
+    assertEquals(40, testChar.getGold());
+    // assert player has less than 4 items after losing 3
+    assertNotEquals(4, world.getUnequip().size());
+    //
   }
 }
