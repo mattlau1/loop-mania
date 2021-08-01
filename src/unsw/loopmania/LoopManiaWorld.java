@@ -257,18 +257,35 @@ public class LoopManiaWorld {
     this.isSeedPresent = true;
   }
 
+  /**
+   * gets the number of cycles between each Heros Castle visit
+   *
+   * @return number of cycles between each Heros Castle visit
+   */
   public int getHeroCastleCycles() {
     return heroCastleCycles;
   }
 
+  /**
+   * adds to the number of cycles between each Heros Castle visit
+   * @param num incrementing number to add to cyckes
+   */
   public void addHeroCastleCycles(int num) {
     heroCastleCycles += num;
   }
 
+  /**
+   * get the next cycle the Hero Castle opens
+   * @return
+   */
   public int getNextHeroCastleCycle() {
     return nextHeroCastleCycle;
   }
 
+  /**
+   * adds to the next cycle the Hero Castle opens
+   * @return
+   */
   public void addNextHeroCastleCycle(int num) {
     nextHeroCastleCycle += num;
   }
@@ -344,6 +361,11 @@ public class LoopManiaWorld {
     addCharacterObservers();
   }
 
+  /**
+   * Adds a card to the world
+   *
+   * @param card the card to be added to the world
+   */
   public void addCard(Card card) {
     cardEntities.add(card);
   }
@@ -477,6 +499,11 @@ public class LoopManiaWorld {
     return pathItems;
   }
 
+  /**
+   * adds an item to the path
+   *
+   * @param item the item to be added to the path
+   */
   public void addPathItems(Item item) {
     pathItems.add(item);
   }
