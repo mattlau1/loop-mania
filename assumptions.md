@@ -39,6 +39,6 @@
 - Zombie has 30 health, deals 10 damage, drops 25 gold and 25 experience
 - Zombie has a 20% chance to convert an allied soldier into a zombie on hit
 - Vampire has 60 health, deals 20 damage, drops 100 exp and 100 gold
-- Thief has 45 health, deals 5 damage, drops 50 gold and 50 experience
+- Thief has 45 health, deals 5 damage, drops 20 gold and 50 experience
 - On hit the Thief deducts 10 gold from the player and one item from their unequiped inventory.
 - Thief spawns at a village at start of every cycle
