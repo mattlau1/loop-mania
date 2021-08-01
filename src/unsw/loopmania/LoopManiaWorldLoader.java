@@ -18,6 +18,7 @@ import unsw.loopmania.Buildings.ElanHouseStrategy;
 import unsw.loopmania.Buildings.HerosCastleStrategy;
 import unsw.loopmania.Buildings.TowerStrategy;
 import unsw.loopmania.Buildings.TrapStrategy;
+import unsw.loopmania.Buildings.TreeStrategy;
 import unsw.loopmania.Buildings.VampireCastleStrategy;
 import unsw.loopmania.Buildings.VillageStrategy;
 import unsw.loopmania.Buildings.ZombiePitStrategy;
@@ -77,6 +78,13 @@ public abstract class LoopManiaWorldLoader {
     // load non-path entities later so that they're shown on-top
     for (int i = 0; i < jsonEntities.length(); i++) {
       loadEntity(world, jsonEntities.getJSONObject(i), orderedPath);
+    }
+
+    JSONArray jsonEntitiesOffPath = json.getJSONArray("decorations");
+
+    // load non-path entities later so that they're shown on-top
+    for (int i = 0; i < jsonEntitiesOffPath.length(); i++) {
+      loadEntityOffPath(world, jsonEntitiesOffPath.getJSONObject(i));
     }
 
     // add pretty print
@@ -165,6 +173,19 @@ public abstract class LoopManiaWorldLoader {
     }
   }
 
+  private void loadEntityOffPath(LoopManiaWorld world, JSONObject currentJson) {
+    String type = currentJson.getString("type");
+    int x = currentJson.getInt("x");
+    int y = currentJson.getInt("y");
+    switch (type) {
+      case "tree":
+        Building tree = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y), new TreeStrategy());
+        onLoad(tree);
+        world.addBuildingToWorld(tree);
+        break;
+    }
+  }
+
   /**
    * load an entity into the world
    *
@@ -228,12 +249,6 @@ public abstract class LoopManiaWorldLoader {
         onLoad(trap);
         world.addBuildingToWorld(trap);
         break;
-      case "campfire":
-        Building campfire = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y),
-            new CampfireStrategy());
-        onLoad(campfire);
-        world.addBuildingToWorld(campfire);
-        break;
       case "doggie_house":
         Building doggiehouse = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y),
             new DoggieHouseStrategy());
@@ -245,6 +260,11 @@ public abstract class LoopManiaWorldLoader {
             new ElanHouseStrategy());
         onLoad(elanhouse);
         world.addBuildingToWorld(elanhouse);
+        break;
+      case "tree":
+        Building tree = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y), new TreeStrategy());
+        onLoad(tree);
+        world.addBuildingToWorld(tree);
         break;
       case "path_tile":
         throw new RuntimeException("path_tile's aren't valid entities, define the path externally.");
