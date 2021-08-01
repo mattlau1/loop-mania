@@ -413,7 +413,6 @@ public class LoopManiaWorld {
    *
    * @return list of the enemies to be displayed on screen
    */
-
   public List<Enemy> possiblySpawnEnemies() {
     List<Enemy> spawningEnemies = new ArrayList<>();
     Pair<Integer, Integer> randomPos = possiblyGetBasicEnemySpawnPosition();
@@ -540,22 +539,57 @@ public class LoopManiaWorld {
     return Math.pow((c.getX() - e.getX()), 2) + Math.pow((c.getY() - e.getY()), 2) < e.getBattleRange();
   }
 
+  /**
+   * Checks if enemies are in range of each other
+   *
+   * @param e1 enemy 1
+   * @param e2 enemy 2
+   * @return true if in range else false
+   */
   private boolean isInRange(Enemy e1, Enemy e2) {
     return Math.pow((e2.getX() - e1.getX()), 2) + Math.pow((e2.getY() - e1.getY()), 2) < e1.getBattleRange();
   }
 
+  /**
+   * Checks if character is in enemy's support range
+   *
+   * @param e enemy
+   * @param c world character
+   * @return true if in range else false
+   */
   private boolean isInSuppRange(Enemy e, Character c) {
     return Math.pow((c.getX() - e.getX()), 2) + Math.pow((c.getY() - e.getY()), 2) < e.getSupportRange();
   }
 
+  /**
+   * Checks if character is in range of building
+   *
+   * @param b building
+   * @param c character
+   * @return true if in range else false
+   */
   private boolean isInRange(Building b, Character c) {
     return Math.pow((c.getX() - b.getX()), 2) + Math.pow((c.getY() - b.getY()), 2) < b.getRange();
   }
 
+  /**
+   * Checks if character is in range of building
+   *
+   * @param i item
+   * @param c character
+   * @return true if in range else false
+   */
   private boolean isInRange(Item i, Character c) {
     return Math.pow((c.getX() - i.getX()), 2) + Math.pow((c.getY() - i.getY()), 2) < i.getRange();
   }
 
+  /**
+   * Checks if enemy is in range of building
+   *
+   * @param b building
+   * @param e enemy
+   * @return true if in range else false
+   */
   private boolean isInRange(Building b, Enemy e) {
     return Math.pow((e.getX() - b.getX()), 2) + Math.pow((e.getY() - b.getY()), 2) < b.getRange();
   }
@@ -593,6 +627,11 @@ public class LoopManiaWorld {
     return false;
   }
 
+  /**
+   * Gets the status of the game
+   *
+   * @return won if game is won, lost if game is lost else playing
+   */
   public String getGameStatus() {
     if (isGameWon)
       return "Won";
@@ -1034,19 +1073,37 @@ public class LoopManiaWorld {
     return card;
   }
 
+  /**
+   * Gives character destroyed card exp and gold
+   */
   public void destroyCard() {
     character.addEXP(destroyedCardExp);
     character.addGold(destroyedCardGold);
   }
 
+  /**
+   * Checks if card has been destroyed
+   *
+   * @return true if card has been destroyed else false
+   */
   public boolean getCardDestroyed() {
     return cardDestroyed;
   }
 
+  /**
+   * Gets cards entities in world
+   *
+   * @return card entities in world
+   */
   public List<Card> getCards() {
     return cardEntities;
   }
 
+  /**
+   * Adds enemy to world
+   *
+   * @param enemy enemy to add to world
+   */
   public void addEnemy(Enemy enemy) {
     enemies.add(enemy);
   }
@@ -1291,6 +1348,11 @@ public class LoopManiaWorld {
     equippedInventoryItems.add(item);
   }
 
+  /**
+   * Gets all building entities in world
+   *
+   * @return all building entities in world
+   */
   public List<Building> getBuildings() {
     return buildingEntities;
   }
@@ -1421,6 +1483,12 @@ public class LoopManiaWorld {
     return null;
   }
 
+  /**
+   * Checks if a tile is adjacent to a path
+   *
+   * @param x x coordinate of tile
+   * @param y y coordinate of tile
+   */
   public boolean isNeighbourPath(int x, int y) {
     for (Pair<Integer, Integer> path : orderedPath) {
       if ((x + 1) == path.getValue0() && (y) == path.getValue1())
