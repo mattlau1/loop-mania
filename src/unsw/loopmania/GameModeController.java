@@ -21,6 +21,9 @@ public class GameModeController {
   @FXML
   Button backButton;
 
+  /**
+   * called when controller is initialised, sets the button hover effects
+   */
   @FXML
   private void initialize() {
     setButtonHoverEffects();
@@ -111,6 +114,9 @@ public class GameModeController {
     menuSwitcher.switchMenu();
   }
 
+  /**
+   * Set the button hover effects
+   */
   private void setButtonHoverEffects() {
     backButton.setStyle("-fx-background-color:transparent;");
 

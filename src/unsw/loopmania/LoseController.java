@@ -25,13 +25,16 @@ public class LoseController {
   @FXML
   Button mainMenuButton;
 
+  /**
+   * called when controller is initialised, sets the button hover effects
+   */
   @FXML
   private void initialize() {
     setButtonHoverEffects();
   }
 
   /**
-   * facilitates switching to main game
+   * facilitates switching to main menu
    *
    */
   public void setMainMenuSwitcher(MenuSwitcher gameSwitcher) {
@@ -39,7 +42,7 @@ public class LoseController {
   }
 
   /**
-   * facilitates switching to map selection upon button click
+   * facilitates switching to main menu upon button click
    *
    * @throws IOException
    */
@@ -48,6 +51,9 @@ public class LoseController {
     mainMenuSwitcher.switchMenu();
   }
 
+  /**
+   * Sets the button hover effects
+   */
   private void setButtonHoverEffects() {
     exitButton.setStyle("-fx-background-color:transparent;");
 

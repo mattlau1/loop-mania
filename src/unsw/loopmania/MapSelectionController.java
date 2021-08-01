@@ -29,6 +29,9 @@ public class MapSelectionController {
   @FXML
   Button wasteMapButton;
 
+  /**
+   * called when controller is initialised, sets the button hover effects
+   */
   @FXML
   private void initialize() {
     setButtonHoverEffects();
@@ -102,6 +105,9 @@ public class MapSelectionController {
     gameModeSwitcher.switchMenu();
   }
 
+  /**
+   * Sets the button hover effects
+   */
   private void setButtonHoverEffects() {
     backButton.setStyle("-fx-background-color:transparent;");
 
