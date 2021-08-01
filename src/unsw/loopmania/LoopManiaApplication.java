@@ -39,7 +39,7 @@ public class LoopManiaApplication extends Application {
     LoopManiaWorldControllerLoader loopManiaLoaderGrass = new LoopManiaWorldControllerLoader(
         "world_with_twists_and_turns.json", "images");
     mainControllerGrass = loopManiaLoaderGrass.loadController();
-    mainControllerGrass.setGoal("Defeat all boses and get 5000 gold");
+    mainControllerGrass.setGoal("Defeat all bosses and get 5000 gold");
     FXMLLoader gameLoaderGrass = new FXMLLoader(getClass().getResource("LoopManiaView.fxml"));
     gameLoaderGrass.setController(mainControllerGrass);
     Parent gameRootGrass = gameLoaderGrass.load();
