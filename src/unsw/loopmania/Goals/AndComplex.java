@@ -15,6 +15,7 @@ public class AndComplex extends ComplexGoal {
       child.updateValue(quantitiy, goalType);
   }
 
+  @Override
   public String getValue() {
     StringBuilder result = new StringBuilder();
     result.append("(");

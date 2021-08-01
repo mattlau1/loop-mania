@@ -84,26 +84,45 @@ public class SimpleGoal implements ComplexNode {
     return false;
   }
 
-  public ComplexNode add(ComplexNode expression) {
-    return this;
-  }
-
+  /**
+   * Returns the completion status of the goal
+   */
   public boolean evaluate() {
     return value;
   }
 
+  /**
+   * Checks if goal is a gold goal
+   *
+   * @return true if gold goal else false
+   */
   public boolean isGoldGoal() {
     return getGoalType().equals(Goal.GOLD_GOAL);
   }
 
+  /**
+   * Checks if goal is a experience goal
+   *
+   * @return true if experience goal else false
+   */
   public boolean isExperienceGoal() {
     return getGoalType().equals(Goal.EXPERIENCE_GOAL);
   }
 
+  /**
+   * Checks if goal is a cycle goal
+   *
+   * @return true if cycle goal else false
+   */
   public boolean isCycleGoal() {
     return getGoalType().equals(Goal.CYCLE_GOAL);
   }
 
+  /**
+   * Checks if goal is a boss goal
+   *
+   * @return true if boss goal else false
+   */
   public boolean isBossGoal() {
     return getGoalType().equals(Goal.BOSS_GOAL);
   }
@@ -111,7 +130,7 @@ public class SimpleGoal implements ComplexNode {
   /**
    * Update the goal status as completed once the requirement has been met
    *
-   * @param amount   the quantity needed to complete a particualr goal
+   * @param amount   the quantity needed to complete a particular goal
    * @param goalType to compare the quantity with its matching goal type
    */
   public void updateValue(int amount, String goalType) {
@@ -121,7 +140,7 @@ public class SimpleGoal implements ComplexNode {
 
   }
 
-  // TESTING PURPOSES REMOVE THIS SOON
+  @Override
   public String getValue() {
     if (goalType.equals(Goal.EXPERIENCE_GOAL)) {
       return ("obtaining " + quantity + " experience points");

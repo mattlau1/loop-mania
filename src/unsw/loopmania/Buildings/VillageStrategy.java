@@ -25,11 +25,12 @@ public class VillageStrategy implements BuildingStrategy {
   @Override
   public void useBuilding(Character character) {
     character.addHealth(healAmount);
-    try{healSound();}
-    catch(Exception exception) {}
+    try {
+      healSound();
+    } catch (Exception exception) {
+    }
     double newHealth = character.getHealth() + healAmount;
     character.setHealth(newHealth <= character.getMaxHealth() ? newHealth : character.getMaxHealth());
-    healSound();
   }
 
   @Override

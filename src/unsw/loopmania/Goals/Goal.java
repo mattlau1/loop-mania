@@ -184,31 +184,4 @@ public class Goal {
       g.updateValue(value, goalType);
     }
   }
-
-  // ~~~~~~~~~~~~~~~~~~ DELETE BELOW AT THE END ~~~~~~~~~~~~~~~~~~~~~
-  // TESTING PURPOSES
-  public static String prettyPrintComplex(ComplexNode expression) {
-    // Pretty print the expression
-    return expression.getValue();
-  }
-
-  // TESTING PURPOSES
-  public void printComplexGoals() {
-    for (ComplexGoal g : complexGoals) {
-      System.out.println(prettyPrintComplex(g));
-    }
-  }
-
-  // TESTING PURPOSES
-  public String prettyPrintSimple(SimpleGoal simpleGoal) {
-    return simpleGoal.getValue();
-  }
-
-  // TESTING PURPOSES
-  public void printSimpleGoal() {
-    for (SimpleGoal s : simpleGoals) {
-      System.out.println(prettyPrintComplex(s));
-    }
-  }
-
 }
