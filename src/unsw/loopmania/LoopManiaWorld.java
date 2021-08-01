@@ -978,7 +978,6 @@ public class LoopManiaWorld {
 
     // now we insert the new sword, as we know we have at least made a slot
     // available...
-
     Item item = new Item(new SimpleIntegerProperty(firstAvailableSlot.getValue0()),
         new SimpleIntegerProperty(firstAvailableSlot.getValue1()), randStrat);
     unequippedInventoryItems.add(item);

@@ -212,20 +212,25 @@ public class ItemTest {
 
   @Test
   public void testAddingUnequippedItem() {
-        // test that specific item will spawn from certain rarity categories.
-    
-    // set up that will spawn super rarity item
+    // testing by adding another unequip item after it is full
     TestSetupWithSeed setup = new TestSetupWithSeed();
-    LoopManiaWorld world = setup.makeTestWorld(37);
+    LoopManiaWorld world = setup.makeTestWorld(78);
     Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
     world.setCharacter(testChar);
     // generate item
     world.generateItemDrops();
-    // spawn high rare item
-    // ItemStrategy item = world.randomItemStrategy();
-    // assertEquals(true, item instanceof HealthPotionStrategy);
-    // Item item = world.addUnequippedItem();
-    // System.out.println(item);
+    // no items has been added into unequip yet
+    assertEquals(0, world.getUnequip().size());
+    // populate the inventory 
+    for (int i = 0; i < 16; i++) {
+      world.addUnequippedItem();
+    }
+    // check the unequip is filled
+    assertEquals(16, world.getUnequip().size());
+    // adding equip item even though its already full
+    world.addUnequippedItem();
+    // no overflow after adding item to full inventory
+    assertEquals(16, world.getUnequip().size());
 
   }
 
