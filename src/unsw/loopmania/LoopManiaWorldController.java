@@ -260,6 +260,10 @@ public class LoopManiaWorldController {
     gridPaneNodeSetOnDragExited = new EnumMap<DRAGGABLE_TYPE, EventHandler<DragEvent>>(DRAGGABLE_TYPE.class);
   }
 
+  public String getImgLoc() {
+    return imgLoc;
+  }
+
   public void setDifficulty(String difficulty) {
     world.setDifficulty(difficulty);
   }
@@ -284,6 +288,7 @@ public class LoopManiaWorldController {
       shopPane = loader.load();
       shopController = loader.getController();
       shopController.setWorldController(this);
+      shopController.setImages();
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
