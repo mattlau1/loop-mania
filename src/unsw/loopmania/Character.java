@@ -49,7 +49,9 @@ public class Character extends MovingEntity {
   }
 
   public void reduceGold(int gold) {
-    goldProperty.set(goldProperty.get() - gold);
+    int newGold = getGold() - gold;
+    setGold(newGold >= 0 ? newGold : 0);
+
   }
 
   public void setStunned(boolean isStunned) {
