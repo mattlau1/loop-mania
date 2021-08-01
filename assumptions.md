@@ -18,7 +18,7 @@
 - A critical bite from a vampire causes the next 1-3 attacks to deal an additional 5-10 damage
 - One scrap drops from each monster defeated, which can be used to craft items at the Hero's castle
 - Rare items and potions cannot be crafted
-- The Barracks will only produce ally soliders if the Character has 3 or less soliders.
+- The Barracks will only produce ally soliders if the Character has 2 or less soliders.
 - Armour costs 130 gold or 13 scrap
 - Health potions cost 200 gold
 - Helmets cost 100 gold or 10 scrap
