@@ -15,7 +15,7 @@ public class TreeStumpStrategy implements ItemStrategy {
   private final double bossDefMultiplier = 0.33;
   private final double critMultiplier = 1;
   private final int range = 0;
-  private final int price = 100;
+  private final int price = 1000;
 
   @Override
   public double getAtkMultiplier(Enemy enemy) {

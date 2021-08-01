@@ -15,7 +15,7 @@ public class AndurilStrategy implements ItemStrategy {
   private final double defMultiplier = 1;
   private final double critMultiplier = 1;
   private final int range = 0;
-  private final int price = 100;
+  private final int price = 1000;
 
   /**
    * Anduril item incresaes damage dealth by Character by a factor of five, against

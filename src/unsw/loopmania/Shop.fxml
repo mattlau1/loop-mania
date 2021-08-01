@@ -47,14 +47,14 @@
                                     <Image url="@../../images/basic_sword.png" />
                                  </image>
                               </ImageView>
-                              <Button fx:id="buySwordButton" alignment="CENTER" mnemonicParsing="false" onAction="#buySword" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                              <Button fx:id="buySwordButton" alignment="CENTER" mnemonicParsing="false" onAction="#buySword" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="120 Gold" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                                  <font>
-                                    <Font size="8.0" />
+                                    <Font size="9.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="buyStakeButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyStake" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                              <Button fx:id="buyStakeButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyStake" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="20 Gold" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                                  <font>
-                                    <Font size="8.0" />
+                                    <Font size="9.0" />
                                  </font>
                               </Button>
                               <ImageView fx:id="stakeBuyShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
@@ -67,9 +67,9 @@
                                     <Image url="@../../images/staff.png" />
                                  </image>
                               </ImageView>
-                              <Button fx:id="buyStaffButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyStaff" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                              <Button fx:id="buyStaffButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyStaff" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="60 Gold" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                                  <font>
-                                    <Font size="8.0" />
+                                    <Font size="9.0" />
                                  </font>
                               </Button>
                               <ImageView fx:id="helmetBuyShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
@@ -77,9 +77,9 @@
                                     <Image url="@../../images/helmet.png" />
                                  </image>
                               </ImageView>
-                              <Button fx:id="buyHelmetButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyHelmet" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                              <Button fx:id="buyHelmetButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyHelmet" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="100 Gold" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                                  <font>
-                                    <Font size="8.0" />
+                                    <Font size="9.0" />
                                  </font>
                               </Button>
                               <ImageView fx:id="armourBuyShopImage" fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
@@ -87,9 +87,9 @@
                                     <Image url="@../../images/armour.png" />
                                  </image>
                               </ImageView>
-                              <Button fx:id="buyArmourButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyArmour" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                              <Button fx:id="buyArmourButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyArmour" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="130 Gold" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                                  <font>
-                                    <Font size="8.0" />
+                                    <Font size="9.0" />
                                  </font>
                               </Button>
                               <ImageView fx:id="shieldBuyShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
@@ -97,9 +97,9 @@
                                     <Image url="@../../images/shield.png" />
                                  </image>
                               </ImageView>
-                              <Button fx:id="buyShieldButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyShield" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                              <Button fx:id="buyShieldButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyShield" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="80 Gold" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                                  <font>
-                                    <Font size="8.0" />
+                                    <Font size="9.0" />
                                  </font>
                               </Button>
                               <ImageView fx:id="potionBuyShopImage" fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="4">
@@ -107,9 +107,9 @@
                                     <Image url="@../../images/brilliant_blue_new.png" />
                                  </image>
                               </ImageView>
-                              <Button fx:id="buyPotionButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyPotion" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+                              <Button fx:id="buyPotionButton" alignment="CENTER" mnemonicParsing="false" onAction="#buyPotion" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="200 Gold" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                                  <font>
-                                    <Font size="8.0" />
+                                    <Font size="9.0" />
                                  </font>
                               </Button>
                            </children>
@@ -248,14 +248,14 @@
                                           <Image url="@../../images/basic_sword.png" />
                                        </image>
                                     </ImageView>
-                                    <Button fx:id="sellSwordButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellSword" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                    <Button fx:id="sellSwordButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellSword" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="60 Gold" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                                        <font>
-                                          <Font size="8.0" />
+                                          <Font size="9.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="sellStakeButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellStake" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                    <Button fx:id="sellStakeButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellStake" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="10 Gold" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                                        <font>
-                                          <Font size="8.0" />
+                                          <Font size="9.0" />
                                        </font>
                                     </Button>
                                     <ImageView fx:id="stakeSellShopImage" fitHeight="34.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
@@ -268,9 +268,9 @@
                                           <Image url="@../../images/staff.png" />
                                        </image>
                                     </ImageView>
-                                    <Button fx:id="sellStaffButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellStaff" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                    <Button fx:id="sellStaffButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellStaff" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="30 Gold" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                                        <font>
-                                          <Font size="8.0" />
+                                          <Font size="9.0" />
                                        </font>
                                     </Button>
                                     <ImageView fx:id="helmetSellShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
@@ -278,9 +278,9 @@
                                           <Image url="@../../images/helmet.png" />
                                        </image>
                                     </ImageView>
-                                    <Button fx:id="sellHelmetButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellHelmet" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                                    <Button fx:id="sellHelmetButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellHelmet" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="50 Gold" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                                        <font>
-                                          <Font size="8.0" />
+                                          <Font size="9.0" />
                                        </font>
                                     </Button>
                                     <ImageView fx:id="armourSellShopImage" fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
@@ -288,9 +288,9 @@
                                           <Image url="@../../images/armour.png" />
                                        </image>
                                     </ImageView>
-                                    <Button fx:id="sellArmourButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellArmour" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                                    <Button fx:id="sellArmourButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellArmour" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="130 Gold" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                                        <font>
-                                          <Font size="8.0" />
+                                          <Font size="9.0" />
                                        </font>
                                     </Button>
                                     <ImageView fx:id="shieldSellShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
@@ -298,9 +298,9 @@
                                           <Image url="@../../images/shield.png" />
                                        </image>
                                     </ImageView>
-                                    <Button fx:id="sellShieldButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellShield" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                    <Button fx:id="sellShieldButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellShield" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="40 Gold" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                                        <font>
-                                          <Font size="8.0" />
+                                          <Font size="9.0" />
                                        </font>
                                     </Button>
                                     <ImageView fx:id="treeStumpSellShopImage" fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="4">
@@ -310,7 +310,7 @@
                                     </ImageView>
                                     <Button fx:id="sellTreeStumpButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellTreeStump" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                                        <font>
-                                          <Font size="8.0" />
+                                          <Font size="9.0" />
                                        </font>
                                     </Button>
                                     <ImageView fx:id="theOneRingSellShopImage" fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
@@ -325,12 +325,12 @@
                                     </ImageView>
                                     <Button fx:id="sellTheOneRingButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellTheOneRing" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                                        <font>
-                                          <Font size="8.0" />
+                                          <Font size="9.0" />
                                        </font>
                                     </Button>
                                     <Button fx:id="sellAndurilButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellAnduril" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                                        <font>
-                                          <Font size="8.0" />
+                                          <Font size="9.0" />
                                        </font>
                                     </Button>
                                     <ImageView fx:id="doggieCoinSellShopImage" fitHeight="30.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
@@ -340,7 +340,7 @@
                                     </ImageView>
                                     <Button fx:id="sellDoggieCoinButton" alignment="CENTER" mnemonicParsing="false" onAction="#sellDoggieCoin" prefHeight="25.0" prefWidth="36.0" style="-fx-padding: 4px 0px 4px 0px;" text="500 Gold" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                                        <font>
-                                          <Font size="8.0" />
+                                          <Font size="9.0" />
                                        </font>
                                     </Button>
                                  </children>
