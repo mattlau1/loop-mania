@@ -73,7 +73,7 @@ public class ZombiePitStrategy implements BuildingStrategy {
    * sound effect for zombie spawn
    */
   public void zombieSound() {
-    String path = "src/audio/zombie.mp3";
+    String path = "src/audio/zombie.wav";
     Media music = new Media(Paths.get(path).toUri().toString());
     zombieSound = new MediaPlayer(music);
     zombieSound.setVolume(0.3);
