@@ -42,6 +42,7 @@ import unsw.loopmania.Enemies.DoggieEnemy;
 import unsw.loopmania.Enemies.ElanEnemy;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SlugEnemy;
+import unsw.loopmania.Enemies.ThiefEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
 import unsw.loopmania.Goals.BossObserver;
 import unsw.loopmania.Goals.CycleObserver;
@@ -535,11 +536,12 @@ public class LoopManiaWorld {
   }
 
   public String getGameStatus() {
-    if (isGameWon) return "Won";
-    if (isGameLost) return "Lost";
+    if (isGameWon)
+      return "Won";
+    if (isGameLost)
+      return "Lost";
     return "Playing";
   }
-
 
   /**
    * Use the item on the character outside the combat
@@ -872,7 +874,7 @@ public class LoopManiaWorld {
     List<Enemy> battlingEnemies = getBattlingEnemies();
     isGameLost();
     // if (isGameLost()) {
-    //   System.exit(0);
+    // System.exit(0);
     // }
 
     // we have three types of buildings:
@@ -891,6 +893,15 @@ public class LoopManiaWorld {
         useBuildingsOnEntitiesInCombat(enemy);
         triggerOnHitEffects(enemy);
 
+        if (enemy.canStealFromCharacter()) {
+          Random random = new Random();
+          if (isSeedPresent) {
+            random.setSeed(seed);
+          }
+          int randomItemIndex = random.nextInt(unequippedInventoryItems.size() - 1);
+          removeItemByPositionInUnequippedInventoryItems(randomItemIndex);
+          character.reduceGold(ThiefEnemy.STEAL_AMOUNT);
+        }
         // if enemy is able to stun, randomly stun character if unlucky
         if (enemy.canStunCharacter())
           possiblyStunCharacter();

@@ -10,6 +10,7 @@ import javafx.scene.media.MediaPlayer;
 import unsw.loopmania.Character;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.Enemy;
+import unsw.loopmania.Enemies.ThiefEnemy;
 
 public class VillageStrategy implements BuildingStrategy {
   private final int range = 1;
@@ -24,6 +25,8 @@ public class VillageStrategy implements BuildingStrategy {
   @Override
   public void useBuilding(Character character) {
     character.addHealth(healAmount);
+    double newHealth = character.getHealth() + healAmount;
+    character.setHealth(newHealth <= character.getMaxHealth() ? newHealth : character.getMaxHealth());
     healSound();
   }
 
@@ -46,12 +49,12 @@ public class VillageStrategy implements BuildingStrategy {
 
   @Override
   public boolean canSpawnEnemy(Character character) {
-    return false;
+    return true;
   }
 
   @Override
   public Enemy spawnEnemy(PathPosition position) {
-    return null;
+    return new ThiefEnemy(position);
   }
 
   @Override
@@ -78,7 +81,7 @@ public class VillageStrategy implements BuildingStrategy {
     healSound = new MediaPlayer(music);
     healSound.setVolume(0.3);
     healSound.play();
-    
+
   }
 
 }

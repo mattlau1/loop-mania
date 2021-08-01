@@ -491,8 +491,8 @@ public class LoopManiaWorldController {
   }
 
   /**
-   * buys an item from the shop, deducts gold from the charcter, if character
-   * does not have enough gold, item is set to null
+   * buys an item from the shop, deducts gold from the charcter, if character does
+   * not have enough gold, item is set to null
    *
    * @param strat item strategy of the item to be bought
    */
@@ -508,9 +508,9 @@ public class LoopManiaWorldController {
   }
 
   /**
-<<<<<<< src/unsw/loopmania/LoopManiaWorldController.java
-   * crafts an item from the shop, deducts scrap metal from the charcter, if character
-   * does not have enough scrap metal, item is set to null
+   * <<<<<<< src/unsw/loopmania/LoopManiaWorldController.java crafts an item from
+   * the shop, deducts scrap metal from the charcter, if character does not have
+   * enough scrap metal, item is set to null
    *
    * @param strat item strategy of the item to be crafted
    */
@@ -525,8 +525,8 @@ public class LoopManiaWorldController {
   }
 
   /**
-   * sells an item from the shop, adds gold to the charcter, if character
-   * does not have the item, nothing happens
+   * sells an item from the shop, adds gold to the charcter, if character does not
+   * have the item, nothing happens
    *
    * @param strat item strategy of the item to be sold
    */
