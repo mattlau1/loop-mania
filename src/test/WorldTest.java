@@ -68,8 +68,8 @@ public class WorldTest {
                 new CampfireCardStrategy());
         world.addCard(testCard);
         // test that isNeighbourPath returns the expected values for 1,1 and 2,2
-        assertEquals(false, world.isNeighbourPath(1, 1));
-        assertEquals(false, world.isNeighbourPath(2, 2));
+        assertEquals(true, world.isNeighbourPath(1, 1));
+        assertEquals(true, world.isNeighbourPath(2, 2));
         // convert card to building
         Building testBuilding = world.convertCardToBuildingByCoordinates(testCard.getX(), testCard.getY(), 1, 1);
         if (testBuilding == null) {
@@ -85,4 +85,28 @@ public class WorldTest {
         assertEquals(0, world.getCards().size());
     }
 
+    @Test
+    public void testCardOnPath() {
+        // test behaviour of cardtobuilding when a card on path
+        TestSetup setup = new TestSetup();
+        LoopManiaWorld world = setup.makeTestWorld();
+        // create card
+        Card testCard = new Card(new SimpleIntegerProperty(0), new SimpleIntegerProperty(0), new VillageCardStrategy());
+        world.addCard(testCard);
+        // test that isNeighbourPath returns the expected values for 1,1 and 2,2
+        assertEquals(true, world.isNeighbourPath(1, 1));
+        assertEquals(true, world.isNeighbourPath(2, 2));
+        // convert card to building on path
+        Building testBuilding = world.convertCardToBuildingByCoordinates(testCard.getX(), testCard.getY(), 1, 1);
+        assertEquals(null, testBuilding);
+        // convert card to building off path
+        testBuilding = world.convertCardToBuildingByCoordinates(testCard.getX(), testCard.getY(), 2, 2);
+        assertNotEquals(null, testBuilding);
+        // get list of buildings after card is used
+        List<Building> buildingList = world.getBuildings();
+        // assert second building list is greater than the first by 1
+        assertEquals(1, buildingList.size());
+        // assert there are no cards left
+        assertEquals(0, world.getCards().size());
+    }
 }
