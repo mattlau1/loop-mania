@@ -1448,6 +1448,23 @@ public class LoopManiaWorld {
   }
 
   /**
+   * craft an item from the shop, deducts scrap metal from the charcter, if character does
+   * not have enuough scrap metal, item is set to null
+   *
+   * @param strat item strategy of the item to be crafted
+   * @return the item to be crafted, null if character has insufficient scrap metal
+   */
+  public Item craftItem(ItemStrategy strat) {
+    Item newItem = null;
+    int balance = character.getScrapMetal();
+    if (balance - (strat.getPrice()/10) >= 0) {
+      character.deductScrapMetal(strat.getPrice()/10);
+      newItem = addSpecificUnequippedItem(strat);
+    }
+    return newItem;
+  }
+
+  /**
    * sells an item from the inventory, adds gold to the charcter, if character
    * does not have the item, nothing happens
    *

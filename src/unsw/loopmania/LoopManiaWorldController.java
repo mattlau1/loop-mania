@@ -408,7 +408,7 @@ public class LoopManiaWorldController {
 
   /**
    * buys an item from the shop, deducts gold from the charcter, if character
-   * does not have enuough gold, item is set to null
+   * does not have enough gold, item is set to null
    *
    * @param strat item strategy of the item to be bought
    */
@@ -419,6 +419,22 @@ public class LoopManiaWorldController {
       shopController.setBuyErrorMessage("");
     } else {
       shopController.setBuyErrorMessage("Cannot afford item");
+    }
+  }
+
+  /**
+   * crafts an item from the shop, deducts scrap metal from the charcter, if character
+   * does not have enough scrap metal, item is set to null
+   *
+   * @param strat item strategy of the item to be crafted
+   */
+  public void craftItem(ItemStrategy strat) {
+    Item item = world.craftItem(strat);
+    if (item != null) {
+      onLoad(item);
+      shopController.setCraftErrorMessage("");
+    } else {
+      shopController.setCraftErrorMessage("You do not have enough scrap metal");
     }
   }
 

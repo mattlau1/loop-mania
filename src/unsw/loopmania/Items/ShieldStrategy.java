@@ -14,7 +14,7 @@ public class ShieldStrategy implements ItemStrategy {
   private final double defMultiplier = 1;
   private final double critMultiplier = 0.4;
   private final int range = 0;
-  private final int price = 100;
+  private final int price = 80;
 
   @Override
   public double getAtkMultiplier(Enemy enemy) {
