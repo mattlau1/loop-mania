@@ -263,10 +263,21 @@ public class LoopManiaWorldController {
     gridPaneNodeSetOnDragExited = new EnumMap<DRAGGABLE_TYPE, EventHandler<DragEvent>>(DRAGGABLE_TYPE.class);
   }
 
+  /**
+   * gets the image locations for game sprites
+   *
+   * @return image locations for game sprites
+   */
   public String getImgLoc() {
     return imgLoc;
   }
 
+  /**
+   * sets the difficulty of the world
+   *
+   * @param difficulty the difficulty of the world (standard, survival, berserker
+   *   confusing)
+   */
   public void setDifficulty(String difficulty) {
     world.setDifficulty(difficulty);
   }
@@ -334,6 +345,10 @@ public class LoopManiaWorldController {
     scrapMetal.textProperty().bind(Bindings.convert(worldCharacter.getScrapMetalProperty()));
   }
 
+  /**
+   * handles exiting the shop in the front end
+   * @throws IOException
+   */
   public void exitShop() throws IOException {
     shopController.setBuyErrorMessage("");
     shopController.setSellErrorMessage("");
@@ -342,6 +357,11 @@ public class LoopManiaWorldController {
     startTimer();
   }
 
+  /**
+   * gets the game world
+   *
+   * @return the game world
+   */
   public LoopManiaWorld getWorld() {
     return world;
   }
@@ -405,10 +425,19 @@ public class LoopManiaWorldController {
     timeline.play();
   }
 
+  /**
+   * sets the goal for the world
+   *
+   * @param goal the goal for the world
+   */
   public void setGoal(String goal) {
     this.goal = goal;
   }
 
+  /**
+   * handles loading an ally soldier into the UI
+   *
+   */
   private void loadAllySoliders() {
     int numAllies = world.getCharacter().getSoldiers().size();
     if (numAllies == 0) {
@@ -430,6 +459,10 @@ public class LoopManiaWorldController {
     }
   }
 
+  /**
+   * handles opening the Heros Castle in the UI/frontend
+   *
+   */
   public void openHerosCastle() {
     if (world.getCharacter().getCycleCount() == world.getNextHeroCastleCycle()) {
       pause();
