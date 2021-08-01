@@ -12,8 +12,11 @@ import javafx.scene.input.MouseEvent;
  * a settings menu, or a menu to load particular maps.
  */
 public class GameModeController {
-  private MenuSwitcher mapSelectionSwitcher;
-  private MenuSwitcher gameSwitcher;
+  private MenuSwitcher menuSwitcher;
+  private MenuSwitcher mapSelectionStandardSwitcher;
+  private MenuSwitcher mapSelectionSurvivalSwitcher;
+  private MenuSwitcher mapSelectionBerserkerSwitcher;
+  private MenuSwitcher mapSelectionConfusingSwitcher;
 
   @FXML
   Button backButton;
@@ -30,27 +33,75 @@ public class GameModeController {
   }
 
   /**
-   * facilitates switching to main game
+   * facilitates switching to map selection
    */
-  public void setGameSwitcher(MenuSwitcher gameSwitcher) {
-    this.gameSwitcher = gameSwitcher;
+  public void setMapSelectionStandardSwitcher(MenuSwitcher gameSwitcher) {
+    this.mapSelectionStandardSwitcher = gameSwitcher;
   }
 
   /**
-   * facilitates switching to main game upon button click
+   * facilitates switching to map selection upon button click
    *
    * @throws IOException
    */
   @FXML
-  private void switchToGame() throws IOException {
-    gameSwitcher.switchMenu();
+  private void switchToMapSelectionStandard() throws IOException {
+    mapSelectionStandardSwitcher.switchMenu();
+  }
+  /**
+   * facilitates switching to map selection
+   */
+  public void setMapSelectionSurvivalSwitcher(MenuSwitcher gameSwitcher) {
+    this.mapSelectionSurvivalSwitcher = gameSwitcher;
+  }
+
+  /**
+   * facilitates switching to map selection upon button click
+   *
+   * @throws IOException
+   */
+  @FXML
+  private void switchToMapSelectionSurvival() throws IOException {
+    mapSelectionSurvivalSwitcher.switchMenu();
+  }
+  /**
+   * facilitates switching to map selection
+   */
+  public void setMapSelectionBerserkerSwitcher(MenuSwitcher gameSwitcher) {
+    this.mapSelectionBerserkerSwitcher = gameSwitcher;
+  }
+
+  /**
+   * facilitates switching to map selection upon button click
+   *
+   * @throws IOException
+   */
+  @FXML
+  private void switchToMapSelectionBerserker() throws IOException {
+    mapSelectionBerserkerSwitcher.switchMenu();
+  }
+  /**
+   * facilitates switching to map selection
+   */
+  public void setMapSelectionConfusingSwitcher(MenuSwitcher gameSwitcher) {
+    this.mapSelectionConfusingSwitcher = gameSwitcher;
+  }
+
+  /**
+   * facilitates switching to map selection upon button click
+   *
+   * @throws IOException
+   */
+  @FXML
+  private void switchToMapSelectionConfusing() throws IOException {
+    mapSelectionConfusingSwitcher.switchMenu();
   }
 
   /**
    * facilitates switching to main menu
    */
-  public void setMapSelectionSwitcher(MenuSwitcher gameSwitcher) {
-    this.mapSelectionSwitcher = gameSwitcher;
+  public void setMainMenuSwitcher(MenuSwitcher gameSwitcher) {
+    this.menuSwitcher = gameSwitcher;
   }
 
   /**
@@ -59,8 +110,8 @@ public class GameModeController {
    * @throws IOException
    */
   @FXML
-  private void switchToMapSelection() throws IOException {
-    mapSelectionSwitcher.switchMenu();
+  private void switchToMainMenu() throws IOException {
+    menuSwitcher.switchMenu();
   }
 
   private void setButtonHoverEffects() {

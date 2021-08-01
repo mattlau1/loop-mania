@@ -40,7 +40,7 @@ public interface BuildingStrategy {
    *
    * @return building image
    */
-  public ImageView getImage();
+  public ImageView getImage(String imgLoc);
 
   /**
    * Checks if building can spawn enemies, given the current cycle number

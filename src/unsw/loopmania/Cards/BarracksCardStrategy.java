@@ -14,8 +14,8 @@ public class BarracksCardStrategy implements CardStrategy {
    * @return the imageview of the item
    */
   @Override
-  public ImageView getImage() {
-    Image barracksImage = new Image((new File("src/images/barracks_card.png")).toURI().toString());
+  public ImageView getImage(String imgLoc) {
+    Image barracksImage = new Image((new File("src/" + imgLoc + "/barracks_card.png")).toURI().toString());
     ImageView view = new ImageView(barracksImage);
     return view;
   }

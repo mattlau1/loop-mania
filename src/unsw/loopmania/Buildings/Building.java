@@ -54,8 +54,8 @@ public class Building extends StaticEntity implements BuildingStrategy {
    *
    * @return the image of the respective building
    */
-  public ImageView getImage() {
-    return strategy.getImage();
+  public ImageView getImage(String imgLoc) {
+    return strategy.getImage(imgLoc);
   }
 
   /**

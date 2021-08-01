@@ -1,5 +1,6 @@
 package unsw.loopmania;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -7,6 +8,8 @@ import java.util.Random;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import unsw.loopmania.Items.AndurilStrategy;
 import unsw.loopmania.Items.ArmourStrategy;
 import unsw.loopmania.Items.DoggieCoinStrategy;
@@ -127,7 +130,7 @@ public class LoopManiaWorld {
   private boolean isElanDead;
   private final double postElanPriceMultiplier;
   private final int midElanPriceMultiplier;
-
+  private String difficulty;
   /**
    * list of x,y coordinate pairs in the order by which moving entities traverse
    * them
@@ -142,6 +145,10 @@ public class LoopManiaWorld {
   public static final String BERSERKER_MODE = "Berserker";
   public static final String STANDARD_MODE = "Standard";
   public static final String CONFUSING_MODE = "Confusing";
+
+  // music
+  MediaPlayer swingSound;
+  MediaPlayer equippedSound;
 
   /**
    * create the world (constructor)
@@ -191,6 +198,10 @@ public class LoopManiaWorld {
 
   public String getDifficulty() {
     return this.difficulty;
+  }
+
+  public void setDifficulty(String difficulty) {
+    this.difficulty = difficulty;
   }
 
   public int getHeroCastleCycles() {
@@ -442,6 +453,7 @@ public class LoopManiaWorld {
    * @param enemy enemy to be killed
    */
   private void killEnemy(Enemy enemy) {
+    swingSound();
     enemy.destroy();
     enemies.remove(enemy);
   }
@@ -527,7 +539,6 @@ public class LoopManiaWorld {
         i.useItem(character);
         pathItemsToDestroy.add(i);
       }
-
     }
     for (Item item : pathItemsToDestroy) {
       killItem(item);
@@ -828,6 +839,7 @@ public class LoopManiaWorld {
   public void healEnemiesAroundElan() {
     for (Enemy e1 : enemies) {
       if (e1 instanceof ElanEnemy) {
+        isElanAlive = true;
         for (Enemy e2 : enemies) {
           if (isInRange(e1, e2) && !(e2 instanceof ElanEnemy)) {
             e2.addHealth(ElanEnemy.HEAL_AMOUNT);
@@ -863,9 +875,6 @@ public class LoopManiaWorld {
 
     for (Enemy enemy : battlingEnemies) {
       while (enemy.isAlive()) {
-        if (enemy instanceof ElanEnemy) {
-          isElanAlive = true;
-        }
 
         useBuildingsOnEntitiesInCombat(enemy);
         triggerOnHitEffects(enemy);
@@ -1176,6 +1185,7 @@ public class LoopManiaWorld {
    * @param item item to be added
    */
   public void addEquippedInventoryItem(Item item) {
+    equippedSound();
     equippedInventoryItems.add(item);
   }
 
@@ -1493,6 +1503,29 @@ public class LoopManiaWorld {
       return doggieCoin;
     }
     return null;
+  }
+
+  /**
+   * sound effect for battle
+   */
+  public void swingSound() {
+    String path = "src/audio/swing.wav";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    swingSound = new MediaPlayer(music);
+    swingSound.setVolume(0.2);
+    swingSound.play();
+  }
+
+  /**
+   * sound effect for equipping the item on the inventory
+   */
+  public void equippedSound() {
+    String path = "src/audio/equip.wav";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    equippedSound = new MediaPlayer(music);
+    equippedSound.setVolume(0.3);
+    equippedSound.play();
+
   }
 
 }

@@ -12,9 +12,10 @@ import javafx.scene.input.MouseEvent;
  * a settings menu, or a menu to load particular maps.
  */
 public class MapSelectionController {
-  private MenuSwitcher howToPlaySwitcher;
-  private MenuSwitcher menuSwitcher;
   private MenuSwitcher gameModeSwitcher;
+  private MenuSwitcher gameGrassSwitcher;
+  private MenuSwitcher gameJPSwitcher;
+  private MenuSwitcher gameWasteSwitcher;
 
 
   @FXML
@@ -35,20 +36,54 @@ public class MapSelectionController {
   }
 
   /**
-   * facilitates switching to main menu
+   * facilitates switching to main game
    */
-  public void setMainMenuSwitcher(MenuSwitcher gameSwitcher) {
-    this.menuSwitcher = gameSwitcher;
+  public void setGameGrassSwitcher(MenuSwitcher gameSwitcher) {
+    this.gameGrassSwitcher = gameSwitcher;
   }
 
   /**
-   * facilitates switching to main menu upon button click
+   * facilitates switching to main game
+   */
+  public void setGameJPSwitcher(MenuSwitcher gameSwitcher) {
+    this.gameJPSwitcher = gameSwitcher;
+  }
+
+  /**
+   * facilitates switching to main game
+   */
+  public void setGameWasteSwitcher(MenuSwitcher gameSwitcher) {
+    this.gameWasteSwitcher = gameSwitcher;
+  }
+
+  /**
+   * facilitates switching to main game upon button click
    *
    * @throws IOException
    */
   @FXML
-  private void switchToMainMenu() throws IOException {
-    menuSwitcher.switchMenu();
+  private void switchToGameGrass() throws IOException {
+    gameGrassSwitcher.switchMenu();
+  }
+
+  /**
+   * facilitates switching to main game upon button click
+   *
+   * @throws IOException
+   */
+  @FXML
+  private void switchToGameJP() throws IOException {
+    gameJPSwitcher.switchMenu();
+  }
+
+  /**
+   * facilitates switching to main game upon button click
+   *
+   * @throws IOException
+   */
+  @FXML
+  private void switchToGameWaste() throws IOException {
+    gameWasteSwitcher.switchMenu();
   }
 
   /**
@@ -66,23 +101,6 @@ public class MapSelectionController {
   @FXML
   private void switchToGameMode() throws IOException {
     gameModeSwitcher.switchMenu();
-  }
-
-  /**
-   * facilitates switching to how to play
-   */
-  public void setHowToPlaySwitcher(MenuSwitcher gameSwitcher) {
-    this.howToPlaySwitcher = gameSwitcher;
-  }
-
-  /**
-   * facilitates switching to how to play screen upon button click
-   *
-   * @throws IOException
-   */
-  @FXML
-  private void switchToHowToPlay() throws IOException {
-    howToPlaySwitcher.switchMenu();
   }
 
   private void setButtonHoverEffects() {

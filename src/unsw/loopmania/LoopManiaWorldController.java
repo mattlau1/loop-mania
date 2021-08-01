@@ -54,6 +54,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Paths;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * the draggable types. If you add more draggable types, add an enum value here.
@@ -219,17 +223,31 @@ public class LoopManiaWorldController {
    */
   private MenuSwitcher mainMenuSwitcher;
   private MenuSwitcher gameSwitcher;
+  private String imgLoc;
+
+  /**
+   * Music & sound effects
+   */
+  MediaPlayer gameplayMusic;
+  MediaPlayer menuMusic;
+  MediaPlayer buttonClick;
+  MediaPlayer sellSound;
+  MediaPlayer buySound;
+  MediaPlayer pauseSound;
+  private boolean isPlayingGameMusic = false;
+  private boolean isPlayingMenuMusic = false;
 
   /**
    * @param world           world object loaded from file
    * @param initialEntities the initial JavaFX nodes (ImageViews) which should be
    *                        loaded into the GUI
    */
-  public LoopManiaWorldController(LoopManiaWorld world, List<ImageView> initialEntities) {
+  public LoopManiaWorldController(LoopManiaWorld world, List<ImageView> initialEntities, String imgLoc) {
     this.world = world;
     entityImages = new ArrayList<>(initialEntities);
     currentlyDraggedImage = null;
     currentlyDraggedType = null;
+    this.imgLoc = imgLoc;
 
     // initialize them all...
     gridPaneSetOnDragDropped = new EnumMap<DRAGGABLE_TYPE, EventHandler<DragEvent>>(DRAGGABLE_TYPE.class);
@@ -239,13 +257,16 @@ public class LoopManiaWorldController {
     gridPaneNodeSetOnDragExited = new EnumMap<DRAGGABLE_TYPE, EventHandler<DragEvent>>(DRAGGABLE_TYPE.class);
   }
 
+  public void setDifficulty(String difficulty) {
+    world.setDifficulty(difficulty);
+  }
+
   @FXML
   public void initialize() {
-
     Image pathTilesImage = new Image((new File("src/images/32x32GrassAndDirtPath.png")).toURI().toString());
     Image inventorySlotImage = new Image((new File("src/images/empty_slot.png")).toURI().toString());
     Rectangle2D imagePart = new Rectangle2D(0, 0, 32, 32);
-
+    shop = new Pane();
     // Add the ground first so it is below all other entities (inculding all the
     // twists and turns)
     for (int x = 0; x < world.getWidth(); x++) {
@@ -303,8 +324,9 @@ public class LoopManiaWorldController {
   public void exitShop() throws IOException {
     shopController.setBuyErrorMessage("");
     shopController.setSellErrorMessage("");
-    shop.getChildren().remove(shopPane);
-    switchToGame();
+    anchorPaneRoot.getChildren().remove(shopPane);
+    anchorPaneRoot.requestFocus();
+    startTimer();
   }
 
   public LoopManiaWorld getWorld() {
@@ -315,6 +337,17 @@ public class LoopManiaWorldController {
    * create and run the timer
    */
   public void startTimer() {
+
+    if (!isPlayingGameMusic) {
+      // if the game music is not playing after switching scene
+      gameMusic();
+      isPlayingGameMusic = true;
+    }
+
+    // if the menu music is playing after switching scene
+    if (isPlayingMenuMusic)
+      menuMusic.stop();
+
     System.out.println("starting timer");
     isPaused = false;
     // trigger adding code to process main game logic to queue. JavaFX will target
@@ -345,10 +378,11 @@ public class LoopManiaWorldController {
       pause();
       world.addHeroCastleCycles(1);
       world.addNextHeroCastleCycle(world.getHeroCastleCycles());
+      pauseSound();
 
-      shop = anchorPaneRoot;
-      shop.getChildren().remove(shopPane);
-      shop.getChildren().add(shopPane);
+      // shop = anchorPaneRoot;
+      anchorPaneRoot.getChildren().remove(shopPane);
+      anchorPaneRoot.getChildren().add(shopPane);
     }
   }
 
@@ -397,8 +431,8 @@ public class LoopManiaWorldController {
   }
 
   /**
-   * buys an item from the shop, deducts gold from the charcter, if character
-   * does not have enuough gold, item is set to null
+   * buys an item from the shop, deducts gold from the charcter, if character does
+   * not have enuough gold, item is set to null
    *
    * @param strat item strategy of the item to be bought
    */
@@ -407,14 +441,15 @@ public class LoopManiaWorldController {
     if (item != null) {
       onLoad(item);
       shopController.setBuyErrorMessage("");
+      buySound();
     } else {
       shopController.setBuyErrorMessage("Cannot afford item");
     }
   }
 
   /**
-   * sells an item from the shop, adds gold to the charcter, if character
-   * does not have the item, nothing happens
+   * sells an item from the shop, adds gold to the charcter, if character does not
+   * have the item, nothing happens
    *
    * @param strat item strategy of the item to be sold
    */
@@ -423,12 +458,13 @@ public class LoopManiaWorldController {
       shopController.setSellErrorMessage("You do not have this item");
     } else {
       shopController.setSellErrorMessage("");
+      sellSound();
     }
   }
 
   /**
-   * sells an item from the shop, adds gold to the charcter, if character
-   * does not have the item, nothing happens
+   * sells an item from the shop, adds gold to the charcter, if character does not
+   * have the item, nothing happens
    *
    * @param strat item strategy of the item to be sold
    */
@@ -437,6 +473,7 @@ public class LoopManiaWorldController {
       shopController.setSellErrorMessage("You do not have any DoggieCoin");
     } else {
       shopController.setSellErrorMessage("");
+      sellSound();
     }
   }
 
@@ -460,7 +497,7 @@ public class LoopManiaWorldController {
    * @param card
    */
   private void onLoad(Card card) {
-    ImageView view = card.getImage();
+    ImageView view = card.getImage(imgLoc);
 
     // FROM
     // https://stackoverflow.com/questions/41088095/javafx-drag-and-drop-to-gridpane
@@ -479,7 +516,7 @@ public class LoopManiaWorldController {
    * @param sword
    */
   private void onLoad(Item item) {
-    ImageView view = item.getImage();
+    ImageView view = item.getImage(imgLoc);
     addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, unequippedInventory, equippedItems);
     addEntity(item, view);
     unequippedInventory.getChildren().add(view);
@@ -492,7 +529,7 @@ public class LoopManiaWorldController {
    * @param item item to be loaded
    */
   private void onLoadEquipped(Item item) {
-    ImageView view = item.getImage();
+    ImageView view = item.getImage(imgLoc);
     addDragEventHandlers(view, DRAGGABLE_TYPE.ITEM, equippedItems, equippedItems);
     addEntity(item, view);
     equippedItems.getChildren().add(view);
@@ -504,7 +541,7 @@ public class LoopManiaWorldController {
    * @param enemy
    */
   private void onLoadPath(Item item) {
-    ImageView view = item.getImage();
+    ImageView view = item.getImage(imgLoc);
     addEntity(item, view);
     squares.getChildren().add(view);
   }
@@ -515,7 +552,7 @@ public class LoopManiaWorldController {
    * @param enemy
    */
   private void onLoad(Enemy enemy) {
-    ImageView view = enemy.getImage();
+    ImageView view = enemy.getImage(imgLoc);
     addEntity(enemy, view);
     squares.getChildren().add(view);
   }
@@ -526,7 +563,7 @@ public class LoopManiaWorldController {
    * @param building
    */
   private void onLoad(Building building) {
-    ImageView view = building.getImage();
+    ImageView view = building.getImage(imgLoc);
     addEntity(building, view);
 
     world.addBuildingToWorld(building);
@@ -826,6 +863,7 @@ public class LoopManiaWorldController {
           startTimer();
         } else {
           pause();
+          pauseSound();
         }
         break;
       default:
@@ -862,7 +900,20 @@ public class LoopManiaWorldController {
   @FXML
   private void switchToMainMenu() throws IOException {
     pause();
+    // stop the game music
+    changeMusicState();
     mainMenuSwitcher.switchMenu();
+  }
+
+  /**
+   * Change the condition of the music
+   */
+  private void changeMusicState() {
+    gameplayMusic.stop();
+    isPlayingGameMusic = false;
+    isPlayingMenuMusic = true;
+    buttonClickSound();
+    menuMusic();
   }
 
   /**
@@ -948,7 +999,85 @@ public class LoopManiaWorldController {
   private void printThreadingNotes(String currentMethodLabel) {
     // System.out.println("\n###########################################");
     // System.out.println("current method = " + currentMethodLabel);
-    // System.out.println("In application thread? =" + Platform.isFxApplicationThread());
-    // System.out.println("Current system time =" + java.time.LocalDateTime.now().toString().replace('T', ' '));
+    // System.out.println("In application thread? =" +
+    // Platform.isFxApplicationThread());
+    // System.out.println("Current system time =" +
+    // java.time.LocalDateTime.now().toString().replace('T', ' '));
   }
+
+  /**
+   * music for the main menu
+   */
+  public void gameMusic() {
+    String path = "src/audio/MainGameMusic.mp3";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    gameplayMusic = new MediaPlayer(music);
+    gameplayMusic.setOnEndOfMedia(new Runnable() {
+      public void run() {
+        gameplayMusic.seek(Duration.ZERO);
+      }
+    });
+    gameplayMusic.play();
+    gameplayMusic.setVolume(0.05);
+  }
+
+  /**
+   * music for the main menu
+   */
+  public void menuMusic() {
+    String path = "src/audio/MainMenuMusic.mp3";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    menuMusic = new MediaPlayer(music);
+    menuMusic.setOnEndOfMedia(new Runnable() {
+      public void run() {
+        menuMusic.seek(Duration.ZERO);
+      }
+    });
+    menuMusic.play();
+    menuMusic.setVolume(0.1);
+  }
+
+  /**
+   * sound effect for the button clicking
+   */
+  public void buttonClickSound() {
+    String path = "src/audio/buttonClick.wav";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    buttonClick = new MediaPlayer(music);
+    buttonClick.play();
+  }
+
+  /**
+   * sound effect for the selling item
+   */
+  public void sellSound() {
+    String path = "src/audio/coin.wav";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    sellSound = new MediaPlayer(music);
+    sellSound.setVolume(0.1);
+    sellSound.play();
+  }
+
+  /**
+   * sound effect for the selling item
+   */
+  public void buySound() {
+    String path = "src/audio/coin2.wav";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    buySound = new MediaPlayer(music);
+    buySound.setVolume(0.1);
+    buySound.play();
+  }
+
+  /**
+   * sound effect for the pausing screen
+   */
+  public void pauseSound() {
+    String path = "src/audio/pause.mp3";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    pauseSound = new MediaPlayer(music);
+    pauseSound.setVolume(0.35);
+    pauseSound.play();
+  }
+
 }
