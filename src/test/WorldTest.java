@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.css.Size;
@@ -131,5 +132,35 @@ public class WorldTest {
         List<Card> cardListAfter = world.getCards();
         // assert that the ammount of cards hasn't changed
         assertEquals(cardListBefore, cardListAfter);
+    }
+
+    @Test
+    public void testNeighbourPath() {
+        // test that the neighbourPath method returns the coords of an adjacent path
+        TestSetup setup = new TestSetup();
+        LoopManiaWorld world = setup.makeTestWorld();
+        // test for 1,1
+        Pair<Integer, Integer> neighbourPath = world.neighbourPath(1, 1);
+        Pair<Integer, Integer> expected = new Pair<>(1, 0);
+        assertEquals(expected, neighbourPath);
+        // test for 2,2
+        neighbourPath = world.neighbourPath(2, 2);
+        expected = new Pair<>(2, 1);
+        assertEquals(expected, neighbourPath);
+        // test for 0,0
+        neighbourPath = world.neighbourPath(0, 0);
+        expected = new Pair<>(1, 0);
+        assertEquals(expected, neighbourPath);
+        // test for 0,2
+        neighbourPath = world.neighbourPath(0, 2);
+        expected = new Pair<>(1, 2);
+        assertEquals(expected, neighbourPath);
+        // test for 2,0
+        neighbourPath = world.neighbourPath(2, 0);
+        expected = new Pair<>(1, 0);
+        assertEquals(expected, neighbourPath);
+        // test for null
+        neighbourPath = world.neighbourPath(4, 4);
+        assertEquals(null, neighbourPath);
     }
 }
