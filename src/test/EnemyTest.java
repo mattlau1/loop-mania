@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import unsw.loopmania.Character;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
+import unsw.loopmania.Enemies.DoggieEnemy;
 import unsw.loopmania.Enemies.SlugEnemy;
 
 public class EnemyTest {
@@ -54,5 +55,20 @@ public class EnemyTest {
     // check that after killing the slug, the character gained 10 gold and exp
     assertEquals(10, testChar.getGold());
     assertEquals(10, testChar.getExp());
+  }
+
+  @Test
+  public void testCharacterStun() {
+    // test if the doggie is able to stun the character
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(27);
+    // place character and doggie on the same tile so the battle can start
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // add doggie in the world
+    DoggieEnemy doggie = new DoggieEnemy(new PathPosition(1, world.getOrderedPath()));
+    world.addEnemy(doggie);
+    world.possiblyStunCharacter();
+    assertEquals(true, testChar.isStunned());
   }
 }
