@@ -155,4 +155,23 @@ public class ShopTest {
     // check that player has not recieved gold
     assertEquals(0, testChar.getGold());
   }
+
+  @Test
+  public void testCraftingItem() {
+    // testing by crafting an item with sufficient funds
+    TestSetup setup = new TestSetup();
+    LoopManiaWorld world = setup.makeTestWorld();
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    // craft a sword
+    testChar.addScrapMetal(12);
+    world.setCharacter(testChar);
+    Item item = world.craftItem(new SwordStrategy());
+    assertEquals(true, item != null);
+    // craft a sword again but with sufficient funds
+    Item item2 = world.craftItem(new SwordStrategy());
+    // no items returned
+    assertEquals(true, item2 == null);
+
+
+  }
 }
