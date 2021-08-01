@@ -22,6 +22,7 @@ import unsw.loopmania.Items.Item;
 import unsw.loopmania.Items.ItemStrategy;
 import unsw.loopmania.Items.StaffStrategy;
 import unsw.loopmania.Items.StakeStrategy;
+import unsw.loopmania.Items.SwordStrategy;
 import unsw.loopmania.Items.TheOneRingStrategy;
 
 public class ItemTest {
@@ -226,6 +227,8 @@ public class ItemTest {
     world.addUnequippedItem();
     // no overflow after adding item to full inventory
     assertEquals(16, world.getUnequip().size());
+    // add specific item into the unequipped
+    world.addSpecificUnequippedItem(new SwordStrategy());
   }
 
   @Test
