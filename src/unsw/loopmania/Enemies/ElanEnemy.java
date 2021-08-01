@@ -7,10 +7,10 @@ import javafx.scene.image.ImageView;
 import unsw.loopmania.PathPosition;
 
 public class ElanEnemy extends Enemy {
-  private final double health = 1000;
+  private final double health = 225;
   private final int battleRange = 2;
   private final int supportRange = 5;
-  private final double damage = 2;
+  private final double damage = 10;
   private final int expDrop = 400;
   private final int goldDrop = 250;
   private final int critRate = 0;
