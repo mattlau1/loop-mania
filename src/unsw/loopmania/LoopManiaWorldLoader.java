@@ -3,6 +3,7 @@ package unsw.loopmania;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.javatuples.Pair;
 import org.json.JSONArray;
@@ -12,7 +13,6 @@ import org.json.JSONTokener;
 import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Buildings.BarracksStrategy;
 import unsw.loopmania.Buildings.Building;
-import unsw.loopmania.Buildings.CampfireStrategy;
 import unsw.loopmania.Buildings.DoggieHouseStrategy;
 import unsw.loopmania.Buildings.ElanHouseStrategy;
 import unsw.loopmania.Buildings.HerosCastleStrategy;
@@ -23,16 +23,14 @@ import unsw.loopmania.Buildings.TreeStrategy;
 import unsw.loopmania.Buildings.VampireCastleStrategy;
 import unsw.loopmania.Buildings.VillageStrategy;
 import unsw.loopmania.Buildings.ZombiePitStrategy;
-import unsw.loopmania.Goals.Goal;
-import unsw.loopmania.Goals.GoldGoal;
-import unsw.loopmania.Goals.ExperienceGoal;
 import unsw.loopmania.Goals.AndComplex;
 import unsw.loopmania.Goals.BossGoal;
-import unsw.loopmania.Goals.OrComplex;
 import unsw.loopmania.Goals.ComplexGoal;
 import unsw.loopmania.Goals.CycleGoal;
-
-import java.util.List;
+import unsw.loopmania.Goals.ExperienceGoal;
+import unsw.loopmania.Goals.Goal;
+import unsw.loopmania.Goals.GoldGoal;
+import unsw.loopmania.Goals.OrComplex;
 
 /**
  * Loads a world from a .json file.
@@ -47,7 +45,6 @@ import java.util.List;
 public abstract class LoopManiaWorldLoader {
   private JSONObject json;
   private Goal goal;
-  private int bossCount = 2;
 
   public LoopManiaWorldLoader(String filename) throws FileNotFoundException {
     json = new JSONObject(new JSONTokener(new FileReader("worlds/" + filename)));

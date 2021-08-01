@@ -18,12 +18,6 @@ public class HowToPlayController {
   @FXML
   Button backButton;
 
-  // @FXML
-  // Button howToPlayButton;
-
-  // @FXML
-  // Button startGameButton;
-
   @FXML
   private void initialize() {
     setButtonHoverEffects();
@@ -52,7 +46,6 @@ public class HowToPlayController {
   public void setHowToPlaySwitcher(MenuSwitcher gameSwitcher) {
     this.howToPlaySwitcher = gameSwitcher;
   }
-
 
   /**
    * facilitates switching to how to play screen upon button click

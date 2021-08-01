@@ -53,8 +53,10 @@ public class HealthPotionStrategy implements ItemStrategy {
   @Override
   public void useItem(Character character) {
     character.setHealth(character.getInitialHealth());
-    try{potionSound();}
-    catch (Exception exception) {}
+    try {
+      potionSound();
+    } catch (Exception exception) {
+    }
   }
 
   /**

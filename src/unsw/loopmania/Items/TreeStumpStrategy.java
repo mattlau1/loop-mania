@@ -26,13 +26,13 @@ public class TreeStumpStrategy implements ItemStrategy {
    * Tree stump halves the damage recieved, so multiplier will be 0.5, against
    * bosses damage is reduced by 66%
    *
-   *
    * @param enemy The enemy that the Character is in combat with
    * @return defense multiplier against enemy
    */
   @Override
   public double getDefMultiplier(Enemy enemy) {
-    if (enemy.isBoss()) return bossDefMultiplier;
+    if (enemy.isBoss())
+      return bossDefMultiplier;
     return defMultiplier;
   }
 

@@ -21,12 +21,6 @@ public class GameModeController {
   @FXML
   Button backButton;
 
-  // @FXML
-  // Button howToPlayButton;
-
-  // @FXML
-  // Button startGameButton;
-
   @FXML
   private void initialize() {
     setButtonHoverEffects();
@@ -48,6 +42,7 @@ public class GameModeController {
   private void switchToMapSelectionStandard() throws IOException {
     mapSelectionStandardSwitcher.switchMenu();
   }
+
   /**
    * facilitates switching to map selection
    */
@@ -64,6 +59,7 @@ public class GameModeController {
   private void switchToMapSelectionSurvival() throws IOException {
     mapSelectionSurvivalSwitcher.switchMenu();
   }
+
   /**
    * facilitates switching to map selection
    */
@@ -80,6 +76,7 @@ public class GameModeController {
   private void switchToMapSelectionBerserker() throws IOException {
     mapSelectionBerserkerSwitcher.switchMenu();
   }
+
   /**
    * facilitates switching to map selection
    */

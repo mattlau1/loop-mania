@@ -19,7 +19,6 @@ public class DoggieCoinStrategy implements ItemStrategy {
   private final int price = 200;
   private final int fluctuationRange = 50;
 
-
   @Override
   public double getAtkMultiplier(Enemy enemy) {
     return atkMultiplier;

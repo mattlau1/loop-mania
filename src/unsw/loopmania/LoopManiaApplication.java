@@ -1,6 +1,5 @@
 package unsw.loopmania;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -196,10 +195,10 @@ public class LoopManiaApplication extends Application {
     howToPlayController.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
       // try {
-      //   start(primaryStage);
+      // start(primaryStage);
       // } catch (IOException e) {
-      //   // TODO Auto-generated catch block
-      //   e.printStackTrace();
+      // // TODO Auto-generated catch block
+      // e.printStackTrace();
       // }
     });
 
@@ -242,10 +241,10 @@ public class LoopManiaApplication extends Application {
     gameModeController.setMainMenuSwitcher(() -> {
       switchToRoot(scene, mainMenuRoot, primaryStage);
       // try {
-      //   start(primaryStage);
+      // start(primaryStage);
       // } catch (IOException e) {
-      //   // TODO Auto-generated catch block
-      //   e.printStackTrace();
+      // // TODO Auto-generated catch block
+      // e.printStackTrace();
       // }
     });
 

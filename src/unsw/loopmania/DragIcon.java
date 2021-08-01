@@ -16,7 +16,7 @@ public class DragIcon extends ImageView {
   /**
    * relocate the ImageView so centre is at point p (e.g. if point p is mouse
    * cursor coordinates)
-   * 
+   *
    * @param p coordinates to move to
    */
   public void relocateToPoint(Point2D p) {

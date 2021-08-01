@@ -1,6 +1,10 @@
 package unsw.loopmania;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
 
 import org.codefx.libfx.listener.handle.ListenerHandle;
@@ -9,12 +13,10 @@ import org.codefx.libfx.listener.handle.ListenerHandles;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,31 +35,15 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-import unsw.loopmania.Items.ArmourStrategy;
-import unsw.loopmania.Items.HealthPotionStrategy;
-import unsw.loopmania.Items.HelmetStrategy;
-import unsw.loopmania.Items.Item;
-import unsw.loopmania.Items.ItemStrategy;
-import unsw.loopmania.Items.ShieldStrategy;
-import unsw.loopmania.Items.StaffStrategy;
-import unsw.loopmania.Items.StakeStrategy;
-import unsw.loopmania.Items.SwordStrategy;
-import unsw.loopmania.Shop.ShopController;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Cards.Card;
 import unsw.loopmania.Enemies.Enemy;
-
-import java.util.EnumMap;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.file.Paths;
-
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import unsw.loopmania.Items.Item;
+import unsw.loopmania.Items.ItemStrategy;
+import unsw.loopmania.Shop.ShopController;
 
 /**
  * the draggable types. If you add more draggable types, add an enum value here.
@@ -519,8 +505,8 @@ public class LoopManiaWorldController {
   }
 
   /**
-   * crafts an item from the shop, deducts scrap metal from the charcter, if character
-   * does not have enough scrap metal, item is set to null
+   * crafts an item from the shop, deducts scrap metal from the charcter, if
+   * character does not have enough scrap metal, item is set to null
    *
    * @param strat item strategy of the item to be crafted
    */
@@ -947,12 +933,12 @@ public class LoopManiaWorldController {
     switch (event.getCode()) {
       case SPACE:
         if (isPaused) {
-          if(!world.isAtHerosCastle()) {
+          if (!world.isAtHerosCastle()) {
             pauseLabel.setText("");
             startTimer();
           }
         } else {
-          if(!world.isAtHerosCastle()) {
+          if (!world.isAtHerosCastle()) {
             pause();
             pauseLabel.setText("Paused");
             pauseSound();

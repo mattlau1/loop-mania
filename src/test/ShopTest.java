@@ -172,6 +172,5 @@ public class ShopTest {
     // no items returned
     assertEquals(true, item2 == null);
 
-
   }
 }

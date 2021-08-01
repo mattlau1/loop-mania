@@ -14,7 +14,7 @@ public abstract class MovingEntity extends Entity {
 
   /**
    * Create a moving entity which moves up and down the path in position
-   * 
+   *
    * @param position represents the current position in the path
    */
   public MovingEntity(PathPosition position) {

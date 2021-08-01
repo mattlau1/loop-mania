@@ -17,7 +17,6 @@ public class MapSelectionController {
   private MenuSwitcher gameJPSwitcher;
   private MenuSwitcher gameWasteSwitcher;
 
-
   @FXML
   Button backButton;
 

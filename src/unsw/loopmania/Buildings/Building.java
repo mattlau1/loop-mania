@@ -13,8 +13,8 @@ public class Building extends StaticEntity implements BuildingStrategy {
   /**
    * Create a building its respective strategy with the given coordinates
    *
-   * @param x the x value the building will be spawned
-   * @param y the y value the building will be spawned
+   * @param x                the x value the building will be spawned
+   * @param y                the y value the building will be spawned
    * @param buildingStrategy the strategy which will classify the building
    */
   public Building(SimpleIntegerProperty x, SimpleIntegerProperty y, BuildingStrategy buildingStrategy) {

@@ -1,17 +1,13 @@
 package unsw.loopmania.Buildings;
 
 import java.io.File;
-import java.nio.file.Paths;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import unsw.loopmania.Character;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SniperEnemy;
-import unsw.loopmania.Enemies.VampireEnemy;
 
 public class SniperTowerStrategy implements BuildingStrategy {
   private final int range = 0;

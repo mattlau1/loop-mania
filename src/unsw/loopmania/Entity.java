@@ -64,7 +64,7 @@ public abstract class Entity {
    * obtain the IntegerProperty representing the x coordinate. We can attach a
    * ChangeListener to this so the x coordinates of the JavaFX node paired with
    * this entity always match.
-   * 
+   *
    * @return IntegerProperty representing x coordinate
    */
   public abstract IntegerProperty x();
@@ -73,21 +73,21 @@ public abstract class Entity {
    * obtain the IntegerProperty representing the y coordinate. We can attach a
    * ChangeListener to this so the y coordinate of the JavaFX node paired with
    * this entity always match.
-   * 
+   *
    * @return IntegerProperty representing y coordinate
    */
   public abstract IntegerProperty y();
 
   /**
    * obtain the current s coordinate as an int.
-   * 
+   *
    * @return s coordinate, as number from 0 to width-1
    */
   public abstract int getX();
 
   /**
    * obtain the current y coordinate as an int.
-   * 
+   *
    * @return y coordinate, as number from 0 to height-1
    */
   public abstract int getY();

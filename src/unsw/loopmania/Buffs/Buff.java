@@ -20,11 +20,11 @@ public class Buff {
 
   /**
    * Activates buff effect but if it has no effect do nothing
-   * 
-   * @param character the character that has been affected
-   * @param enemy the enemy responsible for the buff
-   * @param allyList the allyList will get reduced by 1
-   * @param zombieSoliders the solider gets infected and 
+   *
+   * @param character      the character that has been affected
+   * @param enemy          the enemy responsible for the buff
+   * @param allyList       the allyList will get reduced by 1
+   * @param zombieSoliders the solider gets infected and
    */
   public void activateEffect(Character character, Enemy enemy, List<Soldier> allyList, List<Enemy> zombieSoldiers) {
     subtractTurns(1);
@@ -32,11 +32,11 @@ public class Buff {
 
   /**
    * Activates buff effect but if it has no effect do nothing
-   * 
-   * @param solider the solider that has been affected
-   * @param enemy the enemy responsible for the buff
-   * @param allyList the allyList will get reduced by 1
-   * @param zombieSoliders the solider gets infected and 
+   *
+   * @param solider        the solider that has been affected
+   * @param enemy          the enemy responsible for the buff
+   * @param allyList       the allyList will get reduced by 1
+   * @param zombieSoliders the solider gets infected and
    */
   public void activateEffect(Soldier soldier, Enemy enemy, List<Soldier> allyList, List<Enemy> zombieSoldiers) {
     subtractTurns(1);
@@ -44,7 +44,7 @@ public class Buff {
 
   /**
    * Get the current turn of the buff
-   * 
+   *
    * @return the turn of the buff
    */
   public int getTurns() {
@@ -53,7 +53,7 @@ public class Buff {
 
   /**
    * Set the turn with the new value
-   * 
+   *
    * @param turns the new value for turns
    */
   public void setTurns(int turns) {
@@ -61,8 +61,8 @@ public class Buff {
   }
 
   /**
-   * Prolong the effect of the buff 
-   * 
+   * Prolong the effect of the buff
+   *
    * @param turns add another value for the turn
    */
   public void addTurns(int turns) {
@@ -71,7 +71,7 @@ public class Buff {
 
   /**
    * Reduce the turn duration for the buff
-   * 
+   *
    * @param turns subect another value for the turn
    */
   public void subtractTurns(int turns) {

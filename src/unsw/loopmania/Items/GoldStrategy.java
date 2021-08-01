@@ -83,7 +83,7 @@ public class GoldStrategy implements ItemStrategy {
     goldSound = new MediaPlayer(music);
     goldSound.setVolume(0.3);
     goldSound.play();
-    
+
   }
 
 }

@@ -8,8 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import unsw.loopmania.Buffs.Buff;
 
-// import javafx.beans.property.SimpleIntegerProperty;
-
 public class Soldier {
   private double health;
   private double damage;

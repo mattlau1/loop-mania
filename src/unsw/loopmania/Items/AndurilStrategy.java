@@ -18,8 +18,8 @@ public class AndurilStrategy implements ItemStrategy {
   private final int price = 1000;
 
   /**
-   * Anduril item incresaes damage dealth by Character by a factor of five, against
-   * bosses it does 3x damage
+   * Anduril item incresaes damage dealth by Character by a factor of five,
+   * against bosses it does 3x damage
    *
    * @param enemy The enemy that the Character is in combat with
    * @return The attack multiplier against the enemy, may vary depending on the
@@ -27,7 +27,8 @@ public class AndurilStrategy implements ItemStrategy {
    */
   @Override
   public double getAtkMultiplier(Enemy enemy) {
-    if (enemy.isBoss()) return bossAtkMultiplier;
+    if (enemy.isBoss())
+      return bossAtkMultiplier;
     return atkMultiplier;
   }
 
