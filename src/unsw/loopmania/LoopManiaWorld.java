@@ -1464,23 +1464,25 @@ public class LoopManiaWorld {
     int balance = character.getGold();
     if (balance - strat.getPrice() >= 0) {
       character.deductGold(strat.getPrice());
-      if (!(strat instanceof HealthPotionStrategy)) newItem = addSpecificUnequippedItem(strat);
+      if (!(strat instanceof HealthPotionStrategy))
+        newItem = addSpecificUnequippedItem(strat);
     }
     return newItem;
   }
 
   /**
-   * craft an item from the shop, deducts scrap metal from the charcter, if character does
-   * not have enuough scrap metal, item is set to null
+   * craft an item from the shop, deducts scrap metal from the charcter, if
+   * character does not have enuough scrap metal, item is set to null
    *
    * @param strat item strategy of the item to be crafted
-   * @return the item to be crafted, null if character has insufficient scrap metal
+   * @return the item to be crafted, null if character has insufficient scrap
+   *         metal
    */
   public Item craftItem(ItemStrategy strat) {
     Item newItem = null;
     int balance = character.getScrapMetal();
-    if (balance - (strat.getPrice()/10) >= 0) {
-      character.deductScrapMetal(strat.getPrice()/10);
+    if (balance - (strat.getPrice() / 10) >= 0) {
+      character.deductScrapMetal(strat.getPrice() / 10);
       newItem = addSpecificUnequippedItem(strat);
     }
     return newItem;
