@@ -14,7 +14,7 @@ public class StaffStrategy implements ItemStrategy {
   private final double defMultiplier = 1;
   private final double critMultiplier = 1;
   private final int range = 0;
-  private final int price = 100;
+  private final int price = 60;
 
   /**
    * Staff item reduces damange dealt by the Character by 65% so returns 0.35
