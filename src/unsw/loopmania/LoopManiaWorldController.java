@@ -128,6 +128,9 @@ public class LoopManiaWorldController {
   @FXML
   private Label scrapMetal;
 
+  @FXML
+  private Label pauseLabel;
+
   /**
    * squares gridpane includes path images, enemies, character, empty grass,
    * buildings
@@ -937,9 +940,11 @@ public class LoopManiaWorldController {
     switch (event.getCode()) {
       case SPACE:
         if (isPaused) {
+          pauseLabel.setText("");
           startTimer();
         } else {
           pause();
+          pauseLabel.setText("Paused");
           pauseSound();
         }
         break;

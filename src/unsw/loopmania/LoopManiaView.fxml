@@ -195,6 +195,15 @@
                   <ImageView fx:id="ally3" fitHeight="36.0" fitWidth="36.0" layoutX="46.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
+            <HBox prefHeight="33.0" prefWidth="113.0">
+               <children>
+                  <Label fx:id="pauseLabel" alignment="CENTER" ellipsisString="" prefHeight="33.0" prefWidth="114.0" style="-fx-padding: 5px;" textAlignment="CENTER" textOverrun="CLIP">
+                     <font>
+                        <Font name="Segoe UI Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </HBox>
