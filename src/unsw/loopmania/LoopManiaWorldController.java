@@ -226,6 +226,8 @@ public class LoopManiaWorldController {
    */
   private MenuSwitcher mainMenuSwitcher;
   private MenuSwitcher gameSwitcher;
+  private MenuSwitcher winSwitcher;
+  private MenuSwitcher loseSwitcher;
   private String imgLoc;
 
   /**
@@ -375,6 +377,24 @@ public class LoopManiaWorldController {
       List<Item> newItems = world.possiblySpawnItems();
       for (Item item : newItems) {
         onLoadPath(item);
+      }
+
+      if (world.getGameStatus() == "Won") {
+        try {
+          pause();
+          switchToWin();
+        } catch (IOException e1) {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+        }
+      } else if (world.getGameStatus() == "Lost") {
+        try {
+          pause();
+          switchToLose();
+        } catch (IOException e1) {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+        }
       }
       // printThreadingNotes("HANDLED TIMER");
     }));
@@ -929,6 +949,40 @@ public class LoopManiaWorldController {
     // stop the game music
     changeMusicState();
     mainMenuSwitcher.switchMenu();
+  }
+
+  /**
+   * facilitates switching to main game
+   */
+  public void setWinSwitcher(MenuSwitcher gameSwitcher) {
+    this.winSwitcher = gameSwitcher;
+  }
+
+  /**
+   * facilitates switching to main game upon button click
+   *
+   * @throws IOException
+   */
+  @FXML
+  private void switchToWin() throws IOException {
+    winSwitcher.switchMenu();
+  }
+
+  /**
+   * facilitates switching to main game
+   */
+  public void setLoseSwitcher(MenuSwitcher gameSwitcher) {
+    this.loseSwitcher = gameSwitcher;
+  }
+
+  /**
+   * facilitates switching to main game upon button click
+   *
+   * @throws IOException
+   */
+  @FXML
+  private void switchToLose() throws IOException {
+    loseSwitcher.switchMenu();
   }
 
   /**
