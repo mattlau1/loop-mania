@@ -134,6 +134,7 @@ public class EnemyTest {
     testChar.addSoldier();
     ZombieEnemy zombie3 = new ZombieEnemy(new PathPosition(1, world.getOrderedPath()));
     world.addEnemy(zombie3);
+    // remove the soliders from the index
     world.runBattles();
 
   }

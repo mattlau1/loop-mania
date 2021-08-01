@@ -824,7 +824,6 @@ public class LoopManiaWorld {
         continue;
 
       enemyDamage = getEnemyDamageAfterDefense(enemyDamage, currBattlingEnemy);
-
       if (trancedSoldiers.size() > 0) {
         Soldier s = trancedSoldiers.get(0);
         s.reduceHealth(enemyDamage);

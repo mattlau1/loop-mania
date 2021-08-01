@@ -15,9 +15,15 @@ import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Enemies.SlugEnemy;
+import unsw.loopmania.Cards.BarracksCardStrategy;
 import unsw.loopmania.Cards.CampfireCardStrategy;
 import unsw.loopmania.Cards.Card;
+import unsw.loopmania.Cards.CardStrategy;
+import unsw.loopmania.Cards.TowerCardStrategy;
+import unsw.loopmania.Cards.TrapCardStrategy;
+import unsw.loopmania.Cards.VampireCastleCardStrategy;
 import unsw.loopmania.Cards.VillageCardStrategy;
+import unsw.loopmania.Cards.ZombiePitCardStrategy;
 
 public class WorldTest {
 
@@ -166,4 +172,56 @@ public class WorldTest {
         neighbourPath = world.neighbourPath(4, 4);
         assertEquals(null, neighbourPath);
     }
+
+    @Test
+    public void testHighRarityCards() {
+        // test that specific item will spawn from certain rarity categories.
+    
+        // set up that will spawn high rarity card
+        TestSetupWithSeed setup = new TestSetupWithSeed();
+        LoopManiaWorld world = setup.makeTestWorld(37);
+        Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+        world.setCharacter(testChar);
+        // generate card
+        world.generateCardDrops();
+        // spawn high rarity card
+        CardStrategy highRareCard = world.randomCardStrategy();
+        assertEquals(true, highRareCard instanceof TowerCardStrategy || highRareCard instanceof BarracksCardStrategy);
+    }
+
+    @Test
+    public void testMediumRarityCards() {
+        // test that specific item will spawn from certain rarity categories.
+    
+        // set up that will spawn high rarity card
+        TestSetupWithSeed setup = new TestSetupWithSeed();
+        LoopManiaWorld world = setup.makeTestWorld(65);
+        Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+        world.setCharacter(testChar);
+        // generate card
+        world.generateCardDrops();
+        // spawn medium rarity card
+        CardStrategy medRareCard = world.randomCardStrategy();
+        assertEquals(true, medRareCard instanceof VillageCardStrategy || medRareCard instanceof CampfireCardStrategy);
+    }
+
+    @Test
+    public void testLowRarityCards() {
+        // test that specific item will spawn from certain rarity categories.
+    
+        // set up that will spawn high rarity card
+        TestSetupWithSeed setup = new TestSetupWithSeed();
+        LoopManiaWorld world = setup.makeTestWorld(82);
+        Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+        world.setCharacter(testChar);
+        // generate card
+        world.generateCardDrops();
+        // spawn low rarity card
+        CardStrategy lowRareCard = world.randomCardStrategy();
+        assertEquals(true, lowRareCard instanceof ZombiePitCardStrategy 
+            || lowRareCard instanceof TrapCardStrategy
+            || lowRareCard instanceof VampireCastleCardStrategy);
+    }
+
+    
 }
