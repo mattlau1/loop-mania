@@ -64,7 +64,6 @@ public class ItemTest {
     assertEquals(1, world.trancedSoldiersSize());
     // checks that the former zombie no longer exists
     assertEquals(false, zombie.isAlive());
-
   }
 
   @Test
