@@ -41,4 +41,4 @@
 - Vampire has 60 health, deals 20 damage, drops 100 exp and 100 gold
 - Thief has 45 health, deals 5 damage, drops 50 gold and 50 experience
 - On hit the Thief deducts 10 gold from the player and one item from their unequiped inventory.
-- Thief spawns at a village at start of cycle
+- Thief spawns at a village at start of every cycle
