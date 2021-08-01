@@ -120,7 +120,7 @@
                         <Image url="@../../images/heart.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="health" ellipsisString="" prefHeight="35.0" prefWidth="77.0" style="-fx-padding: 5px;" text="Health" textFill="RED" textOverrun="CLIP">
+                  <Label fx:id="health" ellipsisString="" prefHeight="35.0" prefWidth="220.0" style="-fx-padding: 5px;" text="Health" textFill="RED" textOverrun="CLIP">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>
@@ -134,7 +134,7 @@
                         <Image url="@../../images/experience.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="experience" ellipsisString="" prefHeight="35.0" prefWidth="77.0" style="-fx-padding: 5px;" text="Exp" textFill="#ea00ff" textOverrun="CLIP">
+                  <Label fx:id="experience" ellipsisString="" prefHeight="35.0" prefWidth="219.0" style="-fx-padding: 5px;" text="Exp" textFill="#ea00ff" textOverrun="CLIP">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>
@@ -148,7 +148,7 @@
                         <Image url="@../../images/gold.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="gold" ellipsisString="" prefHeight="35.0" prefWidth="77.0" style="-fx-padding: 5px;" text="Gold" textFill="#ffd500" textOverrun="CLIP">
+                  <Label fx:id="gold" ellipsisString="" prefHeight="35.0" prefWidth="230.0" style="-fx-padding: 5px;" text="Gold" textFill="#ffd500" textOverrun="CLIP">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>
@@ -162,7 +162,7 @@
                         <Image url="@../../images/cycle.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="cycle" ellipsisString="" prefHeight="35.0" prefWidth="77.0" style="-fx-padding: 5px;" text="Cycle" textFill="#727272" textOverrun="CLIP">
+                  <Label fx:id="cycle" ellipsisString="" prefHeight="35.0" prefWidth="238.0" style="-fx-padding: 5px;" text="Cycle" textFill="#727272" textOverrun="CLIP">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>
@@ -176,7 +176,7 @@
                         <Image url="@../../images/doggie_coin.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="doggieCoin" ellipsisString="" prefHeight="35.0" prefWidth="77.0" style="-fx-padding: 5px;" text="DoggieCoin" textFill="#c9b95a" textOverrun="CLIP">
+                  <Label fx:id="doggieCoin" ellipsisString="" prefHeight="35.0" prefWidth="260.0" style="-fx-padding: 5px;" text="DoggieCoin" textFill="#c9b95a" textOverrun="CLIP">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>
@@ -190,7 +190,7 @@
                         <Image url="@../../images/scrap_metal.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="scrapMetal" ellipsisString="" prefHeight="35.0" prefWidth="77.0" style="-fx-padding: 5px;" text="ScrapMetal" textFill="#bfbfbf" textOverrun="CLIP">
+                  <Label fx:id="scrapMetal" ellipsisString="" prefHeight="35.0" prefWidth="244.0" style="-fx-padding: 5px;" text="ScrapMetal" textFill="#bfbfbf" textOverrun="CLIP">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>
@@ -206,9 +206,9 @@
             </HBox>
             <HBox prefHeight="33.0" prefWidth="113.0">
                <children>
-                  <Label fx:id="pauseLabel" alignment="CENTER" ellipsisString="" prefHeight="33.0" prefWidth="114.0" style="-fx-padding: 5px;" textAlignment="CENTER" textOverrun="CLIP">
+                  <Label fx:id="pauseLabel" alignment="CENTER" ellipsisString="" prefHeight="33.0" prefWidth="252.0" style="-fx-padding: 5px;" textAlignment="CENTER" textOverrun="CLIP">
                      <font>
-                        <Font name="Segoe UI Bold Italic" size="18.0" />
+                        <Font name="Segoe UI Bold" size="18.0" />
                      </font>
                   </Label>
                </children>

@@ -39,7 +39,7 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <Button fx:id="survivorModeButton" layoutX="82.0" layoutY="240.0" mnemonicParsing="false" onAction="#switchToMapSelectionSurvival" prefHeight="52.0" prefWidth="224.0" style="-fx-background-color: transparent;" text="Survivor Mode" textFill="WHITE">
+            <Button fx:id="survivalModeButton" layoutX="82.0" layoutY="240.0" mnemonicParsing="false" onAction="#switchToMapSelectionSurvival" prefHeight="52.0" prefWidth="224.0" style="-fx-background-color: transparent;" text="Survivor Mode" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>

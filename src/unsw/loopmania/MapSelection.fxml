@@ -28,7 +28,7 @@
             </Text>
             <Button fx:id="grassMapButton" contentDisplay="TOP" layoutX="56.0" layoutY="137.0" mnemonicParsing="false" onAction="#switchToGameGrass" prefHeight="170.0" prefWidth="195.0" style="-fx-background-color: #45a23f; -fx-border-color: white; -fx-border-width: 2; -fx-border-radius: 5;" text="Grasslands" textFill="WHITE" wrapText="true">
                <font>
-                  <Font name="System Bold" size="25.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
                <opaqueInsets>
                   <Insets />
@@ -40,9 +40,9 @@
                      </image></ImageView>
                </graphic>
             </Button>
-            <Button fx:id="japaneseMapButton" contentDisplay="TOP" layoutX="292.0" layoutY="137.0" mnemonicParsing="false" onAction="#switchToGameJP" prefHeight="185.0" prefWidth="195.0" style="-fx-background-color: #a9a4a3; -fx-border-color: white; -fx-border-width: 2; -fx-border-radius: 5;" text="Kanezaka" textFill="WHITE">
+            <Button fx:id="japaneseMapButton" contentDisplay="TOP" graphicTextGap="2.0" layoutX="292.0" layoutY="137.0" mnemonicParsing="false" onAction="#switchToGameJP" prefHeight="185.0" prefWidth="195.0" style="-fx-background-color: #a9a4a3; -fx-border-color: white; -fx-border-width: 2; -fx-border-radius: 5;" text="Samurai Land" textFill="WHITE" textOverrun="CLIP">
                <font>
-                  <Font name="System Bold" size="25.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="127.0" fitWidth="158.0" pickOnBounds="true">
@@ -51,9 +51,9 @@
                      </image></ImageView>
                </graphic>
             </Button>
-            <Button fx:id="wasteMapButton" contentDisplay="TOP" layoutX="524.0" layoutY="139.0" mnemonicParsing="false" onAction="#switchToGameWaste" prefHeight="182.0" prefWidth="173.0" style="-fx-background-color: #924930; -fx-border-color: white; -fx-border-width: 2; -fx-border-radius: 5;" text="Wasteland" textFill="WHITE">
+            <Button fx:id="wasteMapButton" contentDisplay="TOP" layoutX="524.0" layoutY="139.0" mnemonicParsing="false" onAction="#switchToGameWaste" prefHeight="182.0" prefWidth="173.0" style="-fx-background-color: #097914; -fx-border-color: white; -fx-border-width: 2; -fx-border-radius: 5;" text="Wasteland" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="25.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="127.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
