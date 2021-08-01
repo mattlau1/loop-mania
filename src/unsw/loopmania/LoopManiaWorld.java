@@ -500,8 +500,11 @@ public class LoopManiaWorld {
    * @param enemy enemy to be killed
    */
   private void killEnemy(Enemy enemy) {
-    try {swingSound();}
-    catch(Exception exception) {};
+    try {
+      swingSound();
+    } catch (Exception exception) {
+    }
+    ;
     enemy.destroy();
     enemies.remove(enemy);
   }
@@ -946,8 +949,9 @@ public class LoopManiaWorld {
           if (isSeedPresent) {
             random.setSeed(seed);
           }
-          int randomItemIndex = random.nextInt(unequippedInventoryItems.size() - 1);
-          removeItemByPositionInUnequippedInventoryItems(randomItemIndex);
+          int randomItemIndex = random.nextInt(unequippedInventoryItems.size()) - 1;
+          if (randomItemIndex != -1)
+            removeItemByPositionInUnequippedInventoryItems(randomItemIndex);
           character.reduceGold(ThiefEnemy.STEAL_AMOUNT);
         }
         // if enemy is able to stun, randomly stun character if unlucky
@@ -1262,8 +1266,10 @@ public class LoopManiaWorld {
    * @param item item to be added
    */
   public void addEquippedInventoryItem(Item item) {
-    try{equippedSound();}
-    catch (Exception exception) {}
+    try {
+      equippedSound();
+    } catch (Exception exception) {
+    }
     equippedInventoryItems.add(item);
   }
 
@@ -1312,9 +1318,13 @@ public class LoopManiaWorld {
    * @param index index from 0 to length-1
    */
   private void removeItemByPositionInUnequippedInventoryItems(int index) {
-    Entity item = unequippedInventoryItems.get(index);
-    item.destroy();
-    unequippedInventoryItems.remove(index);
+    try {
+      Entity item = unequippedInventoryItems.get(index);
+      item.destroy();
+      unequippedInventoryItems.remove(index);
+    } catch (Exception e) {
+      return;
+    }
   }
 
   /**
