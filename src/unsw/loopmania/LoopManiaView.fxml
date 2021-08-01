@@ -77,7 +77,7 @@
                   <!-- blankCell is an empty cell -->
                   <ImageView id="blankCell" GridPane.columnIndex="1" GridPane.rowIndex="0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
                      <image>
-                        <Image url="@../../images/image_just_black_tiny.png" />
+                        <Image url="@../../images/helmet_slot.png" />
                      </image>
                   </ImageView>
                   <!-- shieldCell is the cell where a shield intended to be equipped will be dragged by the human player -->
@@ -186,6 +186,13 @@
                         <Font name="Segoe UI" size="18.0" />
                      </font>
                   </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="247.0" prefHeight="33.0" prefWidth="113.0">
+               <children>
+                  <ImageView fx:id="ally1" fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="ally2" fitHeight="36.0" fitWidth="36.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="ally3" fitHeight="36.0" fitWidth="36.0" layoutX="46.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
          </children>

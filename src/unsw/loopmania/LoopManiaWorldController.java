@@ -159,6 +159,15 @@ public class LoopManiaWorldController {
   private Pane shop;
 
   @FXML
+  private ImageView ally1;
+
+  @FXML
+  private ImageView ally2;
+
+  @FXML
+  private ImageView ally3;
+
+  @FXML
   private GridPane unequippedInventory;
 
   // all image views including tiles, character, enemies, cards... even though
@@ -365,6 +374,7 @@ public class LoopManiaWorldController {
     // framerate of 0.3 seconds
     timeline = new Timeline(new KeyFrame(Duration.seconds(0.05), event -> {
       world.runTickMoves();
+      loadAllySoliders();
       List<Enemy> defeatedEnemies = world.runBattles();
       for (Enemy e : defeatedEnemies) {
         reactToEnemyDefeat(e);
@@ -400,6 +410,27 @@ public class LoopManiaWorldController {
     }));
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
+  }
+
+  private void loadAllySoliders() {
+    int numAllies = world.getCharacter().getSoldiers().size();
+    if (numAllies == 0) {
+      ally1.setImage(null);
+      ally2.setImage(null);
+      ally3.setImage(null);
+    } else if (numAllies == 1) {
+      ally1.setImage(new Soldier().getImage(imgLoc).getImage());
+      ally2.setImage(null);
+      ally3.setImage(null);
+    } else if (numAllies == 2) {
+      ally1.setImage(new Soldier().getImage(imgLoc).getImage());
+      ally2.setImage(new Soldier().getImage(imgLoc).getImage());
+      ally3.setImage(null);
+    } else if (numAllies == 3) {
+      ally1.setImage(new Soldier().getImage(imgLoc).getImage());
+      ally2.setImage(new Soldier().getImage(imgLoc).getImage());
+      ally3.setImage(new Soldier().getImage(imgLoc).getImage());
+    }
   }
 
   public void openHerosCastle() {
