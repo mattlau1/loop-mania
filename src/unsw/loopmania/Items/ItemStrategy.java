@@ -60,7 +60,7 @@ public interface ItemStrategy {
    *
    * @return The image of the item to be shown
    */
-  public ImageView getImage();
+  public ImageView getImage(String imgLoc);
 
   /**
    * Gets the range of an item

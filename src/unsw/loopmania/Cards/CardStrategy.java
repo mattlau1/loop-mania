@@ -9,11 +9,11 @@ public interface CardStrategy {
    *
    * @return card image
    */
-  public ImageView getImage();
+  public ImageView getImage(String imgLoc);
 
   /**
    * Returns the corresponding building strategy for the card
-   * 
+   *
    * @return corresponding building strategy
    */
   public BuildingStrategy getBuildingStrategy();

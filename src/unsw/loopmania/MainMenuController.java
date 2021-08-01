@@ -20,6 +20,8 @@ public class MainMenuController {
   MediaPlayer mainMenuMusic;
   MediaPlayer buttonClick;
   MediaPlayer buttonHover;
+  private MenuSwitcher howToPlaySwitcher;
+  private MenuSwitcher gameModeSwitcher;
 
   @FXML
   Button exitButton;
@@ -44,6 +46,30 @@ public class MainMenuController {
   }
 
   /**
+   * facilitates switching to how to play
+   */
+  public void setHowToPlaySwitcher(MenuSwitcher gameSwitcher) {
+    this.howToPlaySwitcher = gameSwitcher;
+  }
+
+  /**
+   * facilitates switching to map selection
+   */
+  public void setGameModeSwitcher(MenuSwitcher gameSwitcher) {
+    this.gameModeSwitcher = gameSwitcher;
+  }
+
+  /**
+   * facilitates switching to map selection upon button click
+   *
+   * @throws IOException
+   */
+  @FXML
+  private void switchToGameMode() throws IOException {
+    gameModeSwitcher.switchMenu();
+  }
+
+  /**
    * facilitates switching to main game upon button click
    *
    * @throws IOException
@@ -53,6 +79,16 @@ public class MainMenuController {
     buttonClickSound();
     mainMenuMusic.stop();
     gameSwitcher.switchMenu();
+  }
+
+  /**
+   * facilitates switching to how to play screen upon button click
+   *
+   * @throws IOException
+   */
+  @FXML
+  private void switchToHowToPlay() throws IOException {
+    howToPlaySwitcher.switchMenu();
   }
 
   private void setButtonHoverEffects() {

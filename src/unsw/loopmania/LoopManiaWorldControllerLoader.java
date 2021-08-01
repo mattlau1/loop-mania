@@ -28,17 +28,18 @@ import java.io.File;
 public class LoopManiaWorldControllerLoader extends LoopManiaWorldLoader {
 
   private List<ImageView> entities;
+  private String imageLocation;
 
   // Images
   private Image characterImage;
   private Image pathTilesImage;
 
-  public LoopManiaWorldControllerLoader(String filename) throws FileNotFoundException {
+  public LoopManiaWorldControllerLoader(String filename, String imgLoc) throws FileNotFoundException {
     super(filename);
     entities = new ArrayList<>();
-    characterImage = new Image((new File("src/images/human_new.png")).toURI().toString());
-    pathTilesImage = new Image((new File("src/images/32x32GrassAndDirtPath.png")).toURI().toString());
-
+    characterImage = new Image((new File("src/" + imgLoc + "/human_new.png")).toURI().toString());
+    pathTilesImage = new Image((new File("src/" + imgLoc + "/32x32GrassAndDirtPath.png")).toURI().toString());
+    imageLocation = imgLoc;
   }
 
   @Override
@@ -49,7 +50,7 @@ public class LoopManiaWorldControllerLoader extends LoopManiaWorldLoader {
 
   @Override
   public void onLoad(Building building) {
-    ImageView view = building.getImage();
+    ImageView view = building.getImage(imageLocation);
     addEntity(building, view);
   }
 
@@ -151,7 +152,7 @@ public class LoopManiaWorldControllerLoader extends LoopManiaWorldLoader {
    * @throws FileNotFoundException
    */
   public LoopManiaWorldController loadController() throws FileNotFoundException {
-    return new LoopManiaWorldController(load(), entities);
+    return new LoopManiaWorldController(load(), entities, imageLocation);
   }
 
 }

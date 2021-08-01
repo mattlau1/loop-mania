@@ -58,8 +58,8 @@ public class ArmourStrategy implements ItemStrategy {
   }
 
   @Override
-  public ImageView getImage() {
-    Image image = new Image((new File("src/images/armour.png")).toURI().toString());
+  public ImageView getImage(String imgLoc) {
+    Image image = new Image((new File("src/" + imgLoc + "/armour.png")).toURI().toString());
     ImageView view = new ImageView(image);
     return view;
   }

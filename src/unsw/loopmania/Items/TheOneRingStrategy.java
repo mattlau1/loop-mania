@@ -57,8 +57,8 @@ public class TheOneRingStrategy implements ItemStrategy {
    * @return the imageview of the item
    */
   @Override
-  public ImageView getImage() {
-    Image image = new Image((new File("src/images/the_one_ring.png")).toURI().toString());
+  public ImageView getImage(String imgLoc) {
+    Image image = new Image((new File("src/" + imgLoc + "/the_one_ring.png")).toURI().toString());
     ImageView view = new ImageView(image);
     return view;
   }

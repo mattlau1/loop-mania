@@ -27,6 +27,7 @@ import unsw.loopmania.Items.TreeStumpStrategy;
 import unsw.loopmania.Buffs.Buff;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.CampfireStrategy;
+import unsw.loopmania.Buildings.ElanHouseStrategy;
 import unsw.loopmania.Buildings.TrapStrategy;
 import unsw.loopmania.Cards.BarracksCardStrategy;
 import unsw.loopmania.Cards.CampfireCardStrategy;
@@ -38,6 +39,7 @@ import unsw.loopmania.Cards.VampireCastleCardStrategy;
 import unsw.loopmania.Cards.VillageCardStrategy;
 import unsw.loopmania.Cards.ZombiePitCardStrategy;
 import unsw.loopmania.Enemies.DoggieEnemy;
+import unsw.loopmania.Enemies.ElanEnemy;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SlugEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
@@ -94,21 +96,25 @@ public class LoopManiaWorld {
   private final int destroyedCardGold = 100;
   private final int destroyedCardExp = 100;
 
+  // list of enemies
   private List<Enemy> enemies;
 
   // list of items on on the path
   private List<Item> pathItems;
 
-  // list of enemies
+  // list of zombie soldiers
   private List<Enemy> zombieSoldiers;
 
-  // list of soliders
+  // list of tranced soldiers
   private List<Soldier> trancedSoldiers;
 
   // list of cards
   private List<Card> cardEntities;
 
+  // cycle counter for shop opening
   private int heroCastleCycles;
+
+  // next cycle that shop will open on
   private int nextHeroCastleCycle;
 
   // list of unequipped inventory
@@ -117,11 +123,14 @@ public class LoopManiaWorld {
   // list of buildings
   private List<Building> buildingEntities;
 
+  // boolean for checking if card was destroyed
   private boolean cardDestroyed;
+
   private boolean isElanAlive;
   private boolean isElanDead;
   private final double postElanPriceMultiplier;
   private final int midElanPriceMultiplier;
+  private String difficulty;
   /**
    * list of x,y coordinate pairs in the order by which moving entities traverse
    * them
@@ -144,37 +153,41 @@ public class LoopManiaWorld {
    *                    position of path cells in world
    * @param goal        the goal contains multiple simple goals
    */
-
   public LoopManiaWorld(int width, int height, List<Pair<Integer, Integer>> orderedPath, Goal goal) {
     this.width = width;
     this.height = height;
-    nonSpecifiedEntities = new ArrayList<>();
-    character = null;
-    enemies = new ArrayList<>();
-    zombieSoldiers = new ArrayList<>();
-    cardEntities = new ArrayList<>();
-    unequippedInventoryItems = new ArrayList<>();
-    equippedInventoryItems = new ArrayList<>();
-    commonItems = new ArrayList<>();
-    lowRarityItems = new ArrayList<>();
-    midRarityItems = new ArrayList<>();
-    highRarityItems = new ArrayList<>();
-    superRarityItems = new ArrayList<>();
-    lowRarityCards = new ArrayList<>();
-    midRarityCards = new ArrayList<>();
-    highRarityCards = new ArrayList<>();
+    this.nonSpecifiedEntities = new ArrayList<>();
+    this.character = null;
+    this.enemies = new ArrayList<>();
+    this.zombieSoldiers = new ArrayList<>();
+    this.cardEntities = new ArrayList<>();
+    this.unequippedInventoryItems = new ArrayList<>();
+    this.equippedInventoryItems = new ArrayList<>();
+    this.commonItems = new ArrayList<>();
+    this.lowRarityItems = new ArrayList<>();
+    this.midRarityItems = new ArrayList<>();
+    this.highRarityItems = new ArrayList<>();
+    this.superRarityItems = new ArrayList<>();
+    this.lowRarityCards = new ArrayList<>();
+    this.midRarityCards = new ArrayList<>();
+    this.highRarityCards = new ArrayList<>();
     this.orderedPath = orderedPath;
-    buildingEntities = new ArrayList<>();
-    trancedSoldiers = new ArrayList<>();
+    this.buildingEntities = new ArrayList<>();
+    this.trancedSoldiers = new ArrayList<>();
     this.goal = goal;
-    cardDestroyed = false;
-    isElanAlive = false;
-    isElanDead = false;
-    pathItems = new ArrayList<>();
-    heroCastleCycles = 1;
-    nextHeroCastleCycle = 1;
-    postElanPriceMultiplier = 0.8;
-    midElanPriceMultiplier = 5;
+    this.cardDestroyed = false;
+    this.isElanAlive = false;
+    this.isElanDead = false;
+    this.pathItems = new ArrayList<>();
+    this.heroCastleCycles = 1;
+    this.nextHeroCastleCycle = 1;
+    this.postElanPriceMultiplier = 0.8;
+    this.midElanPriceMultiplier = 5;
+    this.difficulty = null;
+  }
+
+  public void setDifficulty (String difficulty) {
+    this.difficulty = difficulty;
   }
 
   public int getHeroCastleCycles() {
@@ -254,17 +267,24 @@ public class LoopManiaWorld {
   }
 
   /**
-   * set the character. This is necessary because it is loaded as a special entity
-   * out of the file
+   * Sets the character. This is necessary because it is loaded as a special
+   * entity out of the file
    *
    * @param character the character
    */
   public void setCharacter(Character character) {
     this.character = character;
-    new EXPObserver(character, goal);
-    new GoldObserver(character, goal);
-    new CycleObserver(character, goal);
-    new BossObserver(character, goal);
+    addCharacterObservers();
+  }
+
+  /**
+   * Adds EXP, Gold, Cycle and Boss Count observers to character
+   */
+  public void addCharacterObservers() {
+    character.addObservers(new EXPObserver(character, goal));
+    character.addObservers(new GoldObserver(character, goal));
+    character.addObservers(new CycleObserver(character, goal));
+    character.addObservers(new BossObserver(character, goal));
   }
 
   /**
@@ -440,14 +460,14 @@ public class LoopManiaWorld {
    * @return the boolean when the character and enemy in range
    */
   private boolean isInRange(Enemy e, Character c) {
-    // Pythagoras: a^2+b^2 < radius^2 to see if within radius
-    // influence radii and battle radii
     return Math.pow((c.getX() - e.getX()), 2) + Math.pow((c.getY() - e.getY()), 2) < e.getBattleRange();
   }
 
+  private boolean isInRange(Enemy e1, Enemy e2) {
+    return Math.pow((e2.getX() - e1.getX()), 2) + Math.pow((e2.getY() - e1.getY()), 2) < e1.getBattleRange();
+  }
+
   private boolean isInSuppRange(Enemy e, Character c) {
-    // Pythagoras: a^2+b^2 < radius^2 to see if within radius
-    // influence radii and battle radii
     return Math.pow((c.getX() - e.getX()), 2) + Math.pow((c.getY() - e.getY()), 2) < e.getSupportRange();
   }
 
@@ -787,13 +807,32 @@ public class LoopManiaWorld {
     }
   }
 
+  /**
+   * Possibly randomly stuns the character
+   */
   public void possiblyStunCharacter() {
     Random random = new Random();
     int randInt = random.nextInt(100);
     int stunChance = 50;
 
     if (randInt <= stunChance)
-      character.setStun(true);
+      character.setStunned(true);
+  }
+
+  /**
+   * Heals all enemies in Elan's range
+   */
+  public void healEnemiesAroundElan() {
+    for (Enemy e1 : enemies) {
+      if (e1 instanceof ElanEnemy) {
+        isElanAlive = true;
+        for (Enemy e2 : enemies) {
+          if (isInRange(e1, e2) && !(e2 instanceof ElanEnemy)) {
+            e2.addHealth(ElanEnemy.HEAL_AMOUNT);
+          }
+        }
+      }
+    }
   }
 
   /**
@@ -818,27 +857,27 @@ public class LoopManiaWorld {
     useBuildingsOnEnemiesOutsideCombat(buildingsToDestroy, defeatedEnemies);
     destroyBuildings(buildingsToDestroy);
     useItemsOnCharacterOutsideCombat();
+    healEnemiesAroundElan();
 
     for (Enemy enemy : battlingEnemies) {
       while (enemy.isAlive()) {
+
         useBuildingsOnEntitiesInCombat(enemy);
         triggerOnHitEffects(enemy);
 
-        double characterDamage = getCharacterDamageAgainstEnemy(enemy);
+        // if enemy is able to stun, randomly stun character if unlucky
         if (enemy.canStunCharacter())
           possiblyStunCharacter();
 
-        if (!character.isStunned()) {
-          enemy.reduceHealth(characterDamage);
-        }
-
-        if (character.isStunned()) {
-          System.out.println("Character is stunned");
-        }
+        // attack enemy is character is not stunned
+        if (!character.isStunned())
+          enemy.reduceHealth(getCharacterDamageAgainstEnemy(enemy));
 
         attackSoldiers(battlingEnemies, enemy);
         processZombieSoldierAttacks(enemy);
-        character.setStun(false);
+
+        // unstun character after the attack has ended
+        character.setStunned(false);
       }
 
       defeatedEnemies.add(enemy);
@@ -849,9 +888,14 @@ public class LoopManiaWorld {
 
     trancedSoldiers.clear();
     for (Enemy e : defeatedEnemies) {
-      if (e instanceof DoggieEnemy) {
-        character.incrementBossKillCount();
+      if (e instanceof ElanEnemy) {
+        isElanAlive = false;
+        isElanDead = true;
       }
+
+      if (e instanceof DoggieEnemy || e instanceof ElanEnemy)
+        character.incrementBossKillCount();
+
       killEnemy(e);
     }
 

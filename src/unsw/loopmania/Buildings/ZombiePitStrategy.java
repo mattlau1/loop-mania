@@ -37,8 +37,8 @@ public class ZombiePitStrategy implements BuildingStrategy {
   }
 
   @Override
-  public ImageView getImage() {
-    Image image = new Image((new File("src/images/zombie_pit.png")).toURI().toString());
+  public ImageView getImage(String imgLoc) {
+    Image image = new Image((new File("src/" + imgLoc + "/zombie_pit.png")).toURI().toString());
     ImageView view = new ImageView(image);
     return view;
   }

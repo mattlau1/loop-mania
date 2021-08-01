@@ -27,6 +27,7 @@ public class ZombieEnemy extends Enemy {
   public ZombieEnemy(PathPosition position) {
     super(position);
     setHealth(health);
+    setMaxHealth(health);
     setBattleRange(battleRange);
     setSupportRange(supportRange);
     setDamage(damage);
@@ -49,8 +50,8 @@ public class ZombieEnemy extends Enemy {
   }
 
   @Override
-  public ImageView getImage() {
-    Image image = new Image((new File("src/images/zombie.png")).toURI().toString());
+  public ImageView getImage(String imgLoc) {
+    Image image = new Image((new File("src/" + imgLoc + "/zombie.png")).toURI().toString());
     ImageView view = new ImageView(image);
     return view;
   }
