@@ -1,5 +1,6 @@
 package unsw.loopmania;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -7,6 +8,8 @@ import java.util.Random;
 import org.javatuples.Pair;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import unsw.loopmania.Items.AndurilStrategy;
 import unsw.loopmania.Items.ArmourStrategy;
 import unsw.loopmania.Items.DoggieCoinStrategy;
@@ -127,7 +130,6 @@ public class LoopManiaWorld {
   private boolean isElanDead;
   private final double postElanPriceMultiplier;
   private final int midElanPriceMultiplier;
-  private String difficulty;
   /**
    * list of x,y coordinate pairs in the order by which moving entities traverse
    * them
@@ -136,6 +138,16 @@ public class LoopManiaWorld {
 
   // the goal which contains simple goals
   private Goal goal;
+
+  private String difficulty;
+  public static final String SURVIVAL_MODE = "Survival";
+  public static final String BERSERKER_MODE = "Berserker";
+  public static final String STANDARD_MODE = "Standard";
+  public static final String CONFUSING_MODE = "Confusing";
+
+  // music
+  MediaPlayer swingSound;
+  MediaPlayer equippedSound;
 
   /**
    * create the world (constructor)
@@ -176,10 +188,19 @@ public class LoopManiaWorld {
     this.nextHeroCastleCycle = 1;
     this.postElanPriceMultiplier = 0.8;
     this.midElanPriceMultiplier = 5;
-    this.difficulty = null;
+    this.difficulty = BERSERKER_MODE;
   }
 
-  public void setDifficulty (String difficulty) {
+  public boolean difficultyEquals(String difficulty) {
+    System.out.println(difficulty);
+    return this.difficulty.equals(difficulty);
+  }
+
+  public String getDifficulty() {
+    return this.difficulty;
+  }
+
+  public void setDifficulty(String difficulty) {
     this.difficulty = difficulty;
   }
 
@@ -432,6 +453,7 @@ public class LoopManiaWorld {
    * @param enemy enemy to be killed
    */
   private void killEnemy(Enemy enemy) {
+    swingSound();
     enemy.destroy();
     enemies.remove(enemy);
   }
@@ -517,7 +539,6 @@ public class LoopManiaWorld {
         i.useItem(character);
         pathItemsToDestroy.add(i);
       }
-
     }
     for (Item item : pathItemsToDestroy) {
       killItem(item);
@@ -1165,6 +1186,7 @@ public class LoopManiaWorld {
    * @param item item to be added
    */
   public void addEquippedInventoryItem(Item item) {
+    equippedSound();
     equippedInventoryItems.add(item);
   }
 
@@ -1499,6 +1521,29 @@ public class LoopManiaWorld {
       return doggieCoin;
     }
     return null;
+  }
+
+  /**
+   * sound effect for battle
+   */
+  public void swingSound() {
+    String path = "src/audio/swing.wav";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    swingSound = new MediaPlayer(music);
+    swingSound.setVolume(0.2);
+    swingSound.play();
+  }
+
+  /**
+   * sound effect for equipping the item on the inventory
+   */
+  public void equippedSound() {
+    String path = "src/audio/equip.wav";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    equippedSound = new MediaPlayer(music);
+    equippedSound.setVolume(0.3);
+    equippedSound.play();
+
   }
 
 }

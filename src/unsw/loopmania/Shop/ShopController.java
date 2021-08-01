@@ -1,11 +1,14 @@
 package unsw.loopmania.Shop;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.LoopManiaWorldController;
 import unsw.loopmania.MenuSwitcher;
@@ -24,6 +27,7 @@ import unsw.loopmania.Items.TreeStumpStrategy;
 public class ShopController {
   private MenuSwitcher gameSwitcher;
   private LoopManiaWorldController worldController;
+  MediaPlayer buttonClick;
 
   @FXML
   private Button buySwordButton;
@@ -106,11 +110,16 @@ public class ShopController {
   @FXML
   private Button exitShopButton;
 
+  private int potionPurchaseCount;
+  private int protectiveGearPurchaseCount;
+
   @FXML
   private void initialize() {
     buyErrorMessage.setText("");
     sellErrorMessage.setText("");
     craftErrorMessage.setText("");
+    this.potionPurchaseCount = 0;
+    this.protectiveGearPurchaseCount = 0;
   }
 
   /**
@@ -144,24 +153,50 @@ public class ShopController {
 
   @FXML
   private void buyArmour(ActionEvent event) {
+    LoopManiaWorld world = worldController.getWorld();
+    if (world.difficultyEquals(LoopManiaWorld.BERSERKER_MODE) && protectiveGearPurchaseCount > 0) {
+      buyErrorMessage
+          .setText("You can only purchase 1 piece of protective gear every time you shop in berserker mode!");
+      return;
+    }
     worldController.buyItem(new ArmourStrategy());
+    protectiveGearPurchaseCount++;
   }
 
   @FXML
   private void buyHelmet(ActionEvent event) {
+    LoopManiaWorld world = worldController.getWorld();
+    if (world.difficultyEquals(LoopManiaWorld.BERSERKER_MODE) && protectiveGearPurchaseCount > 0) {
+      buyErrorMessage
+          .setText("You can only purchase 1 piece of protective gear every time you shop in berserker mode!");
+      return;
+    }
     worldController.buyItem(new HelmetStrategy());
+    protectiveGearPurchaseCount++;
   }
 
   @FXML
   private void buyPotion(ActionEvent event) {
     LoopManiaWorld world = worldController.getWorld();
+    if (world.difficultyEquals(LoopManiaWorld.SURVIVAL_MODE) && potionPurchaseCount > 0) {
+      buyErrorMessage.setText("You can only purchase 1 potion in survival mode!");
+      return;
+    }
     world.buyItem(new HealthPotionStrategy());
     world.consumePotion();
+    potionPurchaseCount++;
   }
 
   @FXML
   private void buyShield(ActionEvent event) {
+    LoopManiaWorld world = worldController.getWorld();
+    if (world.difficultyEquals(LoopManiaWorld.BERSERKER_MODE) && protectiveGearPurchaseCount > 0) {
+      buyErrorMessage
+          .setText("You can only purchase 1 piece of protective gear every time you shop in berserker mode!");
+      return;
+    }
     worldController.buyItem(new ShieldStrategy());
+    protectiveGearPurchaseCount++;
   }
 
   @FXML
@@ -178,7 +213,6 @@ public class ShopController {
   private void buySword(ActionEvent event) {
     worldController.buyItem(new SwordStrategy());
   }
-
 
   @FXML
   private void sellArmour(ActionEvent event) {
@@ -263,10 +297,22 @@ public class ShopController {
   @FXML
   private void exitShop(ActionEvent event) throws IOException {
     worldController.exitShop();
+    this.protectiveGearPurchaseCount = 0;
+    buttonClickSound();
   }
 
   public void setWorldController(LoopManiaWorldController worldController) {
     this.worldController = worldController;
+  }
+
+  /**
+   * sound effect for the button clicking
+   */
+  public void buttonClickSound() {
+    String path = "src/audio/buttonClick.wav";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    buttonClick = new MediaPlayer(music);
+    buttonClick.play();
   }
 
 }

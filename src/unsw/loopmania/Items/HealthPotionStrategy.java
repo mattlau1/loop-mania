@@ -1,10 +1,13 @@
 package unsw.loopmania.Items;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Character;
 import unsw.loopmania.Soldier;
@@ -15,6 +18,7 @@ public class HealthPotionStrategy implements ItemStrategy {
   private final double critMultiplier = 1;
   private final int range = 1;
   private final int price = 200;
+  MediaPlayer potionSound;
 
   @Override
   public double getAtkMultiplier(Enemy enemy) {
@@ -49,6 +53,7 @@ public class HealthPotionStrategy implements ItemStrategy {
   @Override
   public void useItem(Character character) {
     character.setHealth(character.getInitialHealth());
+    potionSound();
   }
 
   /**
@@ -66,6 +71,16 @@ public class HealthPotionStrategy implements ItemStrategy {
   @Override
   public int getPrice() {
     return price;
+  }
+
+  /**
+   * sound effect for consuming potion
+   */
+  public void potionSound() {
+    String path = "src/audio/bottle.mp3";
+    Media music = new Media(Paths.get(path).toUri().toString());
+    potionSound = new MediaPlayer(music);
+    potionSound.play();
   }
 
 }
