@@ -29,8 +29,10 @@ public class TrapStrategy implements BuildingStrategy {
   @Override
   public void useBuilding(Enemy enemy) {
     enemy.reduceHealth(trapDamage);
-    try {trapSound();}
-    catch(Exception exception) {}
+    try {
+      trapSound();
+    } catch (Exception exception) {
+    }
   }
 
   @Override
@@ -77,8 +79,9 @@ public class TrapStrategy implements BuildingStrategy {
     String path = "src/audio/trap.mp3";
     Media music = new Media(Paths.get(path).toUri().toString());
     trapSound = new MediaPlayer(music);
+    trapSound.setVolume(0.1);
     trapSound.play();
-    
+
   }
 
 }

@@ -16,6 +16,7 @@ import unsw.loopmania.Buildings.CampfireStrategy;
 import unsw.loopmania.Buildings.DoggieHouseStrategy;
 import unsw.loopmania.Buildings.ElanHouseStrategy;
 import unsw.loopmania.Buildings.HerosCastleStrategy;
+import unsw.loopmania.Buildings.SniperTowerStrategy;
 import unsw.loopmania.Buildings.TowerStrategy;
 import unsw.loopmania.Buildings.TrapStrategy;
 import unsw.loopmania.Buildings.TreeStrategy;
@@ -261,10 +262,11 @@ public abstract class LoopManiaWorldLoader {
         onLoad(elanhouse);
         world.addBuildingToWorld(elanhouse);
         break;
-      case "tree":
-        Building tree = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y), new TreeStrategy());
-        onLoad(tree);
-        world.addBuildingToWorld(tree);
+      case "sniper_tower":
+        Building sniperTower = new Building(new SimpleIntegerProperty(x), new SimpleIntegerProperty(y),
+            new SniperTowerStrategy());
+        onLoad(sniperTower);
+        world.addBuildingToWorld(sniperTower);
         break;
       case "path_tile":
         throw new RuntimeException("path_tile's aren't valid entities, define the path externally.");
