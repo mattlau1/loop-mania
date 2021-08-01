@@ -1151,7 +1151,7 @@ public class LoopManiaWorld {
    *
    * @return the boolean if the character is at the hero castle
    */
-  private boolean isAtHerosCastle() {
+  public boolean isAtHerosCastle() {
     for (Building building : buildingEntities) {
       if (building.isSpawnLocation() && isInRange(building, character)) {
         return true;

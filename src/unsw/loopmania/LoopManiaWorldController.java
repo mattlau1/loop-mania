@@ -519,7 +519,6 @@ public class LoopManiaWorldController {
   }
 
   /**
-<<<<<<< src/unsw/loopmania/LoopManiaWorldController.java
    * crafts an item from the shop, deducts scrap metal from the charcter, if character
    * does not have enough scrap metal, item is set to null
    *
@@ -948,12 +947,17 @@ public class LoopManiaWorldController {
     switch (event.getCode()) {
       case SPACE:
         if (isPaused) {
-          pauseLabel.setText("");
-          startTimer();
+          if(!world.isAtHerosCastle()) {
+            pauseLabel.setText("");
+            startTimer();
+          }
         } else {
-          pause();
-          pauseLabel.setText("Paused");
-          pauseSound();
+          if(!world.isAtHerosCastle()) {
+            pause();
+            pauseLabel.setText("Paused");
+            pauseSound();
+          }
+
         }
         break;
       default:
