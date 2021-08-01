@@ -29,7 +29,8 @@ public class TrapStrategy implements BuildingStrategy {
   @Override
   public void useBuilding(Enemy enemy) {
     enemy.reduceHealth(trapDamage);
-    trapSound();
+    try {trapSound();}
+    catch(Exception exception) {}
   }
 
   @Override

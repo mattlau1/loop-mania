@@ -50,7 +50,8 @@ public class ZombiePitStrategy implements BuildingStrategy {
 
   @Override
   public Enemy spawnEnemy(PathPosition position) {
-    zombieSound();
+    try{zombieSound();}
+    catch(Exception exception) {}
     return new ZombieEnemy(position);
   }
 

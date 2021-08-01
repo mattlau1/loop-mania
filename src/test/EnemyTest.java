@@ -4,10 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import unsw.loopmania.Character;
 import unsw.loopmania.LoopManiaWorld;
 import unsw.loopmania.PathPosition;
+import unsw.loopmania.Buildings.Building;
+import unsw.loopmania.Buildings.CampfireStrategy;
+import unsw.loopmania.Enemies.DoggieEnemy;
 import unsw.loopmania.Enemies.SlugEnemy;
+import unsw.loopmania.Enemies.VampireEnemy;
+import unsw.loopmania.Enemies.ZombieEnemy;
+import unsw.loopmania.Goals.CycleGoal;
+import unsw.loopmania.Goals.Goal;
+import unsw.loopmania.Items.Item;
+import unsw.loopmania.Items.StaffStrategy;
 
 public class EnemyTest {
 
@@ -54,5 +64,78 @@ public class EnemyTest {
     // check that after killing the slug, the character gained 10 gold and exp
     assertEquals(10, testChar.getGold());
     assertEquals(10, testChar.getExp());
+  }
+
+  @Test
+  public void testCharacterStun() {
+    // test if the doggie is able to stun the character
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(27);
+    // place character and doggie on the same tile so the battle can start
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    // add doggie in the world
+    DoggieEnemy doggie = new DoggieEnemy(new PathPosition(1, world.getOrderedPath()));
+    world.addEnemy(doggie);
+    world.possiblyStunCharacter();
+    assertEquals(true, testChar.isStunned());
+  }
+
+  @Test
+  public void testVampireMovement() {
+    // test the vampire direction when near the campfire
+    CampfireStrategy strat = new CampfireStrategy();
+    TestSetup setup = new TestSetup();
+    Goal goal = new Goal();
+    goal.addSimpleGoal(new CycleGoal(20));
+    LoopManiaWorld world = setup.makeTestWorld();
+    // vampire and campfire gets the same position
+    PathPosition vampirePos = new PathPosition(6, world.getOrderedPath());
+    PathPosition charPos = new PathPosition(1, world.getOrderedPath());
+    PathPosition campPos = new PathPosition(6, world.getOrderedPath());
+    // add character far away from the vampire to make sure it doesnt kill
+    // the vampire
+    Character testChar = new Character(charPos);
+    world.setCharacter(testChar);
+    Building campfire = new Building(campPos.getX(), campPos.getY(), strat);
+    VampireEnemy vampire = new VampireEnemy(vampirePos);
+    world.addEnemy(vampire);
+    // test that the vampire initially moves in anti clockwise
+    assertEquals(0, vampire.getDirection());
+    // the direction changes when theres a campfire nearby
+    world.addBuildingToWorld(campfire);
+    world.runBattles();
+    assertEquals(1, vampire.getDirection());
+    world.runBattles();
+  }
+
+  @Test
+  public void testSoldierTakingDamage() {
+    // test that soldiers and tranced soldiers take damage in combat
+    TestSetupWithSeed setup = new TestSetupWithSeed();
+    LoopManiaWorld world = setup.makeTestWorld(1);
+    SimpleIntegerProperty x = new SimpleIntegerProperty(1);
+    SimpleIntegerProperty y = new SimpleIntegerProperty(2);
+    StaffStrategy strat = new StaffStrategy();
+    Item testStaff = new Item(x, y, strat);
+    // add the character and zombies on the same tile so they can interact
+    Character testChar = new Character(new PathPosition(1, world.getOrderedPath()));
+    world.setCharacter(testChar);
+    ZombieEnemy zombie1 = new ZombieEnemy(new PathPosition(1, world.getOrderedPath()));
+    ZombieEnemy zombie2 = new ZombieEnemy(new PathPosition(1, world.getOrderedPath()));
+    ZombieEnemy zombie3 = new ZombieEnemy(new PathPosition(1, world.getOrderedPath()));
+    world.addEnemy(zombie1);
+    world.addEnemy(zombie2);
+    world.addEnemy(zombie3);
+    // add a soldier to the player
+    testChar.addSoldier();
+    // turn the zombie into a tranced soldier
+    testStaff.onHitEffects(zombie1, world.getTrancedSoldiers());
+    // run battle so soldiers die
+    world.runBattles();
+    // assert that there is no longer any soldiers or tranced soldiers
+    assertEquals(0, world.getTrancedSoldiers().size());
+    assertEquals(0, testChar.getSoldiers().size());
+
   }
 }
