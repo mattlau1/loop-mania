@@ -1464,7 +1464,7 @@ public class LoopManiaWorld {
     int balance = character.getGold();
     if (balance - strat.getPrice() >= 0) {
       character.deductGold(strat.getPrice());
-      newItem = addSpecificUnequippedItem(strat);
+      if (!(strat instanceof HealthPotionStrategy)) newItem = addSpecificUnequippedItem(strat);
     }
     return newItem;
   }
