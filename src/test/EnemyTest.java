@@ -14,10 +14,12 @@ import unsw.loopmania.PathPosition;
 import unsw.loopmania.Buildings.Building;
 import unsw.loopmania.Buildings.CampfireStrategy;
 import unsw.loopmania.Buildings.HerosCastleStrategy;
+import unsw.loopmania.Buildings.SniperTowerStrategy;
 import unsw.loopmania.Buildings.VillageStrategy;
 import unsw.loopmania.Enemies.DoggieEnemy;
 import unsw.loopmania.Enemies.Enemy;
 import unsw.loopmania.Enemies.SlugEnemy;
+import unsw.loopmania.Enemies.SniperEnemy;
 import unsw.loopmania.Enemies.ThiefEnemy;
 import unsw.loopmania.Enemies.VampireEnemy;
 import unsw.loopmania.Enemies.ZombieEnemy;
@@ -202,6 +204,63 @@ public class EnemyTest {
     assertEquals(40, testChar.getGold());
     // assert player has less than 4 items after losing 3
     assertNotEquals(4, world.getUnequip().size());
-    //
+  }
+
+  @Test
+  public void testSniperSpawn() {
+    // tests that sniper spawns every 5 cycles
+    SniperTowerStrategy sniperTowerStrategy = new SniperTowerStrategy();
+    HerosCastleStrategy herosCastleStrategy = new HerosCastleStrategy();
+    TestSetup setup = new TestSetup();
+    LoopManiaWorld world = setup.makeTestWorld();
+    PathPosition pathPos = new PathPosition(1, world.getOrderedPath());
+    PathPosition pathPos2 = new PathPosition(4, world.getOrderedPath());
+    Character testChar = new Character(pathPos);
+    world.setCharacter(testChar);
+    Building castle = new Building(pathPos.getX(), pathPos.getY(), herosCastleStrategy);
+    world.addBuildingToWorld(castle);
+    Building sniperTower = new Building(pathPos2.getX(), pathPos2.getY(), sniperTowerStrategy);
+    world.addBuildingToWorld(sniperTower);
+    // spawn enemies and count snipers
+    List<Enemy> enemies = world.possiblySpawnEnemies();
+    int sniperCount = 0;
+    for (Enemy enemy : enemies) {
+      if (enemy instanceof SniperEnemy) {
+        sniperCount++;
+      }
+    }
+    // ensure no snipers initially
+    assertEquals(0, sniperCount);
+    // move to cycle 5
+    while (testChar.getCycleCount() < 5) {
+      testChar.incrementCycleCount();
+    }
+    // spawn enemies and count snipers
+    enemies = world.possiblySpawnEnemies();
+    sniperCount = 0;
+    for (Enemy enemy : enemies) {
+      if (enemy instanceof SniperEnemy) {
+        sniperCount++;
+      }
+    }
+    // ensure a sniper spawned
+    assertEquals(1, sniperCount);
+  }
+
+  @Test
+  public void testSniperDamage() {
+    // test that sniper deals 5 damage at start of combat
+    TestSetup setup = new TestSetup();
+    LoopManiaWorld world = setup.makeTestWorld();
+    PathPosition pathPos = new PathPosition(1, world.getOrderedPath());
+    Character testChar = new Character(pathPos);
+    world.setCharacter(testChar);
+    SniperEnemy sniper = new SniperEnemy(pathPos);
+    world.addEnemy(sniper);
+    // run battle so player will fight sniper
+    world.runBattles();
+    // assert the player has 95 health as the sniper would damage them at start of
+    // combat
+    assertEquals(95, testChar.getHealth());
   }
 }
