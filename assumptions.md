@@ -46,3 +46,7 @@
 - Sniper spawns at a pre set sniper tower every 5 cycles
 - Sniper does not move from the tower
 - Whilst Sniper is alive the player takes an additional 5 damage during combat
+- The One Ring, Anduril and Tree Stump have a 1% drop rate from all enemies
+- Staffs and health potions have a 6% drop rate from all enemies
+- Armour, shields and helmets have a 29% drop rate from all enemies
+- Swords and stakes have a 64% drop rate from all enemies
