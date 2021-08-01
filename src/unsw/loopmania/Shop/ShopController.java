@@ -77,7 +77,6 @@ public class ShopController {
   @FXML
   private Button sellShieldButton;
 
-
   @FXML
   private Label buyErrorMessage;
 
@@ -87,10 +86,15 @@ public class ShopController {
   @FXML
   private Button exitShopButton;
 
+  private int potionPurchaseCount;
+  private int protectiveGearPurchaseCount;
+
   @FXML
   private void initialize() {
     buyErrorMessage.setText("");
     sellErrorMessage.setText("");
+    this.potionPurchaseCount = 0;
+    this.protectiveGearPurchaseCount = 0;
   }
 
   /**
@@ -120,24 +124,50 @@ public class ShopController {
 
   @FXML
   private void buyArmour(ActionEvent event) {
+    LoopManiaWorld world = worldController.getWorld();
+    if (world.difficultyEquals(LoopManiaWorld.BERSERKER_MODE) && protectiveGearPurchaseCount > 0) {
+      buyErrorMessage
+          .setText("You can only purchase 1 piece of protective gear every time you shop in berserker mode!");
+      return;
+    }
     worldController.buyItem(new ArmourStrategy());
+    protectiveGearPurchaseCount++;
   }
 
   @FXML
   private void buyHelmet(ActionEvent event) {
+    LoopManiaWorld world = worldController.getWorld();
+    if (world.difficultyEquals(LoopManiaWorld.BERSERKER_MODE) && protectiveGearPurchaseCount > 0) {
+      buyErrorMessage
+          .setText("You can only purchase 1 piece of protective gear every time you shop in berserker mode!");
+      return;
+    }
     worldController.buyItem(new HelmetStrategy());
+    protectiveGearPurchaseCount++;
   }
 
   @FXML
   private void buyPotion(ActionEvent event) {
     LoopManiaWorld world = worldController.getWorld();
+    if (world.difficultyEquals(LoopManiaWorld.SURVIVAL_MODE) && potionPurchaseCount > 0) {
+      buyErrorMessage.setText("You can only purchase 1 potion in survival mode!");
+      return;
+    }
     world.buyItem(new HealthPotionStrategy());
     world.consumePotion();
+    potionPurchaseCount++;
   }
 
   @FXML
   private void buyShield(ActionEvent event) {
+    LoopManiaWorld world = worldController.getWorld();
+    if (world.difficultyEquals(LoopManiaWorld.BERSERKER_MODE) && protectiveGearPurchaseCount > 0) {
+      buyErrorMessage
+          .setText("You can only purchase 1 piece of protective gear every time you shop in berserker mode!");
+      return;
+    }
     worldController.buyItem(new ShieldStrategy());
+    protectiveGearPurchaseCount++;
   }
 
   @FXML
@@ -154,7 +184,6 @@ public class ShopController {
   private void buySword(ActionEvent event) {
     worldController.buyItem(new SwordStrategy());
   }
-
 
   @FXML
   private void sellArmour(ActionEvent event) {
@@ -209,6 +238,7 @@ public class ShopController {
   @FXML
   private void exitShop(ActionEvent event) throws IOException {
     worldController.exitShop();
+    this.protectiveGearPurchaseCount = 0;
     buttonClickSound();
   }
 

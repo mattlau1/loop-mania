@@ -140,6 +140,12 @@ public class LoopManiaWorld {
   // the goal which contains simple goals
   private Goal goal;
 
+  private String difficulty;
+  public static final String SURVIVAL_MODE = "Survival";
+  public static final String BERSERKER_MODE = "Berserker";
+  public static final String STANDARD_MODE = "Standard";
+  public static final String CONFUSING_MODE = "Confusing";
+
   // music
   MediaPlayer swingSound;
   MediaPlayer equippedSound;
@@ -183,7 +189,15 @@ public class LoopManiaWorld {
     this.nextHeroCastleCycle = 1;
     this.postElanPriceMultiplier = 0.8;
     this.midElanPriceMultiplier = 5;
-    this.difficulty = null;
+    this.difficulty = BERSERKER_MODE;
+  }
+
+  public boolean difficultyEquals(String difficulty) {
+    return this.difficulty.equals(difficulty);
+  }
+
+  public String getDifficulty() {
+    return this.difficulty;
   }
 
   public void setDifficulty(String difficulty) {
