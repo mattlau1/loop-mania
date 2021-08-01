@@ -121,6 +121,9 @@ public class LoopManiaWorldController {
   @FXML
   private Label doggieCoin;
 
+  @FXML
+  private Label scrapMetal;
+
   /**
    * squares gridpane includes path images, enemies, character, empty grass,
    * buildings
@@ -303,6 +306,7 @@ public class LoopManiaWorldController {
     gold.textProperty().bind(Bindings.convert(worldCharacter.getGoldProperty()));
     cycle.textProperty().bind(Bindings.convert(worldCharacter.getCycleProperty()));
     doggieCoin.textProperty().bind(Bindings.convert(worldCharacter.getDoggieCoinProperty()));
+    scrapMetal.textProperty().bind(Bindings.convert(worldCharacter.getScrapMetalProperty()));
   }
 
   public void exitShop() throws IOException {
