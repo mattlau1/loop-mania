@@ -93,9 +93,13 @@ public class WorldTest {
         // create card
         Card testCard = new Card(new SimpleIntegerProperty(0), new SimpleIntegerProperty(0), new VillageCardStrategy());
         world.addCard(testCard);
-        // test that isNeighbourPath returns the expected values for 1,1 and 2,2
-        assertEquals(true, world.isNeighbourPath(1, 1));
+        // test that isNeighbourPath returns the expected values
         assertEquals(true, world.isNeighbourPath(2, 2));
+        assertEquals(false, world.isNeighbourPath(3, 3));
+        assertEquals(true, world.isNeighbourPath(0, 0));
+        assertEquals(true, world.isNeighbourPath(0, 1));
+        assertEquals(true, world.isNeighbourPath(0, 2));
+
         // convert card to building on path
         Building testBuilding = world.convertCardToBuildingByCoordinates(testCard.getX(), testCard.getY(), 1, 1);
         assertEquals(null, testBuilding);
