@@ -162,6 +162,9 @@ public class LoopManiaWorldController {
   private Pane shop;
 
   @FXML
+  private Label goalLabel;
+
+  @FXML
   private ImageView ally1;
 
   @FXML
@@ -176,7 +179,7 @@ public class LoopManiaWorldController {
   // all image views including tiles, character, enemies, cards... even though
   // cards in separate gridpane...
   private List<ImageView> entityImages;
-
+  private String goal;
   /**
    * when we drag a card/item, the picture for whatever we're dragging is set here
    * and we actually drag this node
@@ -288,6 +291,7 @@ public class LoopManiaWorldController {
     Image inventorySlotImage = new Image((new File("src/images/empty_slot.png")).toURI().toString());
     Rectangle2D imagePart = new Rectangle2D(0, 0, 32, 32);
     shop = new Pane();
+    goalLabel.setText(goal);
     // Add the ground first so it is below all other entities (inculding all the
     // twists and turns)
     for (int x = 0; x < world.getWidth(); x++) {
@@ -413,6 +417,10 @@ public class LoopManiaWorldController {
     }));
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
+  }
+
+  public void setGoal(String goal) {
+    this.goal = goal;
   }
 
   private void loadAllySoliders() {
